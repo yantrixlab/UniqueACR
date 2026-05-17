@@ -13,7 +13,10 @@
 
         <div class="rounded-xl border border-dashed border-gray-600 bg-gray-900/60 p-10 text-center">
             <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-blue-500/20 text-blue-400">
-                <x-heroicon-o-arrow-up-tray class="h-7 w-7" />
+                <svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M12 16V4m0 0-4 4m4-4 4 4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4 14v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </div>
             <p class="text-2xl font-semibold text-white">Drop files to upload</p>
             <p class="mt-1 text-sm text-gray-300">Support for JPG, PNG, GIF, PDF, DOCX, XLSX, ZIP up to 50MB</p>
@@ -80,7 +83,10 @@
                             <img src="{{ $item->url }}" alt="{{ $item->title }}" class="h-full w-full object-cover" />
                         @else
                             <div class="flex h-full items-center justify-center text-gray-400">
-                                <x-heroicon-o-document class="h-12 w-12" />
+                                <svg viewBox="0 0 24 24" class="h-12 w-12" fill="none" stroke="currentColor" stroke-width="1.6">
+                                    <path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z" stroke-linejoin="round"/>
+                                    <path d="M14 2v5h5" stroke-linejoin="round"/>
+                                </svg>
                             </div>
                         @endif
                     </div>
@@ -115,4 +121,3 @@
         </div>
     </div>
 </x-filament-panels::page>
-

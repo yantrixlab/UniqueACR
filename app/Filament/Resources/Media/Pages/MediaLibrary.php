@@ -9,6 +9,7 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Page;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Schema;
 
 class MediaLibrary extends Page
 {
@@ -55,6 +56,10 @@ class MediaLibrary extends Page
 
     public function getMediaItemsProperty(): Collection
     {
+        if (! Schema::hasTable('media')) {
+            return collect();
+        }
+
         $query = Media::query()
             ->where('is_active', true);
 
