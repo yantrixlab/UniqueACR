@@ -5,7 +5,7 @@ namespace App\Filament\Resources\Media;
 use App\Filament\Resources\BaseResource;
 use App\Filament\Resources\Media\Pages\CreateMedia;
 use App\Filament\Resources\Media\Pages\EditMedia;
-use App\Filament\Resources\Media\Pages\ListMedia;
+use App\Filament\Resources\Media\Pages\MediaLibrary;
 use App\Filament\Resources\Media\Schemas\MediaForm;
 use App\Filament\Resources\Media\Tables\MediaTable;
 use App\Models\Media;
@@ -35,7 +35,7 @@ class MediaResource extends BaseResource
     public static function getPages(): array
     {
         return [
-            'index' => ListMedia::route('/'),
+            'index' => MediaLibrary::route('/'),
             'create' => CreateMedia::route('/create'),
             'edit' => EditMedia::route('/{record}/edit'),
         ];
