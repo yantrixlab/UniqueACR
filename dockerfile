@@ -32,7 +32,12 @@ COPY . .
 RUN composer install --no-dev --optimize-autoloader
 
 # Install frontend dependencies
-RUN npm install
+RUN npm config set fetch-retries 5 \
+    && npm config set fetch-retry-factor 2 \
+    && npm config set fetch-retry-mintimeout 20000 \
+    && npm config set fetch-retry-maxtimeout 120000 \
+    && npm config set registry https://registry.npmjs.org/ \
+    && npm ci --no-audit --no-fund
 
 # Build frontend assets
 RUN npm run build
