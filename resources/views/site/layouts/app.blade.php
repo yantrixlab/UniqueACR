@@ -10,7 +10,7 @@
     <meta property="og:description" content="AC service Kolkata, AC repair Jadavpur, AC installation near me.">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="stylesheet" href="{{ asset('site/app.css') }}">
+    <link rel="stylesheet" href="/site/app.css">
     <script type="application/ld+json">{!! json_encode(['@context' => 'https://schema.org','@type' => 'LocalBusiness','name' => 'Unique Air Conditioning & Refrigeration','address' => ['@type' => 'PostalAddress','streetAddress' => '3/87 C. R Colony, Jadavpur','addressLocality' => 'Kolkata','addressRegion' => 'West Bengal','postalCode' => '700032','addressCountry' => 'IN'],'telephone' => '+918346904100','email' => 'uniquerac24@gmail.com']) !!}</script>
 </head>
 <body>
