@@ -25,6 +25,11 @@ class MediaCategoryResource extends BaseResource
 
     protected static UnitEnum|string|null $navigationGroup = 'Media Library';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+
     public static function form(Schema $schema): Schema
     {
         return MediaCategoryForm::configure($schema);

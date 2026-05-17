@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Media\Schemas;
 
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
@@ -14,10 +13,6 @@ class MediaForm
     {
         return $schema
             ->components([
-                Select::make('media_category_id')
-                    ->relationship('category', 'name')
-                    ->searchable()
-                    ->preload(),
                 FileUpload::make('path')
                     ->label('Upload File')
                     ->disk('public')
@@ -34,4 +29,3 @@ class MediaForm
             ]);
     }
 }
-

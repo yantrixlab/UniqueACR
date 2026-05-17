@@ -2,10 +2,11 @@
 
 namespace App\Filament\Resources\Media\Tables;
 
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Tables\Columns\IconColumn;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -16,27 +17,43 @@ class MediaTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->contentGrid([
+                'md' => 3,
+                'xl' => 4,
+            ])
             ->columns([
                 ImageColumn::make('path')
                     ->disk('public')
                     ->square(),
-                TextColumn::make('title')->searchable(),
-                TextColumn::make('category.name')->label('Category')->searchable(),
-                TextColumn::make('file_type')->badge(),
-                TextColumn::make('mime_type')->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('size')->numeric()->suffix(' bytes')->toggleable(isToggledHiddenByDefault: true),
-                IconColumn::make('is_active')->boolean(),
-                TextColumn::make('created_at')->dateTime()->sortable(),
+                TextColumn::make('title')
+                    ->label('Name')
+                    ->searchable()
+                    ->wrap(),
+                TextColumn::make('file_type')
+                    ->badge(),
+                TextColumn::make('url')
+                    ->label('File URL')
+                    ->copyable()
+                    ->limit(35),
             ])
             ->filters([
-                SelectFilter::make('media_category_id')->relationship('category', 'name'),
                 SelectFilter::make('file_type')->options([
-                    'image' => 'Image',
-                    'file' => 'File',
+                    'image' => 'Images',
+                    'file' => 'Files',
                 ]),
             ])
             ->recordActions([
-                EditAction::make(),
+                Action::make('copy_url')
+                    ->label('Copy URL')
+                    ->icon('heroicon-o-link')
+                    ->action(function ($record): void {
+                        Notification::make()
+                            ->title('Copy this URL')
+                            ->body($record->url)
+                            ->success()
+                            ->send();
+                    }),
+                DeleteAction::make()->label('Remove'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

@@ -13,7 +13,6 @@ use BackedEnum;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use UnitEnum;
 
 class MediaResource extends BaseResource
 {
@@ -21,9 +20,7 @@ class MediaResource extends BaseResource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPhoto;
 
-    protected static ?string $navigationLabel = 'Media Files';
-
-    protected static UnitEnum|string|null $navigationGroup = 'Media Library';
+    protected static ?string $navigationLabel = 'Media';
 
     public static function form(Schema $schema): Schema
     {
