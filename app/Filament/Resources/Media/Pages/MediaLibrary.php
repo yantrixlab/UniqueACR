@@ -14,7 +14,7 @@ class MediaLibrary extends Page
 {
     protected static string $resource = MediaResource::class;
 
-    protected static string $view = 'filament.resources.media.pages.media-library';
+    protected string $view = 'filament.resources.media.pages.media-library';
 
     public array $uploads = [];
 
