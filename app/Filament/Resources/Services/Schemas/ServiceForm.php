@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources\Services\Schemas;
 
+use App\Models\Media;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -31,11 +33,18 @@ class ServiceForm
                 Textarea::make('description')
                     ->required()
                     ->columnSpanFull(),
-                FileUpload::make('image_path')
+                Select::make('image_media_id')
+                    ->label('Select Existing Image')
+                    ->options(fn () => Media::query()->where('file_type', 'image')->orderByDesc('id')->limit(500)->get()->mapWithKeys(fn (Media $media) => [$media->id => ($media->title ?: $media->original_name).' (#'.$media->id.')'])->all())
+                    ->searchable()
+                    ->dehydrated(false),
+                FileUpload::make('image_upload')
+                    ->label('Or Upload New Image')
                     ->image()
                     ->disk('public')
-                    ->directory('services')
-                    ->visibility('public'),
+                    ->directory('media/services')
+                    ->visibility('public')
+                    ->dehydrated(false),
                 Toggle::make('is_active')
                     ->required(),
             ]);

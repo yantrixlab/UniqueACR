@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Products\Schemas;
 
+use App\Models\Media;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -49,8 +51,22 @@ class ProductForm
                 Textarea::make('specifications')
                     ->helperText('Use valid JSON, e.g. {"Capacity":"1.5 Ton","Energy Rating":"5 Star"}')
                     ->columnSpanFull(),
+                Select::make('image_media_ids')
+                    ->label('Select Existing Images')
+                    ->multiple()
+                    ->options(fn () => Media::query()->where('file_type', 'image')->orderByDesc('id')->limit(1000)->get()->mapWithKeys(fn (Media $media) => [$media->id => ($media->title ?: $media->original_name).' (#'.$media->id.')'])->all())
+                    ->searchable()
+                    ->dehydrated(false),
+                FileUpload::make('image_uploads')
+                    ->label('Or Upload New Images')
+                    ->multiple()
+                    ->image()
+                    ->disk('public')
+                    ->directory('media/products')
+                    ->visibility('public')
+                    ->dehydrated(false),
                 Textarea::make('images')
-                    ->helperText('Use JSON array of image URLs')
+                    ->helperText('Auto-managed from selected/uploaded images. JSON array of relative paths.')
                     ->columnSpanFull(),
                 TextInput::make('meta_title')
                     ->maxLength(255),

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\BlogPost;
+use App\Models\MediaCategory;
 use App\Models\Role;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -40,6 +41,11 @@ class DatabaseSeeder extends Seeder
             ['slug' => 'customer'],
             ['name' => 'Customer', 'is_system' => true]
         );
+
+        MediaCategory::firstOrCreate(['slug' => 'blog-images'], ['name' => 'Blog Images']);
+        MediaCategory::firstOrCreate(['slug' => 'product-images'], ['name' => 'Product Images']);
+        MediaCategory::firstOrCreate(['slug' => 'service-images'], ['name' => 'Service Images']);
+        MediaCategory::firstOrCreate(['slug' => 'documents'], ['name' => 'Documents']);
 
         $superAdminRole->permissions()->sync(\App\Models\Permission::query()->pluck('id')->all());
         $adminRole->permissions()->sync(\App\Models\Permission::query()->pluck('id')->all());
