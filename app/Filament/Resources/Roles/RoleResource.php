@@ -10,6 +10,7 @@ use App\Filament\Resources\Roles\Schemas\RoleForm;
 use App\Filament\Resources\Roles\Tables\RolesTable;
 use App\Models\Role;
 use BackedEnum;
+use UnitEnum;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
@@ -22,7 +23,7 @@ class RoleResource extends BaseResource
 
     protected static ?string $navigationLabel = 'User Types';
 
-    protected static ?string $navigationGroup = 'Access Control';
+    protected static UnitEnum|string|null $navigationGroup = 'Access Control';
 
     public static function form(Schema $schema): Schema
     {
