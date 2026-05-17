@@ -1,0 +1,64 @@
+<?php
+
+namespace App\Filament\Resources\Products\Schemas;
+
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Schema;
+
+class ProductForm
+{
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                Select::make('product_category_id')
+                    ->relationship('category', 'name')
+                    ->searchable()
+                    ->preload(),
+                TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('slug')
+                    ->required()
+                    ->maxLength(255),
+                Select::make('brand')
+                    ->options([
+                        'Daikin' => 'Daikin',
+                        'Voltas' => 'Voltas',
+                        'OGeneral' => 'OGeneral',
+                    ])
+                    ->searchable()
+                    ->required(),
+                TextInput::make('price')
+                    ->required()
+                    ->numeric()
+                    ->prefix('₹'),
+                TextInput::make('discount_price')
+                    ->numeric()
+                    ->prefix('₹'),
+                TextInput::make('stock')
+                    ->required()
+                    ->numeric()
+                    ->default(0),
+                Textarea::make('description')
+                    ->required()
+                    ->columnSpanFull(),
+                Textarea::make('specifications')
+                    ->helperText('Use valid JSON, e.g. {"Capacity":"1.5 Ton","Energy Rating":"5 Star"}')
+                    ->columnSpanFull(),
+                Textarea::make('images')
+                    ->helperText('Use JSON array of image URLs')
+                    ->columnSpanFull(),
+                TextInput::make('meta_title')
+                    ->maxLength(255),
+                Textarea::make('meta_description')
+                    ->maxLength(320),
+                Toggle::make('is_featured'),
+                Toggle::make('is_active')
+                    ->required(),
+            ]);
+    }
+}
