@@ -33,6 +33,9 @@ class UsersTable
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('role')
                     ->searchable(),
+                TextColumn::make('roleRelation.name')
+                    ->label('User Type')
+                    ->searchable(),
                 IconColumn::make('is_active')
                     ->boolean(),
             ])

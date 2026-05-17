@@ -9,7 +9,7 @@ use App\Filament\Resources\Services\Schemas\ServiceForm;
 use App\Filament\Resources\Services\Tables\ServicesTable;
 use App\Models\Service;
 use BackedEnum;
-use Filament\Resources\Resource;
+use App\Filament\Resources\BaseResource as Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;

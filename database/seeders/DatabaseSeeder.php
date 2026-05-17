@@ -3,23 +3,57 @@
 namespace Database\Seeders;
 
 use App\Models\BlogPost;
+use App\Models\Role;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Service;
 use App\Models\ServiceCategory;
 use App\Models\Testimonial;
 use App\Models\User;
+use App\Services\PermissionSyncService;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $admin = User::firstOrCreate(['email' => 'admin@uniqueacr.com'], [
-            'name' => 'Super Admin',
-            'password' => 'Admin@12345',
-            'role' => 'super_admin',
-        ]);
+        app(PermissionSyncService::class)->syncResourcePermissions();
+
+        $superAdminRole = Role::firstOrCreate(
+            ['slug' => 'super_admin'],
+            ['name' => 'Super Admin', 'is_system' => true]
+        );
+        $adminRole = Role::firstOrCreate(
+            ['slug' => 'admin'],
+            ['name' => 'Admin', 'is_system' => true]
+        );
+        $editorRole = Role::firstOrCreate(
+            ['slug' => 'editor'],
+            ['name' => 'Editor', 'is_system' => true]
+        );
+        $employeeRole = Role::firstOrCreate(
+            ['slug' => 'employee'],
+            ['name' => 'Employee', 'is_system' => true]
+        );
+        Role::firstOrCreate(
+            ['slug' => 'customer'],
+            ['name' => 'Customer', 'is_system' => true]
+        );
+
+        $superAdminRole->permissions()->sync(\App\Models\Permission::query()->pluck('id')->all());
+        $adminRole->permissions()->sync(\App\Models\Permission::query()->pluck('id')->all());
+
+        $admin = User::updateOrCreate(
+            ['email' => env('ADMIN_EMAIL', 'admin@uniqueacr.com')],
+            [
+                'name' => env('ADMIN_NAME', 'Super Admin'),
+                'password' => Hash::make(env('ADMIN_PASSWORD', 'Admin@12345')),
+                'role' => 'super_admin',
+                'role_id' => $superAdminRole->id,
+                'is_active' => true,
+            ]
+        );
 
         $domestic = ServiceCategory::firstOrCreate(['slug' => 'domestic'], ['name' => 'Domestic', 'segment' => 'domestic']);
         $commercial = ServiceCategory::firstOrCreate(['slug' => 'commercial'], ['name' => 'Commercial', 'segment' => 'commercial']);

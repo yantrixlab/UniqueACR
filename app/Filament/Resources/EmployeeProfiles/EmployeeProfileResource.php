@@ -9,7 +9,7 @@ use App\Filament\Resources\EmployeeProfiles\Schemas\EmployeeProfileForm;
 use App\Filament\Resources\EmployeeProfiles\Tables\EmployeeProfilesTable;
 use App\Models\EmployeeProfile;
 use BackedEnum;
-use Filament\Resources\Resource;
+use App\Filament\Resources\BaseResource as Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
