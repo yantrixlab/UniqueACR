@@ -7,7 +7,6 @@ use App\Models\Media;
 use App\Services\MediaService;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Page;
-use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 
@@ -84,10 +83,10 @@ class MediaLibrary extends Page
         return $query->limit(200)->get();
     }
 
-    public function render(): View
+    protected function getViewData(): array
     {
-        return view($this->getView(), [
+        return [
             'mediaItems' => $this->mediaItems,
-        ]);
+        ];
     }
 }
