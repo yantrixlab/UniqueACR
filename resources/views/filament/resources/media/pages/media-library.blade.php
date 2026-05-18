@@ -7,6 +7,7 @@
         .media-upload-top:hover { background:#1d4ed8; }
 
         .media-dropzone { border:1px dashed #374151; background:#111827; border-radius:14px; padding:34px 20px; text-align:center; }
+        .media-dropzone.dragover { border-color:#60a5fa; background:#0f1b33; }
         .media-drop-icon { width:56px; height:56px; border-radius:14px; margin:0 auto 14px; background:rgba(37,99,235,.2); color:#60a5fa; display:flex; align-items:center; justify-content:center; }
         .media-drop-icon svg { width:28px; height:28px; }
         .media-drop-title { margin:0; font-size:28px; font-weight:700; }
@@ -37,13 +38,26 @@
         .media-empty { background:#111827; border:1px solid #374151; border-radius:12px; text-align:center; padding:40px 20px; color:#9ca3af; }
     </style>
 
-    <div class="media-lib" x-data>
+    <div class="media-lib" x-data="{
+        isDragging: false,
+        handleDrop(event) {
+            const files = Array.from(event.dataTransfer.files || []);
+            if (!files.length) return;
+            this.isDragging = false;
+            $wire.uploadMultiple('uploads', files, () => {}, () => {}, () => {});
+        }
+    }">
         <div class="media-head">
             <h2 class="media-title">Media Library</h2>
             <button type="button" class="media-upload-top" x-on:click="$refs.fileInput.click()">Upload Files</button>
         </div>
 
-        <div class="media-dropzone">
+        <div class="media-dropzone"
+             :class="{ 'dragover': isDragging }"
+             x-on:dragenter.prevent="isDragging = true"
+             x-on:dragover.prevent="isDragging = true"
+             x-on:dragleave.prevent="isDragging = false"
+             x-on:drop.prevent="handleDrop($event)">
             <div class="media-drop-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                     <path d="M12 16V4m0 0-4 4m4-4 4 4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -109,4 +123,3 @@
         @endif
     </div>
 </x-filament-panels::page>
-

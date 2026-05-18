@@ -9,9 +9,13 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Page;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use Livewire\WithFileUploads;
 
 class MediaLibrary extends Page
 {
+    use WithFileUploads;
+
     protected static string $resource = MediaResource::class;
 
     protected string $view = 'filament.resources.media.pages.media-library';
@@ -28,11 +32,16 @@ class MediaLibrary extends Page
     {
         $this->validate([
             'uploads' => ['required', 'array', 'min:1'],
-            'uploads.*' => ['string'],
+            'uploads.*' => ['file', 'max:51200'],
         ]);
 
-        foreach ($this->uploads as $path) {
-            app(MediaService::class)->createFromPath($path);
+        foreach ($this->uploads as $file) {
+            if (! $file instanceof TemporaryUploadedFile) {
+                continue;
+            }
+
+            $storedPath = $file->store('media', 'public');
+            app(MediaService::class)->createFromPath($storedPath);
         }
 
         $this->uploads = [];
