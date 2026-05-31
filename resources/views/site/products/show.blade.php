@@ -4,7 +4,20 @@
 <section class="section product-detail-page">
     <div class="container product-detail-grid">
         <div class="detail-gallery">
-            @php $images = $product->images ?: ['https://images.unsplash.com/photo-1581275237725-2f7f9f89f4f2?q=80&w=1200&auto=format&fit=crop']; @endphp
+            @php
+                $images = collect($product->images ?: [])
+                    ->map(function ($imgPath) {
+                        return \Illuminate\Support\Str::startsWith($imgPath, ['http://', 'https://', 'data:'])
+                            ? $imgPath
+                            : asset('storage/' . ltrim($imgPath, '/'));
+                    })
+                    ->filter()
+                    ->values()
+                    ->all();
+                if (empty($images)) {
+                    $images = ['https://images.unsplash.com/photo-1581275237725-2f7f9f89f4f2?q=80&w=1200&auto=format&fit=crop'];
+                }
+            @endphp
             <img src="{{ $images[0] }}" alt="{{ $product->name }}" loading="eager">
             @if(count($images) > 1)
                 <div class="detail-thumbs">

@@ -195,7 +195,12 @@
         <div class="products-grid-page featured-same-grid">
             @forelse($products as $i => $product)
                 @php
-                    $img = $product->images[0] ?? '';
+                    $imgPath = $product->images[0] ?? '';
+                    $img = $imgPath
+                        ? (\Illuminate\Support\Str::startsWith($imgPath, ['http://', 'https://', 'data:'])
+                            ? $imgPath
+                            : asset('storage/' . ltrim($imgPath, '/')))
+                        : '';
                     $waText = rawurlencode("I am interested in {$product->name}");
                 @endphp
                 <article class="product-item-card premium-product-card product-clickable" data-url="{{ route('products.show', $product->slug) }}">

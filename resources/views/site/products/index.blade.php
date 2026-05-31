@@ -87,7 +87,12 @@
         <div class="products-grid-page featured-same-grid">
             @foreach($products->take(6) as $featured)
                 @php
-                    $img = $featured->images[0] ?? '';
+                    $imgPath = $featured->images[0] ?? '';
+                    $img = $imgPath
+                        ? (\Illuminate\Support\Str::startsWith($imgPath, ['http://', 'https://', 'data:'])
+                            ? $imgPath
+                            : asset('storage/' . ltrim($imgPath, '/')))
+                        : '';
                 @endphp
                 <article class="product-item-card premium-product-card product-clickable" data-url="{{ route('products.show', $featured->slug) }}">
                     <a class="product-image-wrap" href="{{ route('products.show', $featured->slug) }}">
@@ -175,7 +180,12 @@
                 @forelse($products as $product)
                     <article class="product-item-card premium-product-card product-clickable" data-url="{{ route('products.show', $product->slug) }}">
                         @php
-                            $img = $product->images[0] ?? 'https://images.unsplash.com/photo-1581275237725-2f7f9f89f4f2?q=80&w=800&auto=format&fit=crop';
+                            $imgPath = $product->images[0] ?? '';
+                            $img = $imgPath
+                                ? (\Illuminate\Support\Str::startsWith($imgPath, ['http://', 'https://', 'data:'])
+                                    ? $imgPath
+                                    : asset('storage/' . ltrim($imgPath, '/')))
+                                : 'https://images.unsplash.com/photo-1581275237725-2f7f9f89f4f2?q=80&w=800&auto=format&fit=crop';
                             $whatsappText = rawurlencode("I am interested in {$product->name}");
                         @endphp
                         <a class="product-image-wrap" href="{{ route('products.show', $product->slug) }}">
