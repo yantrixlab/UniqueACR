@@ -21,26 +21,10 @@
             </ul>
         </div>
         <div class="hero-visual-wrap" aria-hidden="true">
-            <div class="ac-repair-scene">
-                <div class="scene-grid"></div>
-                <div class="ac-card ac-plain">
-                    <svg class="ac-vector" viewBox="0 0 360 150" aria-hidden="true">
-                        <rect x="24" y="22" width="312" height="92" rx="20"></rect>
-                        <circle cx="307" cy="38" r="7"></circle>
-                        <rect x="54" y="78" width="252" height="14" rx="7"></rect>
-                    </svg>
-                </div>
-
-                <div class="airflow-wrap" aria-hidden="true">
-                    <svg class="airflow-svg" viewBox="0 0 300 180" preserveAspectRatio="none">
-                        <path class="af af-1" d="M120 12 C 112 58, 112 110, 120 168" />
-                        <path class="af af-2" d="M150 12 C 142 58, 142 110, 150 168" />
-                        <path class="af af-3" d="M180 12 C 172 58, 172 110, 180 168" />
-                    </svg>
-                </div>
-                <div class="particles" aria-hidden="true">
-                    <span></span><span></span><span></span><span></span>
-                </div>
+            <div class="hero-image-card">
+                <img src="/upload/web_image_res/home_hero_right.png" alt="Professional AC service team and cooling solutions" loading="eager">
+                <span class="hero-image-chip chip-a">Same-Day Dispatch</span>
+                <span class="hero-image-chip chip-b">Certified Service Team</span>
             </div>
         </div>
     </div>
@@ -243,25 +227,6 @@
       if (url) window.location.href = url;
     });
   });
-
-  const tempValue = document.getElementById('heroTempValue');
-  if (tempValue && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const min = 19;
-    const max = 27;
-    let current = max;
-    let direction = -1;
-    setInterval(() => {
-      current += direction;
-      if (current <= min) {
-        current = min;
-        direction = 1;
-      } else if (current >= max) {
-        current = max;
-        direction = -1;
-      }
-      tempValue.textContent = String(current);
-    }, 1500);
-  }
 
 })();
 </script>
