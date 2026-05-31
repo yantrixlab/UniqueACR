@@ -7,11 +7,25 @@
     <div class="container hero-grid premium-hero-grid">
         <div class="hero-copy premium-hero-copy">
             <span class="pill">Trusted AC Experts in Kolkata • 15+ Years Experience</span>
-            <h1>Advanced AC Repair &amp; Smart Cooling Solutions</h1>
-            <p>Professional AC installation, repair, AMC and cooling diagnostics in Kolkata for homes, offices, and commercial facilities.</p>
+            <h1>Premium AC Care for Homes, Offices, and Commercial Spaces</h1>
+            <p>Engineered cooling services with certified technicians, transparent pricing, and same-day support across Kolkata.</p>
             <div class="cta-row premium-cta-row">
                 <a class="primary-btn" href="{{ route('contact') }}">Book Service</a>
                 <a class="secondary-btn" href="{{ route('contact', ['service_type' => 'AMC']) }}">Get AMC Plan</a>
+            </div>
+            <div class="hero-kpi-row" aria-label="Company highlights">
+                <article>
+                    <strong>4.9/5</strong>
+                    <span>Customer Rating</span>
+                </article>
+                <article>
+                    <strong>10K+</strong>
+                    <span>Services Completed</span>
+                </article>
+                <article>
+                    <strong>60 min</strong>
+                    <span>Fastest Dispatch</span>
+                </article>
             </div>
             <ul class="hero-trust-points">
                 <li>Same Day Service</li>
@@ -22,7 +36,7 @@
         </div>
         <div class="hero-visual-wrap" aria-hidden="true">
             <div class="hero-image-card">
-                <img src="/upload/web_image_res/home_hero_right.png" alt="Professional AC service team and cooling solutions" loading="eager">
+                <img src="/upload/web_image_res/home_hero_right.webp" alt="Professional AC service team and cooling solutions" loading="eager">
                 <div class="hero-airflow-wrap" aria-hidden="true">
                     <svg class="hero-airflow-svg" viewBox="0 0 320 220" preserveAspectRatio="none">
                         <path class="haf haf-1" d="M124 0 C 112 64, 116 142, 130 220" />
