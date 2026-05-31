@@ -141,7 +141,7 @@ a { text-decoration: none; color: inherit; }
   font-family: "Manrope", "Avenir Next", "Segoe UI", Arial, sans-serif;
 }
 .premium-hero-copy h1 {
-  max-width: 12ch;
+  max-width: 15ch;
   font-size: clamp(2.85rem, 4.2vw, 4.5rem);
   line-height: 1.03;
   letter-spacing: -0.03em;
@@ -2859,7 +2859,7 @@ h4 { font-size: clamp(1.2rem, 1.7vw, 1.55rem); margin: 0 0 8px; font-weight: 700
 @media (max-width:1280px){
   .hero-shell{max-width:1240px;padding-left:22px;padding-right:22px}
   .premium-hero-grid{gap:46px}
-  .premium-hero-copy h1{font-size:clamp(2.55rem,4.4vw,3.65rem);max-width:12ch}
+  .premium-hero-copy h1{font-size:clamp(2.55rem,4.4vw,3.65rem);max-width:15ch}
   .premium-hero-copy p{font-size:1.08rem;max-width:46ch}
   .hero-visual-wrap,.hero-image-card,.hero-image-card img{min-height:600px}
   .hero-airflow-wrap{top:116px;width:334px;height:228px}
@@ -2869,7 +2869,7 @@ h4 { font-size: clamp(1.2rem, 1.7vw, 1.55rem); margin: 0 0 8px; font-weight: 700
   .hero{padding:92px 0 68px}
   .hero-shell{padding-left:18px;padding-right:18px}
   .premium-hero-grid{grid-template-columns:1fr;gap:24px}
-  .premium-hero-copy h1{max-width:16ch}
+  .premium-hero-copy h1{max-width:18ch}
   .premium-hero-copy p{max-width:62ch;font-size:1.08rem}
   .hero-kpi-row{grid-template-columns:repeat(3,minmax(0,1fr))}
   .hero-visual-wrap,.hero-image-card,.hero-image-card img{min-height:500px}
