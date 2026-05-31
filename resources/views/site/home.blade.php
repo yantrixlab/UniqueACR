@@ -4,7 +4,7 @@
 <section class="hero">
     <div class="hero-glow hero-glow-a"></div>
     <div class="hero-glow hero-glow-b"></div>
-    <div class="container hero-grid premium-hero-grid">
+    <div class="container hero-shell hero-grid premium-hero-grid">
         <div class="hero-copy premium-hero-copy">
             <span class="pill">Trusted AC Experts in Kolkata • 15+ Years Experience</span>
             <h1>Premium AC Care for Homes, Offices, and Commercial Spaces</h1>
