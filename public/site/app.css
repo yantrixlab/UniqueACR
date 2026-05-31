@@ -263,26 +263,17 @@ h4 { font-size: clamp(1.2rem, 1.7vw, 1.55rem); margin: 0 0 8px; font-weight: 700
 .hero-image-card{
   position: relative;
   min-height: clamp(640px, 64vw, 760px);
-  border-radius: 34px;
-  border: 1px solid rgba(110, 146, 196, .38);
-  box-shadow: 0 38px 76px rgba(7, 39, 92, .24);
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
   overflow: hidden;
-  background: linear-gradient(165deg, #f2f7ff, #e7f1ff);
+  background: transparent;
 }
 .hero-image-card::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(116deg, rgba(11, 49, 103, .24), rgba(11, 79, 157, .05) 54%, rgba(0, 0, 0, 0) 80%);
-  pointer-events: none;
+  content: none;
 }
 .hero-image-card::after{
-  content: "";
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 42%;
-  background: linear-gradient(180deg, rgba(6, 24, 58, 0), rgba(6, 24, 58, .42));
-  pointer-events: none;
+  content: none;
 }
 .hero-image-card img{
   width: 100%;
@@ -358,24 +349,6 @@ h4 { font-size: clamp(1.2rem, 1.7vw, 1.55rem); margin: 0 0 8px; font-weight: 700
 .hero-airflow-particles span:nth-child(2){left:36%;animation-delay:.7s}
 .hero-airflow-particles span:nth-child(3){left:59%;animation-delay:1.4s}
 .hero-airflow-particles span:nth-child(4){left:81%;animation-delay:2.1s}
-.hero-image-chip{
-  position: absolute;
-  z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  padding: 10px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, .9);
-  border: 1px solid rgba(121, 154, 202, .45);
-  box-shadow: 0 12px 24px rgba(9, 45, 98, .16);
-  color: #0d417f;
-  font-size: .82rem;
-  font-weight: 750;
-  letter-spacing: .02em;
-  text-transform: uppercase;
-}
-.hero-image-chip.chip-a{ left: 18px; top: 18px; }
-.hero-image-chip.chip-b{ right: 20px; bottom: 20px; }
 .hvac-scene {
   position: relative;
   min-height: 430px;
@@ -2876,7 +2849,6 @@ h4 { font-size: clamp(1.2rem, 1.7vw, 1.55rem); margin: 0 0 8px; font-weight: 700
   .hero-airflow-wrap{top:92px;width:300px;height:198px}
   .hero-airflow-particles{width:224px;height:172px}
   .hero-airflow-particles span{width:8px;height:8px}
-  .hero-image-chip{font-size:.76rem;padding:8px 12px}
   .ac-minimal-scene .ac-explode-wrap{top:30px;width:300px;height:196px}
   .ac-minimal-scene .ac-shell{width:266px;height:128px;top:36px}
   .ac-minimal-scene .ac-shell svg{width:236px;height:100px}
@@ -2894,9 +2866,6 @@ h4 { font-size: clamp(1.2rem, 1.7vw, 1.55rem); margin: 0 0 8px; font-weight: 700
   .hero-airflow-wrap{top:72px;width:236px;height:158px}
   .hero-airflow-particles{width:172px;height:132px}
   .hero-airflow-particles span{width:6px;height:6px}
-  .hero-image-chip{font-size:.68rem;padding:7px 10px}
-  .hero-image-chip.chip-a{left:12px;top:12px}
-  .hero-image-chip.chip-b{right:12px;bottom:12px}
   .ac-minimal-scene .ac-explode-wrap{top:22px;width:256px;height:170px}
   .ac-minimal-scene .ac-shell{width:224px;height:114px;top:30px}
   .ac-minimal-scene .ac-shell svg{width:196px;height:84px}

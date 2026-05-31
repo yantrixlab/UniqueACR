@@ -47,8 +47,6 @@
                         <span></span><span></span><span></span><span></span>
                     </div>
                 </div>
-                <span class="hero-image-chip chip-a">Same-Day Dispatch</span>
-                <span class="hero-image-chip chip-b">Certified Service Team</span>
             </div>
         </div>
     </div>
