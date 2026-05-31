@@ -13,20 +13,6 @@
                 <a class="primary-btn" href="{{ route('contact') }}">Book Service</a>
                 <a class="secondary-btn" href="{{ route('contact', ['service_type' => 'AMC']) }}">Get AMC Plan</a>
             </div>
-            <div class="hero-kpi-row" aria-label="Company highlights">
-                <article>
-                    <strong>4.9/5</strong>
-                    <span>Customer Rating</span>
-                </article>
-                <article>
-                    <strong>10K+</strong>
-                    <span>Services Completed</span>
-                </article>
-                <article>
-                    <strong>60 min</strong>
-                    <span>Fastest Dispatch</span>
-                </article>
-            </div>
             <ul class="hero-trust-points">
                 <li>Same Day Service</li>
                 <li>Certified Technicians</li>
