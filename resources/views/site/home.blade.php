@@ -24,11 +24,6 @@
             <div class="hero-image-card">
                 <img src="/upload/web_image_res/home_hero_right.webp" alt="Professional AC service team and cooling solutions" loading="eager">
                 <div class="hero-airflow-wrap" aria-hidden="true">
-                    <svg class="hero-airflow-svg" viewBox="0 0 320 220" preserveAspectRatio="none">
-                        <path class="haf haf-1" d="M124 0 C 112 64, 116 142, 130 220" />
-                        <path class="haf haf-2" d="M160 0 C 148 64, 152 142, 166 220" />
-                        <path class="haf haf-3" d="M196 0 C 184 64, 188 142, 202 220" />
-                    </svg>
                     <div class="hero-airflow-particles">
                         <span></span><span></span><span></span><span></span>
                     </div>

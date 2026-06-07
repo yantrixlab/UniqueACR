@@ -301,28 +301,6 @@ h4 { font-size: clamp(1.2rem, 1.7vw, 1.55rem); margin: 0 0 8px; font-weight: 700
   background:radial-gradient(circle at 50% 50%,rgba(190,230,255,.55),rgba(190,230,255,0) 72%);
   opacity:.45;
 }
-.hero-airflow-svg{
-  width:100%;
-  height:100%;
-  overflow:visible;
-}
-.hero-airflow-svg .haf{
-  fill:none;
-  stroke:rgba(177,230,255,.72);
-  stroke-width:3;
-  stroke-linecap:round;
-  stroke-dasharray:12 16;
-  filter:drop-shadow(0 0 6px rgba(130,215,255,.22));
-  animation:heroAirflowDash 2.8s linear infinite, heroAirflowPulse 3.6s ease-in-out infinite;
-}
-.hero-airflow-svg .haf-2{
-  stroke:rgba(163,222,255,.68);
-  animation-delay:.2s;
-}
-.hero-airflow-svg .haf-3{
-  stroke:rgba(147,214,255,.63);
-  animation-delay:.45s;
-}
 .hero-airflow-particles{
   position:absolute;
   left:50%;
@@ -1244,7 +1222,7 @@ h4 { font-size: clamp(1.2rem, 1.7vw, 1.55rem); margin: 0 0 8px; font-weight: 700
   .airflow, .gear, .tech-card, .hero-cta-chip, .ac-shell, .orbit-chip, .tech-avatar .arm, .prog-track span, .cool-particles span, .scan-beam, .scene-shimmer, .service-route path, .ac-body-part, .part-fan, .part-chip, .temp-meter span { animation: none !important; }
   .ac-minimal-scene .repair-wrench, .ac-minimal-scene .success-badge { animation: none !important; }
   .ac-repair-scene .repair-arm, .ac-repair-scene .success-indicator, .ac-repair-scene .meter-track span, .ac-repair-scene .flow, .ac-repair-scene .particles span { animation: none !important; }
-  .hero-airflow-svg .haf, .hero-airflow-particles span { animation: none !important; }
+  .hero-airflow-particles span { animation: none !important; }
   .svc-air, .svc-particles span, .svc-gear, .svc-status::before, .svc-ac::after { animation: none !important; }
 }
 
@@ -1265,14 +1243,6 @@ h4 { font-size: clamp(1.2rem, 1.7vw, 1.55rem); margin: 0 0 8px; font-weight: 700
   0% { transform: translateY(0) translateX(0); opacity: .12; }
   20% { opacity: .7; }
   100% { transform: translateY(-128px) translateX(22px); opacity: 0; }
-}
-@keyframes heroAirflowDash{
-  from{stroke-dashoffset:0}
-  to{stroke-dashoffset:-68}
-}
-@keyframes heroAirflowPulse{
-  0%,100%{opacity:.28}
-  50%{opacity:.64}
 }
 @keyframes heroAirParticle{
   0%{transform:translateY(0) scale(.72);opacity:0}
