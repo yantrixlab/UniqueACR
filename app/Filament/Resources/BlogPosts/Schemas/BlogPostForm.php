@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\BlogPosts\Schemas;
 
-use App\Models\Media;
+use App\Filament\Forms\Components\MediaPicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -30,10 +30,9 @@ class BlogPostForm
                 Textarea::make('content')
                     ->required()
                     ->columnSpanFull(),
-                Select::make('featured_image_media_id')
-                    ->label('Select Existing Image')
-                    ->options(fn () => Media::query()->where('file_type', 'image')->orderByDesc('id')->limit(500)->get()->mapWithKeys(fn (Media $media) => [$media->id => ($media->title ?: $media->original_name).' (#'.$media->id.')'])->all())
-                    ->searchable()
+                MediaPicker::make('featured_image_media_id')
+                    ->label('Pick from Image Library')
+                    ->columnSpanFull()
                     ->dehydrated(false),
                 FileUpload::make('featured_image_upload')
                     ->label('Or Upload New Image')
@@ -41,6 +40,7 @@ class BlogPostForm
                     ->disk('public')
                     ->directory('media/blog')
                     ->visibility('public')
+                    ->columnSpanFull()
                     ->dehydrated(false),
                 TextInput::make('meta_title'),
                 Textarea::make('meta_description')

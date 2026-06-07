@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Products\Schemas;
 
-use App\Models\Media;
+use App\Filament\Forms\Components\MediaPicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -55,11 +55,10 @@ class ProductForm
                 Textarea::make('specifications')
                     ->helperText('Use valid JSON, e.g. {"Capacity":"1.5 Ton","Energy Rating":"5 Star"}')
                     ->columnSpanFull(),
-                Select::make('image_media_ids')
-                    ->label('Select Existing Images')
+                MediaPicker::make('image_media_ids')
+                    ->label('Pick from Image Library')
                     ->multiple()
-                    ->options(fn () => Media::query()->where('file_type', 'image')->orderByDesc('id')->limit(1000)->get()->mapWithKeys(fn (Media $media) => [$media->id => ($media->title ?: $media->original_name).' (#'.$media->id.')'])->all())
-                    ->searchable()
+                    ->columnSpanFull()
                     ->dehydrated(false),
                 FileUpload::make('image_uploads')
                     ->label('Or Upload New Images')
@@ -68,6 +67,7 @@ class ProductForm
                     ->disk('public')
                     ->directory('media/products')
                     ->visibility('public')
+                    ->columnSpanFull()
                     ->dehydrated(false),
                 Textarea::make('images')
                     ->helperText('Auto-managed from selected/uploaded images. JSON array of relative paths.')
