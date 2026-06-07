@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Services\Schemas;
 
 use App\Filament\Forms\Components\MediaPicker;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -16,9 +17,12 @@ class ServiceForm
     {
         return $schema
             ->components([
-                TextInput::make('service_category_id')
-                    ->required()
-                    ->numeric(),
+                Select::make('service_category_id')
+                    ->relationship('category', 'name')
+                    ->label('Service category')
+                    ->searchable()
+                    ->preload()
+                    ->required(),
                 TextInput::make('name')
                     ->required()
                     ->live(onBlur: true)
