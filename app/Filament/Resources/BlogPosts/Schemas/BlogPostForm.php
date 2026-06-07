@@ -4,7 +4,6 @@ namespace App\Filament\Resources\BlogPosts\Schemas;
 
 use App\Filament\Forms\Components\MediaPicker;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -31,15 +30,8 @@ class BlogPostForm
                     ->required()
                     ->columnSpanFull(),
                 MediaPicker::make('featured_image_media_id')
-                    ->label('Pick from Image Library')
-                    ->columnSpanFull()
-                    ->dehydrated(false),
-                FileUpload::make('featured_image_upload')
-                    ->label('Or Upload New Image')
-                    ->image()
-                    ->disk('public')
+                    ->label('Featured image')
                     ->directory('media/blog')
-                    ->visibility('public')
                     ->columnSpanFull()
                     ->dehydrated(false),
                 TextInput::make('meta_title'),

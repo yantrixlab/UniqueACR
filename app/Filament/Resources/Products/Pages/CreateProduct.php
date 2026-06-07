@@ -4,7 +4,6 @@ namespace App\Filament\Resources\Products\Pages;
 
 use App\Filament\Resources\Products\ProductResource;
 use App\Models\Media;
-use App\Services\MediaService;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateProduct extends CreateRecord
@@ -13,24 +12,19 @@ class CreateProduct extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $paths = [];
-        $selectedMediaIds = $this->data['image_media_ids'] ?? [];
-        $uploadedPaths = $this->data['image_uploads'] ?? [];
+        $mediaIds = $this->data['image_media_ids'] ?? [];
 
-        foreach ($selectedMediaIds as $mediaId) {
-            $media = Media::query()->find($mediaId);
-            if ($media?->path) {
-                $paths[] = $media->path;
-            }
-        }
-
-        foreach ($uploadedPaths as $uploadedPath) {
-            $media = app(MediaService::class)->createFromPath($uploadedPath);
-            $paths[] = $media->path;
-        }
+        $paths = Media::query()
+            ->whereIn('id', $mediaIds)
+            ->get()
+            ->sortBy(fn (Media $media) => array_search($media->id, $mediaIds))
+            ->pluck('path')
+            ->filter()
+            ->values()
+            ->all();
 
         if ($paths !== []) {
-            $data['images'] = array_values(array_unique($paths));
+            $data['images'] = $paths;
         }
 
         return $data;

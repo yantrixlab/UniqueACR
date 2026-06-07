@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Services\Schemas;
 
 use App\Filament\Forms\Components\MediaPicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -37,15 +36,8 @@ class ServiceForm
                     ->required()
                     ->columnSpanFull(),
                 MediaPicker::make('image_media_id')
-                    ->label('Pick from Image Library')
-                    ->columnSpanFull()
-                    ->dehydrated(false),
-                FileUpload::make('image_upload')
-                    ->label('Or Upload New Image')
-                    ->image()
-                    ->disk('public')
+                    ->label('Image')
                     ->directory('media/services')
-                    ->visibility('public')
                     ->columnSpanFull()
                     ->dehydrated(false),
                 Toggle::make('is_active')

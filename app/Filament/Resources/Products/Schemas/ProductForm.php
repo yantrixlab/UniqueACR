@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Products\Schemas;
 
 use App\Filament\Forms\Components\MediaPicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -56,17 +55,9 @@ class ProductForm
                     ->helperText('Use valid JSON, e.g. {"Capacity":"1.5 Ton","Energy Rating":"5 Star"}')
                     ->columnSpanFull(),
                 MediaPicker::make('image_media_ids')
-                    ->label('Pick from Image Library')
+                    ->label('Images')
                     ->multiple()
-                    ->columnSpanFull()
-                    ->dehydrated(false),
-                FileUpload::make('image_uploads')
-                    ->label('Or Upload New Images')
-                    ->multiple()
-                    ->image()
-                    ->disk('public')
                     ->directory('media/products')
-                    ->visibility('public')
                     ->columnSpanFull()
                     ->dehydrated(false),
                 Textarea::make('images')
