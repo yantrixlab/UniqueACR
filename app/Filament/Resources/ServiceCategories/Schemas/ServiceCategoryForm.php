@@ -4,7 +4,9 @@ namespace App\Filament\Resources\ServiceCategories\Schemas;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Str;
 
 class ServiceCategoryForm
 {
@@ -13,7 +15,9 @@ class ServiceCategoryForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->required(),
+                    ->required()
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(fn (string $operation, ?string $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug((string) $state)) : null),
                 TextInput::make('slug')
                     ->required(),
                 TextInput::make('segment')
