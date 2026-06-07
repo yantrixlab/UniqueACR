@@ -24,8 +24,15 @@
             <div class="hero-image-card">
                 <img src="/upload/web_image_res/home_hero_right.webp" alt="Professional AC service team and cooling solutions" loading="eager">
                 <div class="hero-airflow-wrap" aria-hidden="true">
+                    <span class="hero-cool-glow"></span>
+                    <div class="hero-mist-streams">
+                        <span class="mist mist-1"></span>
+                        <span class="mist mist-2"></span>
+                        <span class="mist mist-3"></span>
+                        <span class="mist mist-4"></span>
+                    </div>
                     <div class="hero-airflow-particles">
-                        <span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
                     </div>
                 </div>
             </div>
