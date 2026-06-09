@@ -1,10 +1,21 @@
 <x-filament-panels::page>
     <style>
         .media-lib { color: #e5e7eb; }
-        .media-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; }
+        .media-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:10px; }
         .media-title { margin:0; font-size:30px; font-weight:700; letter-spacing:-0.02em; }
+        .media-head-actions { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
         .media-upload-top { background:#2563eb; color:#fff; border:none; border-radius:10px; padding:10px 16px; font-weight:600; cursor:pointer; }
         .media-upload-top:hover { background:#1d4ed8; }
+
+        /* Backup / Restore buttons */
+        .media-btn-export { background:#065f46; color:#6ee7b7; border:1px solid #047857; border-radius:10px; padding:9px 15px; font-weight:600; cursor:pointer; font-size:13px; display:inline-flex; align-items:center; gap:6px; text-decoration:none; }
+        .media-btn-export:hover { background:#047857; color:#fff; }
+        .media-btn-import { background:#1e1b4b; color:#a5b4fc; border:1px solid #3730a3; border-radius:10px; padding:9px 15px; font-weight:600; cursor:pointer; font-size:13px; display:inline-flex; align-items:center; gap:6px; }
+        .media-btn-import:hover { background:#3730a3; color:#fff; }
+        .media-import-form { display:inline; }
+        .media-notice { border-radius:10px; padding:11px 16px; margin-bottom:14px; font-size:14px; font-weight:500; }
+        .media-notice-success { background:#064e3b; color:#6ee7b7; border:1px solid #047857; }
+        .media-notice-error   { background:#450a0a; color:#fca5a5; border:1px solid #991b1b; }
 
         .media-dropzone { border:1px dashed #374151; background:#111827; border-radius:14px; padding:34px 20px; text-align:center; }
         .media-dropzone.dragover { border-color:#60a5fa; background:#0f1b33; }
@@ -47,9 +58,51 @@
             $wire.uploadMultiple('uploads', files, () => {}, () => {}, () => {});
         }
     }">
+        {{-- Flash notices --}}
+        @if(session('import_success'))
+            <div class="media-notice media-notice-success">✅ {{ session('import_success') }}</div>
+        @endif
+        @if(session('import_error'))
+            <div class="media-notice media-notice-error">❌ {{ session('import_error') }}</div>
+        @endif
+
         <div class="media-head">
             <h2 class="media-title">Media Library</h2>
-            <button type="button" class="media-upload-top" x-on:click="$refs.fileInput.click()">Upload Files</button>
+            <div class="media-head-actions">
+                {{-- Export ZIP --}}
+                <a href="{{ route('admin.media.export') }}"
+                   class="media-btn-export"
+                   title="Download all media files as a ZIP backup">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Export ZIP
+                </a>
+
+                {{-- Import ZIP --}}
+                <form method="POST"
+                      action="{{ route('admin.media.import') }}"
+                      enctype="multipart/form-data"
+                      class="media-import-form"
+                      x-data
+                      x-ref="importForm">
+                    @csrf
+                    <input type="file"
+                           name="zip_file"
+                           accept=".zip"
+                           class="sr-only"
+                           x-ref="zipInput"
+                           x-on:change="$refs.importForm.submit()">
+                    <button type="button"
+                            class="media-btn-import"
+                            x-on:click="$refs.zipInput.click()"
+                            title="Restore media from a ZIP backup">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        Import ZIP
+                    </button>
+                </form>
+
+                {{-- Upload Files --}}
+                <button type="button" class="media-upload-top" x-on:click="$refs.fileInput.click()">Upload Files</button>
+            </div>
         </div>
 
         <div class="media-dropzone"

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\MediaBackupController;
 use App\Http\Controllers\Web\BlogController;
 use App\Http\Controllers\Web\EnquiryController;
 use App\Http\Controllers\Web\HomeController;
@@ -23,6 +24,12 @@ Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::get('/terms-and-conditions', [PageController::class, 'terms'])->name('terms');
 Route::get('/privacy-policy', [PageController::class, 'privacy'])->name('privacy');
 Route::post('/enquiries', [EnquiryController::class, 'store'])->middleware('throttle:8,1')->name('enquiries.store');
+
+// Admin Media Backup (protected by Filament auth middleware)
+Route::middleware(['web', 'auth:web'])->prefix('admin-media')->group(function () {
+    Route::get('/export', [MediaBackupController::class, 'export'])->name('admin.media.export');
+    Route::post('/import', [MediaBackupController::class, 'import'])->name('admin.media.import');
+});
 
 Route::get('/sitemap.xml', function () {
     $urls = collect([
