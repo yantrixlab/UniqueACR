@@ -22,7 +22,7 @@
         </div>
         <div class="hero-visual-wrap" aria-hidden="true">
             <div class="hero-image-card">
-                <img src="/upload/web_image_res/home_hero_right.webp" alt="Professional AC service team and cooling solutions" loading="eager">
+                <img id="heroImg" src="/upload/web_image_res/home_hero_right.webp" alt="Professional AC service team and cooling solutions" loading="eager" class="hero-img-hidden">
                 <div class="hero-airflow-wrap" aria-hidden="true">
                     <span class="hero-cool-glow"></span>
                     <div class="hero-mist-streams">
@@ -316,4 +316,40 @@
         </div>
     </div>
 </section>
+
+<style>
+.hero-img-hidden {
+    opacity: 0;
+    transform: translateY(48px);
+    transition: none;
+}
+.hero-img-reveal {
+    animation: heroImgSlideUp .85s cubic-bezier(.22,.68,0,1.2) forwards;
+}
+@keyframes heroImgSlideUp {
+    0%   { opacity: 0; transform: translateY(48px); }
+    60%  { opacity: 1; }
+    100% { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<script>
+(function () {
+    var img = document.getElementById('heroImg');
+    if (!img) return;
+
+    function reveal() {
+        img.classList.remove('hero-img-hidden');
+        img.classList.add('hero-img-reveal');
+    }
+
+    if (img.complete && img.naturalWidth > 0) {
+        // Already cached — small delay so user sees the animation
+        setTimeout(reveal, 120);
+    } else {
+        img.addEventListener('load', function () { setTimeout(reveal, 80); }, { once: true });
+        img.addEventListener('error', function () { reveal(); }, { once: true });
+    }
+})();
+</script>
 @endsection
