@@ -34,6 +34,14 @@
     <meta name="twitter:description" content="@yield('og_description', 'Expert AC repair in Kolkata – same-day AC servicing, installation & maintenance for Voltas, LG, Daikin & all brands.')">
     <meta name="twitter:image" content="@yield('og_image', asset('upload/web_image_res/home_hero_right.webp'))">
 
+    {{-- Favicon --}}
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="Cooling Kolkata">
+    <link rel="manifest" href="/site.webmanifest">
+
     <link rel="stylesheet" href="/site/app.css">
 
     {{-- LocalBusiness + HVAC Structured Data --}}

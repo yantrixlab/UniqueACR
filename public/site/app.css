@@ -6709,3 +6709,6 @@ h4 {
     scroll-snap-align: start;
 }
 .hs-section-head { margin-bottom: 1.5rem; }
+
+/* ── Featured Products section-head spacing ─────────────────────────── */
+.product-zone .section-head { margin-bottom: 1.5rem; }
