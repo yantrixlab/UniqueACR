@@ -1,5 +1,61 @@
 ﻿@extends('site.layouts.app')
-@section('title','Professional AC Repair, Installation & HVAC Solutions | Unique Air')
+@section('title','AC Service Kolkata | AC Repair, Installation & Maintenance – Unique Air')
+@section('meta_description','Explore all AC services in Kolkata – AC repair, AC servicing, gas charging, installation & AMC for Voltas, LG, Daikin & all brands. Certified technicians. Call +91 8346904100.')
+@section('meta_keywords','AC service Kolkata, AC servicing Kolkata, AC repair service near me, AC servicing near me, AC installation Kolkata, AC maintenance Kolkata, voltas ac service, lg ac service Kolkata')
+@section('og_title','AC Service Kolkata | AC Repair, Installation & Maintenance – Unique Air')
+@section('og_description','All AC services in Kolkata under one roof – repair, servicing, gas charging, installation & AMC. Same-day slots available. Call +91 8346904100.')
+@section('schema')
+@verbatim
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Do you provide same day AC repair in Kolkata?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, Unique Air provides same-day AC repair in Kolkata based on technician slot availability in your area. Call +91 8346904100 to book an immediate slot."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Which AC brands do you repair and service?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We service and repair all major AC brands including Daikin, Voltas, LG, OGeneral, Samsung, Blue Star, Hitachi, Lloyd, Carrier, and Whirlpool — both inverter and non-inverter models."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Do you provide commercial HVAC support in Kolkata?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, we handle all types of commercial HVAC systems including VRV/VRF, ductable, cassette, chiller, and packaged systems for offices, factories, hospitals, and retail spaces in Kolkata."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Do you offer AC AMC packages in Kolkata?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, we offer Basic, Standard, and Premium Annual Maintenance Contract (AMC) plans for homes and businesses in Kolkata. AMC includes scheduled servicing, priority breakdown support, and discounted spare parts."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Which areas in Kolkata do you cover for AC service?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We cover all major areas across Kolkata including Jadavpur, Tollygunge, Garia, Behala, Salt Lake, New Town, Kasba, Ballygunge, Dhakuria, Park Street, and surrounding localities."
+            }
+        }
+    ]
+}
+</script>
+@endverbatim
+@endsection
 @section('content')
 <section class="svc-hero">
     <div class="svc-glow a"></div><div class="svc-glow b"></div>

@@ -1,5 +1,28 @@
 @extends('site.layouts.app')
-@section('title', $product->meta_title ?: ($product->name . ' | Unique Air'))
+@section('title', ($product->meta_title ?: $product->name) . ' | Buy in Kolkata – Unique Air')
+@section('meta_description', $product->meta_description ?: \Illuminate\Support\Str::limit(strip_tags($product->description ?? ''), 155, '') ?: 'Buy ' . $product->name . ' in Kolkata from Unique Air. Genuine product, expert installation support. Call +91 8346904100.')
+@section('og_title', ($product->meta_title ?: $product->name) . ' | Unique Air Kolkata')
+@section('og_description', \Illuminate\Support\Str::limit(strip_tags($product->description ?? ''), 160, '') ?: 'Buy ' . $product->name . ' in Kolkata. Genuine parts, expert installation. Unique Air Conditioning & Refrigeration.')
+@section('og_image', !empty($product->images[0]) ? asset('storage/' . ltrim($product->images[0], '/')) : asset('upload/web_image_res/home_hero_right.webp'))
+@section('schema')
+<script type="application/ld+json">{!! json_encode(array_filter([
+    '@context'    => 'https://schema.org',
+    '@type'       => 'Product',
+    'name'        => $product->name,
+    'description' => strip_tags($product->description ?? ''),
+    'brand'       => $product->brand ? ['@type' => 'Brand', 'name' => $product->brand] : null,
+    'offers'      => [
+        '@type'         => 'Offer',
+        'price'         => $product->price > 0 ? (string)$product->price : '0',
+        'priceCurrency' => 'INR',
+        'availability'  => $product->in_stock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+        'seller'        => [
+            '@type' => 'Organization',
+            'name'  => 'Unique Air Conditioning & Refrigeration',
+        ],
+    ],
+]), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}</script>
+@endsection
 @section('content')
 
 @php

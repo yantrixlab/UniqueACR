@@ -1,5 +1,61 @@
 ﻿@extends('site.layouts.app')
-@section('title','Contact Our AC Experts | Unique Air Conditioning & Refrigeration')
+@section('title','Contact Us | AC Repair & Service Booking Kolkata – Unique Air')
+@section('meta_description','Contact Unique Air for AC repair, servicing, installation & AMC in Kolkata. Call +91 8346904100 or WhatsApp for same-day AC service near you.')
+@section('meta_keywords','contact AC repair Kolkata, AC service booking Kolkata, AC repair phone number Kolkata, book AC service Kolkata, AC servicing near me contact number')
+@section('og_title','Contact Unique Air | Book AC Repair & Service in Kolkata')
+@section('og_description','Book AC repair, servicing, or installation in Kolkata. Call or WhatsApp +91 8346904100. Same-day slots available.')
+@section('schema')
+@verbatim
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Do you provide same day AC service in Kolkata?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, same-day AC service is available for most Kolkata locations based on technician availability. Call +91 8346904100 or WhatsApp us to book an immediate slot."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Which AC brands do you support?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We support all major AC brands including Daikin, Voltas, LG, OGeneral, Samsung, Blue Star, Hitachi, Lloyd, Carrier and Whirlpool — covering most leading inverter and non-inverter systems."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Do you provide commercial AC servicing in Kolkata?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, we handle all commercial HVAC systems including VRV/VRF, ductable, cassette and packaged systems for offices, retail stores, hospitals, and large commercial properties in Kolkata."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Do you offer AMC packages for AC maintenance?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, annual maintenance contracts (AMC) are available for homes, offices, and business facilities in Kolkata. Our AMC plans include scheduled servicing, priority support, and discounted parts."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Which areas in Kolkata do you cover for AC repair?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We cover Jadavpur and nearby areas including Garia, Dhakuria, Tollygunge, Kasba, Ballygunge, Behala, Salt Lake, New Town and more across Kolkata."
+            }
+        }
+    ]
+}
+</script>
+@endverbatim
+@endsection
 @section('content')
 <section class="contact-hero">
     <div class="contact-hero-glow a"></div>

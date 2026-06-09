@@ -1,5 +1,61 @@
 ﻿@extends('site.layouts.app')
-@section('title','About Us | Unique Air Conditioning & Refrigeration')
+@section('title','About Unique Air | Trusted AC Repair & Service Company in Kolkata')
+@section('meta_description','Learn about Unique Air Conditioning & Refrigeration – 7+ years of trusted AC repair, servicing & installation in Kolkata. Certified technicians, genuine parts, transparent pricing.')
+@section('meta_keywords','about Unique Air Kolkata, AC repair company Kolkata, best AC service company Kolkata, AC technician Kolkata, trusted AC repair Kolkata')
+@section('og_title','About Unique Air | Trusted AC Repair Company in Kolkata')
+@section('og_description','7+ years of expert AC repair, servicing & installation in Kolkata. Meet the certified team behind Unique Air Conditioning & Refrigeration.')
+@section('schema')
+@verbatim
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Do you provide same-day AC service in Kolkata?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, Unique Air provides same-day AC service in Kolkata subject to technician slot availability in your service area. Book via call or WhatsApp for fastest response."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Which AC brands does Unique Air support?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Unique Air supports most leading AC brands including Daikin, Voltas, LG, OGeneral, Samsung, Blue Star, Hitachi, Lloyd, and Carrier — covering both split and window AC units."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Does Unique Air handle commercial HVAC systems?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, we support all commercial HVAC systems including VRV/VRF, ductable, chiller, cassette, and packaged solutions for offices, malls, hospitals, and large commercial buildings."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Does Unique Air provide AMC services?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, Unique Air offers customized Annual Maintenance Contract (AMC) plans for both residential homes and commercial businesses, ensuring year-round AC performance and priority service."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Which areas in Kolkata does Unique Air cover?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We cover Jadavpur and all nearby South Kolkata zones including Tollygunge, Garia, Behala, Kasba, Ballygunge, Dhakuria with rapid response coverage."
+            }
+        }
+    ]
+}
+</script>
+@endverbatim
+@endsection
 @section('content')
 <section class="about-hero">
     <div class="about-glow a"></div><div class="about-glow b"></div>

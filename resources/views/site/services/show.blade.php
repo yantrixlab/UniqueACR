@@ -1,5 +1,38 @@
 @extends('site.layouts.app')
-@section('title', $service->name . ' | Unique Air Conditioning & Refrigeration')
+@section('title', $service->name . ' in Kolkata | Unique Air Conditioning & Refrigeration')
+@section('meta_description', ($service->meta_description ?: \Illuminate\Support\Str::limit(strip_tags($service->description ?? ''), 150, '')) ?: 'Professional ' . $service->name . ' in Kolkata by certified technicians. Transparent pricing, same-day service. Call Unique Air at +91 8346904100.')
+@section('og_title', $service->name . ' in Kolkata | Unique Air')
+@section('og_description', \Illuminate\Support\Str::limit(strip_tags($service->description ?? ''), 160, '') ?: 'Expert ' . $service->name . ' in Kolkata. Fast response, genuine parts, certified technicians.')
+@section('og_image', $service->image_path ? asset('storage/' . ltrim($service->image_path, '/')) : asset('upload/web_image_res/home_hero_right.webp'))
+@section('schema')
+<script type="application/ld+json">{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type'    => 'Service',
+    'name'     => $service->name,
+    'description' => strip_tags($service->description ?? ''),
+    'provider' => [
+        '@type'     => 'LocalBusiness',
+        'name'      => 'Unique Air Conditioning & Refrigeration',
+        'telephone' => '+918346904100',
+        'address'   => [
+            '@type'           => 'PostalAddress',
+            'streetAddress'   => '3/87 C. R Colony, Jadavpur',
+            'addressLocality' => 'Kolkata',
+            'addressRegion'   => 'West Bengal',
+            'postalCode'      => '700032',
+            'addressCountry'  => 'IN',
+        ],
+    ],
+    'areaServed'     => ['@type' => 'City', 'name' => 'Kolkata'],
+    'serviceType'    => $service->service_type ?? 'AC Service',
+    'offers'         => $service->price > 0 ? [
+        '@type'         => 'Offer',
+        'price'         => (string)$service->price,
+        'priceCurrency' => 'INR',
+        'availability'  => 'https://schema.org/InStock',
+    ] : null,
+], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}</script>
+@endsection
 @section('content')
 
 @php
