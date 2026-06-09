@@ -1167,11 +1167,18 @@ h4 { font-size: clamp(1.2rem, 1.7vw, 1.55rem); margin: 0 0 8px; font-weight: 700
 .success { background: #dcfce7; color: #166534; }
 .error { background: #fee2e2; color: #991b1b; }
 
-.floating-stack { position: fixed; right: 16px; bottom: 16px; display: grid; gap: 8px; z-index: 100; }
-.float-btn { width: 42px; height: 42px; border-radius: 999px; display: grid; place-items: center; color: #fff; font-weight: 700; box-shadow: 0 10px 20px rgba(0, 0, 0, .25); }
-.float-btn svg { width: 20px; height: 20px; display: block; }
-.float-call { background: #0a3a89; }
-.float-wa { background: #22c55e; }
+.floating-stack{position:fixed;right:20px;bottom:24px;display:flex;flex-direction:column;gap:14px;z-index:1000}
+.float-wrap{position:relative;width:56px;height:56px;display:flex;align-items:center;justify-content:center}
+.float-btn{position:relative;z-index:2;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,.25);transition:transform .2s ease,box-shadow .2s ease}
+.float-btn:hover{transform:scale(1.1);box-shadow:0 8px 28px rgba(0,0,0,.3)}
+.float-btn svg{width:26px;height:26px;display:block;flex-shrink:0}
+.float-call{background:linear-gradient(135deg,#1a56db,#0a3a89)}
+.float-wa{background:linear-gradient(135deg,#25d366,#128c7e)}
+.float-ripple{position:absolute;inset:0;border-radius:50%;opacity:0;animation:floatRipple 2.4s ease-out infinite}
+.float-wrap-call .float-ripple{background:rgba(26,86,219,.45)}
+.float-wrap-wa .float-ripple{background:rgba(37,211,102,.45)}
+.ripple-delay{animation-delay:1.2s}
+@keyframes floatRipple{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.2);opacity:0}}
 
 @media (max-width: 1180px) {
   .booking-grid { grid-template-columns: 1fr 470px; }
