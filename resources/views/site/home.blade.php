@@ -196,7 +196,7 @@
     <div class="container">
         <div class="section-head hs-section-head">
             <div>
-                <h2>Our Services</h2>
+                <h1>Our Services</h1>
                 <p class="sub">Explore popular AC repair, installation, and maintenance solutions.</p>
             </div>
             <a class="view-all-btn" href="{{ route('services.index') }}">
@@ -347,6 +347,7 @@
     </div>
 </section>
 
+@if($testimonials->isNotEmpty())
 <section class="section trust-block">
     <div class="container">
         <h2>Trusted by Kolkata's Finest</h2>
@@ -365,18 +366,17 @@
             </span>
         </div>
         <div class="test-grid">
-            @forelse($testimonials as $t)
+            @foreach($testimonials as $t)
                 <article class="test-card">
                     <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                     <p>{{ $t->message }}</p>
                     <strong>&mdash; {{ $t->name }}</strong>
                 </article>
-            @empty
-                <article class="test-card"><p>No testimonials yet.</p></article>
-            @endforelse
+            @endforeach
         </div>
     </div>
 </section>
+@endif
 
 {{-- ── SEO Content Block ────────────────────────────────────────────── --}}
 <section class="section seo-content-section" aria-label="About our AC repair services in Kolkata">

@@ -6712,3 +6712,8 @@ h4 {
 
 /* ── Featured Products section-head spacing ─────────────────────────── */
 .product-zone .section-head { margin-bottom: 1.5rem; }
+
+/* ── Section heading font-size overrides ─────────────────────────────── */
+.section h2,
+.section-head h2,
+.zz-head h2 { font-size: 2rem !important; }
