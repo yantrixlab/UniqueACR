@@ -40,7 +40,7 @@
             @if(!empty($product->specifications))
                 <h3>Specifications</h3>
                 <ul class="spec-list">
-                    @foreach($product->specifications as $key => $value)
+                    @foreach((array)$product->specifications as $key => $value)
                         <li><strong>{{ ucfirst((string)$key) }}:</strong> {{ is_array($value) ? implode(', ', $value) : $value }}</li>
                     @endforeach
                 </ul>
