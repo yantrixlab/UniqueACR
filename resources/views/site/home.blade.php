@@ -1,5 +1,51 @@
 ﻿@extends('site.layouts.app')
-@section('title','Expert AC Servicing & Installation in Kolkata | Unique Air')
+@section('title', 'AC Repair Kolkata | Best AC Service, Installation & Maintenance – Unique Air')
+@section('meta_description', 'Looking for AC repair in Kolkata? Unique Air offers same-day AC servicing, installation, gas charging & AMC for Voltas, LG, Daikin & all brands. Trusted AC repair service near me in Kolkata. Call +91 8346904100.')
+@section('meta_keywords', 'AC repair Kolkata, ac repair kolkata near me, voltas ac repair Kolkata, lg ac repair Kolkata, best ac repair Kolkata, AC service Kolkata, AC servicing Kolkata, AC installation Kolkata, AC maintenance Kolkata, AC repair service near me, AC servicing near me, ac servicing price, ac servicing near me contact number, lg ac repair, ac repair in Kolkata, ac repair shop near me')
+@section('og_title', 'AC Repair Kolkata | Best AC Service, Installation & Maintenance – Unique Air')
+@section('og_description', 'Same-day AC repair & servicing in Kolkata for Voltas, LG, Daikin & all brands. Certified technicians, genuine parts, transparent pricing. Book now!')
+@section('schema')
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "How much does AC repair cost in Kolkata?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "AC repair cost in Kolkata typically ranges from ₹300 to ₹2,500 depending on the issue — gas charging, PCB repair, compressor service, etc. Unique Air provides transparent, no-hidden-cost estimates before starting any work."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Do you provide same-day AC repair service in Kolkata?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Unique Air offers same-day AC repair and servicing across Kolkata including Jadavpur, Tollygunge, Behala, Salt Lake and surrounding areas. Call +91 8346904100 for quick response."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Which AC brands do you repair in Kolkata?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We repair all major AC brands including Voltas, LG, Daikin, Samsung, Blue Star, Hitachi, Lloyd, Carrier, Whirlpool and more. Our certified technicians are trained for both split and window AC units."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What is included in AC servicing near me?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Our AC servicing includes deep cleaning of indoor & outdoor units, filter cleaning, coil cleaning, drain cleaning, gas pressure check, and performance testing — all at a fixed transparent price."
+            }
+        }
+    ]
+}
+</script>
+@endsection
 @section('content')
 <section class="hero">
     <div class="hero-glow hero-glow-a"></div>
@@ -329,6 +375,56 @@
         </div>
     </div>
 </section>
+
+{{-- ── SEO Content Block ────────────────────────────────────────────── --}}
+<section class="section seo-content-section" aria-label="About our AC repair services in Kolkata">
+    <div class="container seo-content-wrap">
+
+        <h2>AC Repair & Servicing in Kolkata – Your Trusted Cooling Partner</h2>
+        <p>When the summer heat in Kolkata becomes unbearable, the last thing you need is a malfunctioning air conditioner. <strong>Unique Air Conditioning &amp; Refrigeration</strong> is Kolkata's most trusted name for <strong>AC repair in Kolkata</strong>, offering fast, affordable, and professional services for homes, offices, shops, and commercial spaces across the city.</p>
+
+        <h3>Expert AC Repair Service Near Me – Same Day Response</h3>
+        <p>Whether your AC is not cooling, making unusual noise, leaking water, or showing error codes, our certified technicians are just a call away. We provide <strong>same-day AC repair service near me</strong> across all major areas of Kolkata including Jadavpur, Tollygunge, Behala, Salt Lake, New Town, Park Street, Ballygunge, Garia, and surrounding localities. Our response time is under 2 hours for most emergency calls, so your comfort is restored quickly without any prolonged inconvenience.</p>
+
+        <h3>AC Servicing in Kolkata – Deep Cleaning for Peak Performance</h3>
+        <p>Regular <strong>AC servicing in Kolkata</strong> is essential to maintain energy efficiency and extend the lifespan of your air conditioner. Our comprehensive AC servicing package includes thorough cleaning of indoor and outdoor units, filter washing, evaporator and condenser coil cleaning, drain pan cleaning, refrigerant gas pressure check, and full performance testing. Timely <strong>AC servicing near me</strong> not only reduces your electricity bills but also prevents costly breakdowns during peak summer months.</p>
+
+        <h3>Voltas AC Repair Kolkata &amp; LG AC Repair Kolkata</h3>
+        <p>We specialize in all leading brands. For <strong>Voltas AC repair in Kolkata</strong>, our technicians are trained to handle Voltas split ACs, window ACs, and cassette units — covering issues like compressor faults, PCB failures, gas leaks, and sensor errors. Similarly, our <strong>LG AC repair in Kolkata</strong> expertise covers the full LG range including Dual Inverter models. We also service and repair Daikin, Samsung, Blue Star, Hitachi, Lloyd, Carrier, Whirlpool, and all other major brands with genuine spare parts and manufacturer-recommended procedures.</p>
+
+        <h3>AC Installation Kolkata – Professional Fitting, Zero Hassle</h3>
+        <p>Planning to buy a new air conditioner? Our <strong>AC installation in Kolkata</strong> service ensures your new unit is fitted correctly, safely, and in compliance with all technical standards. Improper installation is one of the leading causes of poor AC performance and early breakdowns. Our installation team handles copper piping, indoor/outdoor unit mounting, electrical connections, and post-installation testing — all in one visit. We install split ACs, window ACs, cassette ACs, and multi-split systems for residential and commercial properties.</p>
+
+        <h3>AC Maintenance Kolkata – AMC Plans for Worry-Free Cooling</h3>
+        <p>Our <strong>AC maintenance in Kolkata</strong> Annual Maintenance Contract (AMC) plans are designed for homeowners and businesses who want hassle-free, year-round cooling performance. The AMC covers scheduled servicing visits, priority breakdown support, free labour on repairs, and discounted spare parts. An AMC is the smartest investment you can make to protect your AC and avoid surprise repair bills during peak season.</p>
+
+        <h3>Why Kolkata Trusts Unique Air for AC Repair &amp; Servicing</h3>
+        <ul class="seo-list">
+            <li><strong>7+ Years of Experience</strong> serving residential and commercial clients across Kolkata</li>
+            <li><strong>Certified Technicians</strong> trained for all major AC brands and models</li>
+            <li><strong>Transparent Pricing</strong> – no hidden charges, free inspection before work begins</li>
+            <li><strong>Genuine Spare Parts</strong> sourced from authorized distributors</li>
+            <li><strong>Same-Day Service</strong> available 6 days a week across Kolkata</li>
+            <li><strong>Post-Service Warranty</strong> on all repairs and installations</li>
+            <li><strong>Easy Booking</strong> – call, WhatsApp, or fill our online form anytime</li>
+        </ul>
+
+        <p>Whether you need an emergency <strong>AC repair shop near me</strong>, a scheduled <strong>AC servicing near me</strong>, a fresh <strong>AC installation in Kolkata</strong>, or a long-term <strong>AC maintenance</strong> partner, Unique Air is the one-stop solution. <a href="{{ route('contact') }}" class="seo-inline-link">Book your service today</a> and experience the difference that certified expertise makes. For immediate assistance, call us at <a href="tel:+918346904100" class="seo-inline-link">+91 8346904100</a> or reach us on WhatsApp — we are always ready to keep you cool.</p>
+
+    </div>
+</section>
+
+<style>
+.seo-content-section { background: #fff; padding: 3.5rem 0 2.5rem; border-top: 1px solid #e8eef8; }
+.seo-content-wrap { max-width: 860px; }
+.seo-content-wrap h2 { font-size: 1.6rem; color: #0a2240; margin-bottom: 1rem; font-weight: 800; }
+.seo-content-wrap h3 { font-size: 1.1rem; color: #0a3a89; margin: 1.6rem 0 .5rem; font-weight: 700; }
+.seo-content-wrap p  { font-size: .95rem; color: #3d5175; line-height: 1.8; margin-bottom: .8rem; }
+.seo-list { padding-left: 1.2rem; margin: .5rem 0 1rem; }
+.seo-list li { font-size: .95rem; color: #3d5175; line-height: 1.8; margin-bottom: .3rem; }
+.seo-inline-link { color: #2563eb; text-decoration: underline; font-weight: 600; }
+.seo-inline-link:hover { color: #0ea5e9; }
+</style>
 
 <style>
 .hero-img-hidden {
