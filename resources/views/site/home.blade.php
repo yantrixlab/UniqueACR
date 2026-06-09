@@ -151,9 +151,12 @@
                 <h2>Our Services</h2>
                 <p class="sub">Explore popular AC repair, installation, and maintenance solutions.</p>
             </div>
-            <a class="nav-dot" href="{{ route('services.index') }}" aria-label="View all services">&rarr;</a>
+            <a class="view-all-btn" href="{{ route('services.index') }}">
+                View All
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg>
+            </a>
         </div>
-        <div class="products-grid-page featured-same-grid">
+        <div class="hs-scroll-row">
             @forelse($services as $i => $service)
                 @php
                     $serviceImage = $service->image_path
@@ -191,6 +194,25 @@
         </div>
     </div>
 </section>
+<style>
+.hs-scroll-row {
+    display: flex;
+    gap: 1.1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: .75rem;
+    scrollbar-width: thin;
+    scrollbar-color: #c7d8f0 transparent;
+}
+.hs-scroll-row::-webkit-scrollbar { height: 5px; }
+.hs-scroll-row::-webkit-scrollbar-thumb { background: #c7d8f0; border-radius: 99px; }
+.hs-scroll-row > .product-item-card {
+    flex: 0 0 280px;
+    min-width: 280px;
+    scroll-snap-align: start;
+}
+</style>
 
 <section class="section product-zone">
     <div class="container">

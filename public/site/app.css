@@ -6641,3 +6641,36 @@ h4 {
     .zz-right .zz-empty,
     .zz-left  .zz-empty { display: none; }
 }
+
+/* ── View All Button ───────────────────────────────────────────────── */
+.view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    padding: .55rem 1.2rem;
+    border-radius: 50px;
+    font-size: .85rem;
+    font-weight: 600;
+    color: #0a2240;
+    background: #fff;
+    border: 1.5px solid #c8d8ee;
+    text-decoration: none;
+    letter-spacing: .02em;
+    transition: background .18s, color .18s, border-color .18s, box-shadow .18s, transform .18s;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(10,34,64,.07);
+}
+.view-all-btn svg {
+    width: 16px; height: 16px;
+    transition: transform .2s ease;
+}
+.view-all-btn:hover {
+    background: linear-gradient(130deg, #0ea5e9, #2563eb);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 6px 18px rgba(14,165,233,.3);
+    transform: translateY(-1px);
+}
+.view-all-btn:hover svg {
+    transform: translateX(3px);
+}
