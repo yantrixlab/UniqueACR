@@ -15,7 +15,7 @@
                 <input
                     type="{{ $isMultiple ? 'checkbox' : 'radio' }}"
                     id="{{ $inputId }}"
-                    name="{{ $id }}"
+                    name="{{ $isMultiple ? $id . '[]' : $id }}"
                     value="{{ $item->id }}"
                     {{ $wireModelAttribute }}="{{ $statePath }}"
                     class="media-grid-input"

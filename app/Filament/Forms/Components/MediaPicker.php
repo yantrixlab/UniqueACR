@@ -63,7 +63,7 @@ class MediaPicker extends Field
                 ->modalSubmitActionLabel('Use selected')
                 ->modalWidth('4xl')
                 ->fillForm(fn (): array => [
-                    'selected' => $this->getState(),
+                    'selected' => array_values(array_filter((array) ($this->getState() ?? []))),
                 ])
                 ->schema([
                     MediaGridSelect::make('selected')
