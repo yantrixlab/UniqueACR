@@ -31,10 +31,10 @@
             <p class="sub">Our customer-first process combines clear diagnostics, genuine parts, and skilled workmanship to deliver reliable outcomes for both domestic and commercial clients.</p>
         </div>
         <div class="intro-counters">
-            <article><h3>15+</h3><p>Years Experience</p></article>
-            <article><h3>5000+</h3><p>Happy Customers</p></article>
-            <article><h3>1000+</h3><p>Commercial Projects</p></article>
-            <article><h3>24/7</h3><p>Emergency Support</p></article>
+            <article><h3>7+</h3><p>Years Experience</p></article>
+            <article><h3>185+</h3><p>Happy Customers</p></article>
+            <article><h3>16+</h3><p>Commercial Projects</p></article>
+            <article><h3>24X7</h3><p>Emergency Support</p></article>
         </div>
     </div>
 </section>

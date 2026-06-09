@@ -6,7 +6,7 @@
     <div class="hero-glow hero-glow-b"></div>
     <div class="container hero-shell hero-grid premium-hero-grid">
         <div class="hero-copy premium-hero-copy">
-            <span class="pill">Trusted AC Experts in Kolkata • 15+ Years Experience</span>
+            <span class="pill">Trusted AC Experts in Kolkata • 7+ Years Experience</span>
             <h1>Premium AC Care for Homes, Offices, and Commercial Spaces</h1>
             <p>Engineered cooling services with certified technicians, transparent pricing, and same-day support across Kolkata.</p>
             <div class="cta-row premium-cta-row">
