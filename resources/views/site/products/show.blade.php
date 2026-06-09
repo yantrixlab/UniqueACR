@@ -1,64 +1,205 @@
 @extends('site.layouts.app')
 @section('title', $product->meta_title ?: ($product->name . ' | Unique Air'))
 @section('content')
-<section class="section product-detail-page">
-    <div class="container product-detail-grid">
-        <div class="detail-gallery">
-            @php
-                $images = collect($product->images ?: [])
-                    ->map(function ($imgPath) {
-                        return \Illuminate\Support\Str::startsWith($imgPath, ['http://', 'https://', 'data:'])
-                            ? $imgPath
-                            : asset('storage/' . ltrim($imgPath, '/'));
-                    })
-                    ->filter()
-                    ->values()
-                    ->all();
-                if (empty($images)) {
-                    $images = ['https://images.unsplash.com/photo-1581275237725-2f7f9f89f4f2?q=80&w=1200&auto=format&fit=crop'];
-                }
-            @endphp
-            <img src="{{ $images[0] }}" alt="{{ $product->name }}" loading="eager">
+
+@php
+    $images = collect((array)($product->images ?: []))
+        ->map(fn($p) => \Illuminate\Support\Str::startsWith($p, ['http://','https://','data:'])
+            ? $p : asset('storage/' . ltrim($p, '/')))
+        ->filter()->values()->all();
+    if (empty($images)) {
+        $images = ['https://images.unsplash.com/photo-1581275237725-2f7f9f89f4f2?q=80&w=1200&auto=format&fit=crop'];
+    }
+@endphp
+
+<section class="pd-page">
+    <div class="container pd-wrapper">
+
+        {{-- Gallery --}}
+        <div class="pd-gallery">
+            <div class="pd-main-img-wrap">
+                <img id="pdMainImg" src="{{ $images[0] }}" alt="{{ $product->name }}" loading="eager">
+            </div>
             @if(count($images) > 1)
-                <div class="detail-thumbs">
-                    @foreach($images as $img)
-                        <img src="{{ $img }}" alt="{{ $product->name }} thumbnail" loading="lazy">
+                <div class="pd-thumbs">
+                    @foreach($images as $i => $img)
+                        <button type="button" class="pd-thumb {{ $i === 0 ? 'active' : '' }}" onclick="pdSwitch(this,'{{ $img }}')">
+                            <img src="{{ $img }}" alt="{{ $product->name }} view {{ $i + 1 }}" loading="lazy">
+                        </button>
                     @endforeach
                 </div>
             @endif
         </div>
-        <div class="detail-content">
-            <span class="brand-chip">{{ $product->brand }}</span>
-            <h1>{{ $product->name }}</h1>
-            <p>{{ $product->description }}</p>
-            <div class="price-row detail-price">
-                <strong>₹{{ number_format($product->price, 0) }}</strong>
+
+        {{-- Info --}}
+        <div class="pd-info">
+
+            {{-- Breadcrumb --}}
+            <nav class="pd-breadcrumb" aria-label="Breadcrumb">
+                <a href="{{ route('products.index') }}">Products</a>
+                @if($product->category)
+                    <span>/</span><span>{{ $product->category->name }}</span>
+                @endif
+                <span>/</span><span class="pd-bc-current">{{ \Illuminate\Support\Str::limit($product->name, 40) }}</span>
+            </nav>
+
+            {{-- Brand + badges --}}
+            <div class="pd-meta-row">
+                <span class="brand-chip">{{ $product->brand }}</span>
+                @if($product->is_featured)
+                    <span class="pd-badge featured">Featured</span>
+                @endif
+                <span class="pd-badge {{ $product->stock > 0 ? 'instock' : 'outstock' }}">
+                    {{ $product->stock > 0 ? 'In Stock' : 'Out of Stock' }}
+                </span>
+            </div>
+
+            {{-- Title --}}
+            <h1 class="pd-title">{{ $product->name }}</h1>
+
+            {{-- Price --}}
+            <div class="pd-price-row">
+                <span class="pd-price">₹{{ number_format($product->price, 0) }}</span>
                 @if($product->discount_price)
-                    <span>₹{{ number_format($product->discount_price, 0) }}</span>
+                    <span class="pd-price-original">₹{{ number_format($product->discount_price, 0) }}</span>
+                    @php
+                        $saving = round((($product->discount_price - $product->price) / $product->discount_price) * 100);
+                    @endphp
+                    @if($saving > 0)
+                        <span class="pd-saving">{{ $saving }}% off</span>
+                    @endif
                 @endif
             </div>
+
+            {{-- Description --}}
+            <div class="pd-description prose">
+                {!! $product->description !!}
+            </div>
+
+            {{-- Specifications --}}
             @if(!empty($product->specifications))
-                <h3>Specifications</h3>
-                <ul class="spec-list">
-                    @foreach((array)$product->specifications as $key => $value)
-                        <li><strong>{{ ucfirst((string)$key) }}:</strong> {{ is_array($value) ? implode(', ', $value) : $value }}</li>
-                    @endforeach
-                </ul>
+                <div class="pd-specs">
+                    <h3 class="pd-specs-title">Specifications</h3>
+                    <dl class="pd-specs-grid">
+                        @foreach((array)$product->specifications as $key => $value)
+                            <dt>{{ ucfirst((string)$key) }}</dt>
+                            <dd>{{ is_array($value) ? implode(', ', $value) : $value }}</dd>
+                        @endforeach
+                    </dl>
+                </div>
             @endif
-            <div class="detail-cta-row">
+
+            {{-- CTAs --}}
+            <div class="pd-cta-row">
                 <a class="primary-btn" href="{{ route('contact') }}">Enquire Now</a>
-                <a class="secondary-btn" target="_blank" rel="noopener" href="https://wa.me/918346904100?text={{ rawurlencode('I am interested in '.$product->name) }}">WhatsApp Now</a>
+                <a class="secondary-btn" target="_blank" rel="noopener"
+                   href="https://wa.me/918346904100?text={{ rawurlencode('I am interested in '.$product->name) }}">
+                    <svg viewBox="0 0 32 32" width="18" height="18" aria-hidden="true" style="vertical-align:middle;margin-right:5px"><path fill="#25D366" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#fff" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8.2-.2.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.8-.9-2.4-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4 0-.1-.3-.2-.6-.4Z"/></svg>
+                    WhatsApp
+                </a>
+            </div>
+
+            {{-- Trust strip --}}
+            <div class="pd-trust">
+                <span>✓ Genuine Product</span>
+                <span>✓ Expert Support</span>
+                <span>✓ Fast Delivery</span>
             </div>
         </div>
     </div>
 </section>
+
+<style>
+.pd-page { padding: 2.5rem 0 3rem; background: #f4f7fb; }
+.pd-wrapper { display: grid; grid-template-columns: 480px 1fr; gap: 2.5rem; align-items: start; }
+
+/* Gallery */
+.pd-gallery { position: sticky; top: 90px; }
+.pd-main-img-wrap {
+    border-radius: 16px; overflow: hidden; background: #fff;
+    border: 1px solid rgba(122,153,198,.25);
+    box-shadow: 0 4px 24px rgba(60,100,180,.07);
+}
+.pd-main-img-wrap img { width: 100%; height: 400px; object-fit: contain; display: block; padding: 16px; }
+.pd-thumbs { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.pd-thumb {
+    border: 2px solid rgba(122,153,198,.25); border-radius: 10px;
+    overflow: hidden; cursor: pointer; background: #fff; padding: 0;
+    width: 72px; height: 72px; transition: border-color .15s;
+}
+.pd-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pd-thumb.active, .pd-thumb:hover { border-color: var(--accent, #2563eb); }
+
+/* Info */
+.pd-info { display: flex; flex-direction: column; gap: 1.1rem; }
+.pd-breadcrumb { display: flex; align-items: center; gap: 6px; font-size: .82rem; color: #7a99c6; flex-wrap: wrap; }
+.pd-breadcrumb a { color: var(--accent, #2563eb); text-decoration: none; }
+.pd-breadcrumb a:hover { text-decoration: underline; }
+.pd-bc-current { color: #35557f; font-weight: 500; }
+
+.pd-meta-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pd-badge { font-size: .72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; letter-spacing: .03em; text-transform: uppercase; }
+.pd-badge.featured { background: #fef3c7; color: #92400e; }
+.pd-badge.instock { background: #dcfce7; color: #166534; }
+.pd-badge.outstock { background: #fee2e2; color: #991b1b; }
+
+.pd-title { font-size: 1.45rem; font-weight: 700; color: #1a2e4a; line-height: 1.35; margin: 0; }
+
+.pd-price-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.pd-price { font-size: 1.6rem; font-weight: 800; color: var(--accent, #2563eb); }
+.pd-price-original { font-size: 1rem; color: #9fb3cc; text-decoration: line-through; }
+.pd-saving { font-size: .8rem; font-weight: 700; background: #dcfce7; color: #166534; padding: 2px 10px; border-radius: 999px; }
+
+/* Description prose */
+.pd-description { font-size: .95rem; color: #4a6280; line-height: 1.75; }
+.pd-description h2, .pd-description h3 { color: #1a2e4a; font-weight: 700; margin: 1rem 0 .4rem; }
+.pd-description h2 { font-size: 1.1rem; }
+.pd-description h3 { font-size: 1rem; }
+.pd-description p { margin: 0 0 .6rem; }
+.pd-description ul, .pd-description ol { padding-left: 1.4rem; margin: .4rem 0 .8rem; }
+.pd-description li { margin-bottom: .3rem; }
+.pd-description strong { color: #1a2e4a; font-weight: 600; }
+.pd-description a { color: var(--accent, #2563eb); }
+.pd-description blockquote { border-left: 3px solid var(--accent,#2563eb); margin: .8rem 0; padding: .4rem 1rem; background: #f0f5ff; border-radius: 0 8px 8px 0; color: #35557f; }
+
+/* Specs */
+.pd-specs { background: #fff; border: 1px solid rgba(122,153,198,.2); border-radius: 12px; padding: 1.1rem 1.3rem; }
+.pd-specs-title { font-size: .9rem; font-weight: 700; color: #1a2e4a; margin: 0 0 .8rem; text-transform: uppercase; letter-spacing: .05em; }
+.pd-specs-grid { display: grid; grid-template-columns: auto 1fr; gap: .4rem 1.2rem; margin: 0; }
+.pd-specs-grid dt { font-weight: 600; color: #35557f; font-size: .88rem; white-space: nowrap; }
+.pd-specs-grid dd { color: #4a6280; font-size: .88rem; margin: 0; }
+
+/* CTA */
+.pd-cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.pd-cta-row .primary-btn, .pd-cta-row .secondary-btn { min-width: 150px; text-align: center; }
+
+/* Trust */
+.pd-trust { display: flex; gap: 16px; flex-wrap: wrap; font-size: .82rem; color: #5d7295; padding-top: .4rem; border-top: 1px solid rgba(122,153,198,.18); }
+.pd-trust span { display: flex; align-items: center; gap: 4px; }
+
+/* Responsive */
+@media (max-width: 900px) {
+    .pd-wrapper { grid-template-columns: 1fr; }
+    .pd-gallery { position: static; }
+    .pd-main-img-wrap img { height: 300px; }
+    .pd-title { font-size: 1.2rem; }
+}
+</style>
+
+<script>
+function pdSwitch(btn, src) {
+    document.getElementById('pdMainImg').src = src;
+    document.querySelectorAll('.pd-thumb').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+}
+</script>
 
 <script type="application/ld+json">
 {!! json_encode([
     '@context' => 'https://schema.org',
     '@type' => 'Product',
     'name' => $product->name,
-    'description' => $product->meta_description ?: $product->description,
+    'description' => strip_tags($product->meta_description ?: $product->description),
     'brand' => ['@type' => 'Brand', 'name' => $product->brand],
     'offers' => [
         '@type' => 'Offer',

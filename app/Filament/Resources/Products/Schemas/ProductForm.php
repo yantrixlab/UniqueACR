@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Products\Schemas;
 use App\Filament\Forms\Components\MediaPicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Utilities\Set;
@@ -48,8 +49,15 @@ class ProductForm
                     ->required()
                     ->numeric()
                     ->default(0),
-                Textarea::make('description')
+                RichEditor::make('description')
                     ->required()
+                    ->toolbarButtons([
+                        'bold', 'italic', 'underline', 'strike',
+                        'h2', 'h3',
+                        'bulletList', 'orderedList',
+                        'link', 'blockquote',
+                        'redo', 'undo',
+                    ])
                     ->columnSpanFull(),
                 Textarea::make('specifications')
                     ->helperText('Use valid JSON, e.g. {"Capacity":"1.5 Ton","Energy Rating":"5 Star"}')
