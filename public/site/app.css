@@ -6674,3 +6674,38 @@ h4 {
 .view-all-btn:hover svg {
     transform: translateX(3px);
 }
+
+/* ── Services Scroll Row overrides ───────────────────────────────────── */
+.hs-section-head { margin-bottom: 1.5rem; }
+.view-all-btn { margin-bottom: 0; }
+
+.hs-scroll-row {
+    padding-left: max(1.25rem, calc((100vw - 1200px) / 2));
+    padding-right: max(1.25rem, calc((100vw - 1200px) / 2));
+    padding-bottom: 1rem;
+}
+.hs-scroll-row > .product-item-card:last-child {
+    margin-right: 0;
+}
+
+/* ── Services Horizontal Scroll Row ─────────────────────────────────── */
+.hs-scroll-row {
+    display: flex;
+    gap: 1.1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: #c7d8f0 transparent;
+    padding-left: max(1.25rem, calc((100vw - 1200px) / 2));
+    padding-right: max(1.25rem, calc((100vw - 1200px) / 2));
+}
+.hs-scroll-row::-webkit-scrollbar { height: 5px; }
+.hs-scroll-row::-webkit-scrollbar-thumb { background: #c7d8f0; border-radius: 99px; }
+.hs-scroll-row > .product-item-card {
+    flex: 0 0 280px;
+    min-width: 280px;
+    scroll-snap-align: start;
+}
+.hs-section-head { margin-bottom: 1.5rem; }
