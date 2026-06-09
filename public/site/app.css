@@ -6552,3 +6552,92 @@ h4 {
         font-size: 0.75rem;
     }
 }
+
+/* ── Zigzag Process Timeline ───────────────────────────────────────── */
+.zz-process-section { background: #f4f7fb; padding: 4rem 0; }
+.zz-head { text-align: center; margin-bottom: 3rem; }
+.zz-head h2 { font-size: 2rem; color: #0a2240; margin-bottom: .5rem; }
+.zz-head p  { color: #5d7295; font-size: 1rem; }
+
+.zz-timeline { position: relative; max-width: 860px; margin: 0 auto; }
+
+.zz-line {
+    position: absolute;
+    left: 50%; top: 0; bottom: 0;
+    width: 2px;
+    transform: translateX(-50%);
+    background: repeating-linear-gradient(
+        to bottom,
+        #3b82f6 0px, #3b82f6 10px,
+        transparent 10px, transparent 20px
+    );
+    opacity: .45;
+}
+
+.zz-step {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+    align-items: center;
+    margin-bottom: 2.8rem;
+    position: relative;
+}
+
+.zz-right .zz-card  { grid-column: 3; grid-row: 1; }
+.zz-right .zz-dot   { grid-column: 2; grid-row: 1; }
+.zz-right .zz-empty { grid-column: 1; grid-row: 1; }
+
+.zz-left .zz-card  { grid-column: 1; grid-row: 1; }
+.zz-left .zz-dot   { grid-column: 2; grid-row: 1; }
+.zz-left .zz-empty { grid-column: 3; grid-row: 1; }
+
+.zz-dot {
+    display: flex; align-items: center; justify-content: center;
+    z-index: 2;
+}
+.zz-dot span {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59,130,246,.18);
+    display: block;
+}
+
+.zz-card {
+    background: #fff;
+    border: 1px solid rgba(59,130,246,.15);
+    border-radius: 14px;
+    padding: 1.1rem 1.3rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    box-shadow: 0 4px 18px rgba(10,34,64,.07);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+.zz-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(10,34,64,.12);
+}
+.zz-card-icon {
+    flex-shrink: 0;
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    display: flex; align-items: center; justify-content: center;
+    color: #2563eb;
+}
+.zz-card-icon svg { width: 20px; height: 20px; }
+.zz-num { font-size: .72rem; font-weight: 700; color: #3b82f6; text-transform: uppercase; letter-spacing: .08em; }
+.zz-card h3 { font-size: .95rem; font-weight: 700; color: #0a2240; margin: 2px 0 4px; }
+.zz-card p  { font-size: .85rem; color: #5d7295; margin: 0; line-height: 1.5; }
+
+@media (max-width: 640px) {
+    .zz-line { left: 16px; }
+    .zz-step { grid-template-columns: 36px 1fr; }
+    .zz-right .zz-card,
+    .zz-left  .zz-card  { grid-column: 2; grid-row: 1; }
+    .zz-right .zz-dot,
+    .zz-left  .zz-dot   { grid-column: 1; grid-row: 1; }
+    .zz-right .zz-empty,
+    .zz-left  .zz-empty { display: none; }
+}

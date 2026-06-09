@@ -144,19 +144,51 @@
     </div>
 </section>
 
-<section class="section">
+<section class="section zz-process-section">
     <div class="container">
-        <h2>Our Service Process</h2>
-        <div class="timeline svc-time">
-            <div><span>1. Book Service</span><p>Share your requirement via call, form, or WhatsApp.</p></div>
-            <div><span>2. Technician Assignment</span><p>Nearest certified expert is assigned quickly.</p></div>
-            <div><span>3. Inspection & Diagnosis</span><p>Complete issue assessment and estimate.</p></div>
-            <div><span>4. Repair / Installation</span><p>Professional execution with genuine parts.</p></div>
-            <div><span>5. Quality Check</span><p>Cooling performance and safety verification.</p></div>
-            <div><span>6. Completion & Support</span><p>Post-service guidance and warranty support.</p></div>
+        <div class="zz-head">
+            <h2>Our Service Process</h2>
+            <p>Simple, transparent, and fast — from booking to completion.</p>
+        </div>
+        <div class="zz-timeline">
+            {{-- Vertical dashed line --}}
+            <div class="zz-line"></div>
+
+            @php
+            $steps = [
+                ['num'=>'01','title'=>'Book Service',          'desc'=>'Share your requirement via call, form, or WhatsApp.', 'icon'=>'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'],
+                ['num'=>'02','title'=>'Technician Assignment', 'desc'=>'Nearest certified expert is assigned quickly.',         'icon'=>'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'],
+                ['num'=>'03','title'=>'Inspection & Diagnosis','desc'=>'Complete issue assessment and estimate.',               'icon'=>'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4'],
+                ['num'=>'04','title'=>'Repair / Installation',  'desc'=>'Professional execution with genuine parts.',           'icon'=>'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z'],
+                ['num'=>'05','title'=>'Quality Check',          'desc'=>'Cooling performance and safety verification.',        'icon'=>'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z'],
+                ['num'=>'06','title'=>'Completion & Support',   'desc'=>'Post-service guidance and warranty support.',         'icon'=>'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'],
+            ];
+            @endphp
+
+            @foreach($steps as $i => $step)
+            <div class="zz-step {{ $i % 2 === 0 ? 'zz-right' : 'zz-left' }}">
+                <div class="zz-card">
+                    <div class="zz-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="{{ $step['icon'] }}"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="zz-num">Step {{ $step['num'] }}</span>
+                        <h3>{{ $step['title'] }}</h3>
+                        <p>{{ $step['desc'] }}</p>
+                    </div>
+                </div>
+                <div class="zz-dot">
+                    <span></span>
+                </div>
+                <div class="zz-empty"></div>
+            </div>
+            @endforeach
         </div>
     </div>
 </section>
+
 
 <section class="section amc-promo-section">
     <div class="container">
