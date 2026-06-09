@@ -37,77 +37,67 @@
     <link rel="stylesheet" href="/site/app.css">
 
     {{-- LocalBusiness + HVAC Structured Data --}}
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": ["LocalBusiness", "HVACBusiness"],
-                "@id": "{{ url('/') }}#business",
-                "name": "Unique Air Conditioning & Refrigeration",
-                "alternateName": "UniqueACR",
-                "description": "Professional AC repair, AC servicing, AC installation and AC maintenance in Kolkata. Certified technicians for Voltas, LG, Daikin, Samsung and all major brands.",
-                "url": "{{ url('/') }}",
-                "telephone": "+918346904100",
-                "email": "uniquerac24@gmail.com",
-                "priceRange": "₹₹",
-                "currenciesAccepted": "INR",
-                "paymentAccepted": "Cash, UPI, Net Banking",
-                "areaServed": [
-                    {"@type": "City", "name": "Kolkata"},
-                    {"@type": "AdministrativeArea", "name": "West Bengal"}
+    <script type="application/ld+json">{!! json_encode([
+        '@context' => 'https://schema.org',
+        '@graph'   => [
+            [
+                '@type'       => ['LocalBusiness','HVACBusiness'],
+                '@id'         => url('/').'#business',
+                'name'        => 'Unique Air Conditioning & Refrigeration',
+                'alternateName' => 'UniqueACR',
+                'description' => 'Professional AC repair, AC servicing, AC installation and AC maintenance in Kolkata. Certified technicians for Voltas, LG, Daikin, Samsung and all major brands.',
+                'url'         => url('/'),
+                'telephone'   => '+918346904100',
+                'email'       => 'uniquerac24@gmail.com',
+                'priceRange'  => '₹₹',
+                'currenciesAccepted' => 'INR',
+                'paymentAccepted'    => 'Cash, UPI, Net Banking',
+                'areaServed'  => [
+                    ['@type'=>'City','name'=>'Kolkata'],
+                    ['@type'=>'AdministrativeArea','name'=>'West Bengal'],
                 ],
-                "address": {
-                    "@type": "PostalAddress",
-                    "streetAddress": "3/87 C. R Colony, Jadavpur",
-                    "addressLocality": "Kolkata",
-                    "addressRegion": "West Bengal",
-                    "postalCode": "700032",
-                    "addressCountry": "IN"
-                },
-                "geo": {
-                    "@type": "GeoCoordinates",
-                    "latitude": 22.4987,
-                    "longitude": 88.3714
-                },
-                "openingHoursSpecification": [
-                    {
-                        "@type": "OpeningHoursSpecification",
-                        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-                        "opens": "09:00",
-                        "closes": "20:00"
-                    }
+                'address' => [
+                    '@type'           => 'PostalAddress',
+                    'streetAddress'   => '3/87 C. R Colony, Jadavpur',
+                    'addressLocality' => 'Kolkata',
+                    'addressRegion'   => 'West Bengal',
+                    'postalCode'      => '700032',
+                    'addressCountry'  => 'IN',
                 ],
-                "hasOfferCatalog": {
-                    "@type": "OfferCatalog",
-                    "name": "AC Services Kolkata",
-                    "itemListElement": [
-                        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AC Repair Kolkata"}},
-                        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AC Servicing Kolkata"}},
-                        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AC Installation Kolkata"}},
-                        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AC Maintenance Kolkata"}},
-                        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Voltas AC Repair Kolkata"}},
-                        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "LG AC Repair Kolkata"}}
-                    ]
-                },
-                "sameAs": [
-                    "https://wa.me/918346904100"
-                ]
-            },
-            {
-                "@type": "WebSite",
-                "@id": "{{ url('/') }}#website",
-                "url": "{{ url('/') }}",
-                "name": "Unique Air Conditioning & Refrigeration",
-                "potentialAction": {
-                    "@type": "SearchAction",
-                    "target": "{{ url('/services') }}?q={search_term_string}",
-                    "query-input": "required name=search_term_string"
-                }
-            }
-        ]
-    }
-    </script>
+                'geo' => ['@type'=>'GeoCoordinates','latitude'=>22.4987,'longitude'=>88.3714],
+                'openingHoursSpecification' => [[
+                    '@type'     => 'OpeningHoursSpecification',
+                    'dayOfWeek' => ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+                    'opens'     => '09:00',
+                    'closes'    => '20:00',
+                ]],
+                'hasOfferCatalog' => [
+                    '@type' => 'OfferCatalog',
+                    'name'  => 'AC Services Kolkata',
+                    'itemListElement' => [
+                        ['@type'=>'Offer','itemOffered'=>['@type'=>'Service','name'=>'AC Repair Kolkata']],
+                        ['@type'=>'Offer','itemOffered'=>['@type'=>'Service','name'=>'AC Servicing Kolkata']],
+                        ['@type'=>'Offer','itemOffered'=>['@type'=>'Service','name'=>'AC Installation Kolkata']],
+                        ['@type'=>'Offer','itemOffered'=>['@type'=>'Service','name'=>'AC Maintenance Kolkata']],
+                        ['@type'=>'Offer','itemOffered'=>['@type'=>'Service','name'=>'Voltas AC Repair Kolkata']],
+                        ['@type'=>'Offer','itemOffered'=>['@type'=>'Service','name'=>'LG AC Repair Kolkata']],
+                    ],
+                ],
+                'sameAs' => ['https://wa.me/918346904100'],
+            ],
+            [
+                '@type'  => 'WebSite',
+                '@id'    => url('/').'#website',
+                'url'    => url('/'),
+                'name'   => 'Unique Air Conditioning & Refrigeration',
+                'potentialAction' => [
+                    '@type'       => 'SearchAction',
+                    'target'      => url('/services').'?q={search_term_string}',
+                    'query-input' => 'required name=search_term_string',
+                ],
+            ],
+        ],
+    ], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}</script>
 
     @yield('schema')
 </head>

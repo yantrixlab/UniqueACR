@@ -5,6 +5,7 @@
 @section('og_title', 'AC Repair Kolkata | Best AC Service, Installation & Maintenance – Unique Air')
 @section('og_description', 'Same-day AC repair & servicing in Kolkata for Voltas, LG, Daikin & all brands. Certified technicians, genuine parts, transparent pricing. Book now!')
 @section('schema')
+@verbatim
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -39,12 +40,13 @@
             "name": "What is included in AC servicing near me?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Our AC servicing includes deep cleaning of indoor & outdoor units, filter cleaning, coil cleaning, drain cleaning, gas pressure check, and performance testing — all at a fixed transparent price."
+                "text": "Our AC servicing includes deep cleaning of indoor and outdoor units, filter cleaning, coil cleaning, drain cleaning, gas pressure check, and performance testing — all at a fixed transparent price."
             }
         }
     ]
 }
 </script>
+@endverbatim
 @endsection
 @section('content')
 <section class="hero">
