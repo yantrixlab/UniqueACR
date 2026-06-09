@@ -77,7 +77,7 @@
             <a href="{{ route('privacy') }}">Privacy Policy</a>
             <a href="{{ route('terms') }}">Terms of Service</a>
             <a href="{{ route('contact') }}">Contact</a>
-            <a href="{{ url('/admin/login') }}">Admin</a>
+            <!-- <a href="{{ url('/admin/login') }}">Admin</a> -->
         </div>
     </div>
     <div class="copyright">© {{ date('Y') }} Unique Air Conditioning & Refrigeration. All rights reserved.</div>

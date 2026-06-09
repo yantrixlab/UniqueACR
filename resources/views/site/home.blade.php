@@ -7,8 +7,8 @@
     <div class="container hero-shell hero-grid premium-hero-grid">
         <div class="hero-copy premium-hero-copy">
             <span class="pill">Trusted AC Experts in Kolkata • 7+ Years Experience</span>
-            <h1>Premium AC Care for Homes, Offices, and Commercial Spaces</h1>
-            <p>Engineered cooling services with certified technicians, transparent pricing, and same-day support across Kolkata.</p>
+            <h1>Fast, Reliable AC Service That Keeps You Cool All Year Round</h1>
+            <p>Professional AC repair, installation, gas charging, and maintenance services for homes, offices, and commercial spaces. Certified technicians, transparent pricing, and quick response.</p>
             <div class="cta-row premium-cta-row">
                 <a class="primary-btn" href="{{ route('contact') }}">Book Service</a>
                 <a class="secondary-btn" href="{{ route('contact', ['service_type' => 'AMC']) }}">Get AMC Plan</a>
