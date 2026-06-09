@@ -1540,7 +1540,7 @@ h4 {
 
 .booking-band {
     background: linear-gradient(180deg, #082d67 0%, #0a3779 50%, #07295f 100%);
-    padding: 34px 100px;
+    padding: 100px 100px;
     position: relative;
     overflow: hidden;
 }
