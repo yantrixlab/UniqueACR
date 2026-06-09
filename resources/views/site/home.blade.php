@@ -202,10 +202,10 @@
                 <h2>Featured Products</h2>
                 <p class="sub">Authorized sales and installation of top-tier cooling brands.</p>
             </div>
-            <div class="product-nav" aria-label="Product navigation">
-                <span class="nav-dot ghost" aria-hidden="true">&larr;</span>
-                <a class="nav-dot" href="{{ route('products.index') }}" aria-label="View all products">&rarr;</a>
-            </div>
+            <a class="view-all-btn" href="{{ route('products.index') }}">
+                View All
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg>
+            </a>
         </div>
         <div class="products-grid-page featured-same-grid">
             @forelse($products as $i => $product)
