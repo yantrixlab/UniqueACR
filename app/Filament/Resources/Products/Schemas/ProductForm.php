@@ -3,8 +3,10 @@
 namespace App\Filament\Resources\Products\Schemas;
 
 use App\Filament\Forms\Components\MediaPicker;
+use App\Models\Brand;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -31,13 +33,20 @@ class ProductForm
                     ->required()
                     ->maxLength(255),
                 Select::make('brand')
-                    ->options([
-                        'Daikin' => 'Daikin',
-                        'Voltas' => 'Voltas',
-                        'OGeneral' => 'OGeneral',
-                    ])
+                    ->options(fn () => Brand::where('is_active', true)->orderBy('name')->pluck('name', 'name')->toArray())
                     ->searchable()
-                    ->required(),
+                    ->required()
+                    ->createOptionForm([
+                        TextInput::make('name')->required()->maxLength(255),
+                    ])
+                    ->createOptionUsing(function (array $data): string {
+                        Brand::create([
+                            'name'      => $data['name'],
+                            'slug'      => \Illuminate\Support\Str::slug($data['name']),
+                            'is_active' => true,
+                        ]);
+                        return $data['name'];
+                    }),
                 TextInput::make('price')
                     ->required()
                     ->numeric()
@@ -59,8 +68,12 @@ class ProductForm
                         'redo', 'undo',
                     ])
                     ->columnSpanFull(),
-                Textarea::make('specifications')
-                    ->helperText('Use valid JSON, e.g. {"Capacity":"1.5 Ton","Energy Rating":"5 Star"}')
+                KeyValue::make('specifications')
+                    ->label('Specifications')
+                    ->keyLabel('Property')
+                    ->valueLabel('Value')
+                    ->addActionLabel('Add Specification')
+                    ->reorderable()
                     ->columnSpanFull(),
                 MediaPicker::make('image_media_ids')
                     ->label('Images')
