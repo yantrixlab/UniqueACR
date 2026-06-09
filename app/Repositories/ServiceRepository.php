@@ -16,4 +16,13 @@ class ServiceRepository
             ->orderBy('name')
             ->get();
     }
+
+    public function findActiveBySlug(string $slug): Service
+    {
+        return Service::query()
+            ->with('category')
+            ->where('is_active', true)
+            ->where('slug', $slug)
+            ->firstOrFail();
+    }
 }

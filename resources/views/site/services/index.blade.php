@@ -77,7 +77,7 @@
                     $image = $getServiceImage($service);
                 @endphp
                 <article class="product-item-card premium-product-card svc-product-card">
-                    <a class="product-image-wrap svc-cover" href="{{ route('contact', ['service' => $service->slug]) }}">
+                    <a class="product-image-wrap svc-cover" href="{{ route('services.show', $service->slug) }}">
                         <img loading="lazy" src="{{ $image }}" alt="{{ $service->name }}">
                         <span class="card-top-tag">{{ \Illuminate\Support\Str::title($tag) }}</span>
                     </a>
@@ -90,7 +90,7 @@
                         <p>{{ \Illuminate\Support\Str::limit($service->description, 96) }}</p>
                         <div class="stock-chip">{{ $service->is_active ? 'Available Today' : 'On Request' }}</div>
                         <div class="card-btn-row">
-                            <a class="primary-btn" href="{{ route('contact', ['service' => $service->slug]) }}">Book Service</a>
+                            <a class="primary-btn" href="{{ route('services.show', $service->slug) }}">Book Service</a>
                             <a class="outline-btn wa-icon-btn" target="_blank" rel="noopener" aria-label="WhatsApp" href="https://wa.me/918346904100?text={{ $waText }}">
                                 <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#25D366" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#fff" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8.2-.2.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.8-.9-2.4-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4 0-.1-.3-.2-.6-.4Z"/></svg>
                             </a>
@@ -117,7 +117,7 @@
                     $segmentTag = optional($service->category)->segment === 'commercial' ? 'Commercial' : 'Domestic';
                 @endphp
                 <article class="product-item-card premium-product-card svc-product-card">
-                    <a class="product-image-wrap svc-cover" href="{{ route('contact', ['service' => $service->slug]) }}">
+                    <a class="product-image-wrap svc-cover" href="{{ route('services.show', $service->slug) }}">
                         <img loading="lazy" src="{{ $image }}" alt="{{ $service->name }}">
                         <span class="card-top-tag">{{ $segmentTag }}</span>
                     </a>
@@ -130,7 +130,7 @@
                         <p>{{ \Illuminate\Support\Str::limit($service->description, 96) }}</p>
                         <div class="stock-chip">{{ $service->is_active ? 'Available Today' : 'On Request' }}</div>
                         <div class="card-btn-row">
-                            <a class="primary-btn" href="{{ route('contact', ['service' => $service->slug]) }}">Book Service</a>
+                            <a class="primary-btn" href="{{ route('services.show', $service->slug) }}">Book Service</a>
                             <a class="outline-btn wa-icon-btn" target="_blank" rel="noopener" aria-label="WhatsApp" href="https://wa.me/918346904100?text={{ $waText }}">
                                 <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#25D366" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#fff" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8.2-.2.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.8-.9-2.4-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4 0-.1-.3-.2-.6-.4Z"/></svg>
                             </a>

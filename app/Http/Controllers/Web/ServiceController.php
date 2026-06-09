@@ -16,4 +16,11 @@ class ServiceController extends Controller
 
         return view('site.services.index', compact('services', 'segment'));
     }
+
+    public function show(string $slug, ServiceRepository $serviceRepository): View
+    {
+        $service = $serviceRepository->findActiveBySlug($slug);
+
+        return view('site.services.show', compact('service'));
+    }
 }

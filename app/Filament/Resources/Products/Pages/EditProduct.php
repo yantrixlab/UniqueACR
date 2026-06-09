@@ -20,7 +20,7 @@ class EditProduct extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        $mediaIds = $this->data['image_media_ids'] ?? [];
+        $mediaIds = $this->form->getRawState()['image_media_ids'] ?? [];
 
         $paths = Media::query()
             ->whereIn('id', $mediaIds)
