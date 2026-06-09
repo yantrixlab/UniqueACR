@@ -20,7 +20,7 @@ class BrandResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTag;
 
-    protected static \UnitEnum|string|null $navigationGroup = 'Catalog';
+    protected static ?int $navigationSort = 35;
 
 
     public static function form(Schema $schema): Schema
