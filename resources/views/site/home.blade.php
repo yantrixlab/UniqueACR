@@ -363,7 +363,7 @@ $homeZoneColors = [
             </div>
 
             {{-- RIGHT: Form card --}}
-            <div class="hb-right">
+            <div class="hb-right" style="align-self:center;">
                 <div style="background:rgba(255,255,255,.06);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:2rem;box-shadow:0 32px 64px rgba(0,0,0,.35);">
                     <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:1px solid rgba(255,255,255,.1);">
                         <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#3b82f6,#6366f1);display:flex;align-items:center;justify-content:center;">
@@ -455,6 +455,119 @@ $homeZoneColors = [
 @media(max-width:900px) {
     .hb-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     .hb-left h2 { font-size: 1.8rem; }
+}
+
+/* ── Dark-card form overrides ── */
+.hb-right .booking-form {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.hb-right .booking-form label {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+    margin-bottom: .25rem;
+}
+.hb-right .booking-form .form-row.two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .85rem;
+    margin-bottom: .85rem;
+}
+.hb-right .booking-form input,
+.hb-right .booking-form select,
+.hb-right .booking-form textarea {
+    width: 100%;
+    background: rgba(255,255,255,.07) !important;
+    border: 1px solid rgba(255,255,255,.14) !important;
+    border-radius: 10px !important;
+    padding: .75rem 1rem !important;
+    color: #fff !important;
+    font-size: .88rem !important;
+    font-family: inherit !important;
+    outline: none !important;
+    transition: border-color .15s, background .15s, box-shadow .15s !important;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+    appearance: none;
+}
+.hb-right .booking-form select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,.45)' stroke-width='2.5' stroke-linecap='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right .9rem center !important;
+    padding-right: 2.5rem !important;
+}
+.hb-right .booking-form input::placeholder,
+.hb-right .booking-form textarea::placeholder {
+    color: rgba(255,255,255,.25) !important;
+}
+.hb-right .booking-form select option {
+    background: #0d3070;
+    color: #fff;
+}
+.hb-right .booking-form input:focus,
+.hb-right .booking-form select:focus,
+.hb-right .booking-form textarea:focus {
+    border-color: rgba(96,165,250,.6) !important;
+    background: rgba(255,255,255,.1) !important;
+    box-shadow: 0 0 0 3px rgba(96,165,250,.15) !important;
+}
+.hb-right .booking-form label:has(select),
+.hb-right .booking-form label:has(textarea) {
+    margin-bottom: .85rem;
+}
+.hb-right .booking-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+.hb-right .booking-form .btn {
+    width: 100% !important;
+    background: linear-gradient(135deg, #3b82f6, #6366f1) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 11px !important;
+    padding: .9rem 1.5rem !important;
+    font-size: .9rem !important;
+    font-weight: 700 !important;
+    letter-spacing: .02em !important;
+    cursor: pointer !important;
+    transition: opacity .15s, transform .15s !important;
+    box-shadow: 0 4px 20px rgba(59,130,246,.4) !important;
+    margin-top: .5rem !important;
+}
+.hb-right .booking-form .btn:hover {
+    opacity: .9 !important;
+    transform: translateY(-1px) !important;
+}
+.hb-right .alert {
+    border-radius: 9px;
+    padding: .65rem 1rem;
+    font-size: .82rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+.hb-right .alert.success {
+    background: rgba(52,211,153,.15);
+    border: 1px solid rgba(52,211,153,.3);
+    color: #6ee7b7;
+}
+.hb-right .alert.error {
+    background: rgba(248,113,113,.15);
+    border: 1px solid rgba(248,113,113,.3);
+    color: #fca5a5;
+}
+@media(max-width:600px) {
+    .hb-right .booking-form .form-row.two {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 @endif
