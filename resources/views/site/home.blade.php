@@ -113,42 +113,425 @@
     </div>
 </section>
 
-<section class="section amc-promo-section">
-    <div class="container">
-        <div class="amc-promo-banner">
-            <div class="amc-glow a"></div>
-            <div class="amc-glow b"></div>
-            <div class="amc-content">
-                <span class="pill amc-pill"><span class="svc-badge-dot"></span>Premium Preventive Care</span>
-                <h2>Annual AC Maintenance Contract (AMC)</h2>
-                <p>Reliable AC servicing, preventive maintenance, faster cooling &amp; longer AC life for homes and businesses in Kolkata.</p>
-                <div class="cta-row amc-cta-row">
-                    <a class="primary-btn" href="{{ route('contact', ['service_type' => 'AMC']) }}">Book AMC Now</a>
-                    <a class="secondary-btn" href="{{ route('contact') }}">Get Free Consultation</a>
+<section class="amc-v2-section">
+    {{-- Animated background elements --}}
+    <div class="amc-v2-bg">
+        <div class="amc-v2-orb orb1"></div>
+        <div class="amc-v2-orb orb2"></div>
+        <div class="amc-v2-orb orb3"></div>
+        <div class="amc-v2-grid"></div>
+    </div>
+
+    <div class="container amc-v2-wrap">
+        {{-- LEFT: Content --}}
+        <div class="amc-v2-content">
+            <div class="amc-v2-badge">
+                <span class="amc-v2-pulse"></span>
+                Premium Preventive Care
+            </div>
+            <h2 class="amc-v2-heading">
+                Annual AC Maintenance<br>
+                <span class="amc-v2-gradient-text">Contract (AMC)</span>
+            </h2>
+            <p class="amc-v2-sub">Reliable AC servicing, preventive maintenance, faster cooling &amp; longer AC life for homes and businesses in Kolkata.</p>
+
+            {{-- Stats row --}}
+            <div class="amc-v2-stats">
+                <div class="amc-v2-stat">
+                    <span class="amc-v2-stat-num">500+</span>
+                    <span class="amc-v2-stat-label">AMC Clients</span>
+                </div>
+                <div class="amc-v2-stat-divider"></div>
+                <div class="amc-v2-stat">
+                    <span class="amc-v2-stat-num">2x</span>
+                    <span class="amc-v2-stat-label">Longer AC Life</span>
+                </div>
+                <div class="amc-v2-stat-divider"></div>
+                <div class="amc-v2-stat">
+                    <span class="amc-v2-stat-num">0₹</span>
+                    <span class="amc-v2-stat-label">Hidden Charges</span>
                 </div>
             </div>
-            <div class="amc-visual" aria-hidden="true">
-                <div class="amc-visual-grid"></div>
-                <div class="amc-unit">
-                    <span class="amc-led"></span>
-                    <span class="amc-slot"></span>
-                </div>
-                <div class="amc-air a"></div>
-                <div class="amc-air b"></div>
-                <div class="amc-air c"></div>
-                <span class="amc-tech-chip t1">Filter Health 96%</span>
-                <span class="amc-tech-chip t2">Gas Level Stable</span>
-                <span class="amc-tech-chip t3">Coil Clean</span>
-                <span class="amc-part p1">⚙</span>
-                <span class="amc-part p2">🧰</span>
-                <span class="amc-part p3">🔧</span>
-                <div class="amc-particles">
-                    <span></span><span></span><span></span><span></span><span></span>
-                </div>
+
+            {{-- Feature list --}}
+            <ul class="amc-v2-features">
+                <li><span class="amc-v2-check">✓</span> 2 scheduled service visits per year</li>
+                <li><span class="amc-v2-check">✓</span> Priority breakdown support (24–48 hr)</li>
+                <li><span class="amc-v2-check">✓</span> Free labour on all covered repairs</li>
+                <li><span class="amc-v2-check">✓</span> Discounted genuine spare parts</li>
+            </ul>
+
+            <div class="amc-v2-cta">
+                <a href="{{ route('contact', ['service_type' => 'AMC']) }}" class="amc-v2-btn-primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    Book AMC Now
+                </a>
+                <a href="{{ route('contact') }}" class="amc-v2-btn-ghost">
+                    Get Free Consultation
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
             </div>
+        </div>
+
+        {{-- RIGHT: Animated AC Unit visual --}}
+        <div class="amc-v2-visual" aria-hidden="true">
+            {{-- Main display card --}}
+            <div class="amc-v2-card">
+                {{-- Grid lines overlay --}}
+                <div class="amc-v2-card-grid"></div>
+
+                {{-- AC Unit --}}
+                <div class="amc-v2-ac-unit">
+                    <div class="amc-v2-ac-body">
+                        <div class="amc-v2-ac-top">
+                            <div class="amc-v2-ac-logo">
+                                <span class="amc-v2-ac-dot"></span>
+                            </div>
+                            <div class="amc-v2-ac-display">
+                                <span class="amc-v2-ac-temp">22°C</span>
+                            </div>
+                            <div class="amc-v2-ac-btn-grp">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <div class="amc-v2-ac-vents">
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                        <div class="amc-v2-ac-flap"></div>
+                    </div>
+                    {{-- Airflow lines --}}
+                    <div class="amc-v2-airflow">
+                        <span class="af1"></span>
+                        <span class="af2"></span>
+                        <span class="af3"></span>
+                        <span class="af4"></span>
+                    </div>
+                </div>
+
+                {{-- Floating status chips --}}
+                <div class="amc-v2-chip chip-filter">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    Filter Health 96%
+                </div>
+                <div class="amc-v2-chip chip-gas">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 6v4l3 2"/></svg>
+                    Gas Level Stable
+                </div>
+                <div class="amc-v2-chip chip-coil">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    Coil Clean
+                </div>
+                <div class="amc-v2-chip chip-eco">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    Energy Optimal
+                </div>
+
+                {{-- Scan line --}}
+                <div class="amc-v2-scan"></div>
+            </div>
+
+            {{-- Floating ring decorations --}}
+            <div class="amc-v2-ring ring1"></div>
+            <div class="amc-v2-ring ring2"></div>
         </div>
     </div>
 </section>
+
+<style>
+/* ══════════════════════════════════════════
+   AMC V2 — SECTION
+══════════════════════════════════════════ */
+.amc-v2-section {
+    position: relative;
+    padding: 5rem 0;
+    background: linear-gradient(135deg, #020d24 0%, #041a4a 40%, #062458 100%);
+    overflow: hidden;
+}
+
+/* Background layers */
+.amc-v2-bg { position: absolute; inset: 0; pointer-events: none; }
+.amc-v2-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: orbFloat 8s ease-in-out infinite alternate;
+}
+.amc-v2-orb.orb1 { width:500px;height:500px;top:-200px;left:-150px;background:radial-gradient(circle,rgba(59,130,246,.2),transparent 70%); }
+.amc-v2-orb.orb2 { width:400px;height:400px;bottom:-150px;right:-100px;background:radial-gradient(circle,rgba(99,102,241,.18),transparent 70%);animation-delay:-3s; }
+.amc-v2-orb.orb3 { width:300px;height:300px;top:50%;right:30%;background:radial-gradient(circle,rgba(96,165,250,.1),transparent 70%);animation-delay:-5s; }
+.amc-v2-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+    background-size: 44px 44px;
+}
+@keyframes orbFloat { from{transform:translate(0,0) scale(1)} to{transform:translate(30px,20px) scale(1.1)} }
+
+/* Layout */
+.amc-v2-wrap {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+/* ── LEFT: Content ── */
+.amc-v2-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: rgba(96,165,250,.12);
+    border: 1px solid rgba(96,165,250,.25);
+    color: #93c5fd;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .35rem 1rem;
+    border-radius: 999px;
+    margin-bottom: 1.25rem;
+}
+.amc-v2-pulse {
+    width: 7px; height: 7px; border-radius: 50%; background: #3b82f6; flex-shrink: 0;
+    box-shadow: 0 0 0 0 rgba(59,130,246,.7);
+    animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(59,130,246,.7)} 70%{box-shadow:0 0 0 8px rgba(59,130,246,0)} 100%{box-shadow:0 0 0 0 rgba(59,130,246,0)} }
+
+.amc-v2-heading {
+    color: #fff;
+    font-size: clamp(1.7rem,3.2vw,2.5rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0 0 1rem;
+    letter-spacing: -.02em;
+}
+.amc-v2-gradient-text {
+    background: linear-gradient(90deg, #60a5fa 0%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.amc-v2-sub {
+    color: rgba(255,255,255,.6);
+    font-size: .95rem;
+    line-height: 1.7;
+    margin: 0 0 1.75rem;
+    max-width: 440px;
+}
+
+/* Stats */
+.amc-v2-stats {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.75rem;
+    padding: 1rem 1.5rem;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 14px;
+}
+.amc-v2-stat { text-align: center; }
+.amc-v2-stat-num {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    background: linear-gradient(135deg,#60a5fa,#a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.amc-v2-stat-label { display: block; font-size: .68rem; color: rgba(255,255,255,.45); margin-top: .3rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+.amc-v2-stat-divider { width: 1px; height: 36px; background: rgba(255,255,255,.12); flex-shrink: 0; }
+
+/* Features */
+.amc-v2-features {
+    list-style: none;
+    padding: 0; margin: 0 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .55rem .75rem;
+}
+.amc-v2-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: .5rem;
+    color: rgba(255,255,255,.7);
+    font-size: .83rem;
+    line-height: 1.45;
+}
+.amc-v2-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px; height: 18px;
+    background: rgba(52,211,153,.15);
+    border: 1px solid rgba(52,211,153,.3);
+    border-radius: 50%;
+    color: #34d399;
+    font-size: .7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: .1rem;
+}
+
+/* CTA */
+.amc-v2-cta { display: flex; gap: .85rem; flex-wrap: wrap; align-items: center; }
+.amc-v2-btn-primary {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: linear-gradient(135deg, #3b82f6, #6366f1);
+    color: #fff; font-weight: 700; font-size: .88rem;
+    padding: .85rem 1.75rem; border-radius: 12px; text-decoration: none;
+    box-shadow: 0 8px 28px rgba(59,130,246,.4);
+    transition: transform .2s, box-shadow .2s;
+}
+.amc-v2-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(59,130,246,.5); color:#fff; }
+.amc-v2-btn-ghost {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.2);
+    color: #fff; font-weight: 600; font-size: .88rem;
+    padding: .85rem 1.5rem; border-radius: 12px; text-decoration: none;
+    transition: background .2s, border-color .2s;
+}
+.amc-v2-btn-ghost:hover { background: rgba(255,255,255,.13); border-color: rgba(255,255,255,.35); color:#fff; }
+
+/* ── RIGHT: Visual ── */
+.amc-v2-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 380px;
+}
+
+/* Outer rings */
+.amc-v2-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(96,165,250,.12);
+    animation: ringPulse 4s ease-in-out infinite;
+}
+.ring1 { width: 340px; height: 340px; animation-delay: 0s; }
+.ring2 { width: 460px; height: 460px; animation-delay: -2s; border-color: rgba(96,165,250,.06); }
+@keyframes ringPulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.04);opacity:.5} }
+
+/* Main card */
+.amc-v2-card {
+    position: relative;
+    width: 320px;
+    height: 300px;
+    background: linear-gradient(145deg, rgba(255,255,255,.1) 0%, rgba(255,255,255,.04) 100%);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 32px 80px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.15);
+    overflow: hidden;
+}
+.amc-v2-card-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+    background-size: 24px 24px;
+    border-radius: 24px;
+}
+
+/* Scan line animation */
+.amc-v2-scan {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,transparent,rgba(96,165,250,.6),transparent);
+    animation: scanMove 3s linear infinite;
+    box-shadow: 0 0 12px rgba(96,165,250,.4);
+}
+@keyframes scanMove { 0%{top:0;opacity:1} 90%{top:100%;opacity:.8} 100%{top:100%;opacity:0} }
+
+/* AC unit */
+.amc-v2-ac-unit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -58%);
+    width: 200px;
+    animation: acFloat 4s ease-in-out infinite;
+}
+@keyframes acFloat { 0%,100%{transform:translate(-50%,-58%) translateY(0)} 50%{transform:translate(-50%,-58%) translateY(-8px)} }
+
+.amc-v2-ac-body {
+    background: linear-gradient(175deg,#e8f4ff 0%,#c8dff5 60%,#b0ccee 100%);
+    border-radius: 16px 16px 10px 10px;
+    padding: 1rem 1.2rem .6rem;
+    box-shadow: 0 12px 40px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.9);
+}
+.amc-v2-ac-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: .7rem; }
+.amc-v2-ac-logo { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg,#1e40af,#3b82f6); display:flex;align-items:center;justify-content:center; }
+.amc-v2-ac-dot { width:8px;height:8px;border-radius:50%;background:#7dd3fc;box-shadow:0 0 6px #7dd3fc;animation:ledBlink 1.5s infinite; }
+@keyframes ledBlink { 0%,100%{opacity:1;box-shadow:0 0 6px #7dd3fc,0 0 12px #7dd3fc} 50%{opacity:.5;box-shadow:none} }
+.amc-v2-ac-display { background: rgba(30,64,175,.15); border-radius: 6px; padding: .2rem .6rem; }
+.amc-v2-ac-temp { font-size: .75rem; font-weight: 700; color: #1e3a8a; letter-spacing: .05em; }
+.amc-v2-ac-btn-grp { display:flex;gap:.3rem; }
+.amc-v2-ac-btn-grp span { width:6px;height:6px;border-radius:50%;background:rgba(30,64,175,.3); }
+.amc-v2-ac-vents { display: flex; gap: 3px; padding: .2rem 0; }
+.amc-v2-ac-vents span { flex:1;height:5px;border-radius:2px;background:linear-gradient(90deg,rgba(30,64,175,.2),rgba(59,130,246,.3));animation:ventShine 2s ease-in-out infinite alternate; }
+.amc-v2-ac-vents span:nth-child(2){animation-delay:.2s}.amc-v2-ac-vents span:nth-child(3){animation-delay:.4s}.amc-v2-ac-vents span:nth-child(4){animation-delay:.6s}.amc-v2-ac-vents span:nth-child(5){animation-delay:.8s}
+@keyframes ventShine { from{background:linear-gradient(90deg,rgba(30,64,175,.2),rgba(59,130,246,.3))} to{background:linear-gradient(90deg,rgba(59,130,246,.4),rgba(96,165,250,.6))} }
+.amc-v2-ac-flap { height:6px;border-radius:0 0 8px 8px;background:linear-gradient(90deg,#93c5fd,#60a5fa,#93c5fd);margin-top:.4rem;animation:flapSwing 3s ease-in-out infinite; }
+@keyframes flapSwing { 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(2deg)} }
+
+/* Airflow */
+.amc-v2-airflow { position:relative;height:60px;display:flex;align-items:flex-start;justify-content:space-around;padding-top:.3rem; }
+.amc-v2-airflow span {
+    width: 2px;
+    border-radius: 1px;
+    background: linear-gradient(to bottom, rgba(147,197,253,.8), transparent);
+    animation: airDrop 1.8s ease-in infinite;
+}
+.af1{height:45px;animation-delay:0s}.af2{height:55px;animation-delay:.3s}.af3{height:50px;animation-delay:.6s}.af4{height:40px;animation-delay:.9s}
+@keyframes airDrop { 0%{transform:scaleY(0) translateY(0);opacity:0;transform-origin:top} 30%{opacity:1} 100%{transform:scaleY(1) translateY(20px);opacity:0} }
+
+/* Floating chips */
+.amc-v2-chip {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    background: rgba(10,20,50,.85);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 999px;
+    padding: .4rem .85rem;
+    font-size: .72rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 16px rgba(0,0,0,.4);
+    white-space: nowrap;
+    animation: chipFloat 5s ease-in-out infinite;
+}
+.chip-filter { top: 18%;  left: -10%; animation-delay: 0s; }
+.chip-gas    { top: 18%;  right:-10%; animation-delay:-1.5s; }
+.chip-coil   { bottom:22%;left: -8%;  animation-delay:-3s; }
+.chip-eco    { bottom:22%;right:-8%;  animation-delay:-4.5s; }
+@keyframes chipFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+/* ── Responsive ── */
+@media(max-width:960px) {
+    .amc-v2-wrap { grid-template-columns:1fr; gap:3rem; }
+    .amc-v2-visual { min-height:320px; }
+    .amc-v2-features { grid-template-columns:1fr; }
+    .chip-filter,.chip-coil { left:0%; }
+    .chip-gas,.chip-eco { right:0%; }
+}
+@media(max-width:600px) {
+    .amc-v2-stats { gap:.75rem; padding:.75rem 1rem; }
+    .amc-v2-stat-num { font-size:1.2rem; }
+    .amc-v2-card { width:280px; height:260px; }
+    .amc-v2-ac-unit { width:170px; }
+}
+</style>
 
 <section class="section zz-process-section">
     <div class="container">
