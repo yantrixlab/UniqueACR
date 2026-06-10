@@ -196,7 +196,7 @@
     <div class="container">
         <div class="section-head hs-section-head">
             <div>
-                <h1>Our Services</h1>
+                <h2>Our Services</h2>
                 <p class="sub">Explore popular AC repair, installation, and maintenance solutions.</p>
             </div>
             <a class="view-all-btn" href="{{ route('services.index') }}">
