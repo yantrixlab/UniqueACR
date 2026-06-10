@@ -6,10 +6,12 @@ use App\Http\Controllers\Web\EnquiryController;
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\PageController;
 use App\Http\Controllers\Web\ProductController;
+use App\Http\Controllers\Web\ServiceAreaController;
 use App\Http\Controllers\Web\ServiceController;
 use App\Models\BlogPost;
 use App\Models\Product;
 use App\Models\Service;
+use App\Models\ServiceArea;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -17,6 +19,8 @@ Route::get('/services', [ServiceController::class, 'index'])->name('services.ind
 Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/service-areas', [ServiceAreaController::class, 'index'])->name('areas.index');
+Route::get('/service-areas/{slug}', [ServiceAreaController::class, 'show'])->name('areas.show');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/about', [PageController::class, 'about'])->name('about');
@@ -36,7 +40,8 @@ Route::get('/sitemap.xml', function () {
         route('home'), route('services.index'), route('products.index'), route('blog.index'), route('about'), route('contact'), route('terms'), route('privacy'),
     ])
         ->merge(Product::query()->where('is_active', true)->pluck('slug')->map(fn ($slug) => route('products.show', $slug)))
-        ->merge(BlogPost::query()->where('is_published', true)->pluck('slug')->map(fn ($slug) => route('blog.show', $slug)));
+        ->merge(BlogPost::query()->where('is_published', true)->pluck('slug')->map(fn ($slug) => route('blog.show', $slug)))
+        ->merge(ServiceArea::query()->where('is_active', true)->pluck('slug')->map(fn ($slug) => route('areas.show', $slug)));
 
     return response()->view('site.pages.sitemap', ['urls' => $urls])->header('Content-Type', 'application/xml');
 });

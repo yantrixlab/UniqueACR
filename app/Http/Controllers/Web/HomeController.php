@@ -8,12 +8,13 @@ use App\Models\Product;
 use App\Models\Service;
 use App\Models\Testimonial;
 use App\Repositories\ProductRepository;
+use App\Repositories\ServiceAreaRepository;
 use App\Repositories\ServiceRepository;
 use Illuminate\View\View;
 
 class HomeController extends Controller
 {
-    public function __invoke(ServiceRepository $serviceRepository, ProductRepository $productRepository): View
+    public function __invoke(ServiceRepository $serviceRepository, ProductRepository $productRepository, ServiceAreaRepository $areaRepository): View
     {
         $featuredProducts = $productRepository
             ->queryActive()
@@ -31,6 +32,7 @@ class HomeController extends Controller
             'products' => $featuredProducts,
             'posts' => BlogPost::query()->where('is_published', true)->latest('published_at')->take(3)->get(),
             'testimonials' => Testimonial::query()->where('is_active', true)->latest()->take(6)->get(),
+            'areas' => $areaRepository->getAll(),
         ]);
     }
 }

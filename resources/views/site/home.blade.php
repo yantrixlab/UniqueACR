@@ -347,6 +347,23 @@
     </div>
 </section>
 
+@if($areas->isNotEmpty())
+<section class="section" style="padding-top:2rem;padding-bottom:2rem;">
+    <div class="container">
+        <h2>We Serve These Areas in South &amp; Central Kolkata</h2>
+        <p class="sub" style="max-width:580px;">Onsite AC repair and maintenance available across {{ $areas->count() }} localities. Click your area to learn more.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.25rem;">
+            @foreach($areas as $area)
+            <a href="{{ route('areas.show', $area->slug) }}" style="background:var(--surface);border:1px solid var(--border,#e2e8f0);border-radius:9999px;padding:.35rem .9rem;font-size:.85rem;text-decoration:none;color:inherit;white-space:nowrap;">{{ $area->name }}</a>
+            @endforeach
+        </div>
+        <div style="margin-top:1.25rem;">
+            <a class="secondary-btn" href="{{ route('areas.index') }}">View All Service Areas</a>
+        </div>
+    </div>
+</section>
+@endif
+
 @if($testimonials->isNotEmpty())
 <section class="section trust-block">
     <div class="container">

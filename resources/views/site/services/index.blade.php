@@ -318,27 +318,18 @@
 
 <section class="section areas-zone">
     <div class="container">
-        <h2>Find Us in Jadavpur</h2>
-        <p class="sub">Coverage: Jadavpur, Garia, Dhakuria, Tollygunge, Ballygunge, Kasba, Santoshpur.</p>
-        <div class="map-shell">
-            <div class="map-location-label" aria-hidden="true">
-                <strong>Cooling Kolkata</strong>
-                <span>3/87 C. R Colony, Jadavpur, Kolkata - 700032</span>
-            </div>
-            <div class="map-focus-pin" aria-hidden="true">
-                <span class="pin-core"></span>
-                <span class="pin-wave wave-1"></span>
-                <span class="pin-wave wave-2"></span>
-                <span class="pin-wave wave-3"></span>
-            </div>
-            <iframe
-                title="Cooling Kolkata Service Area Map"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps?q=22.486403,88.375548&z=16&output=embed"></iframe>
+        <h2>Areas We Serve in South &amp; Central Kolkata</h2>
+        <p class="sub">We provide onsite AC repair, installation &amp; maintenance across {{ $areas->count() }}+ localities. Click your area for details.</p>
+        <div class="services-grid" style="margin-top:1.25rem;">
+            @foreach($areas as $area)
+            <a href="{{ route('areas.show', $area->slug) }}" class="card" style="text-decoration:none;padding:1rem 1.25rem;display:block;">
+                <strong style="font-size:.95rem;">{{ $area->name }}</strong>
+                <span style="display:block;font-size:.8rem;color:var(--text-muted);margin-top:.25rem;">{{ $area->pinCodesDisplay() }}</span>
+            </a>
+            @endforeach
         </div>
-        <div class="coverage-tags">
-            <span>Jadavpur</span><span>South Kolkata</span><span>North Kolkata</span><span>Garia</span><span>Tollygunge</span><span>Kasba</span>
+        <div style="text-align:center;margin-top:1.5rem;">
+            <a class="secondary-btn" href="{{ route('areas.index') }}">View All Service Areas</a>
         </div>
     </div>
 </section>

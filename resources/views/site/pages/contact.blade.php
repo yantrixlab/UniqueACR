@@ -212,7 +212,7 @@
         <div class="hours-card">
             <h2>Business Hours & Availability</h2>
             <div class="hours-grid">
-                <p><strong>Monday - Saturday:</strong> 8:00 AM - 9:30 PM</p>
+                <p><strong>Monday - Saturday:</strong> 9:30 AM - 9:30 PM</p>
                 <p><strong>Sunday:</strong> Emergency only</p>
                 <p><strong>Emergency Support:</strong> 24/7 phone assistance</p>
                 <p><strong>Holiday Availability:</strong> On-call support</p>

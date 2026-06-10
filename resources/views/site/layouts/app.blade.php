@@ -169,6 +169,16 @@
             <a href="{{ route('services.index') }}">Maintenance</a>
         </div>
         <div>
+            <h5>Service Areas</h5>
+            <a href="{{ route('areas.index') }}">All Areas</a>
+            <a href="{{ route('areas.show', 'jadavpur') }}">Jadavpur</a>
+            <a href="{{ route('areas.show', 'garia-patuli-baishnabghata') }}">Garia & Patuli</a>
+            <a href="{{ route('areas.show', 'tollygunge-ranikuthi-netaji-nagar') }}">Tollygunge</a>
+            <a href="{{ route('areas.show', 'gariahat-golpark-ballygunge') }}">Ballygunge</a>
+            <a href="{{ route('areas.show', 'ruby-kasba-rajdanga-haltu') }}">Kasba & Ruby</a>
+            <a href="{{ route('areas.show', 'behala') }}">Behala</a>
+        </div>
+        <div>
             <h5>Company</h5>
             <a href="{{ route('privacy') }}">Privacy Policy</a>
             <a href="{{ route('terms') }}">Terms of Service</a>
