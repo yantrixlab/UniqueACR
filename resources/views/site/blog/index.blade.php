@@ -1,8 +1,8 @@
-@extends('site.layouts.app')
-@section('title','AC Repair & Service Tips Blog Kolkata | Unique Air')
-@section('meta_description','Read expert AC repair, AC servicing tips, and cooling guides for Kolkata homes & offices. Stay updated with the latest HVAC news from Unique Air.')
+﻿@extends('site.layouts.app')
+@section('title','AC Repair & Service Tips Blog Kolkata | Cooling Kolkata')
+@section('meta_description','Read expert AC repair, AC servicing tips, and cooling guides for Kolkata homes & offices. Stay updated with the latest HVAC news from Cooling Kolkata.')
 @section('meta_keywords','AC repair tips Kolkata, AC service blog, AC maintenance guide, AC not cooling solution, HVAC tips Kolkata')
-@section('og_title','AC Repair & Service Tips Blog | Unique Air Kolkata')
+@section('og_title','AC Repair & Service Tips Blog | Cooling Kolkata')
 @section('og_description','Expert AC tips, repair guides and HVAC news for Kolkata. Learn how to maintain your AC and save electricity.')
 @section('content')
 <section class="blog-hero">
@@ -53,3 +53,5 @@
     </div>
 </section>
 @endsection
+
+

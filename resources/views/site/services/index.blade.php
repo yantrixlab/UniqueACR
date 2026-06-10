@@ -1,8 +1,8 @@
 ﻿@extends('site.layouts.app')
-@section('title','AC Service Kolkata | AC Repair, Installation & Maintenance – Unique Air')
+@section('title','AC Service Kolkata | AC Repair, Installation & Maintenance – Cooling Kolkata')
 @section('meta_description','Explore all AC services in Kolkata – AC repair, AC servicing, gas charging, installation & AMC for Voltas, LG, Daikin & all brands. Certified technicians. Call +91 8346904100.')
 @section('meta_keywords','AC service Kolkata, AC servicing Kolkata, AC repair service near me, AC servicing near me, AC installation Kolkata, AC maintenance Kolkata, voltas ac service, lg ac service Kolkata')
-@section('og_title','AC Service Kolkata | AC Repair, Installation & Maintenance – Unique Air')
+@section('og_title','AC Service Kolkata | AC Repair, Installation & Maintenance – Cooling Kolkata')
 @section('og_description','All AC services in Kolkata under one roof – repair, servicing, gas charging, installation & AMC. Same-day slots available. Call +91 8346904100.')
 @section('schema')
 @verbatim
@@ -16,7 +16,7 @@
             "name": "Do you provide same day AC repair in Kolkata?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Yes, Unique Air provides same-day AC repair in Kolkata based on technician slot availability in your area. Call +91 8346904100 to book an immediate slot."
+                "text": "Yes, Cooling Kolkata provides same-day AC repair in Kolkata based on technician slot availability in your area. Call +91 8346904100 to book an immediate slot."
             }
         },
         {
@@ -322,7 +322,7 @@
         <p class="sub">Coverage: Jadavpur, Garia, Dhakuria, Tollygunge, Ballygunge, Kasba, Santoshpur.</p>
         <div class="map-shell">
             <div class="map-location-label" aria-hidden="true">
-                <strong>UNIQUE AIR</strong>
+                <strong>Cooling Kolkata</strong>
                 <span>3/87 C. R Colony, Jadavpur, Kolkata - 700032</span>
             </div>
             <div class="map-focus-pin" aria-hidden="true">
@@ -332,7 +332,7 @@
                 <span class="pin-wave wave-3"></span>
             </div>
             <iframe
-                title="Unique Air Conditioning & Refrigeration Service Area Map"
+                title="Cooling Kolkata Service Area Map"
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
                 src="https://www.google.com/maps?q=22.486403,88.375548&z=16&output=embed"></iframe>
@@ -386,10 +386,11 @@
     'serviceType' => 'AC Repair, AC Installation, HVAC Services',
     'provider' => [
         '@type' => 'LocalBusiness',
-        'name' => 'Unique Air Conditioning & Refrigeration',
+        'name' => 'Cooling Kolkata',
         'telephone' => '+918346904100',
         'areaServed' => ['Kolkata','Jadavpur','South Kolkata','North Kolkata'],
     ],
 ]) !!}
 </script>
 @endsection
+

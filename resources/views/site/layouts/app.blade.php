@@ -1,15 +1,15 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en" data-theme="light">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {{-- Primary SEO --}}
-    <title>@yield('title', 'AC Repair Kolkata | AC Service, Installation & Maintenance – Unique Air')</title>
+    <title>@yield('title', 'AC Repair Kolkata | AC Service, Installation & Maintenance – Cooling Kolkata')</title>
     <meta name="description" content="@yield('meta_description', 'Expert AC repair in Kolkata – same-day AC servicing, installation & maintenance for Voltas, LG, Daikin & all brands. Certified technicians, transparent pricing. Call +91 8346904100.')">
     <meta name="keywords" content="@yield('meta_keywords', 'AC repair Kolkata, AC repair kolkata near me, voltas ac repair Kolkata, lg ac repair Kolkata, best ac repair Kolkata, AC service Kolkata, AC servicing Kolkata, AC installation Kolkata, AC maintenance Kolkata, AC repair service near me, AC servicing near me, ac servicing price, lg ac repair, ac repair in Kolkata, ac repair shop near me')">
     <meta name="robots" content="index, follow">
-    <meta name="author" content="Unique Air Conditioning & Refrigeration">
+    <meta name="author" content="Cooling Kolkata">
     <meta name="geo.region" content="IN-WB">
     <meta name="geo.placename" content="Kolkata">
     <meta name="geo.position" content="22.4987;88.3714">
@@ -18,19 +18,19 @@
 
     {{-- Open Graph --}}
     <meta property="og:type" content="@yield('og_type', 'website')">
-    <meta property="og:site_name" content="Unique Air Conditioning & Refrigeration">
-    <meta property="og:title" content="@yield('og_title', 'AC Repair Kolkata | AC Service, Installation & Maintenance – Unique Air')">
+    <meta property="og:site_name" content="Cooling Kolkata">
+    <meta property="og:title" content="@yield('og_title', 'AC Repair Kolkata | AC Service, Installation & Maintenance – Cooling Kolkata')">
     <meta property="og:description" content="@yield('og_description', 'Expert AC repair in Kolkata – same-day AC servicing, installation & maintenance for Voltas, LG, Daikin & all brands. Certified technicians, transparent pricing. Call +91 8346904100.')">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image" content="@yield('og_image', asset('upload/web_image_res/home_hero_right.webp'))">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Unique Air – AC Repair & Servicing in Kolkata">
+    <meta property="og:image:alt" content="Cooling Kolkata – AC Repair & Servicing in Kolkata">
     <meta property="og:locale" content="en_IN">
 
     {{-- Twitter Card --}}
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="@yield('og_title', 'AC Repair Kolkata | AC Service, Installation & Maintenance – Unique Air')">
+    <meta name="twitter:title" content="@yield('og_title', 'AC Repair Kolkata | AC Service, Installation & Maintenance – Cooling Kolkata')">
     <meta name="twitter:description" content="@yield('og_description', 'Expert AC repair in Kolkata – same-day AC servicing, installation & maintenance for Voltas, LG, Daikin & all brands.')">
     <meta name="twitter:image" content="@yield('og_image', asset('upload/web_image_res/home_hero_right.webp'))">
 
@@ -51,8 +51,8 @@
             [
                 '@type'       => ['LocalBusiness','HVACBusiness'],
                 '@id'         => url('/').'#business',
-                'name'        => 'Unique Air Conditioning & Refrigeration',
-                'alternateName' => 'UniqueACR',
+                'name'        => 'Cooling Kolkata',
+                'alternateName' => 'Cooling Kolkata',
                 'description' => 'Professional AC repair, AC servicing, AC installation and AC maintenance in Kolkata. Certified technicians for Voltas, LG, Daikin, Samsung and all major brands.',
                 'url'         => url('/'),
                 'telephone'   => '+918346904100',
@@ -97,7 +97,7 @@
                 '@type'  => 'WebSite',
                 '@id'    => url('/').'#website',
                 'url'    => url('/'),
-                'name'   => 'Unique Air Conditioning & Refrigeration',
+                'name'   => 'Cooling Kolkata',
                 'potentialAction' => [
                     '@type'       => 'SearchAction',
                     'target'      => url('/services').'?q={search_term_string}',
@@ -112,7 +112,7 @@
 <body>
 <header class="topbar">
     <div class="container nav-wrap">
-        <a class="logo" href="{{ route('home') }}"><span class="logo-mark">?</span> Unique Air</a>
+        <a class="logo" href="{{ route('home') }}"><span class="logo-mark">?</span> Cooling Kolkata</a>
         <nav class="main-nav">
             <a class="{{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
             <a class="{{ request()->routeIs('services.*') ? 'active' : '' }}" href="{{ route('services.index') }}">Services</a>
@@ -157,7 +157,7 @@
 <footer class="footer">
     <div class="container footer-grid">
         <div>
-            <h4>? Unique Air</h4>
+            <h4>? Cooling Kolkata</h4>
             <p>Providing Kolkata with top-tier air conditioning and refrigeration services.</p>
             <p>3/87 C. R Colony, Jadavpur, Kolkata - 700032</p>
             <p>+91 8346904100<br>uniquerac24@gmail.com</p>
@@ -176,8 +176,10 @@
             <!-- <a href="{{ url('/admin/login') }}">Admin</a> -->
         </div>
     </div>
-    <div class="copyright">© {{ date('Y') }} Unique Air Conditioning & Refrigeration. All rights reserved.</div>
+    <div class="copyright">© {{ date('Y') }} Cooling Kolkata. All rights reserved.</div>
 </footer>
 
 </body>
 </html>
+
+

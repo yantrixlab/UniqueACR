@@ -1,8 +1,8 @@
 ﻿@extends('site.layouts.app')
-@section('title','Contact Us | AC Repair & Service Booking Kolkata – Unique Air')
-@section('meta_description','Contact Unique Air for AC repair, servicing, installation & AMC in Kolkata. Call +91 8346904100 or WhatsApp for same-day AC service near you.')
+@section('title','Contact Us | AC Repair & Service Booking Kolkata – Cooling Kolkata')
+@section('meta_description','Contact Cooling Kolkata for AC repair, servicing, installation & AMC in Kolkata. Call +91 8346904100 or WhatsApp for same-day AC service near you.')
 @section('meta_keywords','contact AC repair Kolkata, AC service booking Kolkata, AC repair phone number Kolkata, book AC service Kolkata, AC servicing near me contact number')
-@section('og_title','Contact Unique Air | Book AC Repair & Service in Kolkata')
+@section('og_title','Contact Cooling Kolkata | Book AC Repair & Service in Kolkata')
 @section('og_description','Book AC repair, servicing, or installation in Kolkata. Call or WhatsApp +91 8346904100. Same-day slots available.')
 @section('schema')
 @verbatim
@@ -163,7 +163,7 @@
         <p class="sub">Coverage: Jadavpur, Garia, Dhakuria, Tollygunge, Ballygunge, Kasba, Santoshpur.</p>
         <div class="map-shell">
             <div class="map-location-label" aria-hidden="true">
-                <strong>UNIQUE AIR</strong>
+                <strong>Cooling Kolkata</strong>
                 <span>3/87 C. R Colony, Jadavpur, Kolkata - 700032</span>
             </div>
             <div class="map-focus-pin" aria-hidden="true">
@@ -173,7 +173,7 @@
                 <span class="pin-wave wave-3"></span>
             </div>
             <iframe
-                title="Unique Air Conditioning & Refrigeration Location"
+                title="Cooling Kolkata Location"
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
                 src="https://www.google.com/maps?q=22.486403,88.375548&z=16&output=embed"></iframe>
@@ -226,7 +226,7 @@
 {!! json_encode([
     '@context' => 'https://schema.org',
     '@type' => 'LocalBusiness',
-    'name' => 'Unique Air Conditioning & Refrigeration',
+    'name' => 'Cooling Kolkata',
     'url' => route('contact'),
     'telephone' => '+918346904100',
     'email' => 'uniquerac24@gmail.com',
@@ -247,3 +247,4 @@
 ]) !!}
 </script>
 @endsection
+

@@ -1,8 +1,8 @@
 ﻿@extends('site.layouts.app')
-@section('title','AC Products & Spare Parts in Kolkata | Unique Air Conditioning & Refrigeration')
+@section('title','AC Products & Spare Parts in Kolkata | Cooling Kolkata')
 @section('meta_description','Buy genuine AC products & spare parts in Kolkata – Voltas, LG, Daikin, Samsung & all brands. Authorized dealer with installation support. Call +91 8346904100.')
 @section('meta_keywords','AC products Kolkata, AC spare parts Kolkata, split AC price Kolkata, voltas AC Kolkata, LG AC Kolkata, Daikin AC Kolkata, buy AC Kolkata')
-@section('og_title','AC Products & Spare Parts in Kolkata | Unique Air')
+@section('og_title','AC Products & Spare Parts in Kolkata | Cooling Kolkata')
 @section('og_description','Genuine AC products & spare parts from top brands in Kolkata. Voltas, LG, Daikin, Samsung & more. Expert installation included.')
 @section('content')
 <section class="products-hero premium-products-hero">
@@ -335,3 +335,4 @@
 })();
 </script>
 @endsection
+

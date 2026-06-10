@@ -1,8 +1,8 @@
 ﻿@extends('site.layouts.app')
-@section('title', 'AC Repair Kolkata | Best AC Service, Installation & Maintenance – Unique Air')
-@section('meta_description', 'Looking for AC repair in Kolkata? Unique Air offers same-day AC servicing, installation, gas charging & AMC for Voltas, LG, Daikin & all brands. Trusted AC repair service near me in Kolkata. Call +91 8346904100.')
+@section('title', 'AC Repair Kolkata | Best AC Service, Installation & Maintenance – Cooling Kolkata')
+@section('meta_description', 'Looking for AC repair in Kolkata? Cooling Kolkata offers same-day AC servicing, installation, gas charging & AMC for Voltas, LG, Daikin & all brands. Trusted AC repair service near me in Kolkata. Call +91 8346904100.')
 @section('meta_keywords', 'AC repair Kolkata, ac repair kolkata near me, voltas ac repair Kolkata, lg ac repair Kolkata, best ac repair Kolkata, AC service Kolkata, AC servicing Kolkata, AC installation Kolkata, AC maintenance Kolkata, AC repair service near me, AC servicing near me, ac servicing price, ac servicing near me contact number, lg ac repair, ac repair in Kolkata, ac repair shop near me')
-@section('og_title', 'AC Repair Kolkata | Best AC Service, Installation & Maintenance – Unique Air')
+@section('og_title', 'AC Repair Kolkata | Best AC Service, Installation & Maintenance – Cooling Kolkata')
 @section('og_description', 'Same-day AC repair & servicing in Kolkata for Voltas, LG, Daikin & all brands. Certified technicians, genuine parts, transparent pricing. Book now!')
 @section('schema')
 @verbatim
@@ -16,7 +16,7 @@
             "name": "How much does AC repair cost in Kolkata?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "AC repair cost in Kolkata typically ranges from ₹300 to ₹2,500 depending on the issue — gas charging, PCB repair, compressor service, etc. Unique Air provides transparent, no-hidden-cost estimates before starting any work."
+                "text": "AC repair cost in Kolkata typically ranges from ₹300 to ₹2,500 depending on the issue — gas charging, PCB repair, compressor service, etc. Cooling Kolkata provides transparent, no-hidden-cost estimates before starting any work."
             }
         },
         {
@@ -24,7 +24,7 @@
             "name": "Do you provide same-day AC repair service in Kolkata?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Yes. Unique Air offers same-day AC repair and servicing across Kolkata including Jadavpur, Tollygunge, Behala, Salt Lake and surrounding areas. Call +91 8346904100 for quick response."
+                "text": "Yes. Cooling Kolkata offers same-day AC repair and servicing across Kolkata including Jadavpur, Tollygunge, Behala, Salt Lake and surrounding areas. Call +91 8346904100 for quick response."
             }
         },
         {
@@ -383,7 +383,7 @@
     <div class="container seo-content-wrap">
 
         <h2>AC Repair & Servicing in Kolkata – Your Trusted Cooling Partner</h2>
-        <p>When the summer heat in Kolkata becomes unbearable, the last thing you need is a malfunctioning air conditioner. <strong>Unique Air Conditioning &amp; Refrigeration</strong> is Kolkata's most trusted name for <strong>AC repair in Kolkata</strong>, offering fast, affordable, and professional services for homes, offices, shops, and commercial spaces across the city.</p>
+        <p>When the summer heat in Kolkata becomes unbearable, the last thing you need is a malfunctioning air conditioner. <strong>Cooling Kolkata</strong> is Kolkata's most trusted name for <strong>AC repair in Kolkata</strong>, offering fast, affordable, and professional services for homes, offices, shops, and commercial spaces across the city.</p>
 
         <h3>Expert AC Repair Service Near Me – Same Day Response</h3>
         <p>Whether your AC is not cooling, making unusual noise, leaking water, or showing error codes, our certified technicians are just a call away. We provide <strong>same-day AC repair service near me</strong> across all major areas of Kolkata including Jadavpur, Tollygunge, Behala, Salt Lake, New Town, Park Street, Ballygunge, Garia, and surrounding localities. Our response time is under 2 hours for most emergency calls, so your comfort is restored quickly without any prolonged inconvenience.</p>
@@ -400,7 +400,7 @@
         <h3>AC Maintenance Kolkata – AMC Plans for Worry-Free Cooling</h3>
         <p>Our <strong>AC maintenance in Kolkata</strong> Annual Maintenance Contract (AMC) plans are designed for homeowners and businesses who want hassle-free, year-round cooling performance. The AMC covers scheduled servicing visits, priority breakdown support, free labour on repairs, and discounted spare parts. An AMC is the smartest investment you can make to protect your AC and avoid surprise repair bills during peak season.</p>
 
-        <h3>Why Kolkata Trusts Unique Air for AC Repair &amp; Servicing</h3>
+        <h3>Why Kolkata Trusts Cooling Kolkata for AC Repair &amp; Servicing</h3>
         <ul class="seo-list">
             <li><strong>7+ Years of Experience</strong> serving residential and commercial clients across Kolkata</li>
             <li><strong>Certified Technicians</strong> trained for all major AC brands and models</li>
@@ -411,7 +411,7 @@
             <li><strong>Easy Booking</strong> – call, WhatsApp, or fill our online form anytime</li>
         </ul>
 
-        <p>Whether you need an emergency <strong>AC repair shop near me</strong>, a scheduled <strong>AC servicing near me</strong>, a fresh <strong>AC installation in Kolkata</strong>, or a long-term <strong>AC maintenance</strong> partner, Unique Air is the one-stop solution. <a href="{{ route('contact') }}" class="seo-inline-link">Book your service today</a> and experience the difference that certified expertise makes. For immediate assistance, call us at <a href="tel:+918346904100" class="seo-inline-link">+91 8346904100</a> or reach us on WhatsApp — we are always ready to keep you cool.</p>
+        <p>Whether you need an emergency <strong>AC repair shop near me</strong>, a scheduled <strong>AC servicing near me</strong>, a fresh <strong>AC installation in Kolkata</strong>, or a long-term <strong>AC maintenance</strong> partner, Cooling Kolkata is the one-stop solution. <a href="{{ route('contact') }}" class="seo-inline-link">Book your service today</a> and experience the difference that certified expertise makes. For immediate assistance, call us at <a href="tel:+918346904100" class="seo-inline-link">+91 8346904100</a> or reach us on WhatsApp — we are always ready to keep you cool.</p>
 
     </div>
 </section>
@@ -464,3 +464,4 @@
 })();
 </script>
 @endsection
+

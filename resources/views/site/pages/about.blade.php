@@ -1,9 +1,9 @@
 ﻿@extends('site.layouts.app')
-@section('title','About Unique Air | Trusted AC Repair & Service Company in Kolkata')
-@section('meta_description','Learn about Unique Air Conditioning & Refrigeration – 7+ years of trusted AC repair, servicing & installation in Kolkata. Certified technicians, genuine parts, transparent pricing.')
-@section('meta_keywords','about Unique Air Kolkata, AC repair company Kolkata, best AC service company Kolkata, AC technician Kolkata, trusted AC repair Kolkata')
-@section('og_title','About Unique Air | Trusted AC Repair Company in Kolkata')
-@section('og_description','7+ years of expert AC repair, servicing & installation in Kolkata. Meet the certified team behind Unique Air Conditioning & Refrigeration.')
+@section('title','About Cooling Kolkata | Trusted AC Repair & Service Company in Kolkata')
+@section('meta_description','Learn about Cooling Kolkata – 7+ years of trusted AC repair, servicing & installation in Kolkata. Certified technicians, genuine parts, transparent pricing.')
+@section('meta_keywords','about Cooling Kolkata, AC repair company Kolkata, best AC service company Kolkata, AC technician Kolkata, trusted AC repair Kolkata')
+@section('og_title','About Cooling Kolkata | Trusted AC Repair Company in Kolkata')
+@section('og_description','7+ years of expert AC repair, servicing & installation in Kolkata. Meet the certified team behind Cooling Kolkata.')
 @section('schema')
 @verbatim
 <script type="application/ld+json">
@@ -16,20 +16,20 @@
             "name": "Do you provide same-day AC service in Kolkata?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Yes, Unique Air provides same-day AC service in Kolkata subject to technician slot availability in your service area. Book via call or WhatsApp for fastest response."
+                "text": "Yes, Cooling Kolkata provides same-day AC service in Kolkata subject to technician slot availability in your service area. Book via call or WhatsApp for fastest response."
             }
         },
         {
             "@type": "Question",
-            "name": "Which AC brands does Unique Air support?",
+            "name": "Which AC brands does Cooling Kolkata support?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Unique Air supports most leading AC brands including Daikin, Voltas, LG, OGeneral, Samsung, Blue Star, Hitachi, Lloyd, and Carrier — covering both split and window AC units."
+                "text": "Cooling Kolkata supports most leading AC brands including Daikin, Voltas, LG, OGeneral, Samsung, Blue Star, Hitachi, Lloyd, and Carrier — covering both split and window AC units."
             }
         },
         {
             "@type": "Question",
-            "name": "Does Unique Air handle commercial HVAC systems?",
+            "name": "Does Cooling Kolkata handle commercial HVAC systems?",
             "acceptedAnswer": {
                 "@type": "Answer",
                 "text": "Yes, we support all commercial HVAC systems including VRV/VRF, ductable, chiller, cassette, and packaged solutions for offices, malls, hospitals, and large commercial buildings."
@@ -37,15 +37,15 @@
         },
         {
             "@type": "Question",
-            "name": "Does Unique Air provide AMC services?",
+            "name": "Does Cooling Kolkata provide AMC services?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Yes, Unique Air offers customized Annual Maintenance Contract (AMC) plans for both residential homes and commercial businesses, ensuring year-round AC performance and priority service."
+                "text": "Yes, Cooling Kolkata offers customized Annual Maintenance Contract (AMC) plans for both residential homes and commercial businesses, ensuring year-round AC performance and priority service."
             }
         },
         {
             "@type": "Question",
-            "name": "Which areas in Kolkata does Unique Air cover?",
+            "name": "Which areas in Kolkata does Cooling Kolkata cover?",
             "acceptedAnswer": {
                 "@type": "Answer",
                 "text": "We cover Jadavpur and all nearby South Kolkata zones including Tollygunge, Garia, Behala, Kasba, Ballygunge, Dhakuria with rapid response coverage."
@@ -83,7 +83,7 @@
     <div class="container intro-grid">
         <div>
             <h2>Built on Trust, Precision & Service Quality</h2>
-            <p class="sub">Unique Air Conditioning & Refrigeration, based at 3/87 C. R Colony, Jadavpur, Kolkata 700032, has served homes and businesses with dependable cooling support focused on speed, transparency, and long-term performance.</p>
+            <p class="sub">Cooling Kolkata, based at 3/87 C. R Colony, Jadavpur, Kolkata 700032, has served homes and businesses with dependable cooling support focused on speed, transparency, and long-term performance.</p>
             <p class="sub">Our customer-first process combines clear diagnostics, genuine parts, and skilled workmanship to deliver reliable outcomes for both domestic and commercial clients.</p>
         </div>
         <div class="intro-counters">
@@ -349,7 +349,7 @@
 {!! json_encode([
     '@context' => 'https://schema.org',
     '@type' => 'LocalBusiness',
-    'name' => 'Unique Air Conditioning & Refrigeration',
+    'name' => 'Cooling Kolkata',
     'address' => [
         '@type' => 'PostalAddress',
         'streetAddress' => '3/87 C. R Colony, Jadavpur',
@@ -363,3 +363,5 @@
 ]) !!}
 </script>
 @endsection
+
+
