@@ -260,7 +260,7 @@ class ServiceAreaSeeder extends Seeder
         ];
 
         foreach ($areas as $area) {
-            ServiceArea::updateOrCreate(['slug' => $area['slug']], $area);
+            ServiceArea::updateOrCreate(['slug' => $area['slug']], array_merge(['is_active' => true], $area));
         }
     }
 }
