@@ -161,28 +161,194 @@
     <div class="container">
         <h2>Find Us in Jadavpur</h2>
         <p class="sub">Coverage: Jadavpur, Garia, Dhakuria, Tollygunge, Ballygunge, Kasba, Santoshpur.</p>
-        <div class="map-shell">
-            <div class="map-location-label" aria-hidden="true">
-                <strong>Cooling Kolkata</strong>
-                <span>3/87 C. R Colony, Jadavpur, Kolkata - 700032</span>
-            </div>
-            <div class="map-focus-pin" aria-hidden="true">
-                <span class="pin-core"></span>
-                <span class="pin-wave wave-1"></span>
-                <span class="pin-wave wave-2"></span>
-                <span class="pin-wave wave-3"></span>
-            </div>
+
+        <div class="map-shell" style="position:relative;overflow:hidden;border-radius:16px;">
+
+            {{-- Google Maps iframe — zoom 12 so 8 km radius is visible --}}
             <iframe
+                id="map-iframe"
                 title="Cooling Kolkata Location"
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps?q=22.486403,88.375548&z=16&output=embed"></iframe>
+                style="width:100%;height:440px;border:0;display:block;"
+                src="https://www.google.com/maps?q=22.486403,88.375548&z=12&output=embed"></iframe>
+
+            {{-- SVG overlay: 8 km radius circle --}}
+            <svg id="map-radius-svg"
+                 aria-hidden="true"
+                 style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;">
+                <defs>
+                    <radialGradient id="coverageGrad" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"   stop-color="#22c55e" stop-opacity="0.18"/>
+                        <stop offset="70%"  stop-color="#16a34a" stop-opacity="0.10"/>
+                        <stop offset="100%" stop-color="#15803d" stop-opacity="0"/>
+                    </radialGradient>
+                    <filter id="circleGlow">
+                        <feGaussianBlur stdDeviation="3" result="blur"/>
+                        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                </defs>
+
+                {{-- Filled gradient area --}}
+                <circle id="coverage-fill"
+                        cx="50%" cy="50%"
+                        fill="url(#coverageGrad)"
+                        stroke="none"/>
+
+                {{-- Animated dashed stroke --}}
+                <circle id="coverage-stroke"
+                        cx="50%" cy="50%"
+                        fill="none"
+                        stroke="#22c55e"
+                        stroke-width="2.5"
+                        stroke-dasharray="10 6"
+                        stroke-linecap="round"
+                        opacity="0.85"
+                        filter="url(#circleGlow)">
+                    <animateTransform attributeName="transform"
+                                      type="rotate"
+                                      from="0"
+                                      to="360"
+                                      dur="60s"
+                                      repeatCount="indefinite"
+                                      additive="sum"/>
+                </circle>
+
+                {{-- Subtle outer pulse ring --}}
+                <circle id="coverage-pulse"
+                        cx="50%" cy="50%"
+                        fill="none"
+                        stroke="#4ade80"
+                        stroke-width="1"
+                        opacity="0">
+                    <animate attributeName="r"         values="0;0;0" dur="1s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity"   values="0.5;0;0" dur="3s" repeatCount="indefinite"/>
+                </circle>
+
+                {{-- Center pin dot --}}
+                <circle id="coverage-center" cx="50%" cy="50%" r="6"
+                        fill="#22c55e" opacity="0.9" filter="url(#circleGlow)"/>
+                <circle id="coverage-center-ring" cx="50%" cy="50%"
+                        fill="none" stroke="#22c55e" stroke-width="1.5" opacity="0.5"/>
+
+                {{-- "8 km service radius" label --}}
+                <g id="coverage-label" opacity="0">
+                    <rect id="lbl-bg" rx="6" ry="6" fill="rgba(0,20,10,0.75)" stroke="#22c55e" stroke-width="1"/>
+                    <text id="lbl-text" fill="#4ade80" font-size="11" font-weight="700" font-family="system-ui,sans-serif"
+                          text-anchor="middle">8 km service radius</text>
+                </g>
+            </svg>
+
+            {{-- Address label overlay --}}
+            <div style="position:absolute;top:16px;left:16px;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;padding:.55rem 1rem;border-radius:10px;font-size:.8rem;line-height:1.4;border:1px solid rgba(255,255,255,.12);pointer-events:none;">
+                <strong style="display:block;font-size:.85rem;margin-bottom:.15rem;">Cooling Kolkata</strong>
+                <span style="color:rgba(255,255,255,.7);">3/87 C. R Colony, Jadavpur, Kolkata - 700032</span>
+            </div>
+
+            {{-- 8km badge --}}
+            <div style="position:absolute;bottom:16px;left:16px;display:inline-flex;align-items:center;gap:.4rem;background:rgba(0,30,10,.8);backdrop-filter:blur(8px);border:1px solid rgba(34,197,94,.35);color:#4ade80;font-size:.75rem;font-weight:700;padding:.4rem .9rem;border-radius:999px;pointer-events:none;">
+                <span style="width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px #22c55e;animation:mapDotPulse 2s infinite;flex-shrink:0;"></span>
+                8 km service coverage
+            </div>
         </div>
-        <div class="coverage-tags">
+
+        <div class="coverage-tags" style="margin-top:1.25rem;">
             <span>Jadavpur</span><span>Garia</span><span>Dhakuria</span><span>Tollygunge</span><span>Ballygunge</span><span>Kasba</span>
         </div>
     </div>
 </section>
+
+<style>
+@keyframes mapDotPulse {
+    0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.6)}
+    70%{box-shadow:0 0 0 6px rgba(34,197,94,0)}
+}
+</style>
+
+<script>
+(function() {
+    /* ─────────────────────────────────────────────
+       Calculate 8 km radius in SVG pixels and
+       position all circle elements correctly.
+       ──────────────────────────────────────────── */
+    const LAT       = 22.486403;
+    const ZOOM      = 12;
+    const RADIUS_KM = 8;
+
+    function computeRadiusPx(containerW) {
+        // Pixels per degree longitude at this zoom (Mercator, constant across latitudes)
+        const pxPerDegLng = (256 * Math.pow(2, ZOOM)) / 360;
+        // 8 km in degrees longitude at this latitude
+        const radiusDegLng = RADIUS_KM / (111.32 * Math.cos(LAT * Math.PI / 180));
+        // Pixels in the tile coordinate space
+        const radiusTilePx = radiusDegLng * pxPerDegLng;
+        // Degrees visible in the container
+        const degsVisible  = containerW / pxPerDegLng;
+        // Scale radius to container pixels
+        return (radiusDegLng / degsVisible) * containerW;
+    }
+
+    function updateCircle() {
+        const svg    = document.getElementById('map-radius-svg');
+        const shell  = svg.parentElement;
+        const w      = shell.offsetWidth;
+        const h      = shell.offsetHeight;
+        const cx     = w / 2;
+        const cy     = h / 2;
+        const r      = computeRadiusPx(w);
+
+        svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+
+        ['coverage-fill','coverage-stroke','coverage-pulse'].forEach(id => {
+            const el = document.getElementById(id);
+            el.setAttribute('cx', cx);
+            el.setAttribute('cy', cy);
+            el.setAttribute('r',  r);
+        });
+
+        // Fix rotate transform origin for stroke animation
+        const stroke = document.getElementById('coverage-stroke');
+        stroke.setAttribute('transform-origin', `${cx} ${cy}`);
+
+        // Center dot & ring
+        ['coverage-center','coverage-center-ring'].forEach(id => {
+            const el = document.getElementById(id);
+            el.setAttribute('cx', cx);
+            el.setAttribute('cy', cy);
+        });
+        document.getElementById('coverage-center-ring').setAttribute('r', 12);
+
+        // Pulse ring initial r
+        const pulse = document.getElementById('coverage-pulse');
+        pulse.setAttribute('r', r);
+        pulse.querySelector('animate[attributeName="r"]').setAttribute('values', `${r};${r*1.06};${r}`);
+
+        // Label — positioned at top of circle
+        const lblGrp  = document.getElementById('coverage-label');
+        const lblBg   = document.getElementById('lbl-bg');
+        const lblText = document.getElementById('lbl-text');
+        const lblW = 140, lblH = 26;
+        const lblX = cx - lblW / 2;
+        const lblY = cy - r - lblH - 8;
+        if (lblY > 10) {
+            lblBg.setAttribute('x',      lblX);
+            lblBg.setAttribute('y',      lblY);
+            lblBg.setAttribute('width',  lblW);
+            lblBg.setAttribute('height', lblH);
+            lblText.setAttribute('x',    cx);
+            lblText.setAttribute('y',    lblY + 17);
+            lblGrp.setAttribute('opacity', '1');
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateCircle);
+    } else {
+        updateCircle();
+    }
+    window.addEventListener('resize', updateCircle);
+})();
+</script>
 
 <section class="section whatsapp-strip">
     <div class="container ws-inner">
