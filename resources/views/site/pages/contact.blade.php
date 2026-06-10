@@ -157,9 +157,6 @@
     </div>
 </section>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/TDI=" crossorigin=""></script>
-
 <section class="section map-zone">
     <div class="container">
         <h2>Find Us in Jadavpur</h2>
@@ -168,17 +165,17 @@
         <div style="position:relative;border-radius:18px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.14);">
 
             {{-- Leaflet map container --}}
-            <div id="coverage-map" style="width:100%;height:460px;"></div>
+            <div id="coverage-map" style="width:100%;height:460px;background:#e8f0fe;"></div>
 
             {{-- Address label overlay --}}
-            <div style="position:absolute;top:16px;left:50px;z-index:1000;background:rgba(6,20,50,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;padding:.55rem 1.1rem;border-radius:11px;font-size:.8rem;line-height:1.5;border:1px solid rgba(255,255,255,.14);pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,.3);">
-                <strong style="display:block;font-size:.86rem;margin-bottom:.1rem;letter-spacing:.01em;">📍 Cooling Kolkata</strong>
+            <div style="position:absolute;top:16px;left:60px;z-index:1000;background:rgba(6,20,50,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;padding:.55rem 1.1rem;border-radius:11px;font-size:.8rem;line-height:1.5;border:1px solid rgba(255,255,255,.14);pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,.3);">
+                <strong style="display:block;font-size:.86rem;margin-bottom:.1rem;">📍 Cooling Kolkata</strong>
                 <span style="color:rgba(255,255,255,.65);">3/87 C. R Colony, Jadavpur, Kolkata – 700032</span>
             </div>
 
             {{-- 8 km badge --}}
-            <div style="position:absolute;bottom:30px;left:16px;z-index:1000;display:inline-flex;align-items:center;gap:.45rem;background:rgba(0,25,10,.82);backdrop-filter:blur(10px);border:1px solid rgba(34,197,94,.4);color:#4ade80;font-size:.74rem;font-weight:700;padding:.42rem 1rem;border-radius:999px;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,.35);">
-                <span style="width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px #22c55e;animation:mapDotPulse 2s infinite;flex-shrink:0;"></span>
+            <div style="position:absolute;bottom:30px;left:16px;z-index:1000;display:inline-flex;align-items:center;gap:.45rem;background:rgba(0,25,10,.88);backdrop-filter:blur(10px);border:1px solid rgba(34,197,94,.4);color:#4ade80;font-size:.74rem;font-weight:700;padding:.42rem 1rem;border-radius:999px;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,.3);">
+                <span class="map-pulse-dot"></span>
                 8 km service coverage area
             </div>
         </div>
@@ -189,105 +186,104 @@
     </div>
 </section>
 
+{{-- Leaflet loaded AFTER the map div exists --}}
 <style>
-@keyframes mapDotPulse {
-    0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.6)}
-    70%{box-shadow:0 0 0 7px rgba(34,197,94,0)}
-}
-/* Hide Leaflet attribution branding slightly */
-.leaflet-control-attribution { font-size:.65rem !important; opacity:.7; }
+.map-pulse-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px #22c55e;flex-shrink:0;animation:mapDotPulse 2s infinite;}
+@keyframes mapDotPulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.6)}70%{box-shadow:0 0 0 7px rgba(34,197,94,0)}}
+@keyframes markerPing{0%{transform:scale(.8);opacity:.8}100%{transform:scale(2.5);opacity:0}}
+.leaflet-control-attribution{font-size:.62rem!important;opacity:.65;}
 </style>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css"/>
 <script>
-(function () {
-    const LAT = 22.486403, LNG = 88.375548;
+(function(){
+    /* Load Leaflet JS dynamically so it always runs AFTER the map div */
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.js';
+    s.onload = initCoverageMap;
+    s.onerror = function(){ console.warn('Leaflet failed to load'); };
+    document.body.appendChild(s);
 
-    function initMap() {
-        /* ── Tile layer: CartoDB Positron (clean, light, professional) ── */
-        const map = L.map('coverage-map', {
+    function initCoverageMap(){
+        var LAT = 22.486403, LNG = 88.375548;
+        var el  = document.getElementById('coverage-map');
+        if(!el || typeof L === 'undefined') return;
+
+        var map = L.map(el, {
             center: [LAT, LNG],
             zoom: 12,
             zoomControl: true,
             scrollWheelZoom: true,
         });
 
+        /* CartoDB Positron — clean professional light style */
         L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> &copy; <a href="https://carto.com/" target="_blank">CARTO</a>',
             subdomains: 'abcd',
             maxZoom: 19,
         }).addTo(map);
 
-        /* ── 8 km radius circle ── */
+        /* ── 8 km coverage circle (native Leaflet — scales with every zoom) ── */
         L.circle([LAT, LNG], {
-            radius: 8000,                        // metres — scales perfectly with zoom
-            color: '#16a34a',                    // stroke colour
-            weight: 2.5,
-            opacity: 0.9,
-            dashArray: '10 7',
-            lineCap: 'round',
-            fillColor: '#22c55e',
-            fillOpacity: 0.10,
+            radius      : 8000,
+            color       : '#16a34a',
+            weight      : 2.2,
+            opacity     : 0.9,
+            dashArray   : '10 6',
+            lineCap     : 'round',
+            fillColor   : '#22c55e',
+            fillOpacity : 0.09,
         }).addTo(map);
 
-        /* Subtle outer glow ring (slightly larger, very faint) */
+        /* Soft outer glow ring */
         L.circle([LAT, LNG], {
-            radius: 8000,
-            color: '#4ade80',
-            weight: 6,
-            opacity: 0.18,
-            fillOpacity: 0,
+            radius      : 8000,
+            color       : '#4ade80',
+            weight      : 8,
+            opacity     : 0.14,
+            fillOpacity : 0,
         }).addTo(map);
 
-        /* ── Custom pulse marker ── */
-        const pulseIcon = L.divIcon({
-            className: '',
-            html: `
-                <div style="position:relative;width:40px;height:40px;transform:translate(-50%,-50%);">
-                    <span style="position:absolute;inset:0;border-radius:50%;background:rgba(59,130,246,.2);animation:markerPing 2s cubic-bezier(0,0,.2,1) infinite;"></span>
-                    <span style="position:absolute;inset:0;border-radius:50%;background:rgba(59,130,246,.15);animation:markerPing 2s cubic-bezier(0,0,.2,1) infinite .5s;"></span>
-                    <span style="position:absolute;inset:8px;border-radius:50%;background:#1d4ed8;box-shadow:0 0 0 3px #fff,0 4px 12px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
-                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5 14.5 7.62 14.5 9 13.38 11.5 12 11.5z"/>
-                        </svg>
-                    </span>
-                </div>`,
-            iconSize: [0, 0],
-            iconAnchor: [0, 0],
-        });
+        /* ── Custom animated marker ── */
+        var pinHtml = [
+            '<div style="position:relative;width:44px;height:44px;transform:translate(-50%,-50%)">',
+              '<span style="position:absolute;inset:0;border-radius:50%;background:rgba(59,130,246,.22);animation:markerPing 2s cubic-bezier(0,0,.2,1) infinite"></span>',
+              '<span style="position:absolute;inset:0;border-radius:50%;background:rgba(59,130,246,.12);animation:markerPing 2s cubic-bezier(0,0,.2,1) infinite .6s"></span>',
+              '<span style="position:absolute;inset:9px;border-radius:50%;background:#1d4ed8;box-shadow:0 0 0 3px #fff,0 4px 14px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;">',
+                '<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>',
+              '</span>',
+            '</div>'
+        ].join('');
 
-        const marker = L.marker([LAT, LNG], { icon: pulseIcon }).addTo(map);
-        marker.bindPopup(`
-            <div style="font-family:system-ui,sans-serif;padding:.25rem .1rem;min-width:180px;">
-                <strong style="font-size:.9rem;color:#062d67;">Cooling Kolkata</strong><br>
-                <span style="font-size:.78rem;color:#64748b;">3/87 C. R Colony, Jadavpur<br>Kolkata – 700032</span><br>
-                <a href="tel:+918346904100" style="display:inline-block;margin-top:.4rem;font-size:.78rem;color:#1d4ed8;font-weight:600;">+91 83469 04100</a>
-            </div>`, { offset: [0, -10] }
+        var marker = L.marker([LAT, LNG], {
+            icon: L.divIcon({ className:'', html: pinHtml, iconSize:[0,0], iconAnchor:[0,0] })
+        }).addTo(map);
+
+        marker.bindPopup(
+            '<div style="font-family:system-ui,sans-serif;padding:.2rem .1rem;min-width:185px">' +
+              '<strong style="font-size:.88rem;color:#062d67;display:block;margin-bottom:.2rem">Cooling Kolkata</strong>' +
+              '<span style="font-size:.76rem;color:#64748b;line-height:1.5">3/87 C. R Colony, Jadavpur<br>Kolkata – 700032</span><br>' +
+              '<a href="tel:+918346904100" style="display:inline-block;margin-top:.45rem;font-size:.78rem;color:#1d4ed8;font-weight:700">+91 83469 04100</a>' +
+            '</div>',
+            { offset: [0, -8] }
         ).openPopup();
 
-        /* ── Radius label at top of circle ── */
-        const labelIcon = L.divIcon({
-            className: '',
-            html: `<div style="background:rgba(0,20,10,.78);border:1px solid rgba(34,197,94,.5);color:#4ade80;font-size:.7rem;font-weight:700;font-family:system-ui,sans-serif;padding:.28rem .8rem;border-radius:999px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.3);">⬤ 8 km service radius</div>`,
-            iconAnchor: [70, 10],
-        });
-        /* Place label ~8 km north of centre */
-        L.marker([LAT + 0.072, LNG], { icon: labelIcon, interactive: false }).addTo(map);
-    }
+        /* ── "8 km service radius" label pinned ~8 km north ── */
+        L.marker([LAT + 0.072, LNG], {
+            icon: L.divIcon({
+                className: '',
+                html: '<div style="background:rgba(0,22,10,.82);border:1px solid rgba(34,197,94,.5);color:#4ade80;font-size:.68rem;font-weight:700;font-family:system-ui,sans-serif;padding:.26rem .8rem;border-radius:999px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.3)">● 8 km service radius</div>',
+                iconAnchor: [72, 10],
+            }),
+            interactive: false,
+            keyboard   : false,
+        }).addTo(map);
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initMap);
-    } else {
-        initMap();
+        /* Force correct size after fonts/styles settle */
+        setTimeout(function(){ map.invalidateSize(); }, 200);
     }
 })();
 </script>
-
-<style>
-@keyframes markerPing {
-    0%   { transform: scale(.8); opacity: .8; }
-    100% { transform: scale(2.4); opacity: 0; }
-}
-</style>
 
 <section class="section whatsapp-strip">
     <div class="container ws-inner">
