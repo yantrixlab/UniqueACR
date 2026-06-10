@@ -66,7 +66,7 @@
         <p>Get fast AC repair, installation, maintenance, and commercial HVAC support from trusted professionals in Kolkata.</p>
         <div class="contact-hero-tags">
             <span>AC service Kolkata</span>
-            <span>AC repair Jadavpur</span>
+            <span>AC repair Kolkata</span>
             <span>AC installation Kolkata</span>
         </div>
     </div>
@@ -100,7 +100,7 @@
             <div class="contact-card">
                 <div class="ci-icon">🕒</div>
                 <h3>Business Hours</h3>
-                <p>Mon-Sat: 8:00 AM - 9:30 PM<br>Emergency: 24/7</p>
+                <p>Mon-Sat: 9:30 AM - 9:30 PM<br>Emergency: 24/7</p>
             </div>
         </div>
     </div>
