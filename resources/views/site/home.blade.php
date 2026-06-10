@@ -88,30 +88,348 @@
     </div>
 </section>
 
-<section class="section compact-top">
-    <div class="container">
-        <h2>Specialized Climate Solutions</h2>
-        <p class="sub">Tailored cooling services for every environment.</p>
-        <div class="split-cards">
-            <article class="split-card light climate-card">
-                <div class="mini-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M4 14a8 8 0 0 1 16 0M6.5 18h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 10.5c.8-.8 1.8-1.2 3-1.2 1.1 0 2 .4 2.8 1.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+<section class="scs-section">
+    {{-- Subtle dot-grid background --}}
+    <div class="scs-bg-grid"></div>
+
+    <div class="container scs-container">
+        {{-- Section header --}}
+        <div class="scs-header">
+            <div class="scs-eyebrow">
+                <span class="scs-eyebrow-dot"></span>
+                Our Expertise
+            </div>
+            <h2 class="scs-title">Specialized Climate Solutions</h2>
+            <p class="scs-subtitle">Tailored cooling services for every environment — home or enterprise.</p>
+        </div>
+
+        {{-- Two cards --}}
+        <div class="scs-grid">
+
+            {{-- CARD 1: Domestic --}}
+            <article class="scs-card scs-card--light" data-scs-card="domestic">
+                {{-- Animated background blob --}}
+                <div class="scs-card-blob"></div>
+
+                {{-- Top row: icon + tag --}}
+                <div class="scs-card-top">
+                    <div class="scs-icon scs-icon--blue">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                            <polyline points="9 22 9 12 15 12 15 22"/>
+                        </svg>
+                    </div>
+                    <span class="scs-tag">Residential</span>
                 </div>
-                <h3>Domestic AC Services</h3>
-                <p>Quick repair, deep cleaning, and seasonal maintenance for your home units. We handle Split, Window, and Inverter ACs with genuine parts.</p>
-                <a href="{{ route('services.index', ['segment' => 'domestic']) }}">Learn more</a>
-            </article>
-            <article class="split-card dark climate-card">
-                <div class="mini-icon mini-dark" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="2.2" stroke="currentColor" stroke-width="1.7"/><path d="M7 10h10M8 13h8M9 16h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+
+                {{-- Title + desc --}}
+                <h3 class="scs-card-title">Domestic AC Services</h3>
+                <p class="scs-card-desc">Quick repair, deep cleaning, and seasonal maintenance for your home units. We handle Split, Window, and Inverter ACs with genuine parts.</p>
+
+                {{-- Feature chips --}}
+                <div class="scs-chips">
+                    <span class="scs-chip">Split AC</span>
+                    <span class="scs-chip">Window AC</span>
+                    <span class="scs-chip">Inverter AC</span>
+                    <span class="scs-chip">Gas Refill</span>
                 </div>
-                <h3>Commercial HVAC</h3>
-                <p>Scalable cooling for offices, factories, and retail spaces with VRV/VRF, Ductable, and Chiller systems.</p>
-                <a class="badge-btn" href="{{ route('services.index', ['segment' => 'commercial']) }}">View Projects</a>
+
+                {{-- CTA --}}
+                <a href="{{ route('services.index', ['segment' => 'domestic']) }}" class="scs-cta scs-cta--dark">
+                    Explore Domestic Services
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+
+                {{-- Decorative animated AC mini-graphic --}}
+                <div class="scs-deco scs-deco--home" aria-hidden="true">
+                    <div class="scs-mini-ac">
+                        <span class="scs-mini-vent v1"></span>
+                        <span class="scs-mini-vent v2"></span>
+                        <span class="scs-mini-vent v3"></span>
+                    </div>
+                    <div class="scs-cool-ring r1"></div>
+                    <div class="scs-cool-ring r2"></div>
+                    <div class="scs-cool-ring r3"></div>
+                </div>
             </article>
+
+            {{-- CARD 2: Commercial --}}
+            <article class="scs-card scs-card--dark" data-scs-card="commercial">
+                {{-- Animated grid overlay --}}
+                <div class="scs-card-grid-overlay"></div>
+                <div class="scs-card-orb"></div>
+
+                {{-- Top row: icon + tag --}}
+                <div class="scs-card-top">
+                    <div class="scs-icon scs-icon--white">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2"/>
+                            <path d="M8 21h8M12 17v4"/>
+                            <path d="M7 8h10M7 11h6"/>
+                        </svg>
+                    </div>
+                    <span class="scs-tag scs-tag--light">Enterprise</span>
+                </div>
+
+                <h3 class="scs-card-title scs-card-title--white">Commercial HVAC</h3>
+                <p class="scs-card-desc scs-card-desc--muted">Scalable cooling for offices, factories, and retail spaces with VRV/VRF, Ductable, and Chiller systems.</p>
+
+                {{-- Feature chips --}}
+                <div class="scs-chips">
+                    <span class="scs-chip scs-chip--dark">VRV / VRF</span>
+                    <span class="scs-chip scs-chip--dark">Ductable</span>
+                    <span class="scs-chip scs-chip--dark">Chiller</span>
+                    <span class="scs-chip scs-chip--dark">Central AC</span>
+                </div>
+
+                {{-- CTA --}}
+                <a href="{{ route('services.index', ['segment' => 'commercial']) }}" class="scs-cta scs-cta--light">
+                    View Commercial Projects
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+
+                {{-- Decorative animated building graphic --}}
+                <div class="scs-deco scs-deco--building" aria-hidden="true">
+                    <div class="scs-building">
+                        <span class="scs-bwin w1"></span>
+                        <span class="scs-bwin w2"></span>
+                        <span class="scs-bwin w3"></span>
+                        <span class="scs-bwin w4"></span>
+                        <span class="scs-bwin w5"></span>
+                        <span class="scs-bwin w6"></span>
+                    </div>
+                    <div class="scs-signal-ring sr1"></div>
+                    <div class="scs-signal-ring sr2"></div>
+                </div>
+            </article>
+
         </div>
     </div>
 </section>
+
+<style>
+/* ══════════════════════════════════════════
+   SPECIALIZED CLIMATE SOLUTIONS SECTION
+══════════════════════════════════════════ */
+.scs-section {
+    position: relative;
+    padding: 5rem 0;
+    background: var(--bg, #f8fafc);
+    overflow: hidden;
+}
+.scs-bg-grid {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(6,45,103,.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+}
+
+/* Header */
+.scs-container { position: relative; }
+.scs-header { text-align: center; margin-bottom: 3rem; }
+.scs-eyebrow {
+    display: inline-flex; align-items: center; gap: .45rem;
+    background: rgba(6,45,103,.08); border: 1px solid rgba(6,45,103,.14);
+    color: #062d67; font-size: .7rem; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; padding: .32rem .9rem; border-radius: 999px;
+    margin-bottom: 1rem;
+}
+.scs-eyebrow-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #3b82f6;
+    animation: scsDotPulse 2s infinite;
+}
+@keyframes scsDotPulse { 0%,100%{box-shadow:0 0 0 0 rgba(59,130,246,.5)} 70%{box-shadow:0 0 0 6px rgba(59,130,246,0)} }
+.scs-title {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    color: var(--text, #0f172a);
+    margin: 0 0 .6rem;
+    letter-spacing: -.02em;
+}
+.scs-subtitle { color: var(--body,#64748b); font-size: .95rem; margin: 0; }
+
+/* Cards grid */
+.scs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+/* Base card */
+.scs-card {
+    position: relative;
+    border-radius: 24px;
+    padding: 2.5rem;
+    overflow: hidden;
+    transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+    cursor: default;
+}
+.scs-card:hover { transform: translateY(-6px); }
+
+/* Light card */
+.scs-card--light {
+    background: #fff;
+    border: 1px solid rgba(6,45,103,.1);
+    box-shadow: 0 4px 24px rgba(6,45,103,.07), 0 1px 3px rgba(0,0,0,.04);
+}
+.scs-card--light:hover { box-shadow: 0 20px 60px rgba(6,45,103,.15); }
+.scs-card-blob {
+    position: absolute; top: -60px; right: -60px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(59,130,246,.08), transparent 70%);
+    pointer-events: none;
+    animation: blobDrift 6s ease-in-out infinite alternate;
+}
+@keyframes blobDrift { from{transform:translate(0,0)} to{transform:translate(-20px,20px)} }
+
+/* Dark card */
+.scs-card--dark {
+    background: linear-gradient(145deg, #062d67 0%, #0c4a9e 60%, #1055b5 100%);
+    border: 1px solid rgba(255,255,255,.1);
+    box-shadow: 0 4px 24px rgba(6,45,103,.3);
+}
+.scs-card--dark:hover { box-shadow: 0 20px 60px rgba(6,45,103,.5); }
+.scs-card-grid-overlay {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+                      linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none; border-radius: 24px;
+}
+.scs-card-orb {
+    position: absolute; top: -80px; right: -80px;
+    width: 280px; height: 280px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(147,197,253,.15), transparent 70%);
+    pointer-events: none;
+    animation: blobDrift 7s ease-in-out infinite alternate-reverse;
+}
+
+/* Top row */
+.scs-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+.scs-icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .3s;
+}
+.scs-card:hover .scs-icon { transform: rotate(-6deg) scale(1.1); }
+.scs-icon--blue { background: linear-gradient(135deg, #dbeafe, #eff6ff); color: #1e40af; border: 1px solid #bfdbfe; }
+.scs-icon--white { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.2); }
+
+.scs-tag {
+    font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    padding: .25rem .75rem; border-radius: 999px;
+    background: rgba(6,45,103,.07); color: #1e40af; border: 1px solid rgba(6,45,103,.12);
+}
+.scs-tag--light {
+    background: rgba(255,255,255,.1); color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.2);
+}
+
+/* Text */
+.scs-card-title { font-size: 1.45rem; font-weight: 800; color: var(--text,#0f172a); margin: 0 0 .75rem; letter-spacing: -.01em; }
+.scs-card-title--white { color: #fff; }
+.scs-card-desc { font-size: .88rem; line-height: 1.7; color: var(--body,#64748b); margin: 0 0 1.5rem; }
+.scs-card-desc--muted { color: rgba(255,255,255,.65); }
+
+/* Chips */
+.scs-chips { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: 2rem; }
+.scs-chip {
+    font-size: .72rem; font-weight: 600;
+    padding: .28rem .75rem; border-radius: 999px;
+    background: rgba(6,45,103,.06); color: #1e40af; border: 1px solid rgba(6,45,103,.1);
+    transition: background .2s, transform .2s;
+}
+.scs-chip:hover { background: rgba(6,45,103,.12); transform: scale(1.04); }
+.scs-chip--dark {
+    background: rgba(255,255,255,.08); color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.15);
+}
+.scs-chip--dark:hover { background: rgba(255,255,255,.16); }
+
+/* CTA */
+.scs-cta {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-size: .85rem; font-weight: 700; text-decoration: none;
+    padding: .8rem 1.5rem; border-radius: 12px;
+    transition: transform .2s, box-shadow .2s;
+    position: relative; z-index: 1;
+}
+.scs-cta:hover { transform: translateY(-2px); }
+.scs-cta--dark {
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    color: #fff; box-shadow: 0 6px 20px rgba(30,64,175,.3);
+}
+.scs-cta--dark:hover { box-shadow: 0 12px 32px rgba(30,64,175,.45); color: #fff; }
+.scs-cta--light {
+    background: rgba(255,255,255,.12); color: #fff;
+    border: 1px solid rgba(255,255,255,.25);
+    backdrop-filter: blur(8px);
+}
+.scs-cta--light:hover { background: rgba(255,255,255,.22); color: #fff; }
+
+/* ── Decorative animations ── */
+
+/* Home card: mini AC + cool rings */
+.scs-deco { position: absolute; bottom: 1.5rem; right: 1.5rem; pointer-events: none; }
+.scs-deco--home { width: 80px; height: 80px; }
+.scs-mini-ac {
+    position: absolute; bottom: 0; right: 0;
+    width: 52px; height: 22px;
+    background: linear-gradient(160deg,#e0eeff,#b8d4f8);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: space-around; padding: 0 6px;
+    box-shadow: 0 4px 12px rgba(30,64,175,.2);
+    animation: miniAcFloat 3.5s ease-in-out infinite;
+}
+.scs-mini-vent {
+    flex: 1; height: 4px; border-radius: 2px; margin: 0 1px;
+    background: linear-gradient(90deg,rgba(30,64,175,.3),rgba(59,130,246,.5));
+    animation: ventGlow 2s ease-in-out infinite alternate;
+}
+.v2{animation-delay:.3s}.v3{animation-delay:.6s}
+@keyframes miniAcFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+@keyframes ventGlow { from{opacity:.4} to{opacity:1} }
+.scs-cool-ring {
+    position: absolute; border-radius: 50%;
+    border: 1.5px solid rgba(59,130,246,.2);
+    animation: coolExpand 3s ease-out infinite;
+}
+.r1{width:30px;height:30px;bottom:3px;right:13px;animation-delay:0s}
+.r2{width:50px;height:50px;bottom:-7px;right:3px;animation-delay:.6s}
+.r3{width:72px;height:72px;bottom:-18px;right:-8px;animation-delay:1.2s}
+@keyframes coolExpand { 0%{transform:scale(.8);opacity:.6} 100%{transform:scale(1.2);opacity:0} }
+
+/* Commercial card: building windows */
+.scs-deco--building { width: 72px; height: 90px; }
+.scs-building {
+    position: absolute; bottom: 0; right: 4px;
+    width: 48px; height: 64px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 4px 4px 0 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 6px;
+}
+.scs-bwin {
+    border-radius: 2px;
+    background: rgba(255,255,255,.15);
+    animation: winBlink 3s ease-in-out infinite;
+}
+.w1{animation-delay:0s}.w2{animation-delay:.4s}.w3{animation-delay:.8s}
+.w4{animation-delay:1.2s}.w5{animation-delay:1.6s}.w6{animation-delay:2s}
+@keyframes winBlink { 0%,80%,100%{background:rgba(255,255,255,.15)} 40%{background:rgba(251,191,36,.5)} }
+.scs-signal-ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.12);
+    animation: sigPulse 3s ease-out infinite;
+}
+.sr1{width:30px;height:30px;bottom:20px;right:13px;animation-delay:0s}
+.sr2{width:54px;height:54px;bottom:8px;right:1px;animation-delay:.8s}
+@keyframes sigPulse { 0%{transform:scale(.7);opacity:.6} 100%{transform:scale(1.3);opacity:0} }
+
+/* ── Responsive ── */
+@media(max-width:760px) {
+    .scs-grid { grid-template-columns: 1fr; }
+    .scs-card { padding: 2rem 1.5rem; }
+}
+</style>
 
 <section class="amc-v2-section">
     {{-- Animated background elements --}}
