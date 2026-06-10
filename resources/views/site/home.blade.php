@@ -316,86 +316,145 @@ $homeZoneColors = [
     'Science City & Bhawanipore Zone' => '#fb923c',
 ];
 @endphp
-<section style="background:linear-gradient(160deg,#06205a 0%,#0f458f 100%);padding:3.5rem 0;position:relative;overflow:hidden;">
-    <div style="position:absolute;right:-80px;top:-80px;width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;"></div>
-    <div style="position:absolute;left:-60px;bottom:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;"></div>
+
+{{-- ═══════════════════════════════════════════════════════════════
+     BOOKING SECTION
+═══════════════════════════════════════════════════════════════ --}}
+<section style="background:linear-gradient(135deg,#041d4a 0%,#083580 50%,#0a4199 100%);padding:5rem 0;position:relative;overflow:hidden;">
+    {{-- Decorative blobs --}}
+    <div style="position:absolute;top:-120px;right:-120px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(96,165,250,.12) 0%,transparent 70%);pointer-events:none;"></div>
+    <div style="position:absolute;bottom:-80px;left:-80px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(96,165,250,.08) 0%,transparent 70%);pointer-events:none;"></div>
+    {{-- Subtle grid pattern --}}
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;"></div>
 
     <div class="container" style="position:relative;">
+        <div class="hb-grid">
+            {{-- LEFT: Copy + Trust badges --}}
+            <div class="hb-left">
+                <div style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(96,165,250,.18);border:1px solid rgba(96,165,250,.3);color:#93c5fd;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem 1rem;border-radius:999px;margin-bottom:1.5rem;">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11.6 19.79 19.79 0 0 1 1.61 3 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.5 16l.42.92Z"/></svg>
+                    Book a Service — +91 83469 04100
+                </div>
+                <h2 style="color:#fff;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;line-height:1.2;margin:0 0 1rem;letter-spacing:-.02em;">
+                    Schedule Your Service<br>
+                    <span style="background:linear-gradient(90deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">in 60 Seconds</span>
+                </h2>
+                <p style="color:rgba(255,255,255,.65);font-size:1rem;line-height:1.7;margin:0 0 2rem;max-width:420px;">Don't let the heat get to you. Our certified technicians are ready to restore your comfort — same-day service available across South &amp; Central Kolkata.</p>
 
-        {{-- Top row: booking left + areas right --}}
-        <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:2.5rem;align-items:start;" class="home-combined-grid">
-
-            {{-- LEFT: Booking Form --}}
-            <div>
-                <span style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.12);color:rgba(255,255,255,.9);font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:.28rem .8rem;border-radius:999px;margin-bottom:.9rem;">Book a Service</span>
-                <h2 style="color:#fff;font-size:clamp(1.4rem,2.5vw,1.9rem);margin:0 0 .5rem;line-height:1.25;">Schedule Your Service in 60 Seconds</h2>
-                <p style="color:rgba(255,255,255,.7);font-size:.9rem;margin-bottom:1.25rem;line-height:1.6;">Don't let the heat get to you. Our technicians are ready to restore your comfort today.</p>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem .75rem;margin-bottom:1.5rem;">
-                    @foreach([['icon'=>'<svg viewBox="0 0 24 24" fill="none"><path d="M12 3 5 7v5c0 4.2 2.9 8 7 9 4.1-1 7-4.8 7-9V7l-7-4Z" stroke="currentColor" stroke-width="1.8"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>','label'=>'Certified Techs'],['icon'=>'<svg viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 1 1-3-6.3" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>','label'=>'Fast Response'],['icon'=>'<svg viewBox="0 0 24 24" fill="none"><path d="M4 8h16v10H4z" stroke="currentColor" stroke-width="1.8"/><path d="M9 8V6h6v2M4 13h16" stroke="currentColor" stroke-width="1.8"/></svg>','label'=>'Genuine Spares'],['icon'=>'<svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16M8 8h6.5a2.5 2.5 0 1 1 0 5H10a2.5 2.5 0 1 0 0 5h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>','label'=>'Fixed Pricing']] as $fi)
-                    <div style="display:flex;align-items:center;gap:.5rem;color:rgba(255,255,255,.85);font-size:.82rem;font-weight:500;">
-                        <span style="width:20px;height:20px;flex-shrink:0;color:rgba(255,255,255,.7);">{!! $fi['icon'] !!}</span>
-                        {{ $fi['label'] }}
+                {{-- Trust badges --}}
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+                    @foreach([
+                        ['svg'=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3 5 7v5c0 4.2 2.9 8 7 9 4.1-1 7-4.8 7-9V7l-7-4Z"/><path d="m9 12 2 2 4-4"/></svg>','title'=>'Certified Techs','sub'=>'Trained & background-verified'],
+                        ['svg'=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>','title'=>'Same-Day Service','sub'=>'Response within 2–4 hours'],
+                        ['svg'=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2M12 12v4M10 14h4"/></svg>','title'=>'Genuine Spare Parts','sub'=>'OEM & branded components'],
+                        ['svg'=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 1 0 0 7h5a3.5 3.5 0 1 1 0 7H6"/></svg>','title'=>'Transparent Pricing','sub'=>'No hidden charges, ever'],
+                    ] as $tb)
+                    <div style="display:flex;align-items:flex-start;gap:.75rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1rem;">
+                        <div style="width:36px;height:36px;border-radius:9px;background:rgba(96,165,250,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#93c5fd;">
+                            <span style="width:18px;height:18px;display:block;">{!! $tb['svg'] !!}</span>
+                        </div>
+                        <div>
+                            <div style="color:#fff;font-size:.82rem;font-weight:700;line-height:1.3;">{{ $tb['title'] }}</div>
+                            <div style="color:rgba(255,255,255,.45);font-size:.72rem;margin-top:.15rem;line-height:1.4;">{{ $tb['sub'] }}</div>
+                        </div>
                     </div>
                     @endforeach
-                </div>
-                {{-- Form card --}}
-                <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:1.5rem;">
-                    @include('site.partials.enquiry-form')
                 </div>
             </div>
 
-            {{-- RIGHT: Areas --}}
-            <div>
-                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.25rem;flex-wrap:wrap;">
-                    <div>
-                        <span style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.12);color:rgba(255,255,255,.9);font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:.28rem .8rem;border-radius:999px;margin-bottom:.9rem;">
-                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                            {{ $areas->count() }}+ Localities
-                        </span>
-                        <h2 style="color:#fff;font-size:clamp(1.2rem,2.5vw,1.6rem);margin:0 0 .3rem;line-height:1.25;">Areas We Serve</h2>
-                        <p style="color:rgba(255,255,255,.65);font-size:.85rem;margin:0;">South &amp; Central Kolkata · Same-day onsite service</p>
-                    </div>
-                    <a href="{{ route('areas.index') }}" style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.12);color:#fff;font-size:.8rem;font-weight:600;padding:.5rem 1rem;border-radius:8px;border:1px solid rgba(255,255,255,.2);white-space:nowrap;flex-shrink:0;">
-                        View All
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                    </a>
-                </div>
-
-                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:.6rem;">
-                    @foreach($areas as $area)
-                    @php $dotColor = $homeZoneColors[$area->zone] ?? '#60a5fa'; @endphp
-                    <a href="{{ route('areas.show', $area->slug) }}"
-                       style="display:flex;align-items:center;gap:.65rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:.75rem .9rem;text-decoration:none;transition:all .15s ease;"
-                       onmouseover="this.style.background='rgba(255,255,255,.13)';this.style.borderColor='rgba(255,255,255,.22)';this.style.transform='translateY(-2px)'"
-                       onmouseout="this.style.background='rgba(255,255,255,.07)';this.style.borderColor='rgba(255,255,255,.1)';this.style.transform='translateY(0)'">
-                        <span style="width:7px;height:7px;border-radius:50%;background:{{ $dotColor }};flex-shrink:0;box-shadow:0 0 5px {{ $dotColor }}99;"></span>
-                        <div style="flex:1;min-width:0;">
-                            <div style="color:#fff;font-size:.82rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ $area->name }}</div>
-                            <div style="color:rgba(255,255,255,.45);font-size:.7rem;margin-top:.1rem;">{{ $area->pinCodesDisplay() }}</div>
+            {{-- RIGHT: Form card --}}
+            <div class="hb-right">
+                <div style="background:rgba(255,255,255,.06);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:2rem;box-shadow:0 32px 64px rgba(0,0,0,.35);">
+                    <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:1px solid rgba(255,255,255,.1);">
+                        <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#3b82f6,#6366f1);display:flex;align-items:center;justify-content:center;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                         </div>
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2.5" stroke-linecap="round" style="flex-shrink:0;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                    </a>
-                    @endforeach
-                </div>
-
-                {{-- Zone legend --}}
-                <div style="display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;margin-top:1.25rem;padding-top:1.1rem;border-top:1px solid rgba(255,255,255,.1);">
-                    @foreach($areas->groupBy('zone') as $zoneName => $zoneAreas)
-                    @php $c = $homeZoneColors[$zoneName] ?? '#60a5fa'; @endphp
-                    <span style="display:inline-flex;align-items:center;gap:.35rem;font-size:.74rem;color:rgba(255,255,255,.55);">
-                        <span style="width:7px;height:7px;border-radius:50%;background:{{ $c }};flex-shrink:0;"></span>
-                        {{ $zoneName }} <span style="color:{{ $c }};font-weight:600;">({{ $zoneAreas->count() }})</span>
-                    </span>
-                    @endforeach
+                        <div>
+                            <div style="color:#fff;font-weight:700;font-size:.95rem;line-height:1.2;">Book a Service Visit</div>
+                            <div style="color:rgba(255,255,255,.5);font-size:.75rem;">We'll confirm within 30 minutes</div>
+                        </div>
+                        <div style="margin-left:auto;display:flex;align-items:center;gap:.3rem;background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.3);color:#6ee7b7;font-size:.68rem;font-weight:700;padding:.25rem .6rem;border-radius:999px;">
+                            <span style="width:5px;height:5px;border-radius:50%;background:#34d399;display:block;animation:blink 1.4s infinite;"></span>
+                            Available Now
+                        </div>
+                    </div>
+                    @include('site.partials.enquiry-form')
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+{{-- ═══════════════════════════════════════════════════════════════
+     AREAS SECTION
+═══════════════════════════════════════════════════════════════ --}}
+<section style="background:linear-gradient(180deg,#051c48 0%,#07266a 100%);padding:4rem 0;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.025) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;"></div>
+
+    <div class="container" style="position:relative;">
+        {{-- Section header --}}
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;margin-bottom:2rem;">
+            <div>
+                <div style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .85rem;border-radius:999px;margin-bottom:.8rem;">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    {{ $areas->count() }} Localities Covered
+                </div>
+                <h2 style="color:#fff;font-size:clamp(1.4rem,2.8vw,2rem);font-weight:800;margin:0 0 .4rem;letter-spacing:-.01em;">We Serve These Areas</h2>
+                <p style="color:rgba(255,255,255,.5);font-size:.88rem;margin:0;">South &amp; Central Kolkata · Onsite AC repair, installation &amp; maintenance</p>
+            </div>
+            <a href="{{ route('areas.index') }}" style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:.82rem;font-weight:600;padding:.65rem 1.3rem;border-radius:10px;text-decoration:none;white-space:nowrap;transition:all .15s;"
+               onmouseover="this.style.background='rgba(255,255,255,.15)'"
+               onmouseout="this.style.background='rgba(255,255,255,.08)'">
+                View All Service Areas
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+        </div>
+
+        {{-- Area cards grid --}}
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.7rem;">
+            @foreach($areas as $area)
+            @php $dotColor = $homeZoneColors[$area->zone] ?? '#60a5fa'; @endphp
+            <a href="{{ route('areas.show', $area->slug) }}"
+               style="display:flex;align-items:center;gap:.8rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:.9rem 1rem;text-decoration:none;transition:all .18s ease;position:relative;overflow:hidden;"
+               onmouseover="this.style.background='rgba(255,255,255,.1)';this.style.borderColor='rgba(255,255,255,.2)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,.3)'"
+               onmouseout="this.style.background='rgba(255,255,255,.05)';this.style.borderColor='rgba(255,255,255,.09)';this.style.transform='none';this.style.boxShadow='none'">
+                <div style="width:34px;height:34px;border-radius:8px;background:{{ $dotColor }}18;border:1px solid {{ $dotColor }}44;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <span style="width:8px;height:8px;border-radius:50%;background:{{ $dotColor }};box-shadow:0 0 8px {{ $dotColor }};display:block;"></span>
+                </div>
+                <div style="flex:1;min-width:0;">
+                    <div style="color:#fff;font-size:.85rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3;">{{ $area->name }}</div>
+                    <div style="color:rgba(255,255,255,.4);font-size:.72rem;margin-top:.2rem;">PIN {{ $area->pinCodesDisplay() }}</div>
+                </div>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="{{ $dotColor }}88" stroke-width="2.5" stroke-linecap="round" style="flex-shrink:0;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            @endforeach
+        </div>
+
+        {{-- Zone legend --}}
+        <div style="display:flex;flex-wrap:wrap;gap:.6rem 2rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.08);">
+            @foreach($areas->groupBy('zone') as $zoneName => $zoneAreas)
+            @php $c = $homeZoneColors[$zoneName] ?? '#60a5fa'; @endphp
+            <div style="display:inline-flex;align-items:center;gap:.5rem;">
+                <span style="width:9px;height:9px;border-radius:50%;background:{{ $c }};box-shadow:0 0 6px {{ $c }}88;flex-shrink:0;"></span>
+                <span style="color:rgba(255,255,255,.55);font-size:.78rem;">{{ $zoneName }}</span>
+                <span style="background:{{ $c }}22;border:1px solid {{ $c }}44;color:{{ $c }};font-size:.68rem;font-weight:700;padding:.1rem .45rem;border-radius:999px;">{{ $zoneAreas->count() }}</span>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
 <style>
-@media(max-width:860px) {
-    .home-combined-grid { grid-template-columns:1fr !important; }
+.hb-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+@media(max-width:900px) {
+    .hb-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hb-left h2 { font-size: 1.8rem; }
 }
 </style>
 @endif
