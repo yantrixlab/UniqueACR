@@ -4774,20 +4774,23 @@ h4 {
 }
 .products-content {
     min-width: 0;
-    padding: 32px 0;
+}
+.products-content > .container {
+    max-width: none;
+    margin: 0;
+    padding: 40px 32px 48px 28px;
 }
 .products-filters {
     position: sticky;
     top: 84px;
     align-self: start;
-    padding: 20px 16px 20px 20px;
-    border-radius: 0 14px 14px 0;
-    border: 1px solid rgba(122, 153, 198, 0.34);
+    padding: 32px 18px 32px 20px;
+    border-radius: 0 16px 16px 0;
+    border: 1px solid rgba(122, 153, 198, 0.30);
     border-left: none;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(9px);
-    box-shadow: 4px 12px 24px rgba(8, 37, 87, 0.08);
-    min-height: calc(100vh - 120px);
+    box-shadow: 4px 0 24px rgba(8, 37, 87, 0.07);
     max-height: calc(100vh - 100px);
     overflow-y: auto;
 }

@@ -175,7 +175,6 @@
 
         <div class="products-content">
         <div class="container">
-        <div>
             <div class="products-toolbar">
                 <button type="button" class="ghost-btn filters-open" id="openFilters">Filter & Search</button>
                 <p>{{ $products->total() }} products found</p>
@@ -219,7 +218,6 @@
             </div>
 
             <div class="pagination-wrap">{{ $products->links() }}</div>
-        </div>
         </div>
         </div>
 </section>
