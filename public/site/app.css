@@ -4776,9 +4776,11 @@ h4 {
     min-width: 0;
 }
 .products-content > .container {
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 40px 16px 48px 16px;
+    max-width: none;
+    margin: 0;
+    padding: 40px 24px 48px 24px;
+    width: 100%;
+    box-sizing: border-box;
 }
 .products-filters {
     position: sticky;
