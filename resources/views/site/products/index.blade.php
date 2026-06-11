@@ -125,8 +125,7 @@
 </section>
 
 <section class="section products-listing-section" id="products-catalog">
-    <div class="container products-layout">
-        <aside class="products-filters" id="filtersDrawer">
+    <aside class="products-filters" id="filtersDrawer">
             <div class="filters-head">
                 <h3>Filters</h3>
                 <button type="button" class="ghost-btn filters-close" id="closeFilters">Close</button>
@@ -174,6 +173,8 @@
             </form>
         </aside>
 
+        <div class="products-content">
+        <div class="container">
         <div>
             <div class="products-toolbar">
                 <button type="button" class="ghost-btn filters-open" id="openFilters">Filter & Search</button>
@@ -219,7 +220,8 @@
 
             <div class="pagination-wrap">{{ $products->links() }}</div>
         </div>
-    </div>
+        </div>
+        </div>
 </section>
 
 <section class="section pp-cta-banner">
