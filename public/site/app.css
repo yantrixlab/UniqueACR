@@ -4777,7 +4777,7 @@ h4 {
 }
 .products-content > .container {
     max-width: 1140px;
-    margin: 0;
+    margin: 0 auto;
     padding: 40px 16px 48px 16px;
 }
 .products-filters {
