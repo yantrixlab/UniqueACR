@@ -4776,9 +4776,9 @@ h4 {
     min-width: 0;
 }
 .products-content > .container {
-    max-width: none;
+    max-width: 1140px;
     margin: 0;
-    padding: 40px 32px 48px 28px;
+    padding: 40px 16px 48px 16px;
 }
 .products-filters {
     position: sticky;
