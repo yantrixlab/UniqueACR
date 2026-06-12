@@ -115,29 +115,92 @@
                     </form>
                 </template>
 
-                {{-- Import ZIP from local file (fallback — use only if server restore not available) --}}
-                <form method="POST"
-                      action="{{ route('admin.media.import') }}"
-                      enctype="multipart/form-data"
-                      class="media-import-form"
-                      x-data="{ forceRestore: true }"
-                      x-ref="importForm">
-                    @csrf
-                    <input type="hidden" name="force_restore" x-bind:value="forceRestore ? '1' : '0'">
-                    <input type="file"
-                           name="zip_file"
-                           accept=".zip"
-                           class="sr-only"
-                           x-ref="zipInput"
-                           x-on:change="$refs.importForm.submit()">
-                    <button type="button"
-                            class="media-btn-import"
+                {{-- Chunked ZIP Import — bypasses PHP upload_max_filesize entirely --}}
+                <div x-data="chunkUploader('{{ route('admin.media.chunk-upload') }}','{{ route('admin.media.chunk-assemble') }}','{{ csrf_token() }}')"
+                     style="display:inline-flex;align-items:center;gap:8px;">
+
+                    <input type="file" accept=".zip" class="sr-only" x-ref="zipInput"
+                           x-on:change="startUpload($event.target.files[0])">
+
+                    <button type="button" class="media-btn-import"
                             x-on:click="$refs.zipInput.click()"
-                            title="Upload & import a ZIP backup from your computer">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                        Import ZIP
+                            :disabled="uploading"
+                            title="Upload & restore a ZIP backup — splits into small chunks to bypass server upload limits">
+                        <template x-if="!uploading">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        </template>
+                        <span x-text="uploading ? label : 'Import ZIP'"></span>
                     </button>
-                </form>
+
+                    {{-- Progress bar --}}
+                    <div x-show="uploading" style="width:120px;background:#374151;border-radius:4px;height:6px;overflow:hidden;">
+                        <div :style="`width:${progress}%;background:#60a5fa;height:100%;transition:width .3s`"></div>
+                    </div>
+                    <span x-show="uploading" x-text="progress + '%'" style="font-size:12px;color:#9ca3af;min-width:32px;"></span>
+                </div>
+
+                <script>
+                function chunkUploader(uploadUrl, assembleUrl, csrfToken) {
+                    return {
+                        uploading: false,
+                        progress: 0,
+                        label: 'Uploading…',
+                        CHUNK_SIZE: 5 * 1024 * 1024, // 5 MB per chunk
+
+                        async startUpload(file) {
+                            if (!file) return;
+                            this.uploading = true;
+                            this.progress = 0;
+                            this.label = 'Uploading…';
+
+                            const uuid   = crypto.randomUUID();
+                            const total  = Math.ceil(file.size / this.CHUNK_SIZE);
+                            let uploaded = 0;
+
+                            for (let i = 0; i < total; i++) {
+                                const start = i * this.CHUNK_SIZE;
+                                const chunk = file.slice(start, start + this.CHUNK_SIZE);
+                                const fd    = new FormData();
+                                fd.append('_token', csrfToken);
+                                fd.append('chunk', chunk, file.name);
+                                fd.append('uuid', uuid);
+                                fd.append('index', i);
+                                fd.append('total', total);
+
+                                const res = await fetch(uploadUrl, { method: 'POST', body: fd });
+                                if (!res.ok) {
+                                    alert('Chunk ' + i + ' failed. Please try again.');
+                                    this.uploading = false;
+                                    return;
+                                }
+
+                                uploaded++;
+                                this.progress = Math.round((uploaded / total) * 90);
+                            }
+
+                            // All chunks sent — assemble & restore
+                            this.label = 'Restoring…';
+                            this.progress = 95;
+
+                            const fd2 = new FormData();
+                            fd2.append('_token', csrfToken);
+                            fd2.append('uuid', uuid);
+                            fd2.append('total', total);
+                            fd2.append('force', '1');
+
+                            const res2 = await fetch(assembleUrl, { method: 'POST', body: fd2 });
+                            const data = await res2.json();
+
+                            this.progress = 100;
+                            this.uploading = false;
+
+                            // Show result then reload to refresh media grid
+                            alert((data.ok ? '✅ ' : '❌ ') + (data.message ?? 'Done.'));
+                            window.location.reload();
+                        }
+                    }
+                }
+                </script>
 
                 {{-- Scan disk & sync DB — zero-upload restore --}}
                 <button type="button"

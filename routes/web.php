@@ -35,6 +35,8 @@ Route::middleware(['web', 'auth:web'])->prefix('admin-media')->group(function ()
     Route::get('/backup-status', [MediaBackupController::class, 'backupStatus'])->name('admin.media.backup-status');
     Route::post('/restore-from-server', [MediaBackupController::class, 'restoreFromServer'])->name('admin.media.restore-from-server');
     Route::post('/import', [MediaBackupController::class, 'import'])->name('admin.media.import');
+    Route::post('/chunk-upload', [MediaBackupController::class, 'chunkUpload'])->name('admin.media.chunk-upload');
+    Route::post('/chunk-assemble', [MediaBackupController::class, 'chunkAssemble'])->name('admin.media.chunk-assemble');
 });
 
 Route::get('/sitemap.xml', function () {

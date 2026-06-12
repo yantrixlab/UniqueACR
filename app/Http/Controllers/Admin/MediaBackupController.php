@@ -139,17 +139,131 @@ class MediaBackupController extends Controller
     }
 
     // ─────────────────────────────────────────────────────────
+    // CHUNKED UPLOAD  (each chunk ≤ 5 MB — stays under PHP limits)
+    // ─────────────────────────────────────────────────────────
+
+    /**
+     * Receive one chunk and append it to the temp assembly file.
+     * Expects: chunk (file), uuid (string), index (int), total (int)
+     */
+    public function chunkUpload(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $request->validate([
+            'chunk' => ['required', 'file'],
+            'uuid'  => ['required', 'string', 'alpha_dash', 'max:64'],
+            'index' => ['required', 'integer', 'min:0'],
+            'total' => ['required', 'integer', 'min:1'],
+        ]);
+
+        $uuid    = $request->input('uuid');
+        $index   = (int) $request->input('index');
+        $dir     = storage_path('app/chunks/' . $uuid);
+
+        if (! is_dir($dir)) {
+            mkdir($dir, 0775, true);
+        }
+
+        // Save this chunk as a numbered file
+        $request->file('chunk')->move($dir, $index . '.part');
+
+        return response()->json(['ok' => true, 'index' => $index]);
+    }
+
+    /**
+     * All chunks received — assemble them in order, then run the restore.
+     * Expects: uuid (string), total (int), force (bool)
+     */
+    public function chunkAssemble(Request $request): \Illuminate\Http\JsonResponse
+    {
+        @ini_set('memory_limit', '512M');
+        @ini_set('max_execution_time', '300');
+
+        $request->validate([
+            'uuid'  => ['required', 'string', 'alpha_dash', 'max:64'],
+            'total' => ['required', 'integer', 'min:1'],
+        ]);
+
+        $uuid  = $request->input('uuid');
+        $total = (int) $request->input('total');
+        $force = (bool) $request->input('force', true);
+        $dir   = storage_path('app/chunks/' . $uuid);
+
+        // Verify all parts arrived
+        for ($i = 0; $i < $total; $i++) {
+            if (! file_exists("{$dir}/{$i}.part")) {
+                return response()->json(['ok' => false, 'error' => "Missing chunk {$i}"], 422);
+            }
+        }
+
+        // Assemble into the standard backup path
+        $backupDir = storage_path('app/backups');
+        if (! is_dir($backupDir)) {
+            mkdir($backupDir, 0775, true);
+        }
+        $zipPath = storage_path(self::BACKUP_PATH);
+
+        $out = fopen($zipPath, 'wb');
+        for ($i = 0; $i < $total; $i++) {
+            $part = "{$dir}/{$i}.part";
+            fwrite($out, file_get_contents($part));
+            unlink($part);
+        }
+        fclose($out);
+        rmdir($dir);
+
+        // Verify it's a valid ZIP before restoring
+        $zip = new ZipArchive();
+        if ($zip->open($zipPath) !== true) {
+            return response()->json(['ok' => false, 'error' => 'Assembled file is not a valid ZIP.'], 422);
+        }
+        $zip->close();
+
+        // Run restore — returns result array directly when $returnResult is true
+        [$imported, $relinked, $skipped, $errors] = $this->doRestore($zipPath, $force);
+
+        $parts = [];
+        if ($imported) $parts[] = "{$imported} files restored to disk & library";
+        if ($relinked) $parts[] = "{$relinked} files re-linked to library";
+        if ($skipped)  $parts[] = "{$skipped} skipped";
+        if ($errors)   $parts[] = "{$errors} errors";
+
+        $msg = $parts ? implode(', ', $parts) . '.' : 'All files already intact.';
+        $ok  = $imported > 0 || $relinked > 0 || ($skipped > 0 && $errors === 0);
+
+        return response()->json(['ok' => $ok, 'message' => 'Restore complete: ' . $msg]);
+    }
+
+    // ─────────────────────────────────────────────────────────
     // SHARED RESTORE LOGIC
     // ─────────────────────────────────────────────────────────
 
     private function runRestore(string $zipPath, bool $force = false): \Illuminate\Http\RedirectResponse
     {
-        $zip        = new ZipArchive();
-        $openResult = $zip->open($zipPath);
-
-        if ($openResult !== true) {
-            return back()->with('import_error', 'Could not open ZIP file (code: ' . $openResult . '). The file may be corrupt.');
+        $zip = new ZipArchive();
+        if ($zip->open($zipPath) !== true) {
+            return back()->with('import_error', 'Could not open ZIP file. The file may be corrupt.');
         }
+        $zip->close();
+
+        [$imported, $relinked, $skipped, $errors] = $this->doRestore($zipPath, $force);
+
+        $parts = [];
+        if ($imported) $parts[] = "{$imported} files restored to disk & library";
+        if ($relinked) $parts[] = "{$relinked} files re-linked to library";
+        if ($skipped)  $parts[] = "{$skipped} skipped";
+        if ($errors)   $parts[] = "{$errors} errors (check logs)";
+
+        $msg  = $parts ? implode(', ', $parts) . '.' : 'Nothing to restore — all files already intact.';
+        $type = ($errors && ! $imported && ! $relinked) ? 'import_error' : 'import_success';
+
+        return back()->with($type, 'Restore complete: ' . $msg);
+    }
+
+    /** Returns [imported, relinked, skipped, errors] */
+    private function doRestore(string $zipPath, bool $force = false): array
+    {
+        $zip = new ZipArchive();
+        $zip->open($zipPath);
 
         $mediaService = app(MediaService::class);
         $imported = 0;
@@ -160,7 +274,6 @@ class MediaBackupController extends Controller
         for ($i = 0; $i < $zip->numFiles; $i++) {
             $name = $zip->getNameIndex($i);
 
-            // Skip directory entries and hidden/system files
             if (str_ends_with($name, '/') || str_starts_with(basename($name), '.')) {
                 continue;
             }
@@ -171,9 +284,8 @@ class MediaBackupController extends Controller
                 continue;
             }
 
-            // Sanitise path — preserve subdirectories, strip ".." / absolute parts
             $parts  = array_filter(explode('/', $name), fn ($s) => $s !== '' && $s !== '..');
-            $target = implode('/', $parts); // e.g. "media/products/image.jpg"
+            $target = implode('/', $parts);
 
             if (! str_starts_with($target, 'media/')) {
                 $skipped++;
@@ -183,19 +295,16 @@ class MediaBackupController extends Controller
             $dbExists   = Media::query()->where('path', $target)->exists();
             $fileExists = Storage::disk('public')->exists($target);
 
-            // Truly intact — skip
             if ($dbExists && $fileExists && ! $force) {
                 $skipped++;
                 continue;
             }
 
-            // Force: delete stale DB record so we recreate it fresh
             if ($force && $dbExists) {
                 Media::query()->where('path', $target)->delete();
                 $dbExists = false;
             }
 
-            // Write file to disk if it's missing
             if (! $fileExists || $force) {
                 $dir = Storage::disk('public')->path(dirname($target));
                 if (! is_dir($dir)) {
@@ -217,7 +326,7 @@ class MediaBackupController extends Controller
 
                 $imported++;
             } else {
-                $relinked++; // file on disk, just missing DB record
+                $relinked++;
             }
 
             try {
@@ -230,15 +339,6 @@ class MediaBackupController extends Controller
 
         $zip->close();
 
-        $parts = [];
-        if ($imported) $parts[] = "{$imported} files restored to disk & library";
-        if ($relinked) $parts[] = "{$relinked} files re-linked to library";
-        if ($skipped)  $parts[] = "{$skipped} skipped";
-        if ($errors)   $parts[] = "{$errors} errors (check logs)";
-
-        $msg  = $parts ? implode(', ', $parts) . '.' : 'Nothing to restore — all files already intact.';
-        $type = ($errors && ! $imported && ! $relinked) ? 'import_error' : 'import_success';
-
-        return back()->with($type, 'Restore complete: ' . $msg);
+        return [$imported, $relinked, $skipped, $errors];
     }
 }
