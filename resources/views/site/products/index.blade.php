@@ -274,7 +274,7 @@
 
             /* Right: price */
             .fs-right{flex-shrink:0;text-align:right;}
-            .fs-price-now{font-size:2.1rem;font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1;text-shadow:0 2px 10px rgba(0,0,0,.5);}
+            .fs-price-now{font-size:2.1rem;font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1;text-shadow:0 2px 10px rgba(0,0,0,.5);margin-bottom:34px;}
             .fs-price-old{font-size:.9rem;color:rgba(255,255,255,.5);text-decoration:line-through;margin-bottom:2px;}
 
             /* Arrows */
