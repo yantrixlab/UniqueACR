@@ -32,6 +32,8 @@ Route::post('/enquiries', [EnquiryController::class, 'store'])->middleware('thro
 // Admin Media Backup (protected by Filament auth middleware)
 Route::middleware(['web', 'auth:web'])->prefix('admin-media')->group(function () {
     Route::get('/export', [MediaBackupController::class, 'export'])->name('admin.media.export');
+    Route::get('/backup-status', [MediaBackupController::class, 'backupStatus'])->name('admin.media.backup-status');
+    Route::post('/restore-from-server', [MediaBackupController::class, 'restoreFromServer'])->name('admin.media.restore-from-server');
     Route::post('/import', [MediaBackupController::class, 'import'])->name('admin.media.import');
 });
 

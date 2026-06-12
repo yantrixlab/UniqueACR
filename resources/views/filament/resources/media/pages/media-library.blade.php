@@ -72,21 +72,52 @@
 
         <div class="media-head">
             <h2 class="media-title">Media Library</h2>
-            <div class="media-head-actions">
+            <div class="media-head-actions"
+                 x-data="{
+                    serverBackup: null,
+                    restoring: false,
+                    init() {
+                        fetch('{{ route('admin.media.backup-status') }}')
+                            .then(r => r.json())
+                            .then(d => { this.serverBackup = d; });
+                    }
+                 }">
+
                 {{-- Export ZIP --}}
                 <a href="{{ route('admin.media.export') }}"
                    class="media-btn-export"
-                   title="Download all media files as a ZIP backup">
+                   title="Download all media files as a ZIP backup. A copy is also kept on the server for one-click restore.">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                     Export ZIP
                 </a>
 
-                {{-- Import ZIP --}}
+                {{-- Restore from server backup (primary — no upload needed) --}}
+                <template x-if="serverBackup && serverBackup.exists">
+                    <form method="POST" action="{{ route('admin.media.restore-from-server') }}" x-ref="serverRestoreForm">
+                        @csrf
+                        <button type="submit"
+                                class="media-btn-restore-server"
+                                x-on:click="restoring = true"
+                                :disabled="restoring"
+                                :title="`Restore from server backup (${serverBackup.size}, saved ${serverBackup.modified})`">
+                            <template x-if="!restoring">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+                            </template>
+                            <template x-if="restoring">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:spin 1s linear infinite"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                            </template>
+                            <span x-text="restoring ? 'Restoring…' : 'Restore from Server'"></span>
+                            <span x-text="`(${serverBackup.size})`" style="opacity:.7;font-size:11px;"></span>
+                        </button>
+                    </form>
+                </template>
+
+                {{-- Import ZIP from local file (fallback — use only if server restore not available) --}}
                 <form method="POST"
                       action="{{ route('admin.media.import') }}"
                       enctype="multipart/form-data"
                       class="media-import-form"
-                      x-data="{ forceRestore: false, fileName: '' }"
+                      x-data="{ forceRestore: true }"
                       x-ref="importForm">
                     @csrf
                     <input type="hidden" name="force_restore" x-bind:value="forceRestore ? '1' : '0'">
@@ -95,36 +126,33 @@
                            accept=".zip"
                            class="sr-only"
                            x-ref="zipInput"
-                           x-on:change="fileName = $refs.zipInput.files[0]?.name ?? ''; $refs.importForm.submit()">
-
-                    <div style="display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                        {{-- Force restore toggle --}}
-                        <label style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-size:12px;color:#9ca3af;" title="Re-extract ALL files even if they already exist in the library">
-                            <span style="position:relative;display:inline-block;width:30px;height:16px;">
-                                <input type="checkbox" x-model="forceRestore" style="opacity:0;width:0;height:0;position:absolute;">
-                                <span style="position:absolute;inset:0;border-radius:8px;transition:.2s;cursor:pointer;"
-                                      :style="forceRestore ? 'background:#ef4444' : 'background:#374151'">
-                                    <span style="position:absolute;top:2px;width:12px;height:12px;border-radius:50%;background:#fff;transition:.2s;"
-                                          :style="forceRestore ? 'left:16px' : 'left:2px'"></span>
-                                </span>
-                            </span>
-                            <span x-text="forceRestore ? 'Force ON' : 'Force'"></span>
-                        </label>
-
-                        <button type="button"
-                                class="media-btn-import"
-                                x-on:click="$refs.zipInput.click()"
-                                title="Restore media from a ZIP backup">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                            Import ZIP
-                        </button>
-                    </div>
+                           x-on:change="$refs.importForm.submit()">
+                    <button type="button"
+                            class="media-btn-import"
+                            x-on:click="$refs.zipInput.click()"
+                            title="Upload & import a ZIP backup from your computer">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        Import ZIP
+                    </button>
                 </form>
 
                 {{-- Upload Files --}}
                 <button type="button" class="media-upload-top" x-on:click="$refs.fileInput.click()">Upload Files</button>
             </div>
         </div>
+
+        <style>
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .media-btn-restore-server {
+            background: #1e3a5f; color: #60a5fa;
+            border: 1px solid #2563eb; border-radius: 10px;
+            padding: 9px 15px; font-weight: 600; cursor: pointer;
+            font-size: 13px; display: inline-flex; align-items: center; gap: 6px;
+            transition: background .2s;
+        }
+        .media-btn-restore-server:hover:not(:disabled) { background: #1d4ed8; color: #fff; }
+        .media-btn-restore-server:disabled { opacity: .6; cursor: not-allowed; }
+        </style>
 
         <div class="media-dropzone"
              :class="{ 'dragover': isDragging }"

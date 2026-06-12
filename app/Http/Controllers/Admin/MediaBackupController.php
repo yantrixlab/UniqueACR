@@ -13,11 +13,12 @@ use ZipArchive;
 class MediaBackupController extends Controller
 {
     private const ALLOWED_EXTENSIONS = ['jpg','jpeg','png','gif','webp','svg','pdf','docx','xlsx','csv','mp4','mp3'];
+    private const BACKUP_PATH        = 'app/backups/media-backup-latest.zip';
 
-    /**
-     * Export all active media files as a ZIP download.
-     * Writes to a temp file then streams it — avoids loading all file bytes into PHP memory at once.
-     */
+    // ─────────────────────────────────────────────────────────
+    // EXPORT
+    // ─────────────────────────────────────────────────────────
+
     public function export(): \Symfony\Component\HttpFoundation\StreamedResponse|\Illuminate\Http\RedirectResponse
     {
         @ini_set('memory_limit', '512M');
@@ -29,33 +30,29 @@ class MediaBackupController extends Controller
             return back()->with('import_error', 'No media files found to export.');
         }
 
-        // Write ZIP to a dedicated temp path inside storage/app (writable on all hosts)
-        $tmpDir  = storage_path('app/tmp');
-        if (! is_dir($tmpDir)) {
-            @mkdir($tmpDir, 0775, true);
+        $backupDir = storage_path('app/backups');
+        if (! is_dir($backupDir)) {
+            @mkdir($backupDir, 0775, true);
         }
-        $zipPath = $tmpDir . '/media-export-' . time() . '.zip';
 
-        $zip = new ZipArchive();
+        // Keep at a fixed name so it can be restored from server without re-upload
+        $zipPath = storage_path(self::BACKUP_PATH);
+
+        $zip    = new ZipArchive();
         $result = $zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
         if ($result !== true) {
-            Log::error('MediaBackup export: ZipArchive::open failed', ['code' => $result, 'path' => $zipPath]);
-            return back()->with('import_error', 'Could not create ZIP archive (code: ' . $result . '). Check server write permissions.');
+            Log::error('MediaBackup export: ZipArchive::open failed', ['code' => $result]);
+            return back()->with('import_error', 'Could not create ZIP (code: ' . $result . '). Check server write permissions.');
         }
 
         $added = 0;
         foreach ($media as $item) {
-            $disk     = $item->disk ?: 'public';
-            $filePath = Storage::disk($disk)->path($item->path);
-
-            if (! file_exists($filePath)) {
-                continue;
+            $filePath = Storage::disk($item->disk ?: 'public')->path($item->path);
+            if (file_exists($filePath)) {
+                $zip->addFile($filePath, $item->path);
+                $added++;
             }
-
-            // Store with the original path so import can reconstruct it
-            $zip->addFile($filePath, $item->path);
-            $added++;
         }
 
         $zip->close();
@@ -67,15 +64,14 @@ class MediaBackupController extends Controller
 
         $filename = 'media-backup-' . now()->format('Y-m-d') . '.zip';
 
+        // Stream in chunks — backup file stays on server for one-click restore
         return response()->streamDownload(function () use ($zipPath) {
-            // Stream in 1 MB chunks — avoids memory_limit on large ZIPs
             $handle = fopen($zipPath, 'rb');
             while (! feof($handle)) {
                 echo fread($handle, 1024 * 1024);
                 flush();
             }
             fclose($handle);
-            @unlink($zipPath);
         }, $filename, [
             'Content-Type'        => 'application/zip',
             'Content-Disposition' => 'attachment; filename="' . $filename . '"',
@@ -86,29 +82,73 @@ class MediaBackupController extends Controller
         ]);
     }
 
-    /**
-     * Restore media from an uploaded ZIP backup.
-     * - If DB record already exists for a path → skip (already restored).
-     * - If file exists on disk but no DB record → create the record (re-link).
-     * - If file is missing from disk → extract from ZIP, then create record.
-     */
+    // ─────────────────────────────────────────────────────────
+    // BACKUP STATUS (called via JS to show/hide server restore button)
+    // ─────────────────────────────────────────────────────────
+
+    public function backupStatus(): \Illuminate\Http\JsonResponse
+    {
+        $path = storage_path(self::BACKUP_PATH);
+
+        if (! file_exists($path)) {
+            return response()->json(['exists' => false]);
+        }
+
+        return response()->json([
+            'exists'   => true,
+            'size'     => round(filesize($path) / 1024 / 1024, 1) . ' MB',
+            'modified' => date('Y-m-d H:i', filemtime($path)),
+        ]);
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // RESTORE FROM SERVER BACKUP (no upload required)
+    // ─────────────────────────────────────────────────────────
+
+    public function restoreFromServer(Request $request): \Illuminate\Http\RedirectResponse
+    {
+        @ini_set('memory_limit', '512M');
+        @ini_set('max_execution_time', '300');
+
+        $zipPath = storage_path(self::BACKUP_PATH);
+
+        if (! file_exists($zipPath)) {
+            return back()->with('import_error', 'No server backup found. Click "Export ZIP" first to create one.');
+        }
+
+        return $this->runRestore($zipPath, force: true);
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // IMPORT FROM UPLOADED ZIP
+    // ─────────────────────────────────────────────────────────
+
     public function import(Request $request): \Illuminate\Http\RedirectResponse
     {
         @ini_set('memory_limit', '512M');
         @ini_set('max_execution_time', '300');
 
         $request->validate([
-            'zip_file' => ['required', 'file', 'mimes:zip,octet-stream', 'max:524288'],
+            'zip_file' => ['required', 'file', 'max:524288'], // 512 MB — mime check skipped (unreliable across hosts)
         ]);
 
-        $force = (bool) $request->input('force_restore', false);
+        $zipPath = $request->file('zip_file')->getPathname();
+        $force   = (bool) $request->input('force_restore', false);
 
-        $zip     = new ZipArchive();
-        $tmpPath = $request->file('zip_file')->getPathname();
+        return $this->runRestore($zipPath, $force);
+    }
 
-        $openResult = $zip->open($tmpPath);
+    // ─────────────────────────────────────────────────────────
+    // SHARED RESTORE LOGIC
+    // ─────────────────────────────────────────────────────────
+
+    private function runRestore(string $zipPath, bool $force = false): \Illuminate\Http\RedirectResponse
+    {
+        $zip        = new ZipArchive();
+        $openResult = $zip->open($zipPath);
+
         if ($openResult !== true) {
-            return back()->with('import_error', 'Invalid or corrupt ZIP file (code: ' . $openResult . ').');
+            return back()->with('import_error', 'Could not open ZIP file (code: ' . $openResult . '). The file may be corrupt.');
         }
 
         $mediaService = app(MediaService::class);
@@ -125,22 +165,16 @@ class MediaBackupController extends Controller
                 continue;
             }
 
-            $extension = strtolower(pathinfo($name, PATHINFO_EXTENSION));
-
-            if (! in_array($extension, self::ALLOWED_EXTENSIONS)) {
+            $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+            if (! in_array($ext, self::ALLOWED_EXTENSIONS)) {
                 $skipped++;
                 continue;
             }
 
-            // Preserve the full path from the ZIP entry (e.g. "media/products/image.jpg").
-            // Sanitise: strip any leading slashes / ".." segments to prevent path traversal.
-            $safeParts = array_filter(
-                explode('/', $name),
-                fn ($seg) => $seg !== '' && $seg !== '..'
-            );
-            $target = implode('/', $safeParts); // e.g. "media/products/image.jpg"
+            // Sanitise path — preserve subdirectories, strip ".." / absolute parts
+            $parts  = array_filter(explode('/', $name), fn ($s) => $s !== '' && $s !== '..');
+            $target = implode('/', $parts); // e.g. "media/products/image.jpg"
 
-            // Reject entries outside media/
             if (! str_starts_with($target, 'media/')) {
                 $skipped++;
                 continue;
@@ -149,47 +183,47 @@ class MediaBackupController extends Controller
             $dbExists   = Media::query()->where('path', $target)->exists();
             $fileExists = Storage::disk('public')->exists($target);
 
-            // Skip only when BOTH the DB record AND the physical file are intact
+            // Truly intact — skip
             if ($dbExists && $fileExists && ! $force) {
                 $skipped++;
                 continue;
             }
 
-            // Force mode: wipe the old DB record so we create a fresh one
+            // Force: delete stale DB record so we recreate it fresh
             if ($force && $dbExists) {
                 Media::query()->where('path', $target)->delete();
+                $dbExists = false;
             }
 
-            // 2) File is missing from disk — extract it from the ZIP
-            if (! Storage::disk('public')->exists($target)) {
-                // Ensure the subdirectory exists (e.g. storage/app/public/media/products/)
+            // Write file to disk if it's missing
+            if (! $fileExists || $force) {
                 $dir = Storage::disk('public')->path(dirname($target));
                 if (! is_dir($dir)) {
-                    @mkdir($dir, 0775, true);
+                    mkdir($dir, 0775, true);
                 }
 
                 $contents = $zip->getFromIndex($i);
                 if ($contents === false) {
-                    Log::warning('MediaBackup import: could not read entry from ZIP', ['name' => $name]);
+                    Log::warning('MediaBackup: unreadable ZIP entry', ['name' => $name]);
                     $errors++;
                     continue;
                 }
 
                 if (! Storage::disk('public')->put($target, $contents)) {
-                    Log::warning('MediaBackup import: could not write file to disk', ['target' => $target]);
+                    Log::warning('MediaBackup: could not write to disk', ['target' => $target]);
                     $errors++;
                     continue;
                 }
+
                 $imported++;
             } else {
-                // 3) File exists on disk but no DB record — just re-create the record
-                $relinked++;
+                $relinked++; // file on disk, just missing DB record
             }
 
             try {
                 $mediaService->createFromPath($target);
             } catch (\Throwable $e) {
-                Log::error('MediaBackup import: createFromPath failed', ['target' => $target, 'error' => $e->getMessage()]);
+                Log::error('MediaBackup: createFromPath failed', ['target' => $target, 'error' => $e->getMessage()]);
                 $errors++;
             }
         }
@@ -197,16 +231,14 @@ class MediaBackupController extends Controller
         $zip->close();
 
         $parts = [];
-        if ($imported)  $parts[] = "{$imported} files extracted & added";
-        if ($relinked)  $parts[] = "{$relinked} existing files re-linked to library";
-        if ($skipped)   $parts[] = "{$skipped} skipped (already in library or unsupported)";
-        if ($errors)    $parts[] = "{$errors} errors (check logs)";
+        if ($imported) $parts[] = "{$imported} files restored to disk & library";
+        if ($relinked) $parts[] = "{$relinked} files re-linked to library";
+        if ($skipped)  $parts[] = "{$skipped} skipped";
+        if ($errors)   $parts[] = "{$errors} errors (check logs)";
 
-        $msg = $parts ? implode(', ', $parts) . '.' : 'Nothing to restore — all files already in library.';
+        $msg  = $parts ? implode(', ', $parts) . '.' : 'Nothing to restore — all files already intact.';
+        $type = ($errors && ! $imported && ! $relinked) ? 'import_error' : 'import_success';
 
-        return back()->with(
-            $errors && ! $imported && ! $relinked ? 'import_error' : 'import_success',
-            'Restore complete: ' . $msg
-        );
+        return back()->with($type, 'Restore complete: ' . $msg);
     }
 }
