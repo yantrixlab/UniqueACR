@@ -98,8 +98,10 @@ class MediaBackupController extends Controller
         @ini_set('max_execution_time', '300');
 
         $request->validate([
-            'zip_file' => ['required', 'file', 'mimes:zip', 'max:524288'], // 512 MB max
+            'zip_file' => ['required', 'file', 'mimes:zip,octet-stream', 'max:524288'],
         ]);
+
+        $force = (bool) $request->input('force_restore', false);
 
         $zip     = new ZipArchive();
         $tmpPath = $request->file('zip_file')->getPathname();
@@ -138,16 +140,24 @@ class MediaBackupController extends Controller
             );
             $target = implode('/', $safeParts); // e.g. "media/products/image.jpg"
 
-            // Reject entries that try to escape outside storage (must start with "media/")
+            // Reject entries outside media/
             if (! str_starts_with($target, 'media/')) {
                 $skipped++;
                 continue;
             }
 
-            // 1) DB record already exists — nothing to do
-            if (Media::query()->where('path', $target)->exists()) {
+            $dbExists   = Media::query()->where('path', $target)->exists();
+            $fileExists = Storage::disk('public')->exists($target);
+
+            // Skip only when BOTH the DB record AND the physical file are intact
+            if ($dbExists && $fileExists && ! $force) {
                 $skipped++;
                 continue;
+            }
+
+            // Force mode: wipe the old DB record so we create a fresh one
+            if ($force && $dbExists) {
+                Media::query()->where('path', $target)->delete();
             }
 
             // 2) File is missing from disk — extract it from the ZIP

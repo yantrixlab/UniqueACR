@@ -59,11 +59,15 @@
         }
     }">
         {{-- Flash notices --}}
-        @if(session('import_success'))
-            <div class="media-notice media-notice-success">✅ {{ session('import_success') }}</div>
+        @php
+            $importSuccess = session('import_success') ?: (isset($errors) && $errors->has('zip_file') ? null : null);
+            $importError   = session('import_error') ?? ($errors->has('zip_file') ? $errors->first('zip_file') : null);
+        @endphp
+        @if($importSuccess ?? false)
+            <div class="media-notice media-notice-success" style="font-size:13px;margin-bottom:10px;">✅ {{ $importSuccess }}</div>
         @endif
-        @if(session('import_error'))
-            <div class="media-notice media-notice-error">❌ {{ session('import_error') }}</div>
+        @if($importError ?? false)
+            <div class="media-notice media-notice-error" style="font-size:13px;margin-bottom:10px;">❌ {{ $importError }}</div>
         @endif
 
         <div class="media-head">
@@ -82,22 +86,39 @@
                       action="{{ route('admin.media.import') }}"
                       enctype="multipart/form-data"
                       class="media-import-form"
-                      x-data
+                      x-data="{ forceRestore: false, fileName: '' }"
                       x-ref="importForm">
                     @csrf
+                    <input type="hidden" name="force_restore" x-bind:value="forceRestore ? '1' : '0'">
                     <input type="file"
                            name="zip_file"
                            accept=".zip"
                            class="sr-only"
                            x-ref="zipInput"
-                           x-on:change="$refs.importForm.submit()">
-                    <button type="button"
-                            class="media-btn-import"
-                            x-on:click="$refs.zipInput.click()"
-                            title="Restore media from a ZIP backup">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                        Import ZIP
-                    </button>
+                           x-on:change="fileName = $refs.zipInput.files[0]?.name ?? ''; $refs.importForm.submit()">
+
+                    <div style="display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                        {{-- Force restore toggle --}}
+                        <label style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-size:12px;color:#9ca3af;" title="Re-extract ALL files even if they already exist in the library">
+                            <span style="position:relative;display:inline-block;width:30px;height:16px;">
+                                <input type="checkbox" x-model="forceRestore" style="opacity:0;width:0;height:0;position:absolute;">
+                                <span style="position:absolute;inset:0;border-radius:8px;transition:.2s;cursor:pointer;"
+                                      :style="forceRestore ? 'background:#ef4444' : 'background:#374151'">
+                                    <span style="position:absolute;top:2px;width:12px;height:12px;border-radius:50%;background:#fff;transition:.2s;"
+                                          :style="forceRestore ? 'left:16px' : 'left:2px'"></span>
+                                </span>
+                            </span>
+                            <span x-text="forceRestore ? 'Force ON' : 'Force'"></span>
+                        </label>
+
+                        <button type="button"
+                                class="media-btn-import"
+                                x-on:click="$refs.zipInput.click()"
+                                title="Restore media from a ZIP backup">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                            Import ZIP
+                        </button>
+                    </div>
                 </form>
 
                 {{-- Upload Files --}}
