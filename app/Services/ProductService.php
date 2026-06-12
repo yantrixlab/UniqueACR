@@ -17,8 +17,11 @@ class ProductService
         $products = $this->productRepository->paginateFiltered($filters, 12);
         $options = $this->productRepository->filterOptions();
 
+        $featuredProducts = $this->productRepository->getFeatured();
+
         return [
             'products' => $products,
+            'featuredProducts' => $featuredProducts,
             'brands' => $options['brands'],
             'categories' => $options['categories'],
             'minPrice' => $options['minPrice'],

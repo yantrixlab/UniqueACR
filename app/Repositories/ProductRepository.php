@@ -30,6 +30,11 @@ class ProductRepository
         return $query->paginate($perPage)->withQueryString();
     }
 
+    public function getFeatured(int $limit = 6)
+    {
+        return $this->queryActive()->where('is_featured', true)->latest()->take($limit)->get();
+    }
+
     public function findActiveBySlug(string $slug): Product
     {
         return $this->queryActive()->where('slug', $slug)->firstOrFail();

@@ -143,7 +143,7 @@
                             <h3 class="card-price-heading">{{ $priceText }}</h3>
                         </div>
                         <h3>{{ $service->name }}</h3>
-                        <p>{{ \Illuminate\Support\Str::limit($service->description, 96) }}</p>
+                        <p>{{ \Illuminate\Support\Str::limit(strip_tags($service->description), 96) }}</p>
                         <div class="stock-chip">{{ $service->is_active ? 'Available Today' : 'On Request' }}</div>
                         <div class="card-btn-row">
                             <a class="primary-btn" href="{{ route('services.show', $service->slug) }}">Book Service</a>
@@ -183,7 +183,7 @@
                             <h3 class="card-price-heading">{{ $priceText }}</h3>
                         </div>
                         <h3>{{ $service->name }}</h3>
-                        <p>{{ \Illuminate\Support\Str::limit($service->description, 96) }}</p>
+                        <p>{{ \Illuminate\Support\Str::limit(strip_tags($service->description), 96) }}</p>
                         <div class="stock-chip">{{ $service->is_active ? 'Available Today' : 'On Request' }}</div>
                         <div class="card-btn-row">
                             <a class="primary-btn" href="{{ route('services.show', $service->slug) }}">Book Service</a>

@@ -928,7 +928,7 @@
                             <h3 class="card-price-heading">{{ $servicePrice }}</h3>
                         </div>
                         <h3><a href="{{ route('services.index') }}">{{ $service->name }}</a></h3>
-                        <p>{{ \Illuminate\Support\Str::limit($service->description, 95) }}</p>
+                        <p>{{ \Illuminate\Support\Str::limit(strip_tags($service->description), 95) }}</p>
                         <div class="stock-chip">{{ $service->is_active ? 'Available Today' : 'On Request' }}</div>
                         <div class="card-btn-row">
                             <a class="primary-btn" href="{{ route('contact', ['service' => $service->slug]) }}">Book Service</a>
@@ -978,7 +978,7 @@
                             <h3 class="card-price-heading">₹{{ number_format($product->price, 0) }}</h3>
                         </div>
                         <h3><a href="{{ route('products.show', $product->slug) }}">{{ $product->name }}</a></h3>
-                        <p>{{ \Illuminate\Support\Str::limit($product->description, 95) }}</p>
+                        <p>{{ \Illuminate\Support\Str::limit(strip_tags($product->description), 95) }}</p>
                         <div class="stock-chip">{{ $product->stock > 0 ? 'In Stock' : 'Pre-order Available' }}</div>
                         <div class="card-btn-row">
                             <a class="primary-btn" href="{{ route('contact', ['product' => $product->slug]) }}">Enquire Now</a>
