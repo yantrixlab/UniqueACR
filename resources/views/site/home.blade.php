@@ -946,7 +946,7 @@
 
 <section class="section product-zone">
     <div class="container">
-        <div class="section-head">
+        <div class="section-head" style="margin-bottom:20px;">
             <div>
                 <h2>Featured Products</h2>
                 <p class="sub">Authorized sales and installation of top-tier cooling brands.</p>
@@ -956,42 +956,233 @@
                 <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg>
             </a>
         </div>
-        <div class="products-grid-page featured-same-grid">
-            @forelse($products as $i => $product)
-                @php
-                    $imgPath = $product->images[0] ?? '';
-                    $img = $imgPath
-                        ? (\Illuminate\Support\Str::startsWith($imgPath, ['http://', 'https://', 'data:'])
-                            ? $imgPath
-                            : asset('storage/' . ltrim($imgPath, '/')))
-                        : '';
-                    $waText = rawurlencode("I am interested in {$product->name}");
-                @endphp
-                <article class="product-item-card premium-product-card product-clickable" data-url="{{ route('products.show', $product->slug) }}">
-                    <a class="product-image-wrap" href="{{ route('products.show', $product->slug) }}">
-                        <img loading="lazy" src="{{ $img }}" alt="{{ $product->name }}" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 900 520%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop offset=%220%25%22 stop-color=%22%23e8eef8%22/><stop offset=%22100%25%22 stop-color=%22%23d9e5f6%22/></linearGradient></defs><rect width=%22900%22 height=%22520%22 fill=%22url(%23g)%22/><rect x=%22335%22 y=%22195%22 width=%22230%22 height=%22130%22 rx=%2218%22 fill=%22%23ffffff%22 stroke=%22%23b7cceb%22/><rect x=%22365%22 y=%22238%22 width=%22170%22 height=%2224%22 rx=%2212%22 fill=%22%238ec3f5%22/><circle cx=%22520%22 cy=%22222%22 r=%2212%22 fill=%22%233c7cc0%22/></svg>';">
-                        <span class="card-top-tag">{{ $i === 0 ? 'Best Seller' : ($i === 1 ? 'Value King' : 'Premium Pick') }}</span>
-                    </a>
-                    <div class="product-card-body">
-                        <div class="product-top-meta premium-meta">
-                            <span class="brand-chip">{{ $product->brand }}</span>
-                            <h3 class="card-price-heading">₹{{ number_format($product->price, 0) }}</h3>
+
+        @if($products->isNotEmpty())
+        <div class="hfs-wrap" id="homeFeaturedSlider" aria-label="Featured products">
+
+            <div class="hfs-track" id="hfsTrack">
+            @foreach($products as $fi => $product)
+            @php
+                $imgPath = $product->images[0] ?? '';
+                $img = $imgPath
+                    ? (\Illuminate\Support\Str::startsWith($imgPath, ['http://', 'https://', 'data:'])
+                        ? $imgPath
+                        : asset('storage/' . ltrim($imgPath, '/')))
+                    : '';
+                $waText = rawurlencode('I am interested in '.$product->name);
+            @endphp
+            <div class="hfs-slide {{ $fi === 0 ? 'active' : '' }}" data-index="{{ $fi }}" aria-hidden="{{ $fi === 0 ? 'false' : 'true' }}">
+
+                @if($img)
+                    <img src="{{ $img }}" alt="{{ $product->name }}"
+                         class="hfs-bg-img" loading="{{ $fi === 0 ? 'eager' : 'lazy' }}"
+                         onerror="this.style.display='none'">
+                @endif
+                <div class="hfs-scrim"></div>
+
+                <div class="hfs-ribbon">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    Featured
+                </div>
+
+                <div class="hfs-content">
+                    <div class="hfs-left">
+                        <div class="hfs-brand-row">
+                            <span class="hfs-brand">{{ $product->brand }}</span>
+                            <span class="hfs-stock {{ $product->stock > 0 ? 'in' : 'pre' }}">
+                                {{ $product->stock > 0 ? '● In Stock' : '○ Pre-order' }}
+                            </span>
                         </div>
-                        <h3><a href="{{ route('products.show', $product->slug) }}">{{ $product->name }}</a></h3>
-                        <p>{{ \Illuminate\Support\Str::limit(strip_tags($product->description), 95) }}</p>
-                        <div class="stock-chip">{{ $product->stock > 0 ? 'In Stock' : 'Pre-order Available' }}</div>
-                        <div class="card-btn-row">
-                            <a class="primary-btn" href="{{ route('contact', ['product' => $product->slug]) }}">Enquire Now</a>
-                            <a class="outline-btn wa-icon-btn" target="_blank" rel="noopener" aria-label="WhatsApp" href="https://wa.me/918346904100?text={{ $waText }}">
-                                <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#25D366" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#fff" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8.2-.2.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.8-.9-2.4-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4 0-.1-.3-.2-.6-.4Z"/></svg>
+                        <h2 class="hfs-name">
+                            <a href="{{ route('products.show', $product->slug) }}">{{ $product->name }}</a>
+                        </h2>
+                        <p class="hfs-desc">{{ \Illuminate\Support\Str::limit(strip_tags($product->description ?? ''), 90) }}</p>
+                        <div class="hfs-btns">
+                            <button type="button" class="hfs-btn-enq open-enquiry"
+                                    data-product-id="{{ $product->id }}"
+                                    data-product-name="{{ $product->name }}">
+                                Enquire Now
+                            </button>
+                            <a class="hfs-btn-wa"
+                               href="https://wa.me/918346904100?text={{ $waText }}"
+                               target="_blank" rel="noopener">
+                                <svg viewBox="0 0 32 32" width="17" height="17" aria-hidden="true"><path fill="#fff" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#25D366" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.4c-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.1-.4-.2-.7-.4Z"/></svg>
+                                WhatsApp
                             </a>
                         </div>
                     </div>
-                </article>
-            @empty
-                <article class="product-item-card"><div class="product-card-body"><h3>No products added yet</h3></div></article>
-            @endforelse
+                    <div class="hfs-right">
+                        @if($product->discount_price && $product->discount_price < $product->price)
+                            <div class="hfs-price-old">₹{{ number_format($product->price, 0) }}</div>
+                            <div class="hfs-price-now">₹{{ number_format($product->discount_price, 0) }}</div>
+                        @else
+                            <div class="hfs-price-now">₹{{ number_format($product->price, 0) }}</div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @endforeach
+            </div>
+
+            @if($products->count() > 1)
+            <button class="hfs-arrow hfs-prev" id="hfsPrev" aria-label="Previous slide">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="hfs-arrow hfs-next" id="hfsNext" aria-label="Next slide">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <div class="hfs-dots" id="hfsDots">
+                @foreach($products as $fi => $p)
+                <button class="hfs-dot {{ $fi === 0 ? 'active' : '' }}" data-goto="{{ $fi }}" aria-label="Slide {{ $fi+1 }}"></button>
+                @endforeach
+            </div>
+            @endif
+
+            <div class="hfs-progress"><div class="hfs-progress-fill" id="hfsProgressFill"></div></div>
         </div>
+
+        <style>
+        .hfs-wrap{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.22);background:#111;height:420px;}
+        .hfs-track{position:absolute;inset:0;}
+        .hfs-slide{position:absolute;inset:0;opacity:0;transition:opacity .7s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:1;}
+        .hfs-slide.active{opacity:1;pointer-events:auto;z-index:2;}
+        .hfs-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(1);transition:transform 7s ease;will-change:transform;}
+        .hfs-slide.active .hfs-bg-img{transform:scale(1.06);}
+        .hfs-scrim{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.08) 0%,rgba(0,0,0,.18) 35%,rgba(0,0,0,.72) 75%,rgba(0,0,0,.88) 100%);}
+        .hfs-ribbon{position:absolute;top:20px;left:22px;z-index:5;background:linear-gradient(135deg,#f59e0b,#f97316);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:5px 13px;border-radius:30px;display:inline-flex;align-items:center;gap:5px;box-shadow:0 3px 14px rgba(249,115,22,.4);}
+        .hfs-content{position:absolute;bottom:0;left:0;right:0;z-index:5;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding:28px 30px 30px;}
+        .hfs-left{flex:1;min-width:0;}
+        .hfs-brand-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+        .hfs-brand{background:rgba(255,255,255,.15);backdrop-filter:blur(6px);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 11px;border-radius:4px;border:1px solid rgba(255,255,255,.2);}
+        .hfs-stock{font-size:.72rem;font-weight:600;color:rgba(255,255,255,.8);}
+        .hfs-stock.in{color:#4ade80;}
+        .hfs-stock.pre{color:#fbbf24;}
+        .hfs-name{font-size:1.55rem;font-weight:800;color:#fff;line-height:1.2;margin:0 0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 8px rgba(0,0,0,.5);}
+        .hfs-name a{color:inherit;text-decoration:none;}
+        .hfs-name a:hover{text-decoration:underline;text-underline-offset:3px;}
+        .hfs-desc{font-size:.85rem;color:rgba(255,255,255,.78);margin:0 0 14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 4px rgba(0,0,0,.5);}
+        .hfs-btns{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+        .hfs-btn-enq{background:#111;color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:.875rem;font-weight:700;cursor:pointer;transition:background .2s,transform .15s;letter-spacing:.01em;}
+        .hfs-btn-enq:hover{background:#222;transform:translateY(-1px);}
+        .hfs-btn-wa{display:inline-flex;align-items:center;gap:7px;background:rgba(37,211,102,.12);color:#fff;text-decoration:none;padding:10px 18px;border-radius:8px;font-size:.875rem;font-weight:700;border:1.5px solid rgba(37,211,102,.55);transition:background .2s,transform .15s;backdrop-filter:blur(4px);}
+        .hfs-btn-wa:hover{background:rgba(37,211,102,.25);transform:translateY(-1px);}
+        .hfs-right{flex-shrink:0;text-align:right;}
+        .hfs-price-now{font-size:2.1rem;font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1;text-shadow:0 2px 10px rgba(0,0,0,.5);margin-bottom:34px;}
+        .hfs-price-old{font-size:.9rem;color:rgba(255,255,255,.5);text-decoration:line-through;margin-bottom:2px;}
+        .hfs-arrow{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);background:rgba(0,0,0,.35);backdrop-filter:blur(8px);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s,transform .2s;z-index:10;}
+        .hfs-arrow:hover{background:rgba(0,0,0,.6);border-color:rgba(255,255,255,.7);transform:translateY(-50%) scale(1.08);}
+        .hfs-prev{left:14px;}.hfs-next{right:14px;}
+        .hfs-dots{position:absolute;bottom:22px;right:24px;display:flex;gap:7px;z-index:10;}
+        .hfs-dot{width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6);background:transparent;cursor:pointer;padding:0;transition:background .3s,width .3s,border-radius .3s,border-color .3s;}
+        .hfs-dot.active{background:#fff;border-color:#fff;width:24px;border-radius:4px;}
+        .hfs-progress{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.12);z-index:10;}
+        .hfs-progress-fill{height:100%;width:0;background:rgba(255,255,255,.7);transition:width linear;}
+        @media(max-width:640px){
+            .hfs-wrap{height:360px;border-radius:12px;}
+            .hfs-content{padding:18px 16px 22px;gap:10px;}
+            .hfs-name{font-size:1.1rem;}
+            .hfs-desc{display:none;}
+            .hfs-price-now{font-size:1.45rem;margin-bottom:28px;}
+            .hfs-prev{left:8px;}.hfs-next{right:8px;}
+            .hfs-dots{right:50%;transform:translateX(50%);}
+            .hfs-btn-enq,.hfs-btn-wa{padding:9px 14px;font-size:.8rem;}
+        }
+        </style>
+
+        <script>
+        (() => {
+          const slides = document.querySelectorAll('#homeFeaturedSlider .hfs-slide');
+          const dots   = document.querySelectorAll('#homeFeaturedSlider .hfs-dot');
+          const fill   = document.getElementById('hfsProgressFill');
+          const DURATION = 5000;
+          if (!slides.length) return;
+
+          let current = 0, timer = null, paused = false;
+
+          function goTo(next) {
+            if (next === current) return;
+            slides[current].classList.remove('active');
+            slides[current].setAttribute('aria-hidden', 'true');
+            slides[current].querySelectorAll('[tabindex]').forEach(el => el.setAttribute('tabindex', '-1'));
+            if (dots.length) { dots[current].classList.remove('active'); dots[next].classList.add('active'); }
+            current = next;
+            slides[current].classList.add('active');
+            slides[current].setAttribute('aria-hidden', 'false');
+            slides[current].querySelectorAll('[tabindex]').forEach(el => el.setAttribute('tabindex', '0'));
+            resetProgress();
+          }
+
+          function nextSlide() { goTo((current + 1) % slides.length); }
+          function prevSlide() { goTo((current - 1 + slides.length) % slides.length); }
+
+          function resetProgress() {
+            if (!fill) return;
+            fill.style.transition = 'none';
+            fill.style.width = '0%';
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+              fill.style.transition = `width ${DURATION}ms linear`;
+              fill.style.width = '100%';
+            }));
+          }
+
+          function startAuto() {
+            clearInterval(timer);
+            timer = setInterval(() => { if (!paused) nextSlide(); }, DURATION);
+            resetProgress();
+          }
+
+          if (slides.length > 1) {
+            document.getElementById('hfsNext')?.addEventListener('click', () => { nextSlide(); startAuto(); });
+            document.getElementById('hfsPrev')?.addEventListener('click', () => { prevSlide(); startAuto(); });
+            dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.goto); startAuto(); }));
+            const wrap = document.getElementById('homeFeaturedSlider');
+            wrap?.addEventListener('mouseenter', () => { paused = true; });
+            wrap?.addEventListener('mouseleave', () => { paused = false; });
+            startAuto();
+          }
+        })();
+        </script>
+
+        {{-- Enquiry modal for home slider --}}
+        <div class="enquiry-modal" id="homeEnquiryModal" aria-hidden="true">
+            <div class="enquiry-modal-card">
+                <button type="button" class="modal-close" id="closeHomeEnquiryModal">×</button>
+                <h3>Product Enquiry</h3>
+                <p>Share your details and we will call you shortly.</p>
+                <form method="POST" action="{{ route('enquiries.store') }}" class="enquiry-modal-form">
+                    @csrf
+                    <input type="hidden" name="source_type" value="product">
+                    <input type="hidden" name="source_id" id="homeEnquirySourceId">
+                    <label>Name<input type="text" name="name" required></label>
+                    <label>Phone<input type="text" name="phone" required></label>
+                    <label>Email<input type="email" name="email"></label>
+                    <label>Message<textarea name="message" id="homeEnquiryMessage" required></textarea></label>
+                    <button class="primary-btn" type="submit">Submit Enquiry</button>
+                </form>
+            </div>
+        </div>
+        <script>
+        (() => {
+          const modal = document.getElementById('homeEnquiryModal');
+          const sourceInput = document.getElementById('homeEnquirySourceId');
+          const messageInput = document.getElementById('homeEnquiryMessage');
+          document.querySelectorAll('#homeFeaturedSlider .open-enquiry').forEach(btn => {
+            btn.addEventListener('click', () => {
+              sourceInput.value = btn.dataset.productId;
+              messageInput.value = `I am interested in ${btn.dataset.productName}. Please share details.`;
+              modal.classList.add('show');
+              modal.setAttribute('aria-hidden', 'false');
+            });
+          });
+          document.getElementById('closeHomeEnquiryModal')?.addEventListener('click', () => {
+            modal.classList.remove('show'); modal.setAttribute('aria-hidden', 'true');
+          });
+          modal?.addEventListener('click', e => {
+            if (e.target === modal) { modal.classList.remove('show'); modal.setAttribute('aria-hidden', 'true'); }
+          });
+        })();
+        </script>
+        @endif
     </div>
 </section>
 
