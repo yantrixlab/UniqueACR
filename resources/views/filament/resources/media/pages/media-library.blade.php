@@ -145,7 +145,9 @@
                         uploading: false,
                         progress: 0,
                         label: 'Uploading…',
-                        CHUNK_SIZE: 5 * 1024 * 1024, // 5 MB per chunk
+                        // 1 MB per chunk — safe even on servers with upload_max_filesize = 2M
+                        // Raw binary body bypasses upload_max_filesize entirely anyway
+                        CHUNK_SIZE: 1 * 1024 * 1024,
 
                         async startUpload(file) {
                             if (!file) return;
@@ -158,45 +160,54 @@
                             let uploaded = 0;
 
                             for (let i = 0; i < total; i++) {
-                                const start = i * this.CHUNK_SIZE;
-                                const chunk = file.slice(start, start + this.CHUNK_SIZE);
-                                const fd    = new FormData();
-                                fd.append('_token', csrfToken);
-                                fd.append('chunk', chunk, file.name);
-                                fd.append('uuid', uuid);
-                                fd.append('index', i);
-                                fd.append('total', total);
+                                const start     = i * this.CHUNK_SIZE;
+                                const chunkBlob = file.slice(start, start + this.CHUNK_SIZE);
+                                const chunkBuf  = await chunkBlob.arrayBuffer();
 
-                                const res = await fetch(uploadUrl, { method: 'POST', body: fd });
+                                // Send as raw binary body — NOT multipart file upload.
+                                // This means upload_max_filesize does NOT apply at all.
+                                const res = await fetch(
+                                    `${uploadUrl}?uuid=${uuid}&index=${i}&total=${total}`,
+                                    {
+                                        method: 'POST',
+                                        headers: {
+                                            'X-CSRF-TOKEN': csrfToken,
+                                            'Content-Type': 'application/octet-stream',
+                                        },
+                                        body: chunkBuf,
+                                    }
+                                );
+
                                 if (!res.ok) {
-                                    alert('Chunk ' + i + ' failed. Please try again.');
+                                    const err = await res.json().catch(() => ({}));
+                                    alert('❌ Chunk ' + i + ' failed: ' + (err.error ?? res.status));
                                     this.uploading = false;
                                     return;
                                 }
 
                                 uploaded++;
-                                this.progress = Math.round((uploaded / total) * 90);
+                                this.progress = Math.round((uploaded / total) * 88);
                             }
 
                             // All chunks sent — assemble & restore
                             this.label = 'Restoring…';
-                            this.progress = 95;
+                            this.progress = 92;
 
-                            const fd2 = new FormData();
-                            fd2.append('_token', csrfToken);
-                            fd2.append('uuid', uuid);
-                            fd2.append('total', total);
-                            fd2.append('force', '1');
+                            const fd = new FormData();
+                            fd.append('_token', csrfToken);
+                            fd.append('uuid', uuid);
+                            fd.append('total', total);
+                            fd.append('force', '1');
 
-                            const res2 = await fetch(assembleUrl, { method: 'POST', body: fd2 });
-                            const data = await res2.json();
+                            const res2 = await fetch(assembleUrl, { method: 'POST', body: fd });
+                            let data = {};
+                            try { data = await res2.json(); } catch (e) { data = { ok: false, message: 'Server error during restore. Check logs.' }; }
 
                             this.progress = 100;
                             this.uploading = false;
 
-                            // Show result then reload to refresh media grid
-                            alert((data.ok ? '✅ ' : '❌ ') + (data.message ?? 'Done.'));
-                            window.location.reload();
+                            alert((data.ok ? '✅ ' : '❌ ') + (data.message ?? 'No response from server.'));
+                            if (data.ok) window.location.reload();
                         }
                     }
                 }

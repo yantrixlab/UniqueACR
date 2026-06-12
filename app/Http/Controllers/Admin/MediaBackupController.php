@@ -146,25 +146,33 @@ class MediaBackupController extends Controller
      * Receive one chunk and append it to the temp assembly file.
      * Expects: chunk (file), uuid (string), index (int), total (int)
      */
+    /**
+     * Receive one raw binary chunk via request body.
+     * UUID, index, total are query-string params.
+     * Using raw body (not multipart file upload) means upload_max_filesize does NOT apply —
+     * only post_max_size does, which is always larger (default 8 MB vs 2 MB).
+     */
     public function chunkUpload(Request $request): \Illuminate\Http\JsonResponse
     {
-        $request->validate([
-            'chunk' => ['required', 'file'],
-            'uuid'  => ['required', 'string', 'alpha_dash', 'max:64'],
-            'index' => ['required', 'integer', 'min:0'],
-            'total' => ['required', 'integer', 'min:1'],
-        ]);
+        $uuid  = $request->query('uuid', '');
+        $index = (int) $request->query('index', 0);
 
-        $uuid    = $request->input('uuid');
-        $index   = (int) $request->input('index');
-        $dir     = storage_path('app/chunks/' . $uuid);
+        // Validate uuid is safe for use as a directory name
+        if (! preg_match('/^[a-f0-9\-]{32,64}$/', $uuid)) {
+            return response()->json(['ok' => false, 'error' => 'Invalid upload session.'], 422);
+        }
 
+        $contents = $request->getContent(); // raw binary — no upload_max_filesize limit
+        if ($contents === '') {
+            return response()->json(['ok' => false, 'error' => 'Empty chunk received.'], 422);
+        }
+
+        $dir = storage_path('app/chunks/' . $uuid);
         if (! is_dir($dir)) {
             mkdir($dir, 0775, true);
         }
 
-        // Save this chunk as a numbered file
-        $request->file('chunk')->move($dir, $index . '.part');
+        file_put_contents("{$dir}/{$index}.part", $contents);
 
         return response()->json(['ok' => true, 'index' => $index]);
     }
@@ -214,7 +222,7 @@ class MediaBackupController extends Controller
         // Verify it's a valid ZIP before restoring
         $zip = new ZipArchive();
         if ($zip->open($zipPath) !== true) {
-            return response()->json(['ok' => false, 'error' => 'Assembled file is not a valid ZIP.'], 422);
+            return response()->json(['ok' => false, 'message' => 'Assembly failed — result is not a valid ZIP. Try again.'], 422);
         }
         $zip->close();
 
