@@ -130,8 +130,19 @@ class MediaBackupController extends Controller
                 continue;
             }
 
-            // Always normalise to media/<basename> regardless of ZIP directory structure
-            $target = 'media/' . basename($name);
+            // Preserve the full path from the ZIP entry (e.g. "media/products/image.jpg").
+            // Sanitise: strip any leading slashes / ".." segments to prevent path traversal.
+            $safeParts = array_filter(
+                explode('/', $name),
+                fn ($seg) => $seg !== '' && $seg !== '..'
+            );
+            $target = implode('/', $safeParts); // e.g. "media/products/image.jpg"
+
+            // Reject entries that try to escape outside storage (must start with "media/")
+            if (! str_starts_with($target, 'media/')) {
+                $skipped++;
+                continue;
+            }
 
             // 1) DB record already exists — nothing to do
             if (Media::query()->where('path', $target)->exists()) {
@@ -141,6 +152,12 @@ class MediaBackupController extends Controller
 
             // 2) File is missing from disk — extract it from the ZIP
             if (! Storage::disk('public')->exists($target)) {
+                // Ensure the subdirectory exists (e.g. storage/app/public/media/products/)
+                $dir = Storage::disk('public')->path(dirname($target));
+                if (! is_dir($dir)) {
+                    @mkdir($dir, 0775, true);
+                }
+
                 $contents = $zip->getFromIndex($i);
                 if ($contents === false) {
                     Log::warning('MediaBackup import: could not read entry from ZIP', ['name' => $name]);
