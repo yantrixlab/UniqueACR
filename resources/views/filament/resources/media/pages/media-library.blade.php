@@ -12,6 +12,9 @@
         .media-btn-export:hover { background:#047857; color:#fff; }
         .media-btn-import { background:#1e1b4b; color:#a5b4fc; border:1px solid #3730a3; border-radius:10px; padding:9px 15px; font-weight:600; cursor:pointer; font-size:13px; display:inline-flex; align-items:center; gap:6px; }
         .media-btn-import:hover { background:#3730a3; color:#fff; }
+        .media-btn-scan { background:#1c1917; color:#fb923c; border:1px solid #c2410c; border-radius:10px; padding:9px 15px; font-weight:600; cursor:pointer; font-size:13px; display:inline-flex; align-items:center; gap:6px; }
+        .media-btn-scan:hover { background:#c2410c; color:#fff; }
+        .media-btn-scan:disabled { opacity:.6; cursor:not-allowed; }
         .media-import-form { display:inline; }
         .media-notice { border-radius:10px; padding:11px 16px; margin-bottom:14px; font-size:14px; font-weight:500; }
         .media-notice-success { background:#064e3b; color:#6ee7b7; border:1px solid #047857; }
@@ -135,6 +138,23 @@
                         Import ZIP
                     </button>
                 </form>
+
+                {{-- Scan disk & sync DB — zero-upload restore --}}
+                <button type="button"
+                        class="media-btn-scan"
+                        wire:click="scanAndSync"
+                        wire:loading.attr="disabled"
+                        wire:target="scanAndSync"
+                        title="Scan storage/media/ on disk and add any files missing from the library — no upload needed">
+                    <span wire:loading.remove wire:target="scanAndSync">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+                    </span>
+                    <span wire:loading wire:target="scanAndSync">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                    </span>
+                    <span wire:loading.remove wire:target="scanAndSync">Scan & Sync</span>
+                    <span wire:loading wire:target="scanAndSync">Scanning…</span>
+                </button>
 
                 {{-- Upload Files --}}
                 <button type="button" class="media-upload-top" x-on:click="$refs.fileInput.click()">Upload Files</button>

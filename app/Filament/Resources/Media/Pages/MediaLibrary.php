@@ -9,6 +9,7 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Page;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 
@@ -48,6 +49,59 @@ class MediaLibrary extends Page
 
         Notification::make()
             ->title('Files uploaded')
+            ->success()
+            ->send();
+    }
+
+    /**
+     * Scan the public disk media/ directory and create DB records for any
+     * files that exist on disk but have no record in the database.
+     * This is the zero-upload restore path — no ZIP needed.
+     */
+    public function scanAndSync(): void
+    {
+        @ini_set('memory_limit', '512M');
+        @ini_set('max_execution_time', '300');
+
+        $mediaService = app(MediaService::class);
+        $synced  = 0;
+        $skipped = 0;
+
+        $allFiles = Storage::disk('public')->allFiles('media');
+
+        $existing = Media::query()
+            ->whereIn('path', $allFiles)
+            ->pluck('path')
+            ->flip(); // path => index for O(1) lookup
+
+        foreach ($allFiles as $path) {
+            // Skip hidden/system files
+            if (str_starts_with(basename($path), '.')) {
+                continue;
+            }
+
+            $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+            $allowed = ['jpg','jpeg','png','gif','webp','svg','pdf','docx','xlsx','csv','mp4','mp3'];
+
+            if (! in_array($ext, $allowed)) {
+                continue;
+            }
+
+            if ($existing->has($path)) {
+                $skipped++;
+                continue;
+            }
+
+            try {
+                $mediaService->createFromPath($path);
+                $synced++;
+            } catch (\Throwable) {
+                // skip unreadable files silently
+            }
+        }
+
+        Notification::make()
+            ->title("Scan complete: {$synced} files added to library" . ($skipped ? ", {$skipped} already existed." : '.'))
             ->success()
             ->send();
     }
