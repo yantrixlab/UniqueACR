@@ -139,13 +139,6 @@
             @if($featuredProducts->isNotEmpty())
             <div class="fs-wrap" id="featuredSlider" aria-label="Featured products">
 
-                {{-- Slide counter top-right --}}
-                @if($featuredProducts->count() > 1)
-                <div class="fs-counter">
-                    <span id="fsCountCurrent">1</span> / {{ $featuredProducts->count() }}
-                </div>
-                @endif
-
                 <div class="fs-track" id="fsTrack">
                 @foreach($featuredProducts as $fi => $featured)
                 @php
@@ -156,72 +149,61 @@
                             : asset('storage/' . ltrim($imgPath, '/')))
                         : '';
                     $waText = rawurlencode('I am interested in '.$featured->name);
-                    $fallback = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 520'><rect width='900' height='520' fill='%23e8eef8'/><rect x='335' y='195' width='230' height='130' rx='18' fill='%23ffffff' stroke='%23b7cceb'/><rect x='365' y='238' width='170' height='24' rx='12' fill='%238ec3f5'/></svg>";
                 @endphp
                 <div class="fs-slide {{ $fi === 0 ? 'active' : '' }}" data-index="{{ $fi }}" aria-hidden="{{ $fi === 0 ? 'false' : 'true' }}">
-                    {{-- Left: image panel --}}
-                    <div class="fs-img-panel">
-                        <a href="{{ route('products.show', $featured->slug) }}" class="fs-img-link" tabindex="{{ $fi === 0 ? '0' : '-1' }}">
-                            @if($img)
-                                <img src="{{ $img }}" alt="{{ $featured->name }}" loading="{{ $fi === 0 ? 'eager' : 'lazy' }}"
-                                     class="fs-img" onerror="this.src='{{ $fallback }}'">
-                            @else
-                                <div class="fs-img-ph">
-                                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none"><rect x="8" y="20" width="48" height="30" rx="6" fill="#cbd5e1"/><rect x="18" y="30" width="28" height="6" rx="3" fill="#94a3b8"/></svg>
-                                </div>
-                            @endif
-                        </a>
-                        {{-- featured ribbon --}}
-                        <div class="fs-ribbon">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            Featured
-                        </div>
+
+                    {{-- Full-bleed background image with Ken Burns --}}
+                    @if($img)
+                        <img src="{{ $img }}" alt="{{ $featured->name }}"
+                             class="fs-bg-img" loading="{{ $fi === 0 ? 'eager' : 'lazy' }}"
+                             onerror="this.style.display='none'">
+                    @endif
+
+                    {{-- Dark gradient scrim so text is always readable --}}
+                    <div class="fs-scrim"></div>
+
+                    {{-- Featured pill top-left --}}
+                    <div class="fs-ribbon">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        Featured
                     </div>
 
-                    {{-- Right: info panel --}}
-                    <div class="fs-info-panel">
-                        <div class="fs-tags-row">
-                            <span class="fs-brand">{{ $featured->brand }}</span>
-                            <span class="fs-stock-badge {{ $featured->stock > 0 ? 'in' : 'pre' }}">
-                                {{ $featured->stock > 0 ? '● In Stock' : '○ Pre-order' }}
-                            </span>
+                    {{-- Content: bottom-left for title/desc/btns, bottom-right for price --}}
+                    <div class="fs-content">
+                        <div class="fs-left">
+                            <div class="fs-brand-row">
+                                <span class="fs-brand">{{ $featured->brand }}</span>
+                                <span class="fs-stock {{ $featured->stock > 0 ? 'in' : 'pre' }}">
+                                    {{ $featured->stock > 0 ? '● In Stock' : '○ Pre-order' }}
+                                </span>
+                            </div>
+                            <h2 class="fs-name">
+                                <a href="{{ route('products.show', $featured->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}">{{ $featured->name }}</a>
+                            </h2>
+                            <p class="fs-desc">{{ \Illuminate\Support\Str::limit(strip_tags($featured->description ?? ''), 90) }}</p>
+                            <div class="fs-btns">
+                                <button type="button" class="fs-btn-enq open-enquiry"
+                                        data-product-id="{{ $featured->id }}"
+                                        data-product-name="{{ $featured->name }}"
+                                        tabindex="{{ $fi === 0 ? '0' : '-1' }}">
+                                    Enquire Now
+                                </button>
+                                <a class="fs-btn-wa"
+                                   href="https://wa.me/918346904100?text={{ $waText }}"
+                                   target="_blank" rel="noopener"
+                                   tabindex="{{ $fi === 0 ? '0' : '-1' }}">
+                                    <svg viewBox="0 0 32 32" width="17" height="17" aria-hidden="true"><path fill="#fff" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#25D366" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.4c-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.1-.4-.2-.7-.4Z"/></svg>
+                                    WhatsApp
+                                </a>
+                            </div>
                         </div>
-
-                        <h2 class="fs-name">
-                            <a href="{{ route('products.show', $featured->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}">
-                                {{ $featured->name }}
-                            </a>
-                        </h2>
-
-                        <p class="fs-desc">{{ \Illuminate\Support\Str::limit(strip_tags($featured->description), 100) }}</p>
-
-                        <div class="fs-price-row">
+                        <div class="fs-right">
                             @if($featured->discount_price && $featured->discount_price < $featured->price)
-                                <span class="fs-price-old">₹{{ number_format($featured->price, 0) }}</span>
-                                <span class="fs-price-now">₹{{ number_format($featured->discount_price, 0) }}</span>
+                                <div class="fs-price-old">₹{{ number_format($featured->price, 0) }}</div>
+                                <div class="fs-price-now">₹{{ number_format($featured->discount_price, 0) }}</div>
                             @else
-                                <span class="fs-price-now">₹{{ number_format($featured->price, 0) }}</span>
+                                <div class="fs-price-now">₹{{ number_format($featured->price, 0) }}</div>
                             @endif
-                        </div>
-
-                        <div class="fs-cta-row">
-                            <button type="button" class="fs-btn-enquire open-enquiry"
-                                    data-product-id="{{ $featured->id }}"
-                                    data-product-name="{{ $featured->name }}"
-                                    tabindex="{{ $fi === 0 ? '0' : '-1' }}">
-                                Enquire Now
-                            </button>
-                            <a class="fs-btn-wa"
-                               href="https://wa.me/918346904100?text={{ $waText }}"
-                               target="_blank" rel="noopener"
-                               tabindex="{{ $fi === 0 ? '0' : '-1' }}">
-                                <svg viewBox="0 0 32 32" width="18" height="18" aria-hidden="true"><path fill="#fff" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#25D366" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.4c-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.1-.4-.2-.7-.4Z"/></svg>
-                                WhatsApp
-                            </a>
-                            <a class="fs-btn-details" href="{{ route('products.show', $featured->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}">
-                                View Details
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -229,14 +211,12 @@
                 </div>
 
                 @if($featuredProducts->count() > 1)
-                {{-- Arrows --}}
-                <button class="fs-arrow fs-prev" id="fsPrev" aria-label="Previous">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+                <button class="fs-arrow fs-prev" id="fsPrev" aria-label="Previous slide">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
                 </button>
-                <button class="fs-arrow fs-next" id="fsNext" aria-label="Next">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                <button class="fs-arrow fs-next" id="fsNext" aria-label="Next slide">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
                 </button>
-                {{-- Dots --}}
                 <div class="fs-dots" id="fsDots">
                     @foreach($featuredProducts as $fi => $f)
                     <button class="fs-dot {{ $fi === 0 ? 'active' : '' }}" data-goto="{{ $fi }}" aria-label="Slide {{ $fi+1 }}"></button>
@@ -244,85 +224,83 @@
                 </div>
                 @endif
 
-                {{-- Progress bar --}}
                 <div class="fs-progress"><div class="fs-progress-fill" id="fsProgressFill"></div></div>
             </div>
 
             <style>
-            /* ── Wrapper ── */
-            .fs-wrap{position:relative;border-radius:16px;overflow:hidden;margin-bottom:28px;box-shadow:0 4px 32px rgba(0,0,0,.10);background:#fff;}
-            .fs-track{display:grid;grid-template-columns:1fr;grid-template-rows:1fr;}
+            /* Wrapper */
+            .fs-wrap{position:relative;border-radius:16px;overflow:hidden;margin-bottom:28px;box-shadow:0 8px 40px rgba(0,0,0,.22);background:#111;height:420px;}
 
-            /* ── Slide transition ── */
-            .fs-slide{grid-area:1/1;display:grid;grid-template-columns:55% 45%;min-height:380px;opacity:0;transform:translateX(40px);transition:opacity .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1);pointer-events:none;will-change:opacity,transform;}
-            .fs-slide.active{opacity:1;transform:translateX(0);pointer-events:auto;z-index:2;}
-            .fs-slide.exit-left{opacity:0;transform:translateX(-40px);z-index:1;}
+            /* Track — stacks all slides on top of each other */
+            .fs-track{position:absolute;inset:0;}
 
-            /* ── Image panel ── */
-            .fs-img-panel{position:relative;overflow:hidden;background:#f1f5f9;}
-            .fs-img-link{display:block;width:100%;height:100%;}
-            .fs-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 7s ease;}
-            .fs-slide.active .fs-img{transform:scale(1.05);}
-            .fs-img-ph{width:100%;height:100%;min-height:380px;display:flex;align-items:center;justify-content:center;background:#f1f5f9;}
+            /* Each slide fills the wrapper */
+            .fs-slide{position:absolute;inset:0;opacity:0;transition:opacity .7s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:1;}
+            .fs-slide.active{opacity:1;pointer-events:auto;z-index:2;}
 
-            /* ── Ribbon ── */
-            .fs-ribbon{position:absolute;top:20px;left:20px;background:linear-gradient(135deg,#f59e0b,#f97316);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:30px;display:inline-flex;align-items:center;gap:5px;box-shadow:0 3px 12px rgba(249,115,22,.35);}
+            /* Full-bleed background image with Ken Burns zoom */
+            .fs-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(1);transition:transform 7s ease;will-change:transform;}
+            .fs-slide.active .fs-bg-img{transform:scale(1.06);}
 
-            /* ── Counter ── */
-            .fs-counter{position:absolute;top:18px;right:18px;z-index:10;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);color:#fff;font-size:.75rem;font-weight:600;padding:4px 12px;border-radius:20px;}
+            /* Dark gradient: transparent top → dark bottom */
+            .fs-scrim{position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,.08) 0%, rgba(0,0,0,.18) 35%, rgba(0,0,0,.72) 75%, rgba(0,0,0,.88) 100%);}
 
-            /* ── Info panel ── */
-            .fs-info-panel{padding:40px 36px;display:flex;flex-direction:column;justify-content:center;gap:16px;background:#fff;}
-            .fs-tags-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-            .fs-brand{background:#eff6ff;color:#1d4ed8;font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 12px;border-radius:6px;}
-            .fs-stock-badge{font-size:.75rem;font-weight:600;}
-            .fs-stock-badge.in{color:#16a34a;}
-            .fs-stock-badge.pre{color:#d97706;}
+            /* Featured pill */
+            .fs-ribbon{position:absolute;top:20px;left:22px;z-index:5;background:linear-gradient(135deg,#f59e0b,#f97316);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:5px 13px;border-radius:30px;display:inline-flex;align-items:center;gap:5px;box-shadow:0 3px 14px rgba(249,115,22,.4);}
 
-            /* ── Name & desc ── */
-            .fs-name{font-size:1.5rem;font-weight:800;color:#0f172a;line-height:1.2;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+            /* Content bar — sits at the bottom, split left/right */
+            .fs-content{position:absolute;bottom:0;left:0;right:0;z-index:5;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding:28px 30px 30px;}
+
+            /* Left: brand, name, desc, buttons */
+            .fs-left{flex:1;min-width:0;}
+            .fs-brand-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+            .fs-brand{background:rgba(255,255,255,.15);backdrop-filter:blur(6px);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 11px;border-radius:4px;border:1px solid rgba(255,255,255,.2);}
+            .fs-stock{font-size:.72rem;font-weight:600;color:rgba(255,255,255,.8);}
+            .fs-stock.in{color:#4ade80;}
+            .fs-stock.pre{color:#fbbf24;}
+
+            .fs-name{font-size:1.55rem;font-weight:800;color:#fff;line-height:1.2;margin:0 0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 8px rgba(0,0,0,.5);}
             .fs-name a{color:inherit;text-decoration:none;}
-            .fs-name a:hover{color:#1d4ed8;}
-            .fs-desc{font-size:.9rem;color:#64748b;line-height:1.55;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+            .fs-name a:hover{text-decoration:underline;text-underline-offset:3px;}
 
-            /* ── Price ── */
-            .fs-price-row{display:flex;align-items:baseline;gap:10px;}
-            .fs-price-now{font-size:2rem;font-weight:900;color:#1d4ed8;letter-spacing:-.03em;}
-            .fs-price-old{font-size:1rem;color:#94a3b8;text-decoration:line-through;}
+            .fs-desc{font-size:.85rem;color:rgba(255,255,255,.78);margin:0 0 14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 4px rgba(0,0,0,.5);}
 
-            /* ── CTA row ── */
-            .fs-cta-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-            .fs-btn-enquire{background:#1d4ed8;color:#fff;border:none;padding:11px 24px;border-radius:10px;font-size:.88rem;font-weight:700;cursor:pointer;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 14px rgba(29,78,216,.3);}
-            .fs-btn-enquire:hover{background:#1e40af;transform:translateY(-2px);box-shadow:0 6px 20px rgba(29,78,216,.4);}
-            .fs-btn-wa{display:inline-flex;align-items:center;gap:7px;background:#25D366;color:#fff;text-decoration:none;padding:11px 18px;border-radius:10px;font-size:.88rem;font-weight:700;transition:background .2s,transform .2s;box-shadow:0 4px 14px rgba(37,211,102,.25);}
-            .fs-btn-wa:hover{background:#16a34a;transform:translateY(-2px);}
-            .fs-btn-details{display:inline-flex;align-items:center;gap:4px;color:#1d4ed8;font-size:.85rem;font-weight:600;text-decoration:none;padding:4px 0;border-bottom:1.5px solid transparent;transition:border-color .2s;}
-            .fs-btn-details:hover{border-bottom-color:#1d4ed8;}
+            /* Buttons row */
+            .fs-btns{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+            .fs-btn-enq{background:#111;color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:.875rem;font-weight:700;cursor:pointer;transition:background .2s,transform .15s;letter-spacing:.01em;}
+            .fs-btn-enq:hover{background:#222;transform:translateY(-1px);}
+            .fs-btn-wa{display:inline-flex;align-items:center;gap:7px;background:rgba(37,211,102,.12);color:#fff;text-decoration:none;padding:10px 18px;border-radius:8px;font-size:.875rem;font-weight:700;border:1.5px solid rgba(37,211,102,.55);transition:background .2s,transform .15s;backdrop-filter:blur(4px);}
+            .fs-btn-wa:hover{background:rgba(37,211,102,.25);transform:translateY(-1px);}
 
-            /* ── Arrows ── */
-            .fs-arrow{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1.5px solid #e2e8f0;background:#fff;color:#334155;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s,transform .2s;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.08);}
-            .fs-arrow:hover{background:#f8fafc;border-color:#1d4ed8;color:#1d4ed8;transform:translateY(-50%) scale(1.08);}
-            .fs-prev{left:12px;}.fs-next{right:12px;}
+            /* Right: price */
+            .fs-right{flex-shrink:0;text-align:right;}
+            .fs-price-now{font-size:2.1rem;font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1;text-shadow:0 2px 10px rgba(0,0,0,.5);}
+            .fs-price-old{font-size:.9rem;color:rgba(255,255,255,.5);text-decoration:line-through;margin-bottom:2px;}
 
-            /* ── Dots ── */
-            .fs-dots{position:absolute;bottom:16px;right:24px;display:flex;gap:6px;z-index:10;}
-            .fs-dot{width:7px;height:7px;border-radius:50%;border:none;background:#cbd5e1;cursor:pointer;padding:0;transition:background .3s,width .3s,border-radius .3s;}
-            .fs-dot.active{background:#1d4ed8;width:22px;border-radius:4px;}
+            /* Arrows */
+            .fs-arrow{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);background:rgba(0,0,0,.35);backdrop-filter:blur(8px);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s,transform .2s;z-index:10;}
+            .fs-arrow:hover{background:rgba(0,0,0,.6);border-color:rgba(255,255,255,.7);transform:translateY(-50%) scale(1.08);}
+            .fs-prev{left:14px;}.fs-next{right:14px;}
 
-            /* ── Progress ── */
-            .fs-progress{position:absolute;bottom:0;left:0;right:0;height:3px;background:#f1f5f9;}
-            .fs-progress-fill{height:100%;width:0;background:linear-gradient(90deg,#1d4ed8,#60a5fa);transition:width linear;}
+            /* Dots — bottom right */
+            .fs-dots{position:absolute;bottom:22px;right:24px;display:flex;gap:7px;z-index:10;}
+            .fs-dot{width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6);background:transparent;cursor:pointer;padding:0;transition:background .3s,width .3s,border-radius .3s,border-color .3s;}
+            .fs-dot.active{background:#fff;border-color:#fff;width:24px;border-radius:4px;}
 
-            /* ── Mobile ── */
-            @media(max-width:768px){
-                .fs-slide{grid-template-columns:1fr;grid-template-rows:240px auto;min-height:auto;}
-                .fs-info-panel{padding:22px 20px 48px;}
-                .fs-name{font-size:1.15rem;}
+            /* Progress bar */
+            .fs-progress{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.12);z-index:10;}
+            .fs-progress-fill{height:100%;width:0;background:rgba(255,255,255,.7);transition:width linear;}
+
+            /* Mobile */
+            @media(max-width:640px){
+                .fs-wrap{height:380px;border-radius:12px;}
+                .fs-content{padding:20px 16px 24px;gap:12px;}
+                .fs-name{font-size:1.1rem;}
+                .fs-desc{display:none;}
                 .fs-price-now{font-size:1.5rem;}
-                .fs-btn-details{display:none;}
-                .fs-dots{right:50%;transform:translateX(50%);}
                 .fs-prev{left:8px;}.fs-next{right:8px;}
-                .fs-arrow{top:120px;}
+                .fs-dots{right:50%;transform:translateX(50%);}
+                .fs-btn-enq,.fs-btn-wa{padding:9px 14px;font-size:.8rem;}
             }
             </style>
             @endif
@@ -488,25 +466,24 @@
     let current = 0, timer = null, fillTimer = null, paused = false;
 
     function goTo(next) {
+      if (next === current) return;
+
+      // Deactivate current
       slides[current].classList.remove('active');
-      slides[current].classList.add('exit-left');
       slides[current].setAttribute('aria-hidden', 'true');
       slides[current].querySelectorAll('[tabindex]').forEach(el => el.setAttribute('tabindex', '-1'));
-      setTimeout(() => slides[current]?.classList.remove('exit-left'), 600);
 
+      // Update dots
       if (dots.length) {
         dots[current].classList.remove('active');
-        dots[current].setAttribute('aria-selected', 'false');
         dots[next].classList.add('active');
-        dots[next].setAttribute('aria-selected', 'true');
       }
 
+      // Activate next
       current = next;
       slides[current].classList.add('active');
       slides[current].setAttribute('aria-hidden', 'false');
       slides[current].querySelectorAll('[tabindex]').forEach(el => el.setAttribute('tabindex', '0'));
-      const counter = document.getElementById('fsCountCurrent');
-      if (counter) counter.textContent = current + 1;
       resetProgress();
     }
 
@@ -530,7 +507,6 @@
       resetProgress();
     }
 
-    slides[0]?.classList.add('active');
     if (slides.length > 1) {
       document.getElementById('fsNext')?.addEventListener('click', () => { nextSlide(); startAuto(); });
       document.getElementById('fsPrev')?.addEventListener('click', () => { prevSlide(); startAuto(); });
