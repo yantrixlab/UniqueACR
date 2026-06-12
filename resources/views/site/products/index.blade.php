@@ -85,7 +85,7 @@
 
 
 <section class="section products-listing-section" id="products-catalog">
-    <div class="container products-layout">
+    <div class="products-layout" style="max-width:100%;padding:0 40px;">
         <aside class="products-filters" id="filtersDrawer">
             <div class="filters-head">
                 <h3>Filters</h3>
@@ -171,7 +171,7 @@
                                     </span>
                                 </div>
                                 <h2 class="fs-title"><a href="{{ route('products.show', $featured->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}">{{ $featured->name }}</a></h2>
-                                <p class="fs-desc">{{ \Illuminate\Support\Str::limit(strip_tags($featured->description), 130) }}</p>
+                                <p class="fs-desc">{{ \Illuminate\Support\Str::limit(strip_tags($featured->description), 80) }}</p>
                                 <div class="fs-price">
                                     @if($featured->discount_price && $featured->discount_price < $featured->price)
                                         <span class="fs-original-price">₹{{ number_format($featured->price, 0) }}</span>
@@ -229,10 +229,10 @@
             .fs-brand-chip{background:rgba(255,255,255,.12);color:#93c5fd;font-size:.78rem;font-weight:600;letter-spacing:.04em;padding:4px 12px;border-radius:20px;border:1px solid rgba(147,197,253,.2);}
             .fs-stock.in{color:#4ade80;font-size:.78rem;font-weight:600;}
             .fs-stock.pre{color:#fbbf24;font-size:.78rem;font-weight:600;}
-            .fs-title{font-size:1.45rem;font-weight:800;color:#fff;line-height:1.25;margin:0;}
+            .fs-title{font-size:1.45rem;font-weight:800;color:#fff;line-height:1.25;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
             .fs-title a{color:inherit;text-decoration:none;}
             .fs-title a:hover{color:#93c5fd;}
-            .fs-desc{color:rgba(255,255,255,.68);font-size:.9rem;line-height:1.6;margin:0;}
+            .fs-desc{color:rgba(255,255,255,.68);font-size:.9rem;line-height:1.6;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
             .fs-price{display:flex;align-items:baseline;gap:10px;}
             .fs-price-main{font-size:1.9rem;font-weight:900;color:#fff;letter-spacing:-.02em;}
             .fs-original-price{font-size:1rem;color:rgba(255,255,255,.4);text-decoration:line-through;}
