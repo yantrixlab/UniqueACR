@@ -61,6 +61,7 @@ class MediaBackupController extends Controller
         }
 
         $extracted = 0;
+        $restored  = 0;
         $skipped   = 0;
         $mediaService = app(MediaService::class);
 
@@ -80,23 +81,32 @@ class MediaBackupController extends Controller
                 continue;
             }
 
-            // Stream from ZIP and store to public disk preserving path
-            $contents = $zip->getFromIndex($i);
-            $target   = 'media/' . basename($name);
+            // Preserve the original path from the ZIP entry (e.g. "media/filename.jpg")
+            $target = 'media/' . basename($name);
 
-            // Don't overwrite existing files
-            if (Storage::disk('public')->exists($target)) {
-                // Generate unique name
-                $target = 'media/' . Str::uuid() . '.' . $extension;
+            // If a DB record already exists for this path, nothing to do
+            if (Media::query()->where('path', $target)->exists()) {
+                $restored++;
+                continue;
             }
 
-            Storage::disk('public')->put($target, $contents);
+            // If the physical file is missing, write it from the ZIP
+            if (! Storage::disk('public')->exists($target)) {
+                $contents = $zip->getFromIndex($i);
+                Storage::disk('public')->put($target, $contents);
+            }
+
+            // Create the DB record pointing to the original path
             $mediaService->createFromPath($target);
             $extracted++;
         }
 
         $zip->close();
 
-        return back()->with('import_success', "Import complete: {$extracted} files imported" . ($skipped ? ", {$skipped} skipped (unsupported type)." : '.'));
+        $msg = "Import complete: {$extracted} files restored to library";
+        if ($restored)  $msg .= ", {$restored} already existed (skipped)";
+        if ($skipped)   $msg .= ", {$skipped} skipped (unsupported type)";
+
+        return back()->with('import_success', $msg . '.');
     }
 }
