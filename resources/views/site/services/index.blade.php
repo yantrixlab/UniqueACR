@@ -72,19 +72,11 @@
                 <li>Same Day Service</li><li>Certified Technicians</li><li>Genuine Parts</li><li>Commercial HVAC Experts</li>
             </ul>
         </div>
-        <div class="svc-scene" aria-hidden="true">
-            <div class="svc-grid-overlay"></div>
-            <div class="svc-ac"><span class="svc-temp">19°C</span><span class="svc-status">Service Active</span></div>
-            <div class="svc-air a"></div><div class="svc-air b"></div><div class="svc-air c"></div>
-            <div class="svc-particles">
-                <span class="p1"></span><span class="p2"></span><span class="p3"></span><span class="p4"></span><span class="p5"></span>
-            </div>
-            <div class="svc-gear g1">⚙</div>
-            <div class="svc-gear g2">⚙</div>
-            <div class="svc-ui one">Diagnostics • Stable</div>
-            <div class="svc-ui two"><span>Repair Progress</span><div class="svc-mini-track"><span></span></div></div>
-            <div class="svc-ui three">PM2.5: Normal</div>
-            <div class="svc-tech"></div>
+        <div class="svc-scene svc-hero-img-wrap">
+            <img src="{{ asset('upload/web_image_res/service_hero_right.webp') }}"
+                 alt="Professional AC technicians installing and repairing AC in Kolkata"
+                 class="svc-hero-img"
+                 loading="eager">
         </div>
     </div>
 </section>
