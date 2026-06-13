@@ -160,7 +160,7 @@
 <section class="section map-zone">
     <div class="container">
         <h2>Find Us in Jadavpur</h2>
-        <p class="sub">Coverage: Jadavpur, Garia, Dhakuria, Tollygunge, Ballygunge, Kasba, Santoshpur.</p>
+        <p class="sub" style="margin-bottom:24px;">Coverage: Jadavpur, Garia, Dhakuria, Tollygunge, Ballygunge, Kasba, Santoshpur.</p>
 
         <div style="position:relative;border-radius:18px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.14);">
 
