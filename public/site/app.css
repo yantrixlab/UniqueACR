@@ -190,7 +190,7 @@ a {
 .hero {
     position: relative;
     overflow: hidden;
-    padding: 108px 0 0;
+    padding: 48px 0 0;
     background:
         radial-gradient(
             1340px 620px at -2% -6%,
