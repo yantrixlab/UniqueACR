@@ -122,41 +122,179 @@
 
 <section class="section" id="featured">
     <div class="container">
-        <h2>Featured Services</h2>
-        <p class="sub">High-demand AC and HVAC services with transparent pricing and expert support.</p>
-        <div class="svc-feature-grid">
-            @forelse($featuredServices as $service)
-                @php
-                    $waText = rawurlencode('I need service for ' . $service->name);
-                    $tag = $service->service_type ?: (optional($service->category)->segment === 'commercial' ? 'Commercial' : 'Popular');
-                    $priceText = (float) $service->price > 0 ? '₹' . number_format((float) $service->price, 0) : 'Custom';
-                    $image = $getServiceImage($service);
-                @endphp
-                <article class="product-item-card premium-product-card svc-product-card">
-                    <a class="product-image-wrap svc-cover" href="{{ route('services.show', $service->slug) }}">
-                        <img loading="lazy" src="{{ $image }}" alt="{{ $service->name }}">
-                        <span class="card-top-tag">{{ \Illuminate\Support\Str::title($tag) }}</span>
-                    </a>
-                    <div class="product-card-body svc-card-body">
-                        <div class="product-top-meta premium-meta">
-                            <span class="brand-chip">{{ \Illuminate\Support\Str::title($service->service_type) }}</span>
-                            <h3 class="card-price-heading">{{ $priceText }}</h3>
+        <div class="section-head" style="margin-bottom:20px;">
+            <div>
+                <h2>Featured Services</h2>
+                <p class="sub">High-demand AC and HVAC services with transparent pricing and expert support.</p>
+            </div>
+        </div>
+
+        @if($featuredServices->isNotEmpty())
+        <div class="svc-slider-wrap" id="svcFeaturedSlider" aria-label="Featured services">
+            <div class="svc-slider-track">
+            @foreach($featuredServices as $fi => $service)
+            @php
+                $waText   = rawurlencode('I need service for ' . $service->name);
+                $image    = $getServiceImage($service);
+                $priceText = (float) $service->price > 0 ? '₹' . number_format((float) $service->price, 0) : 'Custom';
+                $typeLabel = $service->service_type ? \Illuminate\Support\Str::title($service->service_type) : 'Service';
+            @endphp
+            <div class="svc-slide {{ $fi === 0 ? 'active' : '' }}" data-index="{{ $fi }}" aria-hidden="{{ $fi === 0 ? 'false' : 'true' }}">
+                @if($image)
+                    <img src="{{ $image }}" alt="{{ $service->name }}" class="svc-slide-bg" loading="{{ $fi === 0 ? 'eager' : 'lazy' }}" onerror="this.style.display='none'">
+                @endif
+                <div class="svc-slide-scrim"></div>
+
+                <div class="svc-slide-ribbon">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    Featured
+                </div>
+
+                <div class="svc-slide-content">
+                    <div class="svc-slide-left">
+                        <div class="svc-slide-meta-row">
+                            <span class="svc-slide-type">{{ $typeLabel }}</span>
+                            <span class="svc-slide-avail {{ $service->is_active ? 'avail' : 'req' }}">
+                                {{ $service->is_active ? '● Available Today' : '○ On Request' }}
+                            </span>
                         </div>
-                        <h3>{{ $service->name }}</h3>
-                        <p>{{ \Illuminate\Support\Str::limit(strip_tags($service->description), 96) }}</p>
-                        <div class="stock-chip">{{ $service->is_active ? 'Available Today' : 'On Request' }}</div>
-                        <div class="card-btn-row">
-                            <a class="primary-btn" href="{{ route('services.show', $service->slug) }}">Book Service</a>
-                            <a class="outline-btn wa-icon-btn" target="_blank" rel="noopener" aria-label="WhatsApp" href="https://wa.me/918346904100?text={{ $waText }}">
-                                <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#25D366" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#fff" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8.2-.2.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.8-.9-2.4-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4 0-.1-.3-.2-.6-.4Z"/></svg>
+                        <h2 class="svc-slide-name">
+                            <a href="{{ route('services.show', $service->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}">{{ $service->name }}</a>
+                        </h2>
+                        <p class="svc-slide-desc">{{ \Illuminate\Support\Str::limit(strip_tags($service->description ?? ''), 90) }}</p>
+                        <div class="svc-slide-btns">
+                            <a class="svc-btn-book" href="{{ route('services.show', $service->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}">Book Service</a>
+                            <a class="svc-btn-wa" href="https://wa.me/918346904100?text={{ $waText }}" target="_blank" rel="noopener" tabindex="{{ $fi === 0 ? '0' : '-1' }}">
+                                <svg viewBox="0 0 32 32" width="17" height="17" aria-hidden="true"><path fill="#fff" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#25D366" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.4c-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.1-.4-.2-.7-.4Z"/></svg>
+                                WhatsApp
                             </a>
                         </div>
                     </div>
-                </article>
-            @empty
-                <article class="product-item-card"><div class="product-card-body"><h3>No services added yet.</h3></div></article>
-            @endforelse
+                    <div class="svc-slide-right">
+                        <div class="svc-slide-price">{{ $priceText }}</div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+            </div>
+
+            @if($featuredServices->count() > 1)
+            <button class="svc-arrow svc-prev" id="svcPrev" aria-label="Previous">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="svc-arrow svc-next" id="svcNext" aria-label="Next">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <div class="svc-dots" id="svcDots">
+                @foreach($featuredServices as $fi => $s)
+                <button class="svc-dot {{ $fi === 0 ? 'active' : '' }}" data-goto="{{ $fi }}" aria-label="Slide {{ $fi+1 }}"></button>
+                @endforeach
+            </div>
+            @endif
+
+            <div class="svc-progress"><div class="svc-progress-fill" id="svcProgressFill"></div></div>
         </div>
+
+        <style>
+        .svc-slider-wrap{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.22);background:#111;height:420px;margin-bottom:0;}
+        .svc-slider-track{position:absolute;inset:0;}
+        .svc-slide{position:absolute;inset:0;opacity:0;transition:opacity .7s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:1;}
+        .svc-slide.active{opacity:1;pointer-events:auto;z-index:2;}
+        .svc-slide-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(1);transition:transform 7s ease;will-change:transform;}
+        .svc-slide.active .svc-slide-bg{transform:scale(1.06);}
+        .svc-slide-scrim{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.08) 0%,rgba(0,0,0,.18) 35%,rgba(0,0,0,.72) 75%,rgba(0,0,0,.88) 100%);}
+        .svc-slide-ribbon{position:absolute;top:20px;left:22px;z-index:5;background:linear-gradient(135deg,#f59e0b,#f97316);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:5px 13px;border-radius:30px;display:inline-flex;align-items:center;gap:5px;box-shadow:0 3px 14px rgba(249,115,22,.4);}
+        .svc-slide-content{position:absolute;bottom:0;left:0;right:0;z-index:5;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding:28px 30px 30px;}
+        .svc-slide-left{flex:1;min-width:0;}
+        .svc-slide-meta-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+        .svc-slide-type{background:rgba(255,255,255,.15);backdrop-filter:blur(6px);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 11px;border-radius:4px;border:1px solid rgba(255,255,255,.2);}
+        .svc-slide-avail{font-size:.72rem;font-weight:600;}
+        .svc-slide-avail.avail{color:#4ade80;}
+        .svc-slide-avail.req{color:#fbbf24;}
+        .svc-slide-name{font-size:1.55rem;font-weight:800;color:#fff;line-height:1.2;margin:0 0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 8px rgba(0,0,0,.5);}
+        .svc-slide-name a{color:inherit;text-decoration:none;}
+        .svc-slide-name a:hover{text-decoration:underline;text-underline-offset:3px;}
+        .svc-slide-desc{font-size:.85rem;color:rgba(255,255,255,.78);margin:0 0 14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 4px rgba(0,0,0,.5);}
+        .svc-slide-btns{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+        .svc-btn-book{background:#111;color:#fff;text-decoration:none;display:inline-block;padding:10px 22px;border-radius:8px;font-size:.875rem;font-weight:700;transition:background .2s,transform .15s;letter-spacing:.01em;}
+        .svc-btn-book:hover{background:#222;transform:translateY(-1px);}
+        .svc-btn-wa{display:inline-flex;align-items:center;gap:7px;background:rgba(37,211,102,.12);color:#fff;text-decoration:none;padding:10px 18px;border-radius:8px;font-size:.875rem;font-weight:700;border:1.5px solid rgba(37,211,102,.55);transition:background .2s,transform .15s;backdrop-filter:blur(4px);}
+        .svc-btn-wa:hover{background:rgba(37,211,102,.25);transform:translateY(-1px);}
+        .svc-slide-right{flex-shrink:0;text-align:right;}
+        .svc-slide-price{font-size:2.1rem;font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1;text-shadow:0 2px 10px rgba(0,0,0,.5);margin-bottom:34px;}
+        .svc-arrow{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);background:rgba(0,0,0,.35);backdrop-filter:blur(8px);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s,transform .2s;z-index:10;}
+        .svc-arrow:hover{background:rgba(0,0,0,.6);border-color:rgba(255,255,255,.7);transform:translateY(-50%) scale(1.08);}
+        .svc-prev{left:14px;}.svc-next{right:14px;}
+        .svc-dots{position:absolute;bottom:22px;right:24px;display:flex;gap:7px;z-index:10;}
+        .svc-dot{width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6);background:transparent;cursor:pointer;padding:0;transition:background .3s,width .3s,border-radius .3s,border-color .3s;}
+        .svc-dot.active{background:#fff;border-color:#fff;width:24px;border-radius:4px;}
+        .svc-progress{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.12);z-index:10;}
+        .svc-progress-fill{height:100%;width:0;background:rgba(255,255,255,.7);transition:width linear;}
+        @media(max-width:640px){
+            .svc-slider-wrap{height:360px;border-radius:12px;}
+            .svc-slide-content{padding:18px 16px 22px;gap:10px;}
+            .svc-slide-name{font-size:1.1rem;}
+            .svc-slide-desc{display:none;}
+            .svc-slide-price{font-size:1.45rem;margin-bottom:28px;}
+            .svc-prev{left:8px;}.svc-next{right:8px;}
+            .svc-dots{right:50%;transform:translateX(50%);}
+            .svc-btn-book,.svc-btn-wa{padding:9px 14px;font-size:.8rem;}
+        }
+        </style>
+
+        <script>
+        (() => {
+          const slides = document.querySelectorAll('#svcFeaturedSlider .svc-slide');
+          const dots   = document.querySelectorAll('#svcFeaturedSlider .svc-dot');
+          const fill   = document.getElementById('svcProgressFill');
+          const DURATION = 5000;
+          if (!slides.length) return;
+          let current = 0, timer = null, paused = false;
+
+          function goTo(next) {
+            if (next === current) return;
+            slides[current].classList.remove('active');
+            slides[current].setAttribute('aria-hidden', 'true');
+            slides[current].querySelectorAll('[tabindex]').forEach(el => el.setAttribute('tabindex', '-1'));
+            if (dots.length) { dots[current].classList.remove('active'); dots[next].classList.add('active'); }
+            current = next;
+            slides[current].classList.add('active');
+            slides[current].setAttribute('aria-hidden', 'false');
+            slides[current].querySelectorAll('[tabindex]').forEach(el => el.setAttribute('tabindex', '0'));
+            resetProgress();
+          }
+
+          function nextSlide() { goTo((current + 1) % slides.length); }
+          function prevSlide() { goTo((current - 1 + slides.length) % slides.length); }
+
+          function resetProgress() {
+            if (!fill) return;
+            fill.style.transition = 'none';
+            fill.style.width = '0%';
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+              fill.style.transition = `width ${DURATION}ms linear`;
+              fill.style.width = '100%';
+            }));
+          }
+
+          function startAuto() {
+            clearInterval(timer);
+            timer = setInterval(() => { if (!paused) nextSlide(); }, DURATION);
+            resetProgress();
+          }
+
+          if (slides.length > 1) {
+            document.getElementById('svcNext')?.addEventListener('click', () => { nextSlide(); startAuto(); });
+            document.getElementById('svcPrev')?.addEventListener('click', () => { prevSlide(); startAuto(); });
+            dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.goto); startAuto(); }));
+            const wrap = document.getElementById('svcFeaturedSlider');
+            wrap?.addEventListener('mouseenter', () => { paused = true; });
+            wrap?.addEventListener('mouseleave', () => { paused = false; });
+            startAuto();
+          }
+        })();
+        </script>
+        @endif
     </div>
 </section>
 

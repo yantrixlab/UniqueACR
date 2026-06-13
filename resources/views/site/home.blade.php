@@ -895,7 +895,7 @@
 
 <section class="section home-services-preview">
     <div class="container">
-        <div class="section-head hs-section-head">
+        <div class="section-head hs-section-head" style="margin-bottom:20px;">
             <div>
                 <h2>Our Services</h2>
                 <p class="sub">Explore popular AC repair, installation, and maintenance solutions.</p>
@@ -905,42 +905,174 @@
                 <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg>
             </a>
         </div>
-    </div>
-    <div class="hs-scroll-row">
-        @forelse($services as $i => $service)
-                @php
-                    $serviceImage = $service->image_path
-                        ? (\Illuminate\Support\Str::startsWith($service->image_path, ['http://', 'https://', 'data:'])
-                            ? $service->image_path
-                            : asset('storage/' . ltrim($service->image_path, '/')))
-                        : '';
-                    $servicePrice = (float) $service->price > 0 ? '₹' . number_format((float) $service->price, 0) : 'Custom';
-                    $serviceType = $service->service_type ? \Illuminate\Support\Str::title($service->service_type) : 'Service';
-                @endphp
-                <article class="product-item-card premium-product-card">
-                    <a class="product-image-wrap" href="{{ route('services.index') }}">
-                        <img loading="lazy" src="{{ $serviceImage }}" alt="{{ $service->name }}" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 900 520%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop offset=%220%25%22 stop-color=%22%23e8eef8%22/><stop offset=%22100%25%22 stop-color=%22%23d9e5f6%22/></linearGradient></defs><rect width=%22900%22 height=%22520%22 fill=%22url(%23g)%22/><rect x=%22335%22 y=%22195%22 width=%22230%22 height=%22130%22 rx=%2218%22 fill=%22%23ffffff%22 stroke=%22%23b7cceb%22/><rect x=%22365%22 y=%22238%22 width=%22170%22 height=%2224%22 rx=%2212%22 fill=%22%238ec3f5%22/><circle cx=%22520%22 cy=%22222%22 r=%2212%22 fill=%22%233c7cc0%22/></svg>';">
-                        <span class="card-top-tag">{{ $i === 0 ? 'Top Service' : ($i === 1 ? 'Fast Support' : 'Trusted') }}</span>
-                    </a>
-                    <div class="product-card-body">
-                        <div class="product-top-meta premium-meta">
-                            <span class="brand-chip">{{ $serviceType }}</span>
-                            <h3 class="card-price-heading">{{ $servicePrice }}</h3>
+
+        @if($services->isNotEmpty())
+        <div class="hsvc-wrap" id="homeSvcSlider" aria-label="Featured services">
+            <div class="hsvc-track">
+            @foreach($services as $fi => $service)
+            @php
+                $svcImg   = $service->image_path
+                    ? (\Illuminate\Support\Str::startsWith($service->image_path, ['http://', 'https://', 'data:'])
+                        ? $service->image_path
+                        : asset('storage/' . ltrim($service->image_path, '/')))
+                    : '';
+                $svcPrice = (float) $service->price > 0 ? '₹' . number_format((float) $service->price, 0) : 'Custom';
+                $svcType  = $service->service_type ? \Illuminate\Support\Str::title($service->service_type) : 'Service';
+                $svcWa    = rawurlencode('I need service for ' . $service->name);
+            @endphp
+            <div class="hsvc-slide {{ $fi === 0 ? 'active' : '' }}" data-index="{{ $fi }}" aria-hidden="{{ $fi === 0 ? 'false' : 'true' }}">
+                @if($svcImg)
+                    <img src="{{ $svcImg }}" alt="{{ $service->name }}" class="hsvc-bg" loading="{{ $fi === 0 ? 'eager' : 'lazy' }}" onerror="this.style.display='none'">
+                @endif
+                <div class="hsvc-scrim"></div>
+                <div class="hsvc-ribbon">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    Featured
+                </div>
+                <div class="hsvc-content">
+                    <div class="hsvc-left">
+                        <div class="hsvc-meta-row">
+                            <span class="hsvc-type">{{ $svcType }}</span>
+                            <span class="hsvc-avail {{ $service->is_active ? 'avail' : 'req' }}">
+                                {{ $service->is_active ? '● Available Today' : '○ On Request' }}
+                            </span>
                         </div>
-                        <h3><a href="{{ route('services.index') }}">{{ $service->name }}</a></h3>
-                        <p>{{ \Illuminate\Support\Str::limit(strip_tags($service->description), 95) }}</p>
-                        <div class="stock-chip">{{ $service->is_active ? 'Available Today' : 'On Request' }}</div>
-                        <div class="card-btn-row">
-                            <a class="primary-btn" href="{{ route('contact', ['service' => $service->slug]) }}">Book Service</a>
-                            <a class="outline-btn wa-icon-btn" target="_blank" rel="noopener" aria-label="WhatsApp" href="https://wa.me/918346904100?text={{ rawurlencode('I need service for '.$service->name) }}">
-                                <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#25D366" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#fff" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8.2-.2.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.8-.9-2.4-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4 0-.1-.3-.2-.6-.4Z"/></svg>
+                        <h2 class="hsvc-name">
+                            <a href="{{ route('services.show', $service->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}">{{ $service->name }}</a>
+                        </h2>
+                        <p class="hsvc-desc">{{ \Illuminate\Support\Str::limit(strip_tags($service->description ?? ''), 90) }}</p>
+                        <div class="hsvc-btns">
+                            <a class="hsvc-btn-book" href="{{ route('services.show', $service->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}">Book Service</a>
+                            <a class="hsvc-btn-wa" href="https://wa.me/918346904100?text={{ $svcWa }}" target="_blank" rel="noopener" tabindex="{{ $fi === 0 ? '0' : '-1' }}">
+                                <svg viewBox="0 0 32 32" width="17" height="17" aria-hidden="true"><path fill="#fff" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#25D366" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.4c-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.1-.4-.2-.7-.4Z"/></svg>
+                                WhatsApp
                             </a>
                         </div>
                     </div>
-                </article>
-        @empty
-            <article class="product-item-card"><div class="product-card-body"><h3>No services available</h3></div></article>
-        @endforelse
+                    <div class="hsvc-right">
+                        <div class="hsvc-price">{{ $svcPrice }}</div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+            </div>
+
+            @if($services->count() > 1)
+            <button class="hsvc-arrow hsvc-prev" id="hsvcPrev" aria-label="Previous">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="hsvc-arrow hsvc-next" id="hsvcNext" aria-label="Next">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <div class="hsvc-dots" id="hsvcDots">
+                @foreach($services as $fi => $s)
+                <button class="hsvc-dot {{ $fi === 0 ? 'active' : '' }}" data-goto="{{ $fi }}" aria-label="Slide {{ $fi+1 }}"></button>
+                @endforeach
+            </div>
+            @endif
+
+            <div class="hsvc-progress"><div class="hsvc-progress-fill" id="hsvcProgressFill"></div></div>
+        </div>
+
+        <style>
+        .hsvc-wrap{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.22);background:#111;height:420px;}
+        .hsvc-track{position:absolute;inset:0;}
+        .hsvc-slide{position:absolute;inset:0;opacity:0;transition:opacity .7s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:1;}
+        .hsvc-slide.active{opacity:1;pointer-events:auto;z-index:2;}
+        .hsvc-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(1);transition:transform 7s ease;will-change:transform;}
+        .hsvc-slide.active .hsvc-bg{transform:scale(1.06);}
+        .hsvc-scrim{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.08) 0%,rgba(0,0,0,.18) 35%,rgba(0,0,0,.72) 75%,rgba(0,0,0,.88) 100%);}
+        .hsvc-ribbon{position:absolute;top:20px;left:22px;z-index:5;background:linear-gradient(135deg,#f59e0b,#f97316);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:5px 13px;border-radius:30px;display:inline-flex;align-items:center;gap:5px;box-shadow:0 3px 14px rgba(249,115,22,.4);}
+        .hsvc-content{position:absolute;bottom:0;left:0;right:0;z-index:5;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding:28px 30px 30px;}
+        .hsvc-left{flex:1;min-width:0;}
+        .hsvc-meta-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+        .hsvc-type{background:rgba(255,255,255,.15);backdrop-filter:blur(6px);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 11px;border-radius:4px;border:1px solid rgba(255,255,255,.2);}
+        .hsvc-avail{font-size:.72rem;font-weight:600;}
+        .hsvc-avail.avail{color:#4ade80;}
+        .hsvc-avail.req{color:#fbbf24;}
+        .hsvc-name{font-size:1.55rem;font-weight:800;color:#fff;line-height:1.2;margin:0 0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 8px rgba(0,0,0,.5);}
+        .hsvc-name a{color:inherit;text-decoration:none;}
+        .hsvc-name a:hover{text-decoration:underline;text-underline-offset:3px;}
+        .hsvc-desc{font-size:.85rem;color:rgba(255,255,255,.78);margin:0 0 14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 4px rgba(0,0,0,.5);}
+        .hsvc-btns{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+        .hsvc-btn-book{background:#111;color:#fff;text-decoration:none;display:inline-block;padding:10px 22px;border-radius:8px;font-size:.875rem;font-weight:700;transition:background .2s,transform .15s;}
+        .hsvc-btn-book:hover{background:#222;transform:translateY(-1px);}
+        .hsvc-btn-wa{display:inline-flex;align-items:center;gap:7px;background:rgba(37,211,102,.12);color:#fff;text-decoration:none;padding:10px 18px;border-radius:8px;font-size:.875rem;font-weight:700;border:1.5px solid rgba(37,211,102,.55);transition:background .2s,transform .15s;backdrop-filter:blur(4px);}
+        .hsvc-btn-wa:hover{background:rgba(37,211,102,.25);transform:translateY(-1px);}
+        .hsvc-right{flex-shrink:0;text-align:right;}
+        .hsvc-price{font-size:2.1rem;font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1;text-shadow:0 2px 10px rgba(0,0,0,.5);margin-bottom:34px;}
+        .hsvc-arrow{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);background:rgba(0,0,0,.35);backdrop-filter:blur(8px);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s,transform .2s;z-index:10;}
+        .hsvc-arrow:hover{background:rgba(0,0,0,.6);border-color:rgba(255,255,255,.7);transform:translateY(-50%) scale(1.08);}
+        .hsvc-prev{left:14px;}.hsvc-next{right:14px;}
+        .hsvc-dots{position:absolute;bottom:22px;right:24px;display:flex;gap:7px;z-index:10;}
+        .hsvc-dot{width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6);background:transparent;cursor:pointer;padding:0;transition:background .3s,width .3s,border-radius .3s,border-color .3s;}
+        .hsvc-dot.active{background:#fff;border-color:#fff;width:24px;border-radius:4px;}
+        .hsvc-progress{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.12);z-index:10;}
+        .hsvc-progress-fill{height:100%;width:0;background:rgba(255,255,255,.7);transition:width linear;}
+        @media(max-width:640px){
+            .hsvc-wrap{height:360px;border-radius:12px;}
+            .hsvc-content{padding:18px 16px 22px;gap:10px;}
+            .hsvc-name{font-size:1.1rem;}
+            .hsvc-desc{display:none;}
+            .hsvc-price{font-size:1.45rem;margin-bottom:28px;}
+            .hsvc-prev{left:8px;}.hsvc-next{right:8px;}
+            .hsvc-dots{right:50%;transform:translateX(50%);}
+            .hsvc-btn-book,.hsvc-btn-wa{padding:9px 14px;font-size:.8rem;}
+        }
+        </style>
+
+        <script>
+        (() => {
+          const slides = document.querySelectorAll('#homeSvcSlider .hsvc-slide');
+          const dots   = document.querySelectorAll('#homeSvcSlider .hsvc-dot');
+          const fill   = document.getElementById('hsvcProgressFill');
+          const DURATION = 5000;
+          if (!slides.length) return;
+          let current = 0, timer = null, paused = false;
+
+          function goTo(next) {
+            if (next === current) return;
+            slides[current].classList.remove('active');
+            slides[current].setAttribute('aria-hidden', 'true');
+            slides[current].querySelectorAll('[tabindex]').forEach(el => el.setAttribute('tabindex', '-1'));
+            if (dots.length) { dots[current].classList.remove('active'); dots[next].classList.add('active'); }
+            current = next;
+            slides[current].classList.add('active');
+            slides[current].setAttribute('aria-hidden', 'false');
+            slides[current].querySelectorAll('[tabindex]').forEach(el => el.setAttribute('tabindex', '0'));
+            resetProgress();
+          }
+
+          function nextSlide() { goTo((current + 1) % slides.length); }
+          function prevSlide() { goTo((current - 1 + slides.length) % slides.length); }
+
+          function resetProgress() {
+            if (!fill) return;
+            fill.style.transition = 'none'; fill.style.width = '0%';
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+              fill.style.transition = `width ${DURATION}ms linear`;
+              fill.style.width = '100%';
+            }));
+          }
+
+          function startAuto() {
+            clearInterval(timer);
+            timer = setInterval(() => { if (!paused) nextSlide(); }, DURATION);
+            resetProgress();
+          }
+
+          if (slides.length > 1) {
+            document.getElementById('hsvcNext')?.addEventListener('click', () => { nextSlide(); startAuto(); });
+            document.getElementById('hsvcPrev')?.addEventListener('click', () => { prevSlide(); startAuto(); });
+            dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.goto); startAuto(); }));
+            const wrap = document.getElementById('homeSvcSlider');
+            wrap?.addEventListener('mouseenter', () => { paused = true; });
+            wrap?.addEventListener('mouseleave', () => { paused = false; });
+            startAuto();
+          }
+        })();
+        </script>
+        @endif
     </div>
 </section>
 
