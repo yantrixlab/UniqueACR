@@ -117,7 +117,7 @@
             <span class="mob-menu-bar"></span>
             <span class="mob-menu-bar"></span>
         </button>
-        <a class="logo" href="{{ route('home') }}"><span class="logo-mark">?</span> Cooling Kolkata</a>
+        <a class="logo" href="{{ route('home') }}">Cooling Kolkata</a>
         <nav class="main-nav">
             <a class="{{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
             <a class="{{ request()->routeIs('services.*') ? 'active' : '' }}" href="{{ route('services.index') }}">Services</a>
@@ -136,7 +136,7 @@
 <div class="mob-overlay" id="mobOverlay" aria-hidden="true"></div>
 <aside class="mob-side-panel" id="mobSidePanel" aria-label="Mobile navigation" aria-hidden="true">
     <div class="mob-panel-header">
-        <a class="logo" href="{{ route('home') }}"><span class="logo-mark">?</span> Cooling Kolkata</a>
+        <a class="logo" href="{{ route('home') }}">Cooling Kolkata</a>
         <button class="mob-close-btn" id="mobCloseBtn" aria-label="Close menu">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
                 <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>

@@ -39,6 +39,7 @@
         <form method="GET" action="{{ route('products.index') }}" class="pp-quick-search-form" role="search" aria-label="Search products">
             <label for="quickProductSearch">Search Products</label>
             <div class="pp-quick-search-row">
+                <input type="hidden" name="tab" value="{{ $filters['tab'] }}">
                 <input
                     id="quickProductSearch"
                     type="search"
@@ -79,7 +80,26 @@
 </section>
 
 
-<section class="section products-listing-section" id="products-catalog">
+<section class="pp-tab-section" id="products-catalog">
+    <div class="container">
+        <div class="pp-tab-switcher" role="tablist" aria-label="Product type">
+            <a href="{{ route('products.index', array_merge(request()->except(['tab','page']), ['tab' => 'ac_products'])) }}"
+               class="pp-tab {{ $filters['tab'] === 'ac_products' ? 'active' : '' }}"
+               role="tab" aria-selected="{{ $filters['tab'] === 'ac_products' ? 'true' : 'false' }}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+                AC Products
+            </a>
+            <a href="{{ route('products.index', array_merge(request()->except(['tab','page']), ['tab' => 'spare_parts'])) }}"
+               class="pp-tab {{ $filters['tab'] === 'spare_parts' ? 'active' : '' }}"
+               role="tab" aria-selected="{{ $filters['tab'] === 'spare_parts' ? 'true' : 'false' }}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 0-14.14 0M4.93 19.07a10 10 0 0 0 14.14 0"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+                Spare Parts
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section products-listing-section" style="padding-top:0" id="products-list">
     <div class="products-layout" style="max-width:100%;padding:0 40px;">
         <aside class="products-filters" id="filtersDrawer">
             <div class="filters-head">
@@ -87,6 +107,7 @@
                 <button type="button" class="ghost-btn filters-close" id="closeFilters">Close</button>
             </div>
             <form method="GET" action="{{ route('products.index') }}" id="productsFilterForm" class="filters-form">
+                <input type="hidden" name="tab" value="{{ $filters['tab'] }}">
                 <label>Search Product
                     <input type="search" name="search" value="{{ $filters['search'] }}" placeholder="Search by name">
                 </label>
@@ -124,7 +145,7 @@
                 </label>
                 <div class="filters-actions">
                     <button type="submit" class="primary-btn">Apply Filters</button>
-                    <a href="{{ route('products.index') }}" class="ghost-btn">Reset</a>
+                    <a href="{{ route('products.index', ['tab' => $filters['tab']]) }}" class="ghost-btn">Reset</a>
                 </div>
             </form>
         </aside>

@@ -11,7 +11,12 @@ class ProductController extends Controller
 {
     public function index(Request $request, ProductService $productService): View
     {
+        $tab = in_array($request->string('tab')->toString(), ['ac_products', 'spare_parts'])
+            ? $request->string('tab')->toString()
+            : 'ac_products';
+
         $filters = [
+            'tab' => $tab,
             'search' => $request->string('search')->toString() ?: null,
             'brand' => $request->string('brand')->toString() ?: null,
             'category_id' => $request->integer('category_id') ?: null,

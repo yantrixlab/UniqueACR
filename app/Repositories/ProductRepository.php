@@ -40,9 +40,9 @@ class ProductRepository
         return $this->queryActive()->where('slug', $slug)->firstOrFail();
     }
 
-    public function filterOptions(): array
+    public function filterOptions(string $tab = 'ac_products'): array
     {
-        $query = $this->queryActive();
+        $query = $this->queryActive()->whereHas('category', fn ($q) => $q->where('type', $tab));
 
         return [
             'brands' => (clone $query)->select('brand')->distinct()->orderBy('brand')->pluck('brand')->all(),
@@ -54,7 +54,10 @@ class ProductRepository
 
     private function applyFilters(Builder $query, array $filters): Builder
     {
+        $tab = $filters['tab'] ?? 'ac_products';
+
         return $query
+            ->whereHas('category', fn ($q) => $q->where('type', $tab))
             ->when($filters['search'] ?? null, fn (Builder $q, string $search) => $q->where('name', 'like', "%{$search}%"))
             ->when($filters['brand'] ?? null, fn (Builder $q, string $brand) => $q->where('brand', $brand))
             ->when($filters['category_id'] ?? null, fn (Builder $q, int|string $categoryId) => $q->where('product_category_id', $categoryId))

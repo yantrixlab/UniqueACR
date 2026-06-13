@@ -14,8 +14,9 @@ class ProductService
 
     public function listingData(array $filters): array
     {
+        $tab = $filters['tab'] ?? 'ac_products';
         $products = $this->productRepository->paginateFiltered($filters, 12);
-        $options = $this->productRepository->filterOptions();
+        $options = $this->productRepository->filterOptions($tab);
 
         $featuredProducts = $this->productRepository->getFeatured();
 
