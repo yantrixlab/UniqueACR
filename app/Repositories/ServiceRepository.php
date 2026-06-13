@@ -9,25 +9,13 @@ class ServiceRepository
 {
     public function getFeatured(int $limit = 6): Collection
     {
-        $featured = Service::query()
+        return Service::query()
             ->with('category')
             ->where('is_active', true)
             ->where('is_featured', true)
             ->latest()
             ->take($limit)
             ->get();
-
-        // Fall back to latest active services if none are marked featured
-        if ($featured->isEmpty()) {
-            $featured = Service::query()
-                ->with('category')
-                ->where('is_active', true)
-                ->latest()
-                ->take($limit)
-                ->get();
-        }
-
-        return $featured;
     }
 
     public function activeWithCategory(?string $segment = null): Collection
