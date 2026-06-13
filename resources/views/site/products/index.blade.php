@@ -5,23 +5,31 @@
 @section('og_title','AC Products & Spare Parts in Kolkata | Cooling Kolkata')
 @section('og_description','Genuine AC products & spare parts from top brands in Kolkata. Voltas, LG, Daikin, Samsung & more. Expert installation included.')
 @section('content')
-<section class="products-hero premium-products-hero">
-    <div class="pp-glow one"></div><div class="pp-glow two"></div>
-    <div class="container pp-hero-grid">
-        <div>
-            <span class="pill"><span class="svc-badge-dot"></span>Premium AC Products in Kolkata</span>
+<section class="hero">
+    <div class="hero-glow hero-glow-a"></div>
+    <div class="hero-glow hero-glow-b"></div>
+    <div class="container hero-shell hero-grid premium-hero-grid">
+        <div class="hero-copy premium-hero-copy">
+            <span class="pill">Premium AC Products in Kolkata • All Top Brands</span>
             <h1>AC Products & Spare Parts</h1>
-            <p>Best AC products in Kolkata | Daikin, Voltas, OGeneral. Discover verified units, genuine components, and expert support from installation to after-sales service.</p>
-            <div class="cta-row">
+            <p>Best AC products in Kolkata — Daikin, Voltas, OGeneral. Discover verified units, genuine components, and expert support from installation to after-sales service.</p>
+            <div class="cta-row premium-cta-row">
                 <a class="primary-btn" href="#product-enquiry">Enquire Now</a>
                 <a class="secondary-btn" href="#products-catalog">Explore Catalog</a>
             </div>
+            <ul class="hero-trust-points">
+                <li>All Top Brands</li>
+                <li>Genuine Components</li>
+                <li>Expert Installation</li>
+                <li>After-Sales Support</li>
+            </ul>
         </div>
-        <div class="pp-hero-visual pp-hero-img-wrap">
-            <img src="{{ asset('upload/web_image_res/product_hero_right.webp') }}"
-                 alt="AC technicians carrying and installing AC unit in Kolkata"
-                 class="pp-hero-img"
-                 loading="eager">
+        <div class="hero-visual-wrap" aria-hidden="true">
+            <div class="hero-image-card">
+                <img src="{{ asset('upload/web_image_res/product_hero_right.webp') }}"
+                     alt="AC technicians carrying and installing AC unit in Kolkata"
+                     loading="eager" class="hero-img-contain">
+            </div>
         </div>
     </div>
 </section>

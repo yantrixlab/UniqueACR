@@ -57,26 +57,31 @@
 @endverbatim
 @endsection
 @section('content')
-<section class="svc-hero">
-    <div class="svc-glow a"></div><div class="svc-glow b"></div>
-    <div class="container svc-hero-grid">
-        <div class="svc-copy">
-            <span class="pill svc-badge"><span class="svc-badge-dot"></span>Trusted AC Experts in Kolkata</span>
+<section class="hero">
+    <div class="hero-glow hero-glow-a"></div>
+    <div class="hero-glow hero-glow-b"></div>
+    <div class="container hero-shell hero-grid premium-hero-grid">
+        <div class="hero-copy premium-hero-copy">
+            <span class="pill">Trusted AC Experts in Kolkata • 7+ Years Experience</span>
             <h1>Professional AC Repair, Installation & HVAC Solutions</h1>
             <p>Expert domestic and commercial AC servicing with fast response, certified technicians, genuine spare parts, and reliable cooling solutions across Kolkata.</p>
-            <div class="cta-row svc-cta">
-                <a class="primary-btn svc-primary" href="{{ route('contact') }}">Book AC Service</a>
-                <a class="secondary-btn svc-secondary" href="{{ route('contact') }}">Get Free Inspection</a>
+            <div class="cta-row premium-cta-row">
+                <a class="primary-btn" href="{{ route('contact') }}">Book AC Service</a>
+                <a class="secondary-btn" href="{{ route('contact') }}">Get Free Inspection</a>
             </div>
-            <ul class="hero-trust-points svc-trust">
-                <li>Same Day Service</li><li>Certified Technicians</li><li>Genuine Parts</li><li>Commercial HVAC Experts</li>
+            <ul class="hero-trust-points">
+                <li>Same Day Service</li>
+                <li>Certified Technicians</li>
+                <li>Genuine Parts</li>
+                <li>Commercial HVAC Experts</li>
             </ul>
         </div>
-        <div class="svc-scene svc-hero-img-wrap">
-            <img src="{{ asset('upload/web_image_res/service_hero_right.webp') }}"
-                 alt="Professional AC technicians installing and repairing AC in Kolkata"
-                 class="svc-hero-img"
-                 loading="eager">
+        <div class="hero-visual-wrap" aria-hidden="true">
+            <div class="hero-image-card">
+                <img src="{{ asset('upload/web_image_res/service_hero_right.webp') }}"
+                     alt="Professional AC technicians installing and repairing AC in Kolkata"
+                     loading="eager" class="hero-img-contain">
+            </div>
         </div>
     </div>
 </section>
