@@ -28,7 +28,7 @@ class HomeController extends Controller
         }
 
         return view('site.home', [
-            'services' => $serviceRepository->activeWithCategory()->take(6),
+            'services' => $serviceRepository->getFeatured(6),
             'products' => $featuredProducts,
             'posts' => BlogPost::query()->where('is_published', true)->latest('published_at')->take(3)->get(),
             'testimonials' => Testimonial::query()->where('is_active', true)->latest()->take(6)->get(),

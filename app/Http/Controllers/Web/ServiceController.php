@@ -12,11 +12,12 @@ class ServiceController extends Controller
 {
     public function index(Request $request, ServiceRepository $serviceRepository, ServiceAreaRepository $areaRepository): View
     {
-        $segment = $request->string('segment')->toString() ?: null;
+        $segment  = $request->string('segment')->toString() ?: null;
         $services = $serviceRepository->activeWithCategory($segment);
-        $areas = $areaRepository->getAll();
+        $featuredServices = $serviceRepository->getFeatured(6);
+        $areas    = $areaRepository->getAll();
 
-        return view('site.services.index', compact('services', 'segment', 'areas'));
+        return view('site.services.index', compact('services', 'featuredServices', 'segment', 'areas'));
     }
 
     public function show(string $slug, ServiceRepository $serviceRepository): View

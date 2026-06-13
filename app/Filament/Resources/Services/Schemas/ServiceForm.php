@@ -46,6 +46,10 @@ class ServiceForm
                     ->dehydrated(false),
                 Toggle::make('is_active')
                     ->required(),
+                Toggle::make('is_featured')
+                    ->label('Is featured')
+                    ->helperText('Show this service in the Featured Services slider on the home and services pages.')
+                    ->default(false),
             ]);
     }
 }

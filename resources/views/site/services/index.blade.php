@@ -104,7 +104,7 @@
 
 @php
     $allServices = $services->values();
-    $featuredServices = $allServices->take(6);
+    // $featuredServices is passed from controller (is_featured=true, with fallback)
     $domesticServices = $allServices->filter(fn ($s) => optional($s->category)->segment === 'domestic')->values();
     $commercialServices = $allServices->filter(fn ($s) => optional($s->category)->segment === 'commercial')->values();
 

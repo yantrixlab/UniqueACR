@@ -31,6 +31,9 @@ class ServicesTable
                 ImageColumn::make('image_path'),
                 IconColumn::make('is_active')
                     ->boolean(),
+                IconColumn::make('is_featured')
+                    ->boolean()
+                    ->label('Featured'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
