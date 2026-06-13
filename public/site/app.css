@@ -433,7 +433,6 @@ h4 {
 .hero-image-card img.hero-img-contain {
     object-fit: contain;
     object-position: bottom center;
-    filter: drop-shadow(0 8px 32px rgba(0,0,0,0.18));
 }
 .hero-airflow-wrap {
     position: absolute;
