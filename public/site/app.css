@@ -5490,7 +5490,7 @@ h4 {
 
 /* ── Product tab switcher ── */
 .pp-tab-section {
-    padding: 28px 0 0;
+    padding: 28px 0 24px;
 }
 .pp-tab-switcher {
     display: flex;

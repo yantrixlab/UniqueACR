@@ -69,15 +69,6 @@
     </div>
 </section>
 
-<section class="section pp-trust-strip">
-    <div class="container pp-trust-grid">
-        <article><h3>15+ Years</h3><p>AC industry experience</p></article>
-        <article><h3>5000+</h3><p>Happy customers</p></article>
-        <article><h3>3+ Brands</h3><p>Daikin, Voltas, OGeneral</p></article>
-        <article><h3>Fast Service</h3><p>Installation & support</p></article>
-        <article><h3>Warranty</h3><p>Genuine products assurance</p></article>
-    </div>
-</section>
 
 
 <section class="pp-tab-section" id="products-catalog">
