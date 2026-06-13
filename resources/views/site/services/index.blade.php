@@ -517,6 +517,111 @@
     </div>
 </section>
 
+<section class="section map-zone">
+    <div class="container">
+        <h2>Find Us in Jadavpur</h2>
+        <p class="sub" style="margin-bottom:24px;">Coverage: Jadavpur, Garia, Dhakuria, Tollygunge, Ballygunge, Kasba, Santoshpur.</p>
+
+        <div style="position:relative;border-radius:18px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.14);">
+            <div id="svc-coverage-map" style="width:100%;height:460px;background:#e8f0fe;"></div>
+
+            <div style="position:absolute;top:16px;left:60px;z-index:1000;background:rgba(6,20,50,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;padding:.55rem 1.1rem;border-radius:11px;font-size:.8rem;line-height:1.5;border:1px solid rgba(255,255,255,.14);pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,.3);">
+                <strong style="display:block;font-size:.86rem;margin-bottom:.1rem;">📍 Cooling Kolkata</strong>
+                <span style="color:rgba(255,255,255,.65);">3/87 C. R Colony, Jadavpur, Kolkata – 700032</span>
+            </div>
+
+            <div style="position:absolute;bottom:30px;left:16px;z-index:1000;display:inline-flex;align-items:center;gap:.45rem;background:rgba(0,25,10,.88);backdrop-filter:blur(10px);border:1px solid rgba(34,197,94,.4);color:#4ade80;font-size:.74rem;font-weight:700;padding:.42rem 1rem;border-radius:999px;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,.3);">
+                <span class="map-pulse-dot"></span>
+                8 km service coverage area
+            </div>
+        </div>
+
+        <div class="coverage-tags" style="margin-top:1.25rem;">
+            <span>Jadavpur</span><span>Garia</span><span>Dhakuria</span><span>Tollygunge</span><span>Ballygunge</span><span>Kasba</span>
+        </div>
+    </div>
+</section>
+
+<style>
+.map-pulse-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px #22c55e;flex-shrink:0;animation:mapDotPulse 2s infinite;}
+@keyframes mapDotPulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.6)}70%{box-shadow:0 0 0 7px rgba(34,197,94,0)}}
+@keyframes markerPing{0%{transform:scale(.8);opacity:.8}100%{transform:scale(2.5);opacity:0}}
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css"/>
+<script>
+(function(){
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.js';
+    s.onload = initSvcMap;
+    s.onerror = function(){ console.warn('Leaflet failed to load'); };
+    document.body.appendChild(s);
+
+    function initSvcMap(){
+        var LAT = 22.486403, LNG = 88.375548;
+        var el  = document.getElementById('svc-coverage-map');
+        if(!el || typeof L === 'undefined') return;
+
+        var map = L.map(el, {
+            center: [LAT, LNG],
+            zoom: 12,
+            zoomControl: true,
+            scrollWheelZoom: true,
+        });
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> &copy; <a href="https://carto.com/" target="_blank">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19,
+        }).addTo(map);
+
+        L.circle([LAT, LNG], {
+            radius: 8000, color: '#16a34a', weight: 2.2, opacity: 0.9,
+            dashArray: '10 6', lineCap: 'round', fillColor: '#22c55e', fillOpacity: 0.09,
+        }).addTo(map);
+
+        L.circle([LAT, LNG], {
+            radius: 8000, color: '#4ade80', weight: 8, opacity: 0.14, fillOpacity: 0,
+        }).addTo(map);
+
+        var pinHtml = [
+            '<div style="position:relative;width:44px;height:44px;transform:translate(-50%,-50%)">',
+              '<span style="position:absolute;inset:0;border-radius:50%;background:rgba(59,130,246,.22);animation:markerPing 2s cubic-bezier(0,0,.2,1) infinite"></span>',
+              '<span style="position:absolute;inset:0;border-radius:50%;background:rgba(59,130,246,.12);animation:markerPing 2s cubic-bezier(0,0,.2,1) infinite .6s"></span>',
+              '<span style="position:absolute;inset:9px;border-radius:50%;background:#1d4ed8;box-shadow:0 0 0 3px #fff,0 4px 14px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;">',
+                '<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>',
+              '</span>',
+            '</div>'
+        ].join('');
+
+        var marker = L.marker([LAT, LNG], {
+            icon: L.divIcon({ className:'', html: pinHtml, iconSize:[0,0], iconAnchor:[0,0] })
+        }).addTo(map);
+
+        marker.bindPopup(
+            '<div style="font-family:system-ui,sans-serif;padding:.2rem .1rem;min-width:185px">' +
+              '<strong style="font-size:.88rem;color:#062d67;display:block;margin-bottom:.2rem">Cooling Kolkata</strong>' +
+              '<span style="font-size:.76rem;color:#64748b;line-height:1.5">3/87 C. R Colony, Jadavpur<br>Kolkata – 700032</span><br>' +
+              '<a href="tel:+918346904100" style="display:inline-block;margin-top:.45rem;font-size:.78rem;color:#1d4ed8;font-weight:700">+91 83469 04100</a>' +
+            '</div>',
+            { offset: [0, -8] }
+        ).openPopup();
+
+        L.marker([LAT + 0.072, LNG], {
+            icon: L.divIcon({
+                className: '',
+                html: '<div style="background:rgba(0,22,10,.82);border:1px solid rgba(34,197,94,.5);color:#4ade80;font-size:.68rem;font-weight:700;font-family:system-ui,sans-serif;padding:.26rem .8rem;border-radius:999px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.3)">● 8 km service radius</div>',
+                iconAnchor: [72, 10],
+            }),
+            interactive: false,
+            keyboard: false,
+        }).addTo(map);
+
+        setTimeout(function(){ map.invalidateSize(); }, 200);
+    }
+})();
+</script>
+
 <section class="section">
     <div class="container">
         <h2>Customer Reviews</h2>
