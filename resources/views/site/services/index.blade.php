@@ -120,6 +120,7 @@
     };
 @endphp
 
+@if($featuredServices->isNotEmpty())
 <section class="section" id="featured">
     <div class="container">
         <div class="section-head" style="margin-bottom:20px;">
@@ -129,7 +130,7 @@
             </div>
         </div>
 
-        @if($featuredServices->isNotEmpty())
+        @if(true) {{-- slider always shown when section is visible --}}
         <div class="svc-slider-wrap" id="svcFeaturedSlider" aria-label="Featured services">
             <div class="svc-slider-track">
             @foreach($featuredServices as $fi => $service)
@@ -297,6 +298,7 @@
         @endif
     </div>
 </section>
+@endif
 
 <section class="section" id="all-services">
     <div class="container">

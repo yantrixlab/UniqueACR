@@ -893,6 +893,7 @@
     </div>
 </section>
 
+@if($services->isNotEmpty())
 <section class="section home-services-preview">
     <div class="container">
         <div class="section-head hs-section-head" style="margin-bottom:20px;">
@@ -906,7 +907,6 @@
             </a>
         </div>
 
-        @if($services->isNotEmpty())
         <div class="hsvc-wrap" id="homeSvcSlider" aria-label="Featured services">
             <div class="hsvc-track">
             @foreach($services as $fi => $service)
@@ -1072,9 +1072,9 @@
           }
         })();
         </script>
-        @endif
     </div>
 </section>
+@endif
 
 <section class="section product-zone">
     <div class="container">
