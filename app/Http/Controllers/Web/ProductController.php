@@ -31,8 +31,8 @@ class ProductController extends Controller
 
     public function show(string $slug, ProductService $productService): View
     {
-        $product = $productService->detail($slug);
+        $data = $productService->detail($slug);
 
-        return view('site.products.show', compact('product'));
+        return view('site.products.show', $data);
     }
 }

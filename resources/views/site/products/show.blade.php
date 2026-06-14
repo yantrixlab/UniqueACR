@@ -39,19 +39,25 @@
     <div class="container pd-wrapper">
 
         {{-- Gallery --}}
-        <div class="pd-gallery">
+        <div class="pd-gallery" id="pdGallery">
             <div class="pd-main-img-wrap">
-                <img id="pdMainImg" src="{{ $images[0] }}" alt="{{ $product->name }}" loading="eager">
+                <img id="pdMainImg" src="{{ $images[0] }}" alt="{{ $product->name }}" loading="eager" title="Click to zoom">
             </div>
             @if(count($images) > 1)
                 <div class="pd-thumbs">
                     @foreach($images as $i => $img)
-                        <button type="button" class="pd-thumb {{ $i === 0 ? 'active' : '' }}" onclick="pdSwitch(this,'{{ $img }}')">
+                        <button type="button" class="pd-thumb {{ $i === 0 ? 'active' : '' }}" onclick="pdManualSwitch(this,'{{ $img }}',{{ $i }})">
                             <img src="{{ $img }}" alt="{{ $product->name }} view {{ $i + 1 }}" loading="lazy">
                         </button>
                     @endforeach
                 </div>
             @endif
+        </div>
+
+        {{-- Zoom lightbox --}}
+        <div id="pdZoomOverlay" onclick="pdZoomClose(event)">
+            <button id="pdZoomCloseBtn" onclick="pdZoomHide()" aria-label="Close zoom">&times;</button>
+            <img id="pdZoomImg" src="" alt="{{ $product->name }}">
         </div>
 
         {{-- Info --}}
@@ -200,6 +206,27 @@
 .pd-trust { display: flex; gap: 16px; flex-wrap: wrap; font-size: .82rem; color: #5d7295; padding-top: .4rem; border-top: 1px solid rgba(122,153,198,.18); }
 .pd-trust span { display: flex; align-items: center; gap: 4px; }
 
+/* Zoom lightbox */
+#pdZoomOverlay {
+    display: none; position: fixed; inset: 0; z-index: 1200;
+    background: rgba(0,0,0,.88); align-items: center; justify-content: center;
+    cursor: zoom-out; animation: pdFadeIn .18s ease;
+}
+#pdZoomOverlay.open { display: flex; }
+#pdZoomOverlay img {
+    max-width: 90vw; max-height: 90vh; object-fit: contain;
+    border-radius: 10px; box-shadow: 0 12px 60px rgba(0,0,0,.6);
+    cursor: default;
+}
+#pdZoomCloseBtn {
+    position: absolute; top: 16px; right: 20px; font-size: 2.2rem;
+    line-height: 1; color: #fff; background: none; border: none;
+    cursor: pointer; opacity: .8; transition: opacity .15s;
+}
+#pdZoomCloseBtn:hover { opacity: 1; }
+#pdMainImg { cursor: zoom-in; }
+@keyframes pdFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
 /* Responsive */
 @media (max-width: 900px) {
     .pd-wrapper { grid-template-columns: 1fr; }
@@ -210,12 +237,103 @@
 </style>
 
 <script>
-function pdSwitch(btn, src) {
-    document.getElementById('pdMainImg').src = src;
-    document.querySelectorAll('.pd-thumb').forEach(t => t.classList.remove('active'));
-    btn.classList.add('active');
-}
+(function () {
+    var thumbs = Array.from(document.querySelectorAll('.pd-thumb'));
+    var mainImg = document.getElementById('pdMainImg');
+    var gallery = document.getElementById('pdGallery');
+    var currentIdx = 0;
+    var timer = null;
+    var INTERVAL = 5000;
+
+    function pdSwitch(idx) {
+        if (!thumbs.length) return;
+        idx = ((idx % thumbs.length) + thumbs.length) % thumbs.length;
+        currentIdx = idx;
+        var btn = thumbs[idx];
+        mainImg.src = btn.querySelector('img').src;
+        thumbs.forEach(function (t) { t.classList.remove('active'); });
+        btn.classList.add('active');
+    }
+
+    window.pdManualSwitch = function (btn, src, idx) {
+        clearInterval(timer);
+        pdSwitch(idx);
+        startTimer();
+    };
+
+    function startTimer() {
+        if (thumbs.length < 2) return;
+        timer = setInterval(function () { pdSwitch(currentIdx + 1); }, INTERVAL);
+    }
+
+    if (gallery) {
+        gallery.addEventListener('mouseenter', function () { clearInterval(timer); });
+        gallery.addEventListener('mouseleave', startTimer);
+    }
+
+    startTimer();
+
+    // Zoom lightbox
+    var overlay = document.getElementById('pdZoomOverlay');
+    var zoomImg = document.getElementById('pdZoomImg');
+
+    mainImg.addEventListener('click', function () {
+        zoomImg.src = mainImg.src;
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    });
+
+    window.pdZoomClose = function (e) {
+        if (e.target === overlay) pdZoomHide();
+    };
+    window.pdZoomHide = function () {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+    };
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') pdZoomHide();
+    });
+})();
 </script>
+
+@if($relatedProducts->isNotEmpty())
+@php $categoryType = $product->category?->type ?? 'ac_products'; @endphp
+<section class="section pd-related-section">
+    <div class="container">
+        <h2 class="pd-related-title">
+            {{ $categoryType === 'spare_parts' ? 'Other Spare Parts' : 'Other AC Products' }}
+        </h2>
+        <div class="pd-related-grid">
+            @foreach($relatedProducts as $rel)
+            @php
+                $relImg = !empty($rel->images[0])
+                    ? asset('storage/' . ltrim($rel->images[0], '/'))
+                    : null;
+                $relPrice = (float)$rel->price > 0 ? '₹' . number_format((float)$rel->price, 0) : 'Custom';
+            @endphp
+            <a class="pd-related-card" href="{{ route('products.show', $rel->slug) }}">
+                <div class="pd-related-img">
+                    @if($relImg)
+                        <img src="{{ $relImg }}" alt="{{ $rel->name }}" loading="lazy">
+                    @else
+                        <div class="pd-related-placeholder">
+                            <svg viewBox="0 0 120 80" aria-hidden="true"><rect x="10" y="20" width="100" height="40" rx="8" fill="#3c7cc0"/><rect x="20" y="32" width="80" height="16" rx="8" fill="#8ec3f5"/><circle cx="95" cy="28" r="6" fill="#1a4e8a"/></svg>
+                        </div>
+                    @endif
+                </div>
+                <div class="pd-related-body">
+                    @if($rel->brand)
+                        <span class="brand-chip">{{ $rel->brand }}</span>
+                    @endif
+                    <h3>{{ $rel->name }}</h3>
+                    <p class="pd-related-price">{{ $relPrice }}</p>
+                </div>
+            </a>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
 
 <script type="application/ld+json">
 {!! json_encode([

@@ -23,7 +23,8 @@ class ServiceController extends Controller
     public function show(string $slug, ServiceRepository $serviceRepository): View
     {
         $service = $serviceRepository->findActiveBySlug($slug);
+        $otherServices = $serviceRepository->activeWithCategory()->filter(fn ($s) => $s->id !== $service->id);
 
-        return view('site.services.show', compact('service'));
+        return view('site.services.show', compact('service', 'otherServices'));
     }
 }

@@ -82,6 +82,42 @@
     </div>
 </section>
 
+@if($otherServices->isNotEmpty())
+<section class="section svc-others-section">
+    <div class="container">
+        <h2 class="svc-others-title">Other Services</h2>
+        <div class="svc-others-grid">
+            @foreach($otherServices as $other)
+            @php
+                $otherImg = $other->image_path
+                    ? asset('storage/' . ltrim($other->image_path, '/'))
+                    : null;
+                $otherPrice = (float) $other->price > 0 ? '₹' . number_format((float) $other->price, 0) : 'Custom Pricing';
+            @endphp
+            <a class="svc-other-card" href="{{ route('services.show', $other->slug) }}">
+                <div class="svc-other-img">
+                    @if($otherImg)
+                        <img src="{{ $otherImg }}" alt="{{ $other->name }}" loading="lazy">
+                    @else
+                        <div class="svc-other-img-placeholder">
+                            <svg viewBox="0 0 120 80" aria-hidden="true"><rect x="10" y="20" width="100" height="40" rx="8" fill="#3c7cc0"/><rect x="20" y="32" width="80" height="16" rx="8" fill="#8ec3f5"/><circle cx="95" cy="28" r="6" fill="#1a4e8a"/></svg>
+                        </div>
+                    @endif
+                </div>
+                <div class="svc-other-body">
+                    @if(optional($other->category)->name)
+                        <span class="brand-chip">{{ $other->category->name }}</span>
+                    @endif
+                    <h3>{{ $other->name }}</h3>
+                    <p class="svc-other-price">{{ $otherPrice }}</p>
+                </div>
+            </a>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+
 <section class="section svc-final-cta">
     <div class="container cta-panel">
         <h2>Need Fast & Professional AC Service in Kolkata?</h2>

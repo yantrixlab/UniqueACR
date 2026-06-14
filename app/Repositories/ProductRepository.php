@@ -40,6 +40,18 @@ class ProductRepository
         return $this->queryActive()->where('slug', $slug)->firstOrFail();
     }
 
+    public function getRelated(Product $product, int $limit = 12)
+    {
+        $categoryType = $product->category?->type ?? 'ac_products';
+
+        return $this->queryActive()
+            ->where('id', '!=', $product->id)
+            ->whereHas('category', fn ($q) => $q->where('type', $categoryType))
+            ->latest()
+            ->take($limit)
+            ->get();
+    }
+
     public function filterOptions(string $tab = 'ac_products'): array
     {
         $query = $this->queryActive()->whereHas('category', fn ($q) => $q->where('type', $tab));

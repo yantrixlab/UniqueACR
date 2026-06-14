@@ -30,8 +30,11 @@ class ProductService
         ];
     }
 
-    public function detail(string $slug): Product
+    public function detail(string $slug): array
     {
-        return $this->productRepository->findActiveBySlug($slug);
+        $product = $this->productRepository->findActiveBySlug($slug);
+        $relatedProducts = $this->productRepository->getRelated($product);
+
+        return compact('product', 'relatedProducts');
     }
 }
