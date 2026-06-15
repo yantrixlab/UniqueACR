@@ -58,9 +58,15 @@
         </div>
 
         <div class="detail-content">
-            @if(optional($service->category)->name)
-                <span class="brand-chip">{{ $service->category->name }}</span>
-            @endif
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:.5rem;">
+                @if(optional($service->category)->name)
+                    <span class="brand-chip">{{ $service->category->name }}</span>
+                @endif
+                @php $seg = $service->segment ?? 'domestic'; @endphp
+                <span class="svc-segment-badge svc-segment-badge--{{ $seg }}">
+                    {{ $seg === 'commercial' ? '🏢 Commercial' : '🏠 Domestic' }}
+                </span>
+            </div>
             <h1>{{ $service->name }}</h1>
 
             @if($service->service_type)

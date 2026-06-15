@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['service_category_id', 'name', 'slug', 'service_type', 'price', 'description', 'image_path', 'is_active', 'is_featured'])]
+#[Fillable(['service_category_id', 'name', 'slug', 'service_type', 'segment', 'price', 'description', 'image_path', 'is_active', 'is_featured'])]
 class Service extends Model
 {
     protected function casts(): array

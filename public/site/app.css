@@ -3818,6 +3818,81 @@ h4 {
     background: linear-gradient(180deg, #2168bf, #0e3e7d);
 }
 
+/* ── Inspection charge banner ── */
+.insp-banner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: linear-gradient(135deg, #eef4ff 0%, #f0f7ff 60%, #e8f1ff 100%);
+    border: 1.5px solid rgba(26,86,219,0.18);
+    border-left: 5px solid #1a56db;
+    border-radius: 16px;
+    padding: 22px 28px;
+    margin: 28px auto 0;
+    max-width: 860px;
+    box-shadow: 0 4px 24px rgba(26,86,219,0.08);
+    position: relative;
+    overflow: hidden;
+}
+.insp-banner::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(26,86,219,0.07) 0%, transparent 70%);
+    pointer-events: none;
+}
+.insp-icon-wrap {
+    flex-shrink: 0;
+    width: 56px; height: 56px;
+}
+.insp-icon-wrap svg { width: 56px; height: 56px; }
+.insp-body {
+    flex: 1;
+}
+.insp-label {
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #1a56db;
+    margin: 0 0 4px;
+}
+.insp-heading {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #08285f;
+    margin: 0 0 6px;
+}
+.insp-note {
+    font-size: .88rem;
+    color: #4a6280;
+    line-height: 1.6;
+    margin: 0;
+}
+.insp-note strong { color: #08285f; }
+.insp-badge {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    background: #1a56db;
+    color: #fff;
+    border-radius: 12px;
+    padding: 12px 18px;
+    font-size: .75rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.3;
+    white-space: nowrap;
+}
+.insp-badge svg { width: 22px; height: 22px; }
+@media (max-width: 700px) {
+    .insp-banner { flex-direction: column; text-align: center; padding: 20px; gap: 14px; }
+    .insp-badge { flex-direction: row; width: 100%; justify-content: center; }
+}
+
 .svc-nav-wrap {
     position: sticky;
     top: 72px;
@@ -5781,6 +5856,20 @@ h4 {
     border-radius: 999px;
     box-shadow: 0 6px 14px rgba(10, 43, 91, 0.15);
 }
+.card-top-tag--domestic { background: #f6b070; color: #1a2e4a; }
+.card-top-tag--commercial { background: #1a56db; color: #fff; }
+.svc-segment-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: .78rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 999px;
+    letter-spacing: .02em;
+}
+.svc-segment-badge--domestic { background: #fff3e0; color: #b45309; border: 1.5px solid #f6b070; }
+.svc-segment-badge--commercial { background: #eff6ff; color: #1a56db; border: 1.5px solid #93c5fd; }
 .premium-meta {
     align-items: center;
 }

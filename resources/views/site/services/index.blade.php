@@ -297,6 +297,31 @@
 </section>
 @endif
 
+<div class="container">
+    <div class="insp-banner">
+        <div class="insp-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="22" fill="#1a56db" fill-opacity=".12"/>
+                <path d="M24 10v4M24 34v4M10 24h4M34 24h4" stroke="#1a56db" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="24" cy="24" r="9" stroke="#1a56db" stroke-width="2.5"/>
+                <path d="M21 24l2 2 4-4" stroke="#1a56db" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <div class="insp-body">
+            <p class="insp-label">Domestic AC Services</p>
+            <p class="insp-heading">₹300 Inspection Charge Applicable</p>
+            <p class="insp-note">A one-time inspection fee of <strong>₹300</strong> is charged for all domestic AC service visits. This covers our technician's visit, diagnosis, and assessment — adjusted against the final service bill.</p>
+        </div>
+        <div class="insp-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <polyline points="9 12 11 14 15 10"/>
+            </svg>
+            Transparent Pricing
+        </div>
+    </div>
+</div>
+
 <section class="section" id="all-services">
     <div class="container">
         <h2>All Services</h2>
@@ -307,12 +332,12 @@
                     $waText = rawurlencode('I need service for ' . $service->name);
                     $priceText = (float) $service->price > 0 ? '₹' . number_format((float) $service->price, 0) : 'Custom';
                     $image = $getServiceImage($service);
-                    $segmentTag = optional($service->category)->segment === 'commercial' ? 'Commercial' : 'Domestic';
+                    $segmentTag = $service->segment === 'commercial' ? 'Commercial' : 'Domestic';
                 @endphp
                 <article class="product-item-card premium-product-card svc-product-card">
                     <a class="product-image-wrap svc-cover" href="{{ route('services.show', $service->slug) }}">
                         <img loading="lazy" src="{{ $image }}" alt="{{ $service->name }}">
-                        <span class="card-top-tag">{{ $segmentTag }}</span>
+                        <span class="card-top-tag card-top-tag--{{ $service->segment ?? 'domestic' }}">{{ $segmentTag }}</span>
                     </a>
                     <div class="product-card-body svc-card-body">
                         <div class="product-top-meta premium-meta">

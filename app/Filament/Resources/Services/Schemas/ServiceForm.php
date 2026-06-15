@@ -31,6 +31,14 @@ class ServiceForm
                     ->required(),
                 TextInput::make('service_type')
                     ->required(),
+                Select::make('segment')
+                    ->label('Service Segment')
+                    ->options([
+                        'domestic'   => 'Domestic',
+                        'commercial' => 'Commercial',
+                    ])
+                    ->default('domestic')
+                    ->required(),
                 TextInput::make('price')
                     ->required()
                     ->numeric()
