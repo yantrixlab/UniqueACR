@@ -3908,19 +3908,32 @@ h4 {
     padding: 12px 0;
 }
 .svc-nav a {
-    padding: 8px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
     border-radius: 999px;
-    border: 1px solid rgba(117, 149, 195, 0.42);
-    background: rgba(255, 255, 255, 0.8);
+    border: 1.5px solid rgba(117,149,195,0.35);
+    background: rgba(255,255,255,0.85);
     font-weight: 600;
     font-size: 0.86rem;
     color: #244b82;
-    transition: 0.2s;
+    text-decoration: none;
+    transition: background .18s, border-color .18s, color .18s, box-shadow .18s;
 }
+.svc-nav a svg { width: 15px; height: 15px; flex-shrink: 0; opacity: .7; }
 .svc-nav a:hover {
     background: #e9f2ff;
+    border-color: rgba(26,86,219,0.3);
     transform: translateY(-1px);
 }
+.svc-segment-nav a.active {
+    background: #1a56db;
+    color: #fff;
+    border-color: #1a56db;
+    box-shadow: 0 4px 14px rgba(26,86,219,0.28);
+}
+.svc-segment-nav a.active svg { opacity: 1; }
 
 .svc-feature-grid,
 .svc-type-grid,
@@ -3973,6 +3986,13 @@ h4 {
 .svc-product-card {
     grid-template-rows: 220px 1fr;
     height: 100%;
+}
+.svc-card-clickable { position: relative; cursor: pointer; }
+.svc-card-cover-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
 }
 .svc-product-card .svc-cover {
     height: 100%;
@@ -5848,16 +5868,36 @@ h4 {
     position: absolute;
     right: 12px;
     top: 12px;
-    background: #f6b070;
-    color: #1a2e4a;
-    font-size: 0.74rem;
-    font-weight: 800;
-    padding: 6px 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: .03em;
+    padding: 5px 11px 5px 8px;
     border-radius: 999px;
-    box-shadow: 0 6px 14px rgba(10, 43, 91, 0.15);
+    box-shadow: 0 2px 12px rgba(10,43,91,0.18);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    white-space: nowrap;
 }
-.card-top-tag--domestic { background: #f6b070; color: #1a2e4a; }
-.card-top-tag--commercial { background: #1a56db; color: #fff; }
+.card-top-tag svg {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+}
+.card-top-tag--domestic {
+    background: rgba(255,255,255,0.92);
+    color: #92400e;
+    border: 1.5px solid rgba(246,176,112,0.6);
+}
+.card-top-tag--domestic svg { color: #d97706; }
+.card-top-tag--commercial {
+    background: rgba(26,86,219,0.92);
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.2);
+}
+.card-top-tag--commercial svg { color: #bfdbfe; }
 .svc-segment-badge {
     display: inline-flex;
     align-items: center;

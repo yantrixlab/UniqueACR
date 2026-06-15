@@ -88,13 +88,22 @@
 
 <section class="svc-nav-wrap">
     <div class="container">
-        <nav class="svc-nav" aria-label="Service category navigation">
-            <a href="#all-services">All Services</a>
-            <a href="#all-services">Domestic + Commercial</a>
-            <a href="#featured">Installation</a>
-            <a href="#featured">Repair</a>
-            <a href="#featured">Maintenance</a>
-            <a href="#amc">AMC Services</a>
+        <nav class="svc-nav svc-segment-nav" aria-label="Filter services by type">
+            <a href="{{ route('services.index') }}"
+               class="{{ !$segment ? 'active' : '' }}">
+                <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="1" y="1" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="10" y="1" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="1" y="10" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="10" y="10" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/></svg>
+                All Services
+            </a>
+            <a href="{{ route('services.index', ['segment' => 'domestic']) }}"
+               class="{{ $segment === 'domestic' ? 'active' : '' }}">
+                <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 2L2 7.5V16h4.5V12h5v4H16V7.5L9 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                Domestic
+            </a>
+            <a href="{{ route('services.index', ['segment' => 'commercial']) }}"
+               class="{{ $segment === 'commercial' ? 'active' : '' }}">
+                <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="1" y="5" width="16" height="12" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M6 5V4a3 3 0 0 1 6 0v1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><rect x="7" y="9" width="4" height="4" rx=".75" fill="currentColor"/></svg>
+                Commercial
+            </a>
         </nav>
     </div>
 </section>
@@ -324,8 +333,8 @@
 
 <section class="section" id="all-services">
     <div class="container">
-        <h2>All Services</h2>
-        <p class="sub">Domestic and commercial AC solutions managed from a single service catalog.</p>
+        <h2>{{ $segment === 'domestic' ? 'Domestic Services' : ($segment === 'commercial' ? 'Commercial Services' : 'All Services') }}</h2>
+        <p class="sub">{{ $segment === 'domestic' ? 'Home AC repair, servicing, installation and maintenance solutions.' : ($segment === 'commercial' ? 'Commercial HVAC, panel AC, and large-scale cooling solutions.' : 'Domestic and commercial AC solutions managed from a single service catalog.') }}</p>
         <div class="svc-type-grid">
             @forelse($allServices as $service)
                 @php
@@ -334,11 +343,19 @@
                     $image = $getServiceImage($service);
                     $segmentTag = $service->segment === 'commercial' ? 'Commercial' : 'Domestic';
                 @endphp
-                <article class="product-item-card premium-product-card svc-product-card">
-                    <a class="product-image-wrap svc-cover" href="{{ route('services.show', $service->slug) }}">
+                <article class="product-item-card premium-product-card svc-product-card svc-card-clickable">
+                    <a class="svc-card-cover-link" href="{{ route('services.show', $service->slug) }}" aria-label="{{ $service->name }}"></a>
+                    <div class="product-image-wrap svc-cover">
                         <img loading="lazy" src="{{ $image }}" alt="{{ $service->name }}">
-                        <span class="card-top-tag card-top-tag--{{ $service->segment ?? 'domestic' }}">{{ $segmentTag }}</span>
-                    </a>
+                        <span class="card-top-tag card-top-tag--{{ $service->segment ?? 'domestic' }}">
+                            @if(($service->segment ?? 'domestic') === 'commercial')
+                                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="1" y="4" width="14" height="11" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M5 4V3a3 3 0 0 1 6 0v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="6.25" y="8" width="3.5" height="3.5" rx=".75" fill="currentColor"/></svg>
+                            @else
+                                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.5L1.5 6v8h4.25V10.5h2.5V14H12.5V6L8 1.5Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><rect x="6.25" y="10.5" width="3.5" height="3.5" fill="currentColor" rx=".5"/></svg>
+                            @endif
+                            {{ $segmentTag }}
+                        </span>
+                    </div>
                     <div class="product-card-body svc-card-body">
                         <div class="product-top-meta premium-meta">
                             <span class="brand-chip">{{ \Illuminate\Support\Str::title($service->service_type) }}</span>
@@ -348,8 +365,8 @@
                         <p>{{ \Illuminate\Support\Str::limit(strip_tags($service->description), 96) }}</p>
                         <div class="stock-chip">{{ $service->is_active ? 'Available Today' : 'On Request' }}</div>
                         <div class="card-btn-row">
-                            <a class="primary-btn" href="{{ route('services.show', $service->slug) }}">Book Service</a>
-                            <a class="outline-btn wa-icon-btn" target="_blank" rel="noopener" aria-label="WhatsApp" href="https://wa.me/918346904100?text={{ $waText }}">
+                            <a class="primary-btn" href="{{ route('services.show', $service->slug) }}" style="position:relative;z-index:2;">Book Service</a>
+                            <a class="outline-btn wa-icon-btn" target="_blank" rel="noopener" aria-label="WhatsApp" href="https://wa.me/918346904100?text={{ $waText }}" style="position:relative;z-index:2;">
                                 <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#25D366" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#fff" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8.2-.2.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.8-.9-2.4-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4 0-.1-.3-.2-.6-.4Z"/></svg>
                             </a>
                         </div>

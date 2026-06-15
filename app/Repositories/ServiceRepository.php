@@ -23,7 +23,7 @@ class ServiceRepository
         return Service::query()
             ->with('category')
             ->where('is_active', true)
-            ->when($segment, fn ($q) => $q->whereHas('category', fn ($cq) => $cq->where('segment', $segment)))
+            ->when($segment, fn ($q) => $q->where('segment', $segment))
             ->orderBy('name')
             ->get();
     }
