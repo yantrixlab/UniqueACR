@@ -152,9 +152,13 @@ a {
 }
 .mob-panel-footer .quote-btn { display: block; text-align: center; width: 100%; }
 
+.page-content { padding-top: 73px; }
 .topbar {
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
     z-index: 90;
     background: var(--nav);
     border-bottom: 1px solid var(--line);

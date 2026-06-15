@@ -205,7 +205,9 @@
 })();
 </script>
 
+<div class="page-content">
 @yield('content')
+</div>
 
 <div class="floating-stack">
     {{-- Call Button --}}
