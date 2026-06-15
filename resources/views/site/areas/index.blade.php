@@ -33,7 +33,7 @@ $allAreas = $zones->flatten();
 @endphp
 
 {{-- Hero --}}
-<section style="background:linear-gradient(135deg,#06205a 0%,#0f458f 60%,#1a6dcc 100%);padding:3.5rem 0 2.5rem;position:relative;overflow:hidden;">
+<section style="background:linear-gradient(135deg,#06205a 0%,#0f458f 60%,#1a6dcc 100%);padding:129px 0 2.5rem;position:relative;overflow:hidden;">
     <div style="position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2220%22 cy=%2220%22 r=%2240%22 fill=%22none%22 stroke=%22white%22 stroke-opacity=%220.04%22/><circle cx=%2280%22 cy=%2280%22 r=%2260%22 fill=%22none%22 stroke=%22white%22 stroke-opacity=%220.04%22/></svg>') no-repeat center/cover;pointer-events:none;"></div>
     <div class="container" style="position:relative;">
         <nav style="display:flex;align-items:center;gap:.5rem;font-size:.82rem;color:rgba(255,255,255,.65);margin-bottom:1.5rem;">

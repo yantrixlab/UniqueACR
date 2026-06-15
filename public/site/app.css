@@ -152,7 +152,9 @@ a {
 }
 .mob-panel-footer .quote-btn { display: block; text-align: center; width: 100%; }
 
-.page-content { padding-top: 73px; }
+.page-content { padding-top: 0; }
+.product-detail-page:first-child,
+.pd-page { padding-top: 137px; }
 .topbar {
     position: fixed;
     top: 0;
@@ -305,7 +307,7 @@ a {
 .hero {
     position: relative;
     overflow: hidden;
-    padding: 48px 0 0;
+    padding: 121px 0 0;
     background:
         radial-gradient(
             1340px 620px at -2% -6%,
@@ -2674,7 +2676,7 @@ h4 {
 .contact-hero {
     position: relative;
     overflow: hidden;
-    padding: 82px 0 70px;
+    padding: 155px 0 70px;
     background:
         radial-gradient(
             900px 420px at 0% 0%,
@@ -3202,7 +3204,7 @@ h4 {
 .about-hero {
     position: relative;
     overflow: hidden;
-    padding: 84px 0 72px;
+    padding: 157px 0 72px;
     background:
         radial-gradient(
             900px 420px at 0% 0%,
@@ -6139,7 +6141,7 @@ h4 {
 
 /* Blog Grid */
 .blog-hero {
-    padding: 64px 0 28px;
+    padding: 137px 0 28px;
     background:
         radial-gradient(
             900px 320px at 0% 0%,

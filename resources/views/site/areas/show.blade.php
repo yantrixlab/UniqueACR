@@ -39,7 +39,7 @@ $zoneColor = [
 @endphp
 
 {{-- ═══ HERO ═══ --}}
-<section style="background:linear-gradient(135deg,#06205a 0%,#0f458f 65%,#1a6dcc 100%);padding:2.75rem 0 0;position:relative;overflow:hidden;">
+<section style="background:linear-gradient(135deg,#06205a 0%,#0f458f 65%,#1a6dcc 100%);padding:117px 0 0;position:relative;overflow:hidden;">
     <div style="position:absolute;right:-100px;top:-100px;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;"></div>
     <div style="position:absolute;left:-60px;bottom:0;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.03);pointer-events:none;"></div>
 

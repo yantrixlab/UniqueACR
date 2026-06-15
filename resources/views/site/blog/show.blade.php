@@ -22,6 +22,6 @@
 ], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}</script>
 @endsection
 @section('content')
-<section><div class="container"><article class="card"><h1>{{ $post->title }}</h1><p class="muted">{{ optional($post->published_at)->format('d M Y') }}</p><div>{!! nl2br(e($post->content)) !!}</div></article></div></section>
+<section style="padding-top:73px"><div class="container"><article class="card"><h1>{{ $post->title }}</h1><p class="muted">{{ optional($post->published_at)->format('d M Y') }}</p><div>{!! nl2br(e($post->content)) !!}</div></article></div></section>
 @endsection
 
