@@ -39,37 +39,28 @@
 @endsection
 
 @section('content')
-<section class="article-hero">
-    <div class="container">
-        <a class="article-back-link" href="{{ route('blog.index') }}">Blog insights</a>
-        <div class="article-hero-grid">
-            <div class="article-hero-copy">
-                <p class="article-kicker">Unique Aircon Guide</p>
+<section class="article-page">
+    <div class="container article-shell">
+        <article class="article-card">
+            <figure class="article-featured-image">
+                <img src="{{ $featuredImageUrl }}" alt="{{ $post->title }}" fetchpriority="high">
+            </figure>
+
+            <div class="article-card-body">
                 <h1>{{ $post->title }}</h1>
                 <div class="article-meta">
                     <span>{{ $publishedDate }}</span>
                     <span>AC service insights</span>
                     <span>Kolkata</span>
                 </div>
-                <p class="article-summary">{{ $summary }}</p>
-            </div>
 
-            <figure class="article-featured-image">
-                <img src="{{ $featuredImageUrl }}" alt="{{ $post->title }}" fetchpriority="high">
-            </figure>
-        </div>
-    </div>
-</section>
-
-<section class="article-content-section">
-    <div class="container article-content-grid">
-        <article class="article-main">
-            <div class="blog-prose">
-                @if(\Illuminate\Support\Str::contains($post->content, '<'))
-                    {!! \Illuminate\Support\Str::sanitizeHtml($post->content) !!}
-                @else
-                    {!! nl2br(e($post->content)) !!}
-                @endif
+                <div class="blog-prose">
+                    @if(\Illuminate\Support\Str::contains($post->content, '<'))
+                        {!! \Illuminate\Support\Str::sanitizeHtml($post->content) !!}
+                    @else
+                        {!! nl2br(e($post->content)) !!}
+                    @endif
+                </div>
             </div>
         </article>
 
