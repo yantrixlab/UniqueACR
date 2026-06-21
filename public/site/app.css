@@ -6271,7 +6271,7 @@ h4 {
 }
 .article-shell {
     display: grid;
-    grid-template-columns: minmax(0, 742px) 300px;
+    grid-template-columns: minmax(0, 920px) 300px;
     gap: clamp(38px, 5vw, 74px);
     align-items: start;
     justify-content: center;
@@ -6488,7 +6488,7 @@ h4 {
 
 @media (max-width: 1080px) {
     .article-shell {
-        grid-template-columns: minmax(0, 742px);
+        grid-template-columns: minmax(0, 920px);
     }
     .article-sidebar {
         position: static;
@@ -6496,7 +6496,7 @@ h4 {
         width: auto;
     }
     .article-cta-panel {
-        max-width: 742px;
+        max-width: 920px;
         border: 1px solid rgba(113, 148, 198, 0.26);
         border-radius: 8px;
         background: #ffffff;
