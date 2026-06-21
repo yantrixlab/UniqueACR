@@ -12,6 +12,10 @@ class SafeRichEditorStateCast extends RichEditorStateCast
         try {
             return parent::get($state);
         } catch (Throwable $exception) {
+            if (is_string($state)) {
+                return $state;
+            }
+
             if (! is_array($state)) {
                 throw $exception;
             }
