@@ -152,7 +152,8 @@ class BlogPostForm
                         ])
                             ->columnSpan(['default' => 1, 'xl' => 1])
                             ->extraAttributes(['class' => 'blog-post-sidebar']),
-                    ]),
+                    ])
+                    ->columnSpanFull(),
             ]);
     }
 }

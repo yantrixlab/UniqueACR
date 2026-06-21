@@ -63,43 +63,26 @@ class AdminPanelProvider extends PanelProvider
             })
             ->renderHook(
                 PanelsRenderHook::HEAD_END,
-                function (): HtmlString {
-                    $isBlogPostForm = request()->routeIs([
-                        'filament.admin.resources.blog-posts.create',
-                        'filament.admin.resources.blog-posts.edit',
-                    ]);
-
-                    $blogPostOverride = $isBlogPostForm
-                        ? <<<'CSS'
-                            main.fi-main {
-                                max-width: 100% !important;
-                                width: 100% !important;
+                fn (): HtmlString => new HtmlString(<<<'HTML'
+                    <style>
+                        .fi-fo-rich-editor-content {
+                            min-height: 32rem;
+                        }
+                        .fi-fo-rich-editor-content .ProseMirror {
+                            min-height: 30rem;
+                        }
+                        @media (min-width: 1280px) {
+                            .blog-post-sidebar {
+                                position: sticky;
+                                top: 6rem;
+                                align-self: start;
+                                max-height: calc(100vh - 7.5rem);
+                                overflow-y: auto;
                             }
-                            CSS
-                        : '';
-
-                    return new HtmlString(<<<HTML
-                        <style>
-                            .fi-fo-rich-editor-content {
-                                min-height: 32rem;
-                            }
-                            .fi-fo-rich-editor-content .ProseMirror {
-                                min-height: 30rem;
-                            }
-                            @media (min-width: 1280px) {
-                                .blog-post-sidebar {
-                                    position: sticky;
-                                    top: 6rem;
-                                    align-self: start;
-                                    max-height: calc(100vh - 7.5rem);
-                                    overflow-y: auto;
-                                }
-                            }
-                            {$blogPostOverride}
-                        </style>
-                        HTML
-                    );
-                },
+                        }
+                    </style>
+                    HTML
+                ),
             );
     }
 }
