@@ -5462,6 +5462,11 @@ h4 {
     background: #fff;
     padding: 16px;
 }
+.detail-content h1 {
+    font-size: clamp(1.65rem, 2.6vw, 2.45rem);
+    line-height: 1.16;
+    margin-bottom: 0.65rem;
+}
 .detail-content p {
     color: #5d7295;
     line-height: 1.7;
@@ -5473,6 +5478,9 @@ h4 {
 }
 .service-description p {
     margin: 0 0 0.8rem;
+}
+.service-description .color {
+    color: var(--color, inherit) !important;
 }
 .service-description h2,
 .service-description h3,
