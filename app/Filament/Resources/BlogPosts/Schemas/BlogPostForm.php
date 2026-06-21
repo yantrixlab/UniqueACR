@@ -5,6 +5,7 @@ namespace App\Filament\Resources\BlogPosts\Schemas;
 use App\Filament\Resources\BlogPosts\Blocks\VideoEmbedBlock;
 use App\Filament\Forms\Components\MediaPicker;
 use App\Services\SeoAnalysisService;
+use Filament\Actions\Action;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -18,6 +19,7 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 
@@ -27,43 +29,73 @@ class BlogPostForm
     {
         return $schema
             ->components([
-                Grid::make(3)
+                Grid::make(['default' => 1, 'xl' => 3])
                     ->schema([
                         Group::make([
-                            TextInput::make('title')
-                                ->required()
-                                ->maxLength(255)
-                                ->live(onBlur: true)
-                                ->afterStateUpdated(fn (string $operation, ?string $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug((string) $state)) : null),
-                            TextInput::make('slug')
-                                ->required()
-                                ->maxLength(255)
-                                ->prefix(url('/blog') . '/')
-                                ->live(onBlur: true),
-                            Select::make('author_id')
-                                ->relationship('author', 'name'),
-                            RichEditor::make('content')
-                                ->required()
-                                ->live(debounce: '750ms')
-                                ->toolbarButtons([
-                                    ['h2', 'h3', 'h4'],
-                                    ['bold', 'italic', 'underline', 'strike', 'subscript', 'superscript'],
-                                    ['link', 'textColor', 'highlight'],
-                                    ['alignStart', 'alignCenter', 'alignEnd'],
-                                    ['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
-                                    ['table', 'attachFiles', 'customBlocks'],
-                                    ['horizontalRule', 'clearFormatting'],
-                                    ['undo', 'redo'],
+                            Section::make()
+                                ->schema([
+                                    TextInput::make('title')
+                                        ->required()
+                                        ->maxLength(255)
+                                        ->live(onBlur: true)
+                                        ->afterStateUpdated(fn (string $operation, ?string $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug((string) $state)) : null),
+                                    TextInput::make('slug')
+                                        ->required()
+                                        ->maxLength(255)
+                                        ->prefix(url('/blog') . '/')
+                                        ->live(onBlur: true),
+                                    Select::make('author_id')
+                                        ->label('Author')
+                                        ->relationship('author', 'name'),
                                 ])
-                                ->fileAttachmentsDisk('public')
-                                ->fileAttachmentsDirectory('media/blog')
-                                ->fileAttachmentsVisibility('public')
-                                ->resizableImages()
-                                ->customBlocks([
-                                    VideoEmbedBlock::class,
+                                ->columns(2),
+
+                            Section::make('Content')
+                                ->headerActions([
+                                    Action::make('htmlSource')
+                                        ->label('HTML source')
+                                        ->icon(Heroicon::CodeBracket)
+                                        ->color('gray')
+                                        ->modalHeading('Edit HTML source')
+                                        ->modalDescription('Edit the raw HTML of the post content directly. This will replace the content currently in the editor above.')
+                                        ->modalWidth('4xl')
+                                        ->modalSubmitActionLabel('Apply')
+                                        ->fillForm(fn (Get $get): array => ['html' => $get('content')])
+                                        ->schema([
+                                            Textarea::make('html')
+                                                ->label('Raw HTML')
+                                                ->rows(22)
+                                                ->extraInputAttributes(['style' => 'font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem;']),
+                                        ])
+                                        ->action(function (array $data, Set $set): void {
+                                            $set('content', $data['html'] ?? '');
+                                        }),
                                 ])
-                                ->columnSpanFull(),
-                        ])->columnSpan(2),
+                                ->schema([
+                                    RichEditor::make('content')
+                                        ->hiddenLabel()
+                                        ->required()
+                                        ->live(debounce: '750ms')
+                                        ->toolbarButtons([
+                                            ['h2', 'h3', 'h4'],
+                                            ['bold', 'italic', 'underline', 'strike', 'subscript', 'superscript'],
+                                            ['link', 'textColor', 'highlight'],
+                                            ['alignStart', 'alignCenter', 'alignEnd'],
+                                            ['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
+                                            ['table', 'attachFiles', 'customBlocks'],
+                                            ['horizontalRule', 'clearFormatting'],
+                                            ['undo', 'redo'],
+                                        ])
+                                        ->fileAttachmentsDisk('public')
+                                        ->fileAttachmentsDirectory('media/blog')
+                                        ->fileAttachmentsVisibility('public')
+                                        ->resizableImages()
+                                        ->customBlocks([
+                                            VideoEmbedBlock::class,
+                                        ])
+                                        ->columnSpanFull(),
+                                ]),
+                        ])->columnSpan(['default' => 1, 'xl' => 2]),
 
                         Group::make([
                             Section::make('Featured Image')
@@ -117,7 +149,7 @@ class BlogPostForm
                                         );
                                     })->columnSpanFull(),
                                 ]),
-                        ])->columnSpan(1),
+                        ])->columnSpan(['default' => 1, 'xl' => 1]),
                     ]),
             ]);
     }

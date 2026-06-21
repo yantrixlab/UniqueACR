@@ -46,6 +46,10 @@
 .blog-prose code { background: rgba(122,153,198,.15); padding: .15em .4em; border-radius: 4px; font-size: .9em; }
 .blog-prose pre { background: #0f172a; color: #e2e8f0; padding: 1em; border-radius: 8px; overflow-x: auto; margin: 1em 0; }
 .blog-prose hr { border: none; border-top: 1px solid rgba(122,153,198,.3); margin: 1.5em 0; }
+.blog-prose mark { background: #fde68a; color: #1a2e4a; padding: .05em .2em; border-radius: 3px; }
+.blog-prose sup, .blog-prose sub { font-size: .75em; }
+.blog-prose strong { font-weight: 700; }
+.blog-prose iframe { max-width: 100%; }
 </style>
 @endsection
 
