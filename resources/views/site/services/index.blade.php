@@ -62,12 +62,12 @@
     <div class="hero-glow hero-glow-b"></div>
     <div class="container hero-shell hero-grid premium-hero-grid">
         <div class="hero-copy premium-hero-copy">
-            <span class="pill">Trusted AC Experts in Kolkata • 7+ Years Experience</span>
+            <span class="pill">Trusted AC Experts in Kolkata • 9+ Years Experience</span>
             <h1>Professional AC Repair, Installation & HVAC Solutions</h1>
             <p>Expert domestic and commercial AC servicing with fast response, certified technicians, genuine spare parts, and reliable cooling solutions across Kolkata.</p>
             <div class="cta-row premium-cta-row">
                 <a class="primary-btn" href="{{ route('contact') }}" data-track="cta_click" data-track-label="Book AC Service - Services Hero">Book AC Service</a>
-                <a class="secondary-btn" href="{{ route('contact') }}" data-track="cta_click" data-track-label="Get Free Inspection - Services Hero">Get Free Inspection</a>
+                <a class="secondary-btn" href="{{ route('contact') }}" data-track="cta_click" data-track-label="Get e Inspection - Services Hero">Get Inspection</a>
             </div>
             <ul class="hero-trust-points">
                 <li>Same Day Service</li>

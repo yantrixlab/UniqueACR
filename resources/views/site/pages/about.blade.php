@@ -87,8 +87,8 @@
             <p class="sub">Our customer-first process combines clear diagnostics, genuine parts, and skilled workmanship to deliver reliable outcomes for both domestic and commercial clients.</p>
         </div>
         <div class="intro-counters">
-            <article><h3>7+</h3><p>Years Experience</p></article>
-            <article><h3>185+</h3><p>Happy Customers</p></article>
+            <article><h3>9+</h3><p>Years Experience</p></article>
+            <article><h3>250+</h3><p>Happy Customers</p></article>
             <article><h3>16+</h3><p>Commercial Projects</p></article>
             <article><h3>24X7</h3><p>Emergency Support</p></article>
         </div>
@@ -188,8 +188,8 @@
     <div class="container">
         <h2>Our Growth Timeline</h2>
         <div class="timeline">
-            <div><span>2010</span><p>Launched residential AC service operations in South Kolkata.</p></div>
-            <div><span>2015</span><p>Expanded into commercial HVAC installation and maintenance.</p></div>
+            <div><span>2017</span><p>Launched residential AC service operations in South Kolkata.</p></div>
+            <div><span>2019</span><p>Expanded into commercial HVAC installation and maintenance.</p></div>
             <div><span>2020</span><p>Built dedicated rapid-response support and AMC workflows.</p></div>
             <div><span>2026</span><p>Serving Kolkata with premium, tech-enabled cooling solutions.</p></div>
         </div>

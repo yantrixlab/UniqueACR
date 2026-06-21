@@ -54,7 +54,7 @@
     <div class="hero-glow hero-glow-b"></div>
     <div class="container hero-shell hero-grid premium-hero-grid">
         <div class="hero-copy premium-hero-copy">
-            <span class="pill">Trusted AC Experts in Kolkata • 7+ Years Experience</span>
+            <span class="pill">Trusted AC Experts in Kolkata • 9+ Years Experience</span>
             <h1>Fast, Reliable AC Service That Keeps You Cool All Year Round</h1>
             <p>Professional AC repair, installation, gas charging, and maintenance services for homes, offices, and commercial spaces. Certified technicians, transparent pricing, and quick response.</p>
             <div class="cta-row premium-cta-row">
@@ -456,7 +456,7 @@
             {{-- Stats row --}}
             <div class="amc-v2-stats">
                 <div class="amc-v2-stat">
-                    <span class="amc-v2-stat-num">500+</span>
+                    <span class="amc-v2-stat-num">15+</span>
                     <span class="amc-v2-stat-label">AMC Clients</span>
                 </div>
                 <div class="amc-v2-stat-divider"></div>
@@ -473,7 +473,7 @@
 
             {{-- Feature list --}}
             <ul class="amc-v2-features">
-                <li><span class="amc-v2-check">✓</span> 2 scheduled service visits per year</li>
+                <li><span class="amc-v2-check">✓</span> 4 scheduled service visits per year</li>
                 <li><span class="amc-v2-check">✓</span> Priority breakdown support (24–48 hr)</li>
                 <li><span class="amc-v2-check">✓</span> Free labour on all covered repairs</li>
                 <li><span class="amc-v2-check">✓</span> Discounted genuine spare parts</li>
