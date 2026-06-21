@@ -61,7 +61,7 @@
 
                 <div class="blog-prose">
                     @if(\Illuminate\Support\Str::contains($content, '<'))
-                        {!! \Illuminate\Support\Str::sanitizeHtml($content) !!}
+                        {!! $content !!}
                     @else
                         {!! nl2br(e($content)) !!}
                     @endif
