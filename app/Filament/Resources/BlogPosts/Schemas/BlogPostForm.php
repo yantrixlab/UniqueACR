@@ -140,13 +140,22 @@ class BlogPostForm
                                         ->helperText(fn (?string $state): string => Str::length((string) $state) . ' / 156 characters'),
                                     TextInput::make('meta_keywords'),
                                     Html::make(function (Get $get): HtmlString {
+                                        try {
+                                            $content = $get('content');
+                                        } catch (\Throwable) {
+                                            // Legacy posts with non-HTML content can fail to
+                                            // round-trip through the rich editor's TipTap state
+                                            // cast. The SEO panel should degrade, not crash the page.
+                                            $content = '';
+                                        }
+
                                         $analysis = app(SeoAnalysisService::class)->analyze([
                                             'title' => $get('title'),
                                             'slug' => $get('slug'),
                                             'meta_title' => $get('meta_title'),
                                             'meta_description' => $get('meta_description'),
                                             'focus_keyword' => $get('focus_keyword'),
-                                            'content' => $get('content'),
+                                            'content' => $content,
                                         ]);
 
                                         return new HtmlString(
