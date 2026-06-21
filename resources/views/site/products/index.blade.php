@@ -17,6 +17,10 @@
                 <a class="primary-btn" href="#product-enquiry">Enquire Now</a>
                 <a class="secondary-btn" href="#products-catalog">Explore Catalog</a>
             </div>
+            <p class="hero-dealer-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+                Daikin and Voltas Air Conditioning Authorized Dealer
+            </p>
             <ul class="hero-trust-points">
                 <li>All Top Brands</li>
                 <li>Genuine Components</li>
@@ -33,6 +37,12 @@
         </div>
     </div>
 </section>
+
+<style>
+.hero-dealer-badge{display:inline-flex;align-items:center;gap:8px;margin:14px 0 0;padding:8px 16px;font-size:.85rem;font-weight:700;color:#0f3d8c;background:linear-gradient(135deg,#eef4ff,#e1ecff);border:1px solid rgba(37,99,235,.25);border-radius:999px;box-shadow:0 2px 10px rgba(37,99,235,.08);width:fit-content;}
+.hero-dealer-badge svg{width:17px;height:17px;flex-shrink:0;color:#2563eb;}
+@media(max-width:640px){.hero-dealer-badge{font-size:.78rem;padding:7px 13px;}}
+</style>
 
 <section class="section pp-quick-search-section">
     <div class="container">
