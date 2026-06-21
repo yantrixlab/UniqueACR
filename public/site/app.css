@@ -6271,8 +6271,8 @@ h4 {
 }
 .article-shell {
     display: grid;
-    grid-template-columns: minmax(0, 742px) 224px;
-    gap: 26px;
+    grid-template-columns: minmax(0, 742px) 300px;
+    gap: clamp(38px, 5vw, 74px);
     align-items: start;
     justify-content: center;
 }
@@ -6331,13 +6331,14 @@ h4 {
     position: sticky;
     top: 116px;
     padding-top: 430px;
+    width: 300px;
 }
 .article-cta-panel {
-    border: none;
-    border-radius: 0;
-    background: transparent;
-    padding: 0;
-    box-shadow: none;
+    border: 1px solid rgba(123, 154, 201, 0.26);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 18px;
+    box-shadow: 0 14px 30px rgba(8, 37, 87, 0.08);
 }
 .article-cta-label {
     margin: 0 0 7px;
@@ -6348,27 +6349,27 @@ h4 {
     text-transform: uppercase;
 }
 .article-cta-panel h2 {
-    margin: 0 0 8px;
+    margin: 0 0 10px;
     color: #083f7c;
-    font-size: 0.98rem;
+    font-size: 1.08rem;
     line-height: 1.25;
 }
 .article-cta-panel p:not(.article-cta-label) {
-    margin: 0 0 13px;
+    margin: 0 0 15px;
     color: #5f7598;
-    font-size: 0.72rem;
-    line-height: 1.55;
+    font-size: 0.82rem;
+    line-height: 1.62;
 }
 .article-cta-panel .primary-btn,
 .article-cta-panel .outline-btn {
     width: 100%;
     min-height: 34px;
     justify-content: center;
-    margin-top: 9px;
+    margin-top: 10px;
     border-radius: 7px;
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     font-weight: 850;
-    padding: 8px 10px;
+    padding: 9px 12px;
 }
 .article-cta-panel .outline-btn {
     background: #ffffff;
@@ -6492,6 +6493,7 @@ h4 {
     .article-sidebar {
         position: static;
         padding-top: 0;
+        width: auto;
     }
     .article-cta-panel {
         max-width: 742px;
