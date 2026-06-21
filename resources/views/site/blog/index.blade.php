@@ -18,7 +18,14 @@
         <div class="blog-grid">
             @forelse($posts as $post)
                 @php
-                    $image = $post->featured_image ?? '';
+                    $imagePath = (string) ($post->featured_image ?? '');
+                    $fallbackImage = asset('upload/web_image_res/home_hero_right.webp');
+                    $image = match (true) {
+                        \Illuminate\Support\Str::startsWith($imagePath, ['http://', 'https://']) => $imagePath,
+                        \Illuminate\Support\Str::startsWith($imagePath, '/') => url($imagePath),
+                        filled($imagePath) => asset('storage/' . ltrim($imagePath, '/')),
+                        default => $fallbackImage,
+                    };
                     $date = $post->published_at?->format('d M Y') ?? $post->created_at?->format('d M Y');
                 @endphp
                 <article class="blog-card">
@@ -27,7 +34,7 @@
                             loading="lazy"
                             src="{{ $image }}"
                             alt="{{ $post->title }}"
-                            onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 700%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop offset=%220%25%22 stop-color=%22%23e7eef9%22/><stop offset=%22100%25%22 stop-color=%22%23d8e5f7%22/></linearGradient></defs><rect width=%221200%22 height=%22700%22 fill=%22url(%23g)%22/><rect x=%22485%22 y=%22280%22 width=%22230%22 height=%22130%22 rx=%2218%22 fill=%22%23ffffff%22 stroke=%22%23b7cceb%22/><rect x=%22515%22 y=%22324%22 width=%22170%22 height=%2222%22 rx=%2211%22 fill=%22%238ec3f5%22/><circle cx=%22670%22 cy=%22308%22 r=%2212%22 fill=%22%233b79be%22/></svg>';"
+                            onerror="this.onerror=null;this.src='{{ $fallbackImage }}';"
                         >
                     </a>
                     <div class="blog-body">
@@ -53,5 +60,3 @@
     </div>
 </section>
 @endsection
-
-
