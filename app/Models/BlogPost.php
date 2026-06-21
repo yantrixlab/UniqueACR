@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['author_id', 'title', 'slug', 'content', 'featured_image', 'meta_title', 'meta_description', 'meta_keywords', 'published_at', 'is_published'])]
+#[Fillable(['author_id', 'title', 'slug', 'focus_keyword', 'content', 'featured_image', 'meta_title', 'meta_description', 'meta_keywords', 'published_at', 'is_published'])]
 class BlogPost extends Model
 {
     protected function casts(): array
