@@ -77,6 +77,7 @@ class BlogPostForm
                                     SafeRichEditor::make('content')
                                         ->hiddenLabel()
                                         ->visible(fn (Get $get): bool => $get('content_mode') !== 'html')
+                                        ->dehydrated(fn (Get $get): bool => $get('content_mode') !== 'html')
                                         ->required()
                                         ->live(debounce: '750ms')
                                         ->toolbarButtons([
@@ -100,7 +101,8 @@ class BlogPostForm
                                     Textarea::make('content_html')
                                         ->hiddenLabel()
                                         ->visible(fn (Get $get): bool => $get('content_mode') === 'html')
-                                        ->dehydrated(false)
+                                        ->dehydrated(fn (Get $get): bool => $get('content_mode') === 'html')
+                                        ->dehydrateStateUsing(fn (?string $state): string => (string) $state)
                                         ->rows(20)
                                         ->extraInputAttributes(['style' => 'min-height: 32rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem;'])
                                         ->columnSpanFull(),

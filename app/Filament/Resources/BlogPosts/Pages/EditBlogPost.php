@@ -12,7 +12,7 @@ class EditBlogPost extends EditRecord
 {
     protected static string $resource = BlogPostResource::class;
 
-    public function getMaxContentWidth(): Width | string | null
+    public function getMaxContentWidth(): Width|string|null
     {
         return Width::Full;
     }
@@ -47,6 +47,8 @@ class EditBlogPost extends EditRecord
         if (($this->data['content_mode'] ?? 'visual') === 'html') {
             $data['content'] = $this->data['content_html'] ?? $data['content'];
         }
+
+        unset($data['content_html']);
 
         return $data;
     }
