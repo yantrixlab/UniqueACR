@@ -33,6 +33,10 @@ class EditBlogPost extends EditRecord
             $data['featured_image'] = $media?->path;
         }
 
+        if (($this->data['content_mode'] ?? 'visual') === 'html') {
+            $data['content'] = $this->data['content_html'] ?? $data['content'];
+        }
+
         return $data;
     }
 }

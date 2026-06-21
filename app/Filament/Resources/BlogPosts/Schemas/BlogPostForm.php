@@ -7,6 +7,7 @@ use App\Filament\Forms\Components\MediaPicker;
 use App\Services\SeoAnalysisService;
 use Filament\Actions\Action;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -52,28 +53,30 @@ class BlogPostForm
 
                             Section::make('Content')
                                 ->headerActions([
-                                    Action::make('htmlSource')
-                                        ->label('HTML source')
-                                        ->icon(Heroicon::CodeBracket)
+                                    Action::make('toggleHtmlMode')
+                                        ->label(fn (Get $get): string => $get('content_mode') === 'html' ? 'Visual' : 'HTML')
+                                        ->icon(fn (Get $get): Heroicon => $get('content_mode') === 'html' ? Heroicon::Bars3BottomLeft : Heroicon::CodeBracket)
                                         ->color('gray')
-                                        ->modalHeading('Edit HTML source')
-                                        ->modalDescription('Edit the raw HTML of the post content directly. This will replace the content currently in the editor above.')
-                                        ->modalWidth('4xl')
-                                        ->modalSubmitActionLabel('Apply')
-                                        ->fillForm(fn (Get $get): array => ['html' => $get('content')])
-                                        ->schema([
-                                            Textarea::make('html')
-                                                ->label('Raw HTML')
-                                                ->rows(22)
-                                                ->extraInputAttributes(['style' => 'font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem;']),
-                                        ])
-                                        ->action(function (array $data, Set $set): void {
-                                            $set('content', $data['html'] ?? '');
+                                        ->action(function (Get $get, Set $set): void {
+                                            if ($get('content_mode') === 'html') {
+                                                $set('content', $get('content_html'));
+                                                $set('content_mode', 'visual');
+
+                                                return;
+                                            }
+
+                                            $set('content_html', $get('content'));
+                                            $set('content_mode', 'html');
                                         }),
                                 ])
                                 ->schema([
+                                    Hidden::make('content_mode')
+                                        ->default('visual')
+                                        ->live()
+                                        ->dehydrated(false),
                                     RichEditor::make('content')
                                         ->hiddenLabel()
+                                        ->visible(fn (Get $get): bool => $get('content_mode') !== 'html')
                                         ->required()
                                         ->live(debounce: '750ms')
                                         ->toolbarButtons([
@@ -93,6 +96,13 @@ class BlogPostForm
                                         ->customBlocks([
                                             VideoEmbedBlock::class,
                                         ])
+                                        ->columnSpanFull(),
+                                    Textarea::make('content_html')
+                                        ->hiddenLabel()
+                                        ->visible(fn (Get $get): bool => $get('content_mode') === 'html')
+                                        ->dehydrated(false)
+                                        ->rows(20)
+                                        ->extraInputAttributes(['style' => 'min-height: 32rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem;'])
                                         ->columnSpanFull(),
                                 ]),
                         ])->columnSpan(['default' => 1, 'xl' => 2]),
