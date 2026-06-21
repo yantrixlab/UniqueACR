@@ -18,6 +18,13 @@ class EditProduct extends EditRecord
         ];
     }
 
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        $data['description_html'] = $data['description'] ?? '';
+
+        return $data;
+    }
+
     protected function mutateFormDataBeforeSave(array $data): array
     {
         $mediaIds = $this->form->getRawState()['image_media_ids'] ?? [];
@@ -34,6 +41,12 @@ class EditProduct extends EditRecord
         if ($paths !== []) {
             $data['images'] = $paths;
         }
+
+        if (($this->data['description_mode'] ?? 'visual') === 'html') {
+            $data['description'] = $this->data['description_html'] ?? $data['description'];
+        }
+
+        unset($data['description_html']);
 
         return $data;
     }

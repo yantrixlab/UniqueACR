@@ -27,6 +27,12 @@ class CreateProduct extends CreateRecord
             $data['images'] = $paths;
         }
 
+        if (($this->data['description_mode'] ?? 'visual') === 'html') {
+            $data['description'] = $this->data['description_html'] ?? $data['description'];
+        }
+
+        unset($data['description_html']);
+
         return $data;
     }
 }

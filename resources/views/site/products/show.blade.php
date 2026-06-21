@@ -189,6 +189,7 @@
 .pd-description ul, .pd-description ol { padding-left: 1.4rem; margin: .4rem 0 .8rem; }
 .pd-description li { margin-bottom: .3rem; }
 .pd-description strong { color: #1a2e4a; font-weight: 600; }
+.pd-description .color { color: var(--color, inherit) !important; }
 .pd-description a { color: var(--accent, #2563eb); }
 .pd-description blockquote { border-left: 3px solid var(--accent,#2563eb); margin: .8rem 0; padding: .4rem 1rem; background: #f0f5ff; border-radius: 0 8px 8px 0; color: #35557f; }
 
@@ -359,4 +360,3 @@
 ]) !!}
 </script>
 @endsection
-
