@@ -478,13 +478,65 @@
     <div class="container">
         <h2>Why Choose Our Services</h2>
         <div class="why-grid">
-            <article>Certified Technicians</article><article>Genuine Spare Parts</article><article>Fast Service</article>
-            <article>Affordable Pricing</article><article>Warranty Support</article><article>Commercial Expertise</article>
+            <article class="why-card">
+                <div class="info-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M14 7.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM4 20a6 6 0 0 1 12 0M17.5 11l2.5 2.5-3.5 3.5-2.5-2.5L17.5 11Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="why-content">
+                    <h4>Certified Technicians</h4>
+                    <p>Trained experts for accurate diagnosis and safe execution.</p>
+                </div>
+            </article>
+            <article class="why-card">
+                <div class="info-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M9 4h6v4a2 2 0 1 1 0 4v8H9v-8a2 2 0 1 1 0-4V4Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="why-content">
+                    <h4>Genuine Spare Parts</h4>
+                    <p>Authentic components for reliability and longer equipment life.</p>
+                </div>
+            </article>
+            <article class="why-card">
+                <div class="info-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="m13 3-7 10h5l-1 8 8-11h-5l0-7Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="why-content">
+                    <h4>Fast Service</h4>
+                    <p>Rapid dispatch and priority scheduling across Kolkata.</p>
+                </div>
+            </article>
+            <article class="why-card">
+                <div class="info-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M6 7h12M6 11h10M9 5c2 0 4 1.5 4 3.5S11 12 9 12h0l6 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="why-content">
+                    <h4>Affordable Pricing</h4>
+                    <p>Clear estimates with competitive rates and no hidden charges.</p>
+                </div>
+            </article>
+            <article class="why-card">
+                <div class="info-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 0 0 1.946-.806 3.42 3.42 0 0 1 4.438 0 3.42 3.42 0 0 0 1.946.806 3.42 3.42 0 0 1 3.138 3.138 3.42 3.42 0 0 0 .806 1.946 3.42 3.42 0 0 1 0 4.438 3.42 3.42 0 0 0-.806 1.946 3.42 3.42 0 0 1-3.138 3.138 3.42 3.42 0 0 0-1.946.806 3.42 3.42 0 0 1-4.438 0 3.42 3.42 0 0 0-1.946-.806 3.42 3.42 0 0 1-3.138-3.138 3.42 3.42 0 0 0-.806-1.946 3.42 3.42 0 0 1 0-4.438 3.42 3.42 0 0 0 .806-1.946 3.42 3.42 0 0 1 3.138-3.138z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="why-content">
+                    <h4>Warranty Support</h4>
+                    <p>Post-service guidance and warranty-backed peace of mind.</p>
+                </div>
+            </article>
+            <article class="why-card">
+                <div class="info-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V6a1 1 0 0 1 1-1h4v16M11 21V10a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v11M8 9h.01M8 12h.01M14 13h.01M17 13h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                </div>
+                <div class="why-content">
+                    <h4>Commercial Expertise</h4>
+                    <p>Scalable HVAC support for offices, retail, and industrial setups.</p>
+                </div>
+            </article>
         </div>
     </div>
 </section>
 
-<section class="section" id="amc">
+<!-- <section class="section" id="amc">
     <div class="container">
         <h2>AMC / Maintenance Plans</h2>
         <div class="amc-grid">
@@ -493,7 +545,7 @@
             <article><h3>Premium AMC</h3><p>6 visits + emergency support</p><strong>₹7,999 / unit</strong><a href="{{ route('contact') }}" data-track="cta_click" data-track-label="Choose Plan - Premium AMC">Choose Plan</a></article>
         </div>
     </div>
-</section>
+</section> -->
 
 <section style="padding:3.5rem 0;background:linear-gradient(160deg,#06205a 0%,#0f458f 100%);position:relative;overflow:hidden;">
     {{-- Background decoration --}}
