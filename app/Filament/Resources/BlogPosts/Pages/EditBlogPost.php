@@ -12,7 +12,7 @@ class EditBlogPost extends EditRecord
 {
     protected static string $resource = BlogPostResource::class;
 
-    public function getMaxWidth(): Width | string | null
+    public function getMaxContentWidth(): Width | string | null
     {
         return Width::Full;
     }
