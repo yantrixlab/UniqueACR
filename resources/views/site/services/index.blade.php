@@ -1,8 +1,8 @@
 ﻿@extends('site.layouts.app')
-@section('title','AC Service Kolkata | AC Repair, Installation & Maintenance – Cooling Kolkata')
+@section('title','AC Service Kolkata | AC Repair, Installation & Maintenance – Unique Aircon')
 @section('meta_description','Explore all AC services in Kolkata – AC repair, AC servicing, gas charging, installation & AMC for Voltas, LG, Daikin & all brands. Certified technicians. Call +91 8346904100.')
 @section('meta_keywords','AC service Kolkata, AC servicing Kolkata, AC repair service near me, AC servicing near me, AC installation Kolkata, AC maintenance Kolkata, voltas ac service, lg ac service Kolkata')
-@section('og_title','AC Service Kolkata | AC Repair, Installation & Maintenance – Cooling Kolkata')
+@section('og_title','AC Service Kolkata | AC Repair, Installation & Maintenance – Unique Aircon')
 @section('og_description','All AC services in Kolkata under one roof – repair, servicing, gas charging, installation & AMC. Same-day slots available. Call +91 8346904100.')
 @section('schema')
 @verbatim
@@ -16,7 +16,7 @@
             "name": "Do you provide same day AC repair in Kolkata?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Yes, Cooling Kolkata provides same-day AC repair in Kolkata based on technician slot availability in your area. Call +91 8346904100 to book an immediate slot."
+                "text": "Yes, Unique Aircon provides same-day AC repair in Kolkata based on technician slot availability in your area. Call +91 8346904100 to book an immediate slot."
             }
         },
         {
@@ -565,7 +565,7 @@
             <div id="svc-coverage-map" style="width:100%;height:460px;background:#e8f0fe;"></div>
 
             <div style="position:absolute;top:16px;left:60px;z-index:1000;background:rgba(6,20,50,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;padding:.55rem 1.1rem;border-radius:11px;font-size:.8rem;line-height:1.5;border:1px solid rgba(255,255,255,.14);pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,.3);">
-                <strong style="display:block;font-size:.86rem;margin-bottom:.1rem;">📍 Cooling Kolkata</strong>
+                <strong style="display:block;font-size:.86rem;margin-bottom:.1rem;">📍 Unique Aircon</strong>
                 <span style="color:rgba(255,255,255,.65);">3/87 C. R Colony, Jadavpur, Kolkata – 700032</span>
             </div>
 
@@ -639,7 +639,7 @@
 
         marker.bindPopup(
             '<div style="font-family:system-ui,sans-serif;padding:.2rem .1rem;min-width:185px">' +
-              '<strong style="font-size:.88rem;color:#062d67;display:block;margin-bottom:.2rem">Cooling Kolkata</strong>' +
+              '<strong style="font-size:.88rem;color:#062d67;display:block;margin-bottom:.2rem">Unique Aircon</strong>' +
               '<span style="font-size:.76rem;color:#64748b;line-height:1.5">3/87 C. R Colony, Jadavpur<br>Kolkata – 700032</span><br>' +
               '<a href="tel:+918346904100" style="display:inline-block;margin-top:.45rem;font-size:.78rem;color:#1d4ed8;font-weight:700">+91 83469 04100</a>' +
             '</div>',
@@ -704,7 +704,7 @@
     'serviceType' => 'AC Repair, AC Installation, HVAC Services',
     'provider' => [
         '@type' => 'LocalBusiness',
-        'name' => 'Cooling Kolkata',
+        'name' => 'Unique Aircon',
         'telephone' => '+918346904100',
         'areaServed' => ['Kolkata','Jadavpur','South Kolkata','North Kolkata'],
     ],

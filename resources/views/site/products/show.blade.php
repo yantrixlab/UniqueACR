@@ -1,8 +1,8 @@
 ﻿@extends('site.layouts.app')
-@section('title', ($product->meta_title ?: $product->name) . ' | Buy in Kolkata – Cooling Kolkata')
-@section('meta_description', $product->meta_description ?: \Illuminate\Support\Str::limit(strip_tags($product->description ?? ''), 155, '') ?: 'Buy ' . $product->name . ' in Kolkata from Cooling Kolkata. Genuine product, expert installation support. Call +91 8346904100.')
-@section('og_title', ($product->meta_title ?: $product->name) . ' | Cooling Kolkata Kolkata')
-@section('og_description', \Illuminate\Support\Str::limit(strip_tags($product->description ?? ''), 160, '') ?: 'Buy ' . $product->name . ' in Kolkata. Genuine parts, expert installation. Cooling Kolkata.')
+@section('title', ($product->meta_title ?: $product->name) . ' | Buy in Kolkata – Unique Aircon')
+@section('meta_description', $product->meta_description ?: \Illuminate\Support\Str::limit(strip_tags($product->description ?? ''), 155, '') ?: 'Buy ' . $product->name . ' in Kolkata from Unique Aircon. Genuine product, expert installation support. Call +91 8346904100.')
+@section('og_title', ($product->meta_title ?: $product->name) . ' | Unique Aircon Kolkata')
+@section('og_description', \Illuminate\Support\Str::limit(strip_tags($product->description ?? ''), 160, '') ?: 'Buy ' . $product->name . ' in Kolkata. Genuine parts, expert installation. Unique Aircon.')
 @section('og_image', !empty($product->images[0]) ? asset('storage/' . ltrim($product->images[0], '/')) : asset('upload/web_image_res/home_hero_right.webp'))
 @section('schema')
 <script type="application/ld+json">{!! json_encode(array_filter([
@@ -18,7 +18,7 @@
         'availability'  => $product->in_stock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
         'seller'        => [
             '@type' => 'Organization',
-            'name'  => 'Cooling Kolkata',
+            'name'  => 'Unique Aircon',
         ],
     ],
 ]), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}</script>

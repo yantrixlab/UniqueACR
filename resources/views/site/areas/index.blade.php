@@ -1,9 +1,9 @@
 @extends('site.layouts.app')
-@section('title', 'AC Service Areas in South Kolkata | All Zones – Cooling Kolkata')
-@section('meta_description', 'Cooling Kolkata provides onsite AC repair, installation & maintenance across South Kolkata — Jadavpur, Garia, Tollygunge, Behala, Kasba, Ballygunge & more. Check your area.')
-@section('meta_keywords', 'AC service South Kolkata, AC repair near me Kolkata, AC service areas Kolkata, Cooling Kolkata service zones')
-@section('og_title', 'AC Service Areas in South Kolkata | Cooling Kolkata')
-@section('og_description', 'Find out if Cooling Kolkata covers your area. We serve 16+ localities across 4 zones in South & Central Kolkata.')
+@section('title', 'AC Service Areas in South Kolkata | All Zones – Unique Aircon')
+@section('meta_description', 'Unique Aircon provides onsite AC repair, installation & maintenance across South Kolkata — Jadavpur, Garia, Tollygunge, Behala, Kasba, Ballygunge & more. Check your area.')
+@section('meta_keywords', 'AC service South Kolkata, AC repair near me Kolkata, AC service areas Kolkata, Unique Aircon service zones')
+@section('og_title', 'AC Service Areas in South Kolkata | Unique Aircon')
+@section('og_description', 'Find out if Unique Aircon covers your area. We serve 16+ localities across 4 zones in South & Central Kolkata.')
 @section('schema')
 <script type="application/ld+json">{!! json_encode([
     '@context' => 'https://schema.org',

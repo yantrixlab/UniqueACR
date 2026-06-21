@@ -1,7 +1,7 @@
 ﻿@extends('site.layouts.app')
-@section('title', $service->name . ' in Kolkata | Cooling Kolkata')
-@section('meta_description', ($service->meta_description ?: \Illuminate\Support\Str::limit(strip_tags($service->description ?? ''), 150, '')) ?: 'Professional ' . $service->name . ' in Kolkata by certified technicians. Transparent pricing, same-day service. Call Cooling Kolkata at +91 8346904100.')
-@section('og_title', $service->name . ' in Kolkata | Cooling Kolkata')
+@section('title', $service->name . ' in Kolkata | Unique Aircon')
+@section('meta_description', ($service->meta_description ?: \Illuminate\Support\Str::limit(strip_tags($service->description ?? ''), 150, '')) ?: 'Professional ' . $service->name . ' in Kolkata by certified technicians. Transparent pricing, same-day service. Call Unique Aircon at +91 8346904100.')
+@section('og_title', $service->name . ' in Kolkata | Unique Aircon')
 @section('og_description', \Illuminate\Support\Str::limit(strip_tags($service->description ?? ''), 160, '') ?: 'Expert ' . $service->name . ' in Kolkata. Fast response, genuine parts, certified technicians.')
 @section('og_image', $service->image_path ? asset('storage/' . ltrim($service->image_path, '/')) : asset('upload/web_image_res/home_hero_right.webp'))
 @section('schema')
@@ -12,7 +12,7 @@
     'description' => strip_tags($service->description ?? ''),
     'provider' => [
         '@type'     => 'LocalBusiness',
-        'name'      => 'Cooling Kolkata',
+        'name'      => 'Unique Aircon',
         'telephone' => '+918346904100',
         'address'   => [
             '@type'           => 'PostalAddress',
@@ -144,7 +144,7 @@
     'description' => $service->description,
     'provider' => [
         '@type' => 'LocalBusiness',
-        'name' => 'Cooling Kolkata',
+        'name' => 'Unique Aircon',
         'telephone' => '+918346904100',
     ],
     'offers' => (float) $service->price > 0 ? [

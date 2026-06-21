@@ -1,8 +1,8 @@
 @extends('site.layouts.app')
-@section('title', $area->meta_title ?: 'AC Service in '.$area->name.' | Repair & Installation | Cooling Kolkata')
+@section('title', $area->meta_title ?: 'AC Service in '.$area->name.' | Repair & Installation | Unique Aircon')
 @section('meta_description', $area->meta_description ?: 'Expert AC repair, installation & servicing in '.$area->name.', Kolkata ('.$area->pinCodesDisplay().'). Same-day onsite visits. Call +91 8346904100.')
 @section('meta_keywords', 'AC service '.$area->name.', AC repair '.$area->name.', air conditioner service '.$area->name.', AC repair Kolkata '.$area->pinCodesDisplay().', AC servicing near me '.$area->name)
-@section('og_title', 'AC Service in '.$area->name.' | Cooling Kolkata')
+@section('og_title', 'AC Service in '.$area->name.' | Unique Aircon')
 @section('og_description', 'Same-day AC repair, installation & maintenance in '.$area->name.', Kolkata. Certified technicians, genuine parts. Call +91 8346904100.')
 @section('schema')
 <script type="application/ld+json">{!! json_encode([
@@ -13,14 +13,14 @@
             ['@type'=>'ListItem','position'=>2,'name'=>'Service Areas','item'=>route('areas.index')],
             ['@type'=>'ListItem','position'=>3,'name'=>$area->name,'item'=>route('areas.show',$area->slug)],
         ]],
-        ['@type'=>['LocalBusiness','HVACBusiness'],'name'=>'Cooling Kolkata','url'=>url('/'),'telephone'=>'+918346904100','email'=>'uniquerac24@gmail.com','priceRange'=>'₹₹',
+        ['@type'=>['LocalBusiness','HVACBusiness'],'name'=>'Unique Aircon','url'=>url('/'),'telephone'=>'+918346904100','email'=>'uniquerac24@gmail.com','priceRange'=>'₹₹',
             'areaServed'=>[['@type'=>'Place','name'=>$area->name],['@type'=>'PostalAddress','postalCode'=>($area->pin_codes[0] ?? ''),'addressLocality'=>$area->name,'addressRegion'=>'West Bengal','addressCountry'=>'IN']],
             'address'=>['@type'=>'PostalAddress','streetAddress'=>'3/87 C. R Colony, Jadavpur','addressLocality'=>'Kolkata','addressRegion'=>'West Bengal','postalCode'=>'700032','addressCountry'=>'IN'],
             'geo'=>['@type'=>'GeoCoordinates','latitude'=>$area->latitude ?? 22.4987,'longitude'=>$area->longitude ?? 88.3714],
         ],
-        ['@type'=>'Service','name'=>'AC Repair & Servicing in '.$area->name,'serviceType'=>'AC Repair, AC Installation, AC Maintenance','areaServed'=>['@type'=>'Place','name'=>$area->name.', Kolkata'],'provider'=>['@type'=>'LocalBusiness','name'=>'Cooling Kolkata','telephone'=>'+918346904100']],
+        ['@type'=>'Service','name'=>'AC Repair & Servicing in '.$area->name,'serviceType'=>'AC Repair, AC Installation, AC Maintenance','areaServed'=>['@type'=>'Place','name'=>$area->name.', Kolkata'],'provider'=>['@type'=>'LocalBusiness','name'=>'Unique Aircon','telephone'=>'+918346904100']],
         ['@type'=>'FAQPage','mainEntity'=>[
-            ['@type'=>'Question','name'=>'Do you provide AC repair in '.$area->name.'?','acceptedAnswer'=>['@type'=>'Answer','text'=>'Yes, Cooling Kolkata provides onsite AC repair in '.$area->name.' (PIN '.$area->pinCodesDisplay().'). Same-day dispatch. Call +91 8346904100.']],
+            ['@type'=>'Question','name'=>'Do you provide AC repair in '.$area->name.'?','acceptedAnswer'=>['@type'=>'Answer','text'=>'Yes, Unique Aircon provides onsite AC repair in '.$area->name.' (PIN '.$area->pinCodesDisplay().'). Same-day dispatch. Call +91 8346904100.']],
             ['@type'=>'Question','name'=>'What AC brands do you service in '.$area->name.'?','acceptedAnswer'=>['@type'=>'Answer','text'=>'We service Voltas, LG, Daikin, Samsung, Blue Star, Hitachi, Lloyd, Carrier, OGeneral, and Whirlpool in '.$area->name.'.']],
             ['@type'=>'Question','name'=>'How quickly can you send a technician to '.$area->name.'?','acceptedAnswer'=>['@type'=>'Answer','text'=>'Same-day dispatch for most requests in '.$area->name.'. Call +91 8346904100 for the fastest response.']],
         ]],
@@ -197,7 +197,7 @@ $zoneColor = [
 {{-- ═══ WHY US ═══ --}}
 <section style="padding:3rem 0;background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
     <div class="container">
-        <h2 style="font-size:1.5rem;text-align:center;margin-bottom:.5rem;">Why Choose Cooling Kolkata in {{ $area->name }}?</h2>
+        <h2 style="font-size:1.5rem;text-align:center;margin-bottom:.5rem;">Why Choose Unique Aircon in {{ $area->name }}?</h2>
         <p style="text-align:center;color:var(--body);margin-bottom:2rem;font-size:.9rem;">Trusted by homeowners and businesses across {{ $area->zone }}</p>
         @php $whyItems = [
             ['icon'=>'⚡','title'=>'Same-Day Service','desc'=>'Book by noon, get a technician at your door today.'],
@@ -266,7 +266,7 @@ $zoneColor = [
         <h2 style="font-size:1.5rem;margin-bottom:.5rem;">Frequently Asked Questions</h2>
         <p style="color:var(--body);margin-bottom:2rem;font-size:.9rem;">AC service queries specific to {{ $area->name }}</p>
         @php $faqs = [
-            ['q'=>'Do you provide AC repair in '.$area->name.'?', 'a'=>'Yes. Cooling Kolkata provides onsite AC repair in '.$area->name.' (PIN '.$area->pinCodesDisplay().'). Call +91 8346904100 for same-day booking.'],
+            ['q'=>'Do you provide AC repair in '.$area->name.'?', 'a'=>'Yes. Unique Aircon provides onsite AC repair in '.$area->name.' (PIN '.$area->pinCodesDisplay().'). Call +91 8346904100 for same-day booking.'],
             ['q'=>'Which AC brands do you service in '.$area->name.'?', 'a'=>'We service Voltas, LG, Daikin, Samsung, Blue Star, Hitachi, Lloyd, Carrier, OGeneral, Whirlpool, and all other major brands in '.$area->name.'.'],
             ['q'=>'How quickly can you send a technician to '.$area->name.'?', 'a'=>'For most requests we dispatch a technician the same day. '.$area->name.' is within our active service zone — call +91 8346904100 for fastest response.'],
             ['q'=>'Do you offer AMC packages in '.$area->name.'?', 'a'=>'Yes. We offer Basic (₹2,999), Standard (₹4,999), and Premium (₹7,999) AMC plans per unit per year, available across '.$area->name.'.'],

@@ -1,8 +1,8 @@
 ﻿@extends('site.layouts.app')
-@section('title', $post->title . ' | Cooling Kolkata Blog – AC Tips Kolkata')
+@section('title', $post->title . ' | Unique Aircon Blog – AC Tips Kolkata')
 @section('meta_description', $post->meta_description ?? \Illuminate\Support\Str::limit(strip_tags($post->content ?? ''), 155, ''))
 @section('og_type', 'article')
-@section('og_title', $post->title . ' | Cooling Kolkata Blog')
+@section('og_title', $post->title . ' | Unique Aircon Blog')
 @section('og_description', \Illuminate\Support\Str::limit(strip_tags($post->content ?? ''), 160, ''))
 @section('schema')
 <script type="application/ld+json">{!! json_encode([
@@ -12,10 +12,10 @@
     'description'      => \Illuminate\Support\Str::limit(strip_tags($post->content ?? ''), 160, ''),
     'datePublished'    => optional($post->published_at)->toIso8601String(),
     'dateModified'     => optional($post->updated_at)->toIso8601String(),
-    'author'           => ['@type' => 'Organization', 'name' => 'Cooling Kolkata'],
+    'author'           => ['@type' => 'Organization', 'name' => 'Unique Aircon'],
     'publisher'        => [
         '@type' => 'Organization',
-        'name'  => 'Cooling Kolkata',
+        'name'  => 'Unique Aircon',
         'logo'  => ['@type' => 'ImageObject', 'url' => asset('favicon-96x96.png')],
     ],
     'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => url()->current()],
