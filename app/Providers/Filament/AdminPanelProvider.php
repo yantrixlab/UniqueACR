@@ -71,6 +71,15 @@ class AdminPanelProvider extends PanelProvider
                         .fi-fo-rich-editor-content .ProseMirror {
                             min-height: 30rem;
                         }
+                        @media (min-width: 1280px) {
+                            .blog-post-sidebar {
+                                position: sticky;
+                                top: 6rem;
+                                align-self: start;
+                                max-height: calc(100vh - 7.5rem);
+                                overflow-y: auto;
+                            }
+                        }
                     </style>
                     HTML
                 ),

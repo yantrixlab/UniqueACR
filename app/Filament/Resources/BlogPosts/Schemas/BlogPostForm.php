@@ -149,7 +149,9 @@ class BlogPostForm
                                         );
                                     })->columnSpanFull(),
                                 ]),
-                        ])->columnSpan(['default' => 1, 'xl' => 1]),
+                        ])
+                            ->columnSpan(['default' => 1, 'xl' => 1])
+                            ->extraAttributes(['class' => 'blog-post-sidebar']),
                     ]),
             ]);
     }
