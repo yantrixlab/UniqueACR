@@ -5,10 +5,16 @@ namespace App\Filament\Resources\BlogPosts\Pages;
 use App\Filament\Resources\BlogPosts\BlogPostResource;
 use App\Models\Media;
 use Filament\Resources\Pages\CreateRecord;
+use Filament\Support\Enums\Width;
 
 class CreateBlogPost extends CreateRecord
 {
     protected static string $resource = BlogPostResource::class;
+
+    public function getMaxWidth(): Width | string | null
+    {
+        return Width::Full;
+    }
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {

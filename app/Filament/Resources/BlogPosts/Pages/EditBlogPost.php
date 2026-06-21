@@ -6,10 +6,16 @@ use App\Filament\Resources\BlogPosts\BlogPostResource;
 use App\Models\Media;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use Filament\Support\Enums\Width;
 
 class EditBlogPost extends EditRecord
 {
     protected static string $resource = BlogPostResource::class;
+
+    public function getMaxWidth(): Width | string | null
+    {
+        return Width::Full;
+    }
 
     protected function getHeaderActions(): array
     {
