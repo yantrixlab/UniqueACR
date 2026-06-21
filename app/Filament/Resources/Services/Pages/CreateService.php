@@ -19,6 +19,12 @@ class CreateService extends CreateRecord
             $data['image_path'] = $media?->path;
         }
 
+        if (($this->data['description_mode'] ?? 'visual') === 'html') {
+            $data['description'] = $this->data['description_html'] ?? $data['description'];
+        }
+
+        unset($data['description_html']);
+
         return $data;
     }
 }

@@ -168,7 +168,7 @@
                         <h2 class="svc-slide-name">
                             <a href="{{ route('services.show', $service->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}" data-track="select_service" data-track-label="{{ $service->name }} (Featured)">{{ $service->name }}</a>
                         </h2>
-                        <p class="svc-slide-desc">{{ \Illuminate\Support\Str::limit(strip_tags($service->description ?? ''), 90) }}</p>
+                        <p class="svc-slide-desc">{{ \Illuminate\Support\Str::limit(strip_tags(\App\Support\TextRepair::clean($service->description ?? '')), 90) }}</p>
                         <div class="svc-slide-btns">
                             <a class="svc-btn-book" href="{{ route('services.show', $service->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}" data-track="service_book_click" data-track-label="{{ $service->name }} (Featured)">Book Service</a>
                             <a class="svc-btn-wa" href="https://wa.me/918346904100?text={{ $waText }}" target="_blank" rel="noopener" tabindex="{{ $fi === 0 ? '0' : '-1' }}" data-track="service_whatsapp_click" data-track-label="{{ $service->name }} (Featured)">
@@ -362,7 +362,7 @@
                             <h3 class="card-price-heading">{{ $priceText }}</h3>
                         </div>
                         <h3>{{ $service->name }}</h3>
-                        <p>{{ \Illuminate\Support\Str::limit(strip_tags($service->description), 96) }}</p>
+                        <p>{{ \Illuminate\Support\Str::limit(strip_tags(\App\Support\TextRepair::clean($service->description)), 96) }}</p>
                         <div class="stock-chip">{{ $service->is_active ? 'Available Today' : 'On Request' }}</div>
                         <div class="card-btn-row">
                             <a class="primary-btn" href="{{ route('services.show', $service->slug) }}" style="position:relative;z-index:2;" data-track="service_book_click" data-track-label="{{ $service->name }}">Book Service</a>
@@ -763,4 +763,3 @@
 ]) !!}
 </script>
 @endsection
-

@@ -940,7 +940,7 @@
                         <h2 class="hsvc-name">
                             <a href="{{ route('services.show', $service->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}" data-track="select_service" data-track-label="{{ $service->name }} (Home Featured)">{{ $service->name }}</a>
                         </h2>
-                        <p class="hsvc-desc">{{ \Illuminate\Support\Str::limit(strip_tags($service->description ?? ''), 90) }}</p>
+                        <p class="hsvc-desc">{{ \Illuminate\Support\Str::limit(strip_tags(\App\Support\TextRepair::clean($service->description ?? '')), 90) }}</p>
                         <div class="hsvc-btns">
                             <a class="hsvc-btn-book" href="{{ route('services.show', $service->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}" data-track="service_book_click" data-track-label="{{ $service->name }} (Home Featured)">Book Service</a>
                             <a class="hsvc-btn-wa" href="https://wa.me/918346904100?text={{ $svcWa }}" target="_blank" rel="noopener" tabindex="{{ $fi === 0 ? '0' : '-1' }}" data-track="service_whatsapp_click" data-track-label="{{ $service->name }} (Home Featured)">
@@ -1821,4 +1821,3 @@ $homeZoneColors = [
 })();
 </script>
 @endsection
-

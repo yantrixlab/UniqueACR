@@ -1,40 +1,47 @@
-﻿@extends('site.layouts.app')
+@extends('site.layouts.app')
+
+@php
+    $description = \App\Support\TextRepair::clean($service->description ?? '');
+    $plainDescription = strip_tags($description);
+    $metaDescription = ($service->meta_description ?: \Illuminate\Support\Str::limit($plainDescription, 150, '')) ?: 'Professional ' . $service->name . ' in Kolkata by certified technicians. Transparent pricing, same-day service. Call Unique Aircon at +91 8346904100.';
+@endphp
+
 @section('title', $service->name . ' in Kolkata | Unique Aircon')
-@section('meta_description', ($service->meta_description ?: \Illuminate\Support\Str::limit(strip_tags($service->description ?? ''), 150, '')) ?: 'Professional ' . $service->name . ' in Kolkata by certified technicians. Transparent pricing, same-day service. Call Unique Aircon at +91 8346904100.')
+@section('meta_description', $metaDescription)
 @section('og_title', $service->name . ' in Kolkata | Unique Aircon')
-@section('og_description', \Illuminate\Support\Str::limit(strip_tags($service->description ?? ''), 160, '') ?: 'Expert ' . $service->name . ' in Kolkata. Fast response, genuine parts, certified technicians.')
+@section('og_description', \Illuminate\Support\Str::limit($plainDescription, 160, '') ?: 'Expert ' . $service->name . ' in Kolkata. Fast response, genuine parts, certified technicians.')
 @section('og_image', $service->image_path ? asset('storage/' . ltrim($service->image_path, '/')) : asset('upload/web_image_res/home_hero_right.webp'))
 @section('schema')
 <script type="application/ld+json">{!! json_encode([
     '@context' => 'https://schema.org',
-    '@type'    => 'Service',
-    'name'     => $service->name,
-    'description' => strip_tags($service->description ?? ''),
+    '@type' => 'Service',
+    'name' => $service->name,
+    'description' => $plainDescription,
     'provider' => [
-        '@type'     => 'LocalBusiness',
-        'name'      => 'Unique Aircon',
+        '@type' => 'LocalBusiness',
+        'name' => 'Unique Aircon',
         'telephone' => '+918346904100',
-        'address'   => [
-            '@type'           => 'PostalAddress',
-            'streetAddress'   => '3/87 C. R Colony, Jadavpur',
+        'address' => [
+            '@type' => 'PostalAddress',
+            'streetAddress' => '3/87 C. R Colony, Jadavpur',
             'addressLocality' => 'Kolkata',
-            'addressRegion'   => 'West Bengal',
-            'postalCode'      => '700032',
-            'addressCountry'  => 'IN',
+            'addressRegion' => 'West Bengal',
+            'postalCode' => '700032',
+            'addressCountry' => 'IN',
         ],
     ],
-    'areaServed'     => ['@type' => 'City', 'name' => 'Kolkata'],
-    'serviceType'    => $service->service_type ?? 'AC Service',
-    'offers'         => $service->price > 0 ? [
-        '@type'         => 'Offer',
-        'price'         => (string)$service->price,
+    'areaServed' => ['@type' => 'City', 'name' => 'Kolkata'],
+    'serviceType' => $service->service_type ?? 'AC Service',
+    'offers' => $service->price > 0 ? [
+        '@type' => 'Offer',
+        'price' => (string) $service->price,
         'priceCurrency' => 'INR',
-        'availability'  => 'https://schema.org/InStock',
+        'availability' => 'https://schema.org/InStock',
     ] : null,
-], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}</script>
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
 @endsection
-@section('content')
 
+@section('content')
 @php
     $image = $service->image_path
         ? (\Illuminate\Support\Str::startsWith($service->image_path, ['http://', 'https://', 'data:'])
@@ -73,7 +80,13 @@
                 <p style="color:var(--accent);font-weight:600;margin-bottom:.5rem;">{{ \Illuminate\Support\Str::title($service->service_type) }}</p>
             @endif
 
-            <p>{{ $service->description }}</p>
+            <div class="service-description">
+                @if(\Illuminate\Support\Str::contains($description, '<'))
+                    {!! $description !!}
+                @else
+                    <p>{{ $description }}</p>
+                @endif
+            </div>
 
             <div class="price-row detail-price">
                 <strong>{{ $priceText }}</strong>
@@ -141,7 +154,7 @@
     '@context' => 'https://schema.org',
     '@type' => 'Service',
     'name' => $service->name,
-    'description' => $service->description,
+    'description' => $plainDescription,
     'provider' => [
         '@type' => 'LocalBusiness',
         'name' => 'Unique Aircon',
@@ -152,7 +165,7 @@
         'priceCurrency' => 'INR',
         'price' => (float) $service->price,
     ] : null,
-]) !!}
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}
 </script>
 <script>
 if (typeof gtag === 'function') {
@@ -163,4 +176,3 @@ if (typeof gtag === 'function') {
 }
 </script>
 @endsection
-
