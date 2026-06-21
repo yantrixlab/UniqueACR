@@ -24,6 +24,17 @@ class EditBlogPost extends EditRecord
         ];
     }
 
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        if (! empty($data['featured_image'])) {
+            $data['featured_image_media_id'] = Media::query()
+                ->where('path', $data['featured_image'])
+                ->value('id');
+        }
+
+        return $data;
+    }
+
     protected function mutateFormDataBeforeSave(array $data): array
     {
         $mediaId = $this->data['featured_image_media_id'] ?? null;
