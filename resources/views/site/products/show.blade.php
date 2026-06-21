@@ -120,9 +120,10 @@
 
             {{-- CTAs --}}
             <div class="pd-cta-row">
-                <a class="primary-btn" href="{{ route('contact') }}">Enquire Now</a>
+                <a class="primary-btn" href="{{ route('contact') }}" data-track="product_enquiry_click" data-track-label="{{ $product->name }}">Enquire Now</a>
                 <a class="secondary-btn" target="_blank" rel="noopener"
-                   href="https://wa.me/918346904100?text={{ rawurlencode('I am interested in '.$product->name) }}">
+                   href="https://wa.me/918346904100?text={{ rawurlencode('I am interested in '.$product->name) }}"
+                   data-track="product_whatsapp_click" data-track-label="{{ $product->name }}">
                     <svg viewBox="0 0 32 32" width="18" height="18" aria-hidden="true" style="vertical-align:middle;margin-right:5px"><path fill="#25D366" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#fff" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8.2-.2.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.8-.9-2.4-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4 0-.1-.3-.2-.6-.4Z"/></svg>
                     WhatsApp
                 </a>
@@ -293,6 +294,13 @@
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') pdZoomHide();
     });
+
+    if (typeof gtag === 'function') {
+        gtag('event', 'view_item', {
+            label: @json($product->name),
+            category: 'product',
+        });
+    }
 })();
 </script>
 
@@ -311,7 +319,7 @@
                     : null;
                 $relPrice = (float)$rel->price > 0 ? '₹' . number_format((float)$rel->price, 0) : 'Custom';
             @endphp
-            <a class="pd-related-card" href="{{ route('products.show', $rel->slug) }}">
+            <a class="pd-related-card" href="{{ route('products.show', $rel->slug) }}" data-track="select_product" data-track-label="{{ $rel->name }} (Related)">
                 <div class="pd-related-img">
                     @if($relImg)
                         <img src="{{ $relImg }}" alt="{{ $rel->name }}" loading="lazy">

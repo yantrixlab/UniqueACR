@@ -192,12 +192,14 @@
                                 <button type="button" class="fs-btn-enq open-enquiry"
                                         data-product-id="{{ $featured->id }}"
                                         data-product-name="{{ $featured->name }}"
+                                        data-track="product_enquiry_click" data-track-label="{{ $featured->name }} (Featured)"
                                         tabindex="{{ $fi === 0 ? '0' : '-1' }}">
                                     Enquire Now
                                 </button>
                                 <a class="fs-btn-wa"
                                    href="https://wa.me/918346904100?text={{ $waText }}"
                                    target="_blank" rel="noopener"
+                                   data-track="product_whatsapp_click" data-track-label="{{ $featured->name }} (Featured)"
                                    tabindex="{{ $fi === 0 ? '0' : '-1' }}">
                                     <svg viewBox="0 0 32 32" width="17" height="17" aria-hidden="true"><path fill="#fff" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#25D366" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.4c-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.1-.4-.2-.7-.4Z"/></svg>
                                     WhatsApp
@@ -328,7 +330,7 @@
                                 : 'https://images.unsplash.com/photo-1581275237725-2f7f9f89f4f2?q=80&w=800&auto=format&fit=crop';
                             $whatsappText = rawurlencode("I am interested in {$product->name}");
                         @endphp
-                        <a class="product-image-wrap" href="{{ route('products.show', $product->slug) }}">
+                        <a class="product-image-wrap" href="{{ route('products.show', $product->slug) }}" data-track="select_product" data-track-label="{{ $product->name }}">
                             <img loading="lazy" src="{{ $img }}" alt="{{ $product->name }}" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 900 520%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop offset=%220%25%22 stop-color=%22%23e8eef8%22/><stop offset=%22100%25%22 stop-color=%22%23d9e5f6%22/></linearGradient></defs><rect width=%22900%22 height=%22520%22 fill=%22url(%23g)%22/><rect x=%22335%22 y=%22195%22 width=%22230%22 height=%22130%22 rx=%2218%22 fill=%22%23ffffff%22 stroke=%22%23b7cceb%22/><rect x=%22365%22 y=%22238%22 width=%22170%22 height=%2224%22 rx=%2212%22 fill=%22%238ec3f5%22/><circle cx=%22520%22 cy=%22222%22 r=%2212%22 fill=%22%233c7cc0%22/></svg>';">
                             <span class="card-top-tag">{{ $product->is_featured ? 'Premium Pick' : 'Value Choice' }}</span>
                         </a>
@@ -337,12 +339,12 @@
                                 <span class="brand-chip">{{ $product->brand }}</span>
                                 <h3 class="card-price-heading">₹{{ number_format($product->price, 0) }}</h3>
                             </div>
-                            <h3><a href="{{ route('products.show', $product->slug) }}">{{ $product->name }}</a></h3>
+                            <h3><a href="{{ route('products.show', $product->slug) }}" data-track="select_product" data-track-label="{{ $product->name }}">{{ $product->name }}</a></h3>
                             <p>{{ \Illuminate\Support\Str::limit(strip_tags($product->description), 95) }}</p>
                             <div class="stock-chip">{{ $product->stock > 0 ? 'In Stock' : 'Pre-order Available' }}</div>
                             <div class="card-btn-row">
-                                <button type="button" class="primary-btn open-enquiry" data-product-id="{{ $product->id }}" data-product-name="{{ $product->name }}">Enquire Now</button>
-                                <a class="outline-btn wa-icon-btn" target="_blank" rel="noopener" aria-label="WhatsApp" href="https://wa.me/918346904100?text={{ $whatsappText }}">
+                                <button type="button" class="primary-btn open-enquiry" data-product-id="{{ $product->id }}" data-product-name="{{ $product->name }}" data-track="product_enquiry_click" data-track-label="{{ $product->name }}">Enquire Now</button>
+                                <a class="outline-btn wa-icon-btn" target="_blank" rel="noopener" aria-label="WhatsApp" href="https://wa.me/918346904100?text={{ $whatsappText }}" data-track="product_whatsapp_click" data-track-label="{{ $product->name }}">
                                     <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#25D366" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#fff" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8.2-.2.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.8-.9-2.4-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4 0-.1-.3-.2-.6-.4Z"/></svg>
                                 </a>
                             </div>
@@ -365,9 +367,9 @@
             <p>Get product guidance from experienced technicians before you buy.</p>
         </div>
         <div class="quick-actions">
-            <a class="primary-btn" href="tel:+918346904100">Call Now</a>
-            <a class="secondary-btn" href="https://wa.me/918346904100" target="_blank" rel="noopener">WhatsApp</a>
-            <a class="ghost-btn" href="#product-enquiry">Enquiry</a>
+            <a class="primary-btn" href="tel:+918346904100" data-track="cta_click" data-track-label="Call Now - Products CTA Banner">Call Now</a>
+            <a class="secondary-btn" href="https://wa.me/918346904100" target="_blank" rel="noopener" data-track="cta_click" data-track-label="WhatsApp - Products CTA Banner">WhatsApp</a>
+            <a class="ghost-btn" href="#product-enquiry" data-track="cta_click" data-track-label="Enquiry - Products CTA Banner">Enquiry</a>
         </div>
     </div>
 </section>
@@ -401,9 +403,9 @@
         <h2>Ready to Buy the Right AC in Kolkata?</h2>
         <p>Speak with our product experts and get the best model for your space and budget.</p>
         <div class="quick-actions">
-            <a class="primary-btn" href="#product-enquiry">Book Enquiry</a>
-            <a class="secondary-btn" href="tel:+918346904100">Call Now</a>
-            <a class="ghost-btn" href="https://wa.me/918346904100" target="_blank" rel="noopener">WhatsApp Us</a>
+            <a class="primary-btn" href="#product-enquiry" data-track="cta_click" data-track-label="Book Enquiry - Products Final CTA">Book Enquiry</a>
+            <a class="secondary-btn" href="tel:+918346904100" data-track="cta_click" data-track-label="Call Now - Products Final CTA">Call Now</a>
+            <a class="ghost-btn" href="https://wa.me/918346904100" target="_blank" rel="noopener" data-track="cta_click" data-track-label="WhatsApp Us - Products Final CTA">WhatsApp Us</a>
         </div>
     </div>
 </section>

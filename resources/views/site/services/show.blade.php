@@ -81,8 +81,8 @@
             </div>
 
             <div class="detail-cta-row">
-                <a class="primary-btn" href="{{ route('contact', ['service' => $service->slug]) }}">Book This Service</a>
-                <a class="secondary-btn" target="_blank" rel="noopener" href="https://wa.me/918346904100?text={{ $waText }}">WhatsApp Now</a>
+                <a class="primary-btn" href="{{ route('contact', ['service' => $service->slug]) }}" data-track="service_book_click" data-track-label="{{ $service->name }}">Book This Service</a>
+                <a class="secondary-btn" target="_blank" rel="noopener" href="https://wa.me/918346904100?text={{ $waText }}" data-track="service_whatsapp_click" data-track-label="{{ $service->name }}">WhatsApp Now</a>
             </div>
         </div>
     </div>
@@ -100,7 +100,7 @@
                     : null;
                 $otherPrice = (float) $other->price > 0 ? '₹' . number_format((float) $other->price, 0) : 'Custom Pricing';
             @endphp
-            <a class="svc-other-card" href="{{ route('services.show', $other->slug) }}">
+            <a class="svc-other-card" href="{{ route('services.show', $other->slug) }}" data-track="select_service" data-track-label="{{ $other->name }} (Related)">
                 <div class="svc-other-img">
                     @if($otherImg)
                         <img src="{{ $otherImg }}" alt="{{ $other->name }}" loading="lazy">
@@ -129,9 +129,9 @@
         <h2>Need Fast & Professional AC Service in Kolkata?</h2>
         <p>Book expert AC technicians for installation, repair, maintenance, and commercial HVAC support.</p>
         <div class="quick-actions">
-            <a class="primary-btn" href="{{ route('contact') }}">Book Service</a>
-            <a class="secondary-btn" href="tel:+918346904100">Call Now</a>
-            <a class="ghost-btn" href="https://wa.me/918346904100" target="_blank" rel="noopener">WhatsApp Us</a>
+            <a class="primary-btn" href="{{ route('contact') }}" data-track="cta_click" data-track-label="Book Service - Service Detail Final CTA">Book Service</a>
+            <a class="secondary-btn" href="tel:+918346904100" data-track="cta_click" data-track-label="Call Now - Service Detail Final CTA">Call Now</a>
+            <a class="ghost-btn" href="https://wa.me/918346904100" target="_blank" rel="noopener" data-track="cta_click" data-track-label="WhatsApp Us - Service Detail Final CTA">WhatsApp Us</a>
         </div>
     </div>
 </section>
@@ -153,6 +153,14 @@
         'price' => (float) $service->price,
     ] : null,
 ]) !!}
+</script>
+<script>
+if (typeof gtag === 'function') {
+    gtag('event', 'view_item', {
+        label: @json($service->name),
+        category: 'service',
+    });
+}
 </script>
 @endsection
 

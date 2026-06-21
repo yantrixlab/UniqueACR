@@ -66,8 +66,8 @@
             <h1>Professional AC Repair, Installation & HVAC Solutions</h1>
             <p>Expert domestic and commercial AC servicing with fast response, certified technicians, genuine spare parts, and reliable cooling solutions across Kolkata.</p>
             <div class="cta-row premium-cta-row">
-                <a class="primary-btn" href="{{ route('contact') }}">Book AC Service</a>
-                <a class="secondary-btn" href="{{ route('contact') }}">Get Free Inspection</a>
+                <a class="primary-btn" href="{{ route('contact') }}" data-track="cta_click" data-track-label="Book AC Service - Services Hero">Book AC Service</a>
+                <a class="secondary-btn" href="{{ route('contact') }}" data-track="cta_click" data-track-label="Get Free Inspection - Services Hero">Get Free Inspection</a>
             </div>
             <ul class="hero-trust-points">
                 <li>Same Day Service</li>
@@ -166,12 +166,12 @@
                             </span>
                         </div>
                         <h2 class="svc-slide-name">
-                            <a href="{{ route('services.show', $service->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}">{{ $service->name }}</a>
+                            <a href="{{ route('services.show', $service->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}" data-track="select_service" data-track-label="{{ $service->name }} (Featured)">{{ $service->name }}</a>
                         </h2>
                         <p class="svc-slide-desc">{{ \Illuminate\Support\Str::limit(strip_tags($service->description ?? ''), 90) }}</p>
                         <div class="svc-slide-btns">
-                            <a class="svc-btn-book" href="{{ route('services.show', $service->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}">Book Service</a>
-                            <a class="svc-btn-wa" href="https://wa.me/918346904100?text={{ $waText }}" target="_blank" rel="noopener" tabindex="{{ $fi === 0 ? '0' : '-1' }}">
+                            <a class="svc-btn-book" href="{{ route('services.show', $service->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}" data-track="service_book_click" data-track-label="{{ $service->name }} (Featured)">Book Service</a>
+                            <a class="svc-btn-wa" href="https://wa.me/918346904100?text={{ $waText }}" target="_blank" rel="noopener" tabindex="{{ $fi === 0 ? '0' : '-1' }}" data-track="service_whatsapp_click" data-track-label="{{ $service->name }} (Featured)">
                                 <svg viewBox="0 0 32 32" width="17" height="17" aria-hidden="true"><path fill="#fff" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#25D366" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.4c-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.1-.4-.2-.7-.4Z"/></svg>
                                 WhatsApp
                             </a>
@@ -344,7 +344,7 @@
                     $segmentTag = $service->segment === 'commercial' ? 'Commercial' : 'Domestic';
                 @endphp
                 <article class="product-item-card premium-product-card svc-product-card svc-card-clickable">
-                    <a class="svc-card-cover-link" href="{{ route('services.show', $service->slug) }}" aria-label="{{ $service->name }}"></a>
+                    <a class="svc-card-cover-link" href="{{ route('services.show', $service->slug) }}" aria-label="{{ $service->name }}" data-track="select_service" data-track-label="{{ $service->name }}"></a>
                     <div class="product-image-wrap svc-cover">
                         <img loading="lazy" src="{{ $image }}" alt="{{ $service->name }}">
                         <span class="card-top-tag card-top-tag--{{ $service->segment ?? 'domestic' }}">
@@ -365,8 +365,8 @@
                         <p>{{ \Illuminate\Support\Str::limit(strip_tags($service->description), 96) }}</p>
                         <div class="stock-chip">{{ $service->is_active ? 'Available Today' : 'On Request' }}</div>
                         <div class="card-btn-row">
-                            <a class="primary-btn" href="{{ route('services.show', $service->slug) }}" style="position:relative;z-index:2;">Book Service</a>
-                            <a class="outline-btn wa-icon-btn" target="_blank" rel="noopener" aria-label="WhatsApp" href="https://wa.me/918346904100?text={{ $waText }}" style="position:relative;z-index:2;">
+                            <a class="primary-btn" href="{{ route('services.show', $service->slug) }}" style="position:relative;z-index:2;" data-track="service_book_click" data-track-label="{{ $service->name }}">Book Service</a>
+                            <a class="outline-btn wa-icon-btn" target="_blank" rel="noopener" aria-label="WhatsApp" href="https://wa.me/918346904100?text={{ $waText }}" style="position:relative;z-index:2;" data-track="service_whatsapp_click" data-track-label="{{ $service->name }}">
                                 <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#25D366" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#fff" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8.2-.2.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.8-.9-2.4-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4 0-.1-.3-.2-.6-.4Z"/></svg>
                             </a>
                         </div>
@@ -435,8 +435,8 @@
                 <h2>Annual AC Maintenance Contract (AMC)</h2>
                 <p>Reliable AC servicing, preventive maintenance, faster cooling &amp; longer AC life for homes and businesses in Kolkata.</p>
                 <div class="cta-row amc-cta-row">
-                    <a class="primary-btn" href="{{ route('contact', ['service_type' => 'AMC']) }}">Book AMC Now</a>
-                    <a class="secondary-btn" href="{{ route('contact') }}">Get Free Consultation</a>
+                    <a class="primary-btn" href="{{ route('contact', ['service_type' => 'AMC']) }}" data-track="cta_click" data-track-label="Book AMC Now">Book AMC Now</a>
+                    <a class="secondary-btn" href="{{ route('contact') }}" data-track="cta_click" data-track-label="Get Free Consultation - AMC">Get Free Consultation</a>
                 </div>
             </div>
             <div class="amc-visual" aria-hidden="true">
@@ -467,8 +467,8 @@
         <h2>24/7 Emergency AC Support</h2>
         <p>Rapid response team for urgent repair and cooling failures.</p>
         <div class="quick-actions">
-            <a class="primary-btn" href="tel:+918346904100">Call Now</a>
-            <a class="secondary-btn" href="https://wa.me/918346904100" target="_blank" rel="noopener">WhatsApp Us</a>
+            <a class="primary-btn" href="tel:+918346904100" data-track="cta_click" data-track-label="Call Now - Emergency CTA">Call Now</a>
+            <a class="secondary-btn" href="https://wa.me/918346904100" target="_blank" rel="noopener" data-track="cta_click" data-track-label="WhatsApp Us - Emergency CTA">WhatsApp Us</a>
         </div>
         <p class="availability-dot"><span></span>Average response time: 30-45 minutes</p>
     </div>
@@ -488,9 +488,9 @@
     <div class="container">
         <h2>AMC / Maintenance Plans</h2>
         <div class="amc-grid">
-            <article><h3>Basic AMC</h3><p>2 preventive visits/year</p><strong>₹2,999 / unit</strong><a href="{{ route('contact') }}">Choose Plan</a></article>
-            <article class="featured"><h3>Standard AMC</h3><p>4 visits + priority support</p><strong>₹4,999 / unit</strong><a href="{{ route('contact') }}">Choose Plan</a></article>
-            <article><h3>Premium AMC</h3><p>6 visits + emergency support</p><strong>₹7,999 / unit</strong><a href="{{ route('contact') }}">Choose Plan</a></article>
+            <article><h3>Basic AMC</h3><p>2 preventive visits/year</p><strong>₹2,999 / unit</strong><a href="{{ route('contact') }}" data-track="cta_click" data-track-label="Choose Plan - Basic AMC">Choose Plan</a></article>
+            <article class="featured"><h3>Standard AMC</h3><p>4 visits + priority support</p><strong>₹4,999 / unit</strong><a href="{{ route('contact') }}" data-track="cta_click" data-track-label="Choose Plan - Standard AMC">Choose Plan</a></article>
+            <article><h3>Premium AMC</h3><p>6 visits + emergency support</p><strong>₹7,999 / unit</strong><a href="{{ route('contact') }}" data-track="cta_click" data-track-label="Choose Plan - Premium AMC">Choose Plan</a></article>
         </div>
     </div>
 </section>
@@ -690,9 +690,9 @@
         <h2>Need Fast & Professional AC Service in Kolkata?</h2>
         <p>Book expert AC technicians for installation, repair, maintenance, and commercial HVAC support.</p>
         <div class="quick-actions">
-            <a class="primary-btn" href="{{ route('contact') }}">Book Service</a>
-            <a class="secondary-btn" href="tel:+918346904100">Call Now</a>
-            <a class="ghost-btn" href="https://wa.me/918346904100" target="_blank" rel="noopener">WhatsApp Us</a>
+            <a class="primary-btn" href="{{ route('contact') }}" data-track="cta_click" data-track-label="Book Service - Services Final CTA">Book Service</a>
+            <a class="secondary-btn" href="tel:+918346904100" data-track="cta_click" data-track-label="Call Now - Services Final CTA">Call Now</a>
+            <a class="ghost-btn" href="https://wa.me/918346904100" target="_blank" rel="noopener" data-track="cta_click" data-track-label="WhatsApp Us - Services Final CTA">WhatsApp Us</a>
         </div>
     </div>
 </section>

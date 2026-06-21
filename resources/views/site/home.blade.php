@@ -58,8 +58,8 @@
             <h1>Fast, Reliable AC Service That Keeps You Cool All Year Round</h1>
             <p>Professional AC repair, installation, gas charging, and maintenance services for homes, offices, and commercial spaces. Certified technicians, transparent pricing, and quick response.</p>
             <div class="cta-row premium-cta-row">
-                <a class="primary-btn" href="{{ route('contact') }}">Book Service</a>
-                <a class="secondary-btn" href="{{ route('contact', ['service_type' => 'AMC']) }}">Get AMC Plan</a>
+                <a class="primary-btn" href="{{ route('contact') }}" data-track="cta_click" data-track-label="Book Service - Home Hero">Book Service</a>
+                <a class="secondary-btn" href="{{ route('contact', ['service_type' => 'AMC']) }}" data-track="cta_click" data-track-label="Get AMC Plan - Home Hero">Get AMC Plan</a>
             </div>
             <ul class="hero-trust-points">
                 <li>Same Day Service</li>
@@ -938,12 +938,12 @@
                             </span>
                         </div>
                         <h2 class="hsvc-name">
-                            <a href="{{ route('services.show', $service->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}">{{ $service->name }}</a>
+                            <a href="{{ route('services.show', $service->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}" data-track="select_service" data-track-label="{{ $service->name }} (Home Featured)">{{ $service->name }}</a>
                         </h2>
                         <p class="hsvc-desc">{{ \Illuminate\Support\Str::limit(strip_tags($service->description ?? ''), 90) }}</p>
                         <div class="hsvc-btns">
-                            <a class="hsvc-btn-book" href="{{ route('services.show', $service->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}">Book Service</a>
-                            <a class="hsvc-btn-wa" href="https://wa.me/918346904100?text={{ $svcWa }}" target="_blank" rel="noopener" tabindex="{{ $fi === 0 ? '0' : '-1' }}">
+                            <a class="hsvc-btn-book" href="{{ route('services.show', $service->slug) }}" tabindex="{{ $fi === 0 ? '0' : '-1' }}" data-track="service_book_click" data-track-label="{{ $service->name }} (Home Featured)">Book Service</a>
+                            <a class="hsvc-btn-wa" href="https://wa.me/918346904100?text={{ $svcWa }}" target="_blank" rel="noopener" tabindex="{{ $fi === 0 ? '0' : '-1' }}" data-track="service_whatsapp_click" data-track-label="{{ $service->name }} (Home Featured)">
                                 <svg viewBox="0 0 32 32" width="17" height="17" aria-hidden="true"><path fill="#fff" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#25D366" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.4c-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.1-.4-.2-.7-.4Z"/></svg>
                                 WhatsApp
                             </a>
@@ -1126,18 +1126,20 @@
                             </span>
                         </div>
                         <h2 class="hfs-name">
-                            <a href="{{ route('products.show', $product->slug) }}">{{ $product->name }}</a>
+                            <a href="{{ route('products.show', $product->slug) }}" data-track="select_product" data-track-label="{{ $product->name }} (Home Featured)">{{ $product->name }}</a>
                         </h2>
                         <p class="hfs-desc">{{ \Illuminate\Support\Str::limit(strip_tags($product->description ?? ''), 90) }}</p>
                         <div class="hfs-btns">
                             <button type="button" class="hfs-btn-enq open-enquiry"
                                     data-product-id="{{ $product->id }}"
-                                    data-product-name="{{ $product->name }}">
+                                    data-product-name="{{ $product->name }}"
+                                    data-track="product_enquiry_click" data-track-label="{{ $product->name }} (Home Featured)">
                                 Enquire Now
                             </button>
                             <a class="hfs-btn-wa"
                                href="https://wa.me/918346904100?text={{ $waText }}"
-                               target="_blank" rel="noopener">
+                               target="_blank" rel="noopener"
+                               data-track="product_whatsapp_click" data-track-label="{{ $product->name }} (Home Featured)">
                                 <svg viewBox="0 0 32 32" width="17" height="17" aria-hidden="true"><path fill="#fff" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#25D366" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.4c-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.1-.4-.2-.7-.4Z"/></svg>
                                 WhatsApp
                             </a>
