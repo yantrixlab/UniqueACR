@@ -32,6 +32,8 @@ class EditBlogPost extends EditRecord
                 ->value('id');
         }
 
+        $data['content_html'] = $data['content'] ?? '';
+
         return $data;
     }
 

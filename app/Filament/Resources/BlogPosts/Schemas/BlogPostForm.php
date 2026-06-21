@@ -65,7 +65,10 @@ class BlogPostForm
                                                 return;
                                             }
 
-                                            $set('content_html', $get('content'));
+                                            if (blank($get('content_html'))) {
+                                                $set('content_html', $get('content'));
+                                            }
+
                                             $set('content_mode', 'html');
                                         }),
                                 ])
