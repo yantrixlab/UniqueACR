@@ -27,20 +27,22 @@
                         default => $fallbackImage,
                     };
                     $date = $post->published_at?->format('d M Y') ?? $post->created_at?->format('d M Y');
+                    $title = \App\Support\TextRepair::clean($post->title);
+                    $excerpt = \Illuminate\Support\Str::limit(strip_tags(\App\Support\TextRepair::clean($post->content)), 150);
                 @endphp
                 <article class="blog-card">
                     <a class="blog-thumb" href="{{ route('blog.show', $post->slug) }}">
                         <img
                             loading="lazy"
                             src="{{ $image }}"
-                            alt="{{ $post->title }}"
+                            alt="{{ $title }}"
                             onerror="this.onerror=null;this.src='{{ $fallbackImage }}';"
                         >
                     </a>
                     <div class="blog-body">
                         <p class="blog-date">{{ $date }}</p>
-                        <h3><a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a></h3>
-                        <p>{{ \Illuminate\Support\Str::limit(strip_tags($post->content), 150) }}</p>
+                        <h3><a href="{{ route('blog.show', $post->slug) }}">{{ $title }}</a></h3>
+                        <p>{{ $excerpt }}</p>
                         <a class="outline-btn" href="{{ route('blog.show', $post->slug) }}">Read Article</a>
                     </div>
                 </article>

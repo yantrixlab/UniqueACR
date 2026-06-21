@@ -10,20 +10,25 @@
         default => $fallbackImage,
     };
     $publishedDate = $post->published_at?->format('d M Y') ?? $post->created_at?->format('d M Y');
-    $summary = \Illuminate\Support\Str::limit(strip_tags($post->content ?? ''), 170, '');
+    $title = \App\Support\TextRepair::clean($post->title);
+    $content = \App\Support\TextRepair::clean($post->content ?? '');
+    $summary = \Illuminate\Support\Str::limit(strip_tags($content), 170, '');
+    $metaDescription = $post->meta_description
+        ? \App\Support\TextRepair::clean($post->meta_description)
+        : \Illuminate\Support\Str::limit(strip_tags($content), 155, '');
 @endphp
 
-@section('title', $post->title . ' | Unique Aircon Blog - AC Tips Kolkata')
-@section('meta_description', $post->meta_description ?? \Illuminate\Support\Str::limit(strip_tags($post->content ?? ''), 155, ''))
+@section('title', $title . ' | Unique Aircon Blog - AC Tips Kolkata')
+@section('meta_description', $metaDescription)
 @section('og_type', 'article')
-@section('og_title', $post->title . ' | Unique Aircon Blog')
+@section('og_title', $title . ' | Unique Aircon Blog')
 @section('og_description', $summary)
 @section('og_image', $featuredImageUrl)
 @section('schema')
 <script type="application/ld+json">{!! json_encode([
     '@context'         => 'https://schema.org',
     '@type'            => 'Article',
-    'headline'         => $post->title,
+    'headline'         => $title,
     'description'      => $summary,
     'image'            => [$featuredImageUrl],
     'datePublished'    => optional($post->published_at)->toIso8601String(),
@@ -43,11 +48,11 @@
     <div class="container article-shell">
         <article class="article-card">
             <figure class="article-featured-image">
-                <img src="{{ $featuredImageUrl }}" alt="{{ $post->title }}" fetchpriority="high">
+                <img src="{{ $featuredImageUrl }}" alt="{{ $title }}" fetchpriority="high">
             </figure>
 
             <div class="article-card-body">
-                <h1>{{ $post->title }}</h1>
+                <h1>{{ $title }}</h1>
                 <div class="article-meta">
                     <span>{{ $publishedDate }}</span>
                     <span>AC service insights</span>
@@ -55,10 +60,10 @@
                 </div>
 
                 <div class="blog-prose">
-                    @if(\Illuminate\Support\Str::contains($post->content, '<'))
-                        {!! \Illuminate\Support\Str::sanitizeHtml($post->content) !!}
+                    @if(\Illuminate\Support\Str::contains($content, '<'))
+                        {!! \Illuminate\Support\Str::sanitizeHtml($content) !!}
                     @else
-                        {!! nl2br(e($post->content)) !!}
+                        {!! nl2br(e($content)) !!}
                     @endif
                 </div>
             </div>
