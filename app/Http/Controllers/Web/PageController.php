@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\ServiceAreaRepository;
 use Illuminate\View\View;
 
 class PageController extends Controller
 {
-    public function about(): View
+    public function about(ServiceAreaRepository $areaRepository): View
     {
-        return view('site.pages.about');
+        $areas = $areaRepository->getAll();
+
+        return view('site.pages.about', compact('areas'));
     }
 
     public function contact(): View

@@ -293,14 +293,14 @@
 
 <section class="section stats-band">
     <div class="container stats-grid">
-        <article><h3>5000+</h3><p>Happy Customers</p></article>
-        <article><h3>15+</h3><p>Years Experience</p></article>
+        <article><h3>250+</h3><p>Happy Customers</p></article>
+        <article><h3>9+</h3><p>Years Experience</p></article>
         <article><h3>24/7</h3><p>Support</p></article>
-        <article><h3>1000+</h3><p>Commercial Projects</p></article>
+        <article><h3>16+</h3><p>Commercial Projects</p></article>
     </div>
 </section>
 
-<section class="section">
+<!-- <section class="section">
     <div class="container">
         <h2>What Customers Say</h2>
         <div class="test-grid">
@@ -309,14 +309,65 @@
             <article class="test-card"><div class="stars">★★★★★</div><p>Excellent commercial AC support for our office floor.</p><strong>— Rahul D.</strong></article>
         </div>
     </div>
-</section>
+</section> -->
 
-<section class="section areas-zone">
-    <div class="container">
-        <h2>Service Areas</h2>
-        <p class="sub">Kolkata • Jadavpur • South Kolkata • Garia • Tollygunge • Kasba • Dhakuria</p>
-        <div class="coverage-tags">
-            <span>Kolkata</span><span>Jadavpur</span><span>South Kolkata</span><span>Garia</span><span>Tollygunge</span><span>Kasba</span><span>Dhakuria</span>
+<section style="padding:3.5rem 0;background:linear-gradient(160deg,#06205a 0%,#0f458f 100%);position:relative;overflow:hidden;">
+    {{-- Background decoration --}}
+    <div style="position:absolute;right:-80px;top:-80px;width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;"></div>
+    <div style="position:absolute;left:-60px;bottom:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;"></div>
+
+    <div class="container" style="position:relative;">
+        {{-- Header --}}
+        <div style="display:flex;flex-wrap:wrap;gap:1.5rem;align-items:flex-end;justify-content:space-between;margin-bottom:2rem;">
+            <div>
+                <span style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.12);color:rgba(255,255,255,.9);font-size:.75rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:.3rem .85rem;border-radius:999px;margin-bottom:.85rem;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    {{ $areas->count() }}+ Localities Covered
+                </span>
+                <h2 style="color:#fff;font-size:clamp(1.4rem,3vw,2rem);margin:0;line-height:1.25;">Areas We Serve in South &amp; Central Kolkata</h2>
+                <p style="color:rgba(255,255,255,.7);margin:.6rem 0 0;font-size:.95rem;">Onsite AC repair, installation &amp; maintenance. Same-day service available.</p>
+            </div>
+            <a href="{{ route('areas.index') }}" style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.12);color:#fff;font-size:.85rem;font-weight:600;padding:.6rem 1.2rem;border-radius:9px;border:1px solid rgba(255,255,255,.2);white-space:nowrap;flex-shrink:0;">
+                View All Areas
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+        </div>
+
+        {{-- Area Cards Grid --}}
+        @php
+        $zoneColors = [
+            'South Kolkata & Jadavpur Zone'   => '#60a5fa',
+            'South-East & EM Bypass Zone'     => '#34d399',
+            'Central-South & Tollygunge Zone' => '#c084fc',
+            'Science City & Bhawanipore Zone' => '#fb923c',
+        ];
+        @endphp
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem;">
+            @foreach($areas as $area)
+            @php $dotColor = $zoneColors[$area->zone] ?? '#60a5fa'; @endphp
+            <a href="{{ route('areas.show', $area->slug) }}"
+               style="display:flex;align-items:center;gap:.75rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:11px;padding:.85rem 1rem;text-decoration:none;transition:all .16s ease;"
+               onmouseover="this.style.background='rgba(255,255,255,.14)';this.style.borderColor='rgba(255,255,255,.25)';this.style.transform='translateY(-2px)'"
+               onmouseout="this.style.background='rgba(255,255,255,.07)';this.style.borderColor='rgba(255,255,255,.1)';this.style.transform='translateY(0)'">
+                <span style="width:8px;height:8px;border-radius:50%;background:{{ $dotColor }};flex-shrink:0;box-shadow:0 0 6px {{ $dotColor }}88;"></span>
+                <div style="flex:1;min-width:0;">
+                    <div style="color:#fff;font-size:.88rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ $area->name }}</div>
+                    <div style="color:rgba(255,255,255,.5);font-size:.75rem;margin-top:.15rem;">{{ $area->pinCodesDisplay() }}</div>
+                </div>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2.5" stroke-linecap="round" style="flex-shrink:0;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            @endforeach
+        </div>
+
+        {{-- Zone Legend --}}
+        <div style="display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;margin-top:1.75rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.1);">
+            @foreach($areas->groupBy('zone') as $zoneName => $zoneAreas)
+            @php $c = $zoneColors[$zoneName] ?? '#60a5fa'; @endphp
+            <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;color:rgba(255,255,255,.6);">
+                <span style="width:8px;height:8px;border-radius:50%;background:{{ $c }};flex-shrink:0;"></span>
+                {{ $zoneName }} <span style="color:{{ $c }};font-weight:600;">({{ $zoneAreas->count() }})</span>
+            </span>
+            @endforeach
         </div>
     </div>
 </section>
