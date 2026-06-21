@@ -2,16 +2,16 @@
 
 namespace App\Filament\Resources\BlogPosts\Schemas;
 
-use App\Filament\Resources\BlogPosts\Blocks\VideoEmbedBlock;
 use App\Filament\Forms\Components\MediaPicker;
+use App\Filament\Forms\Components\SafeRichEditor;
+use App\Filament\Resources\BlogPosts\Blocks\VideoEmbedBlock;
 use App\Services\SeoAnalysisService;
 use Filament\Actions\Action;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Group;
@@ -43,7 +43,7 @@ class BlogPostForm
                                     TextInput::make('slug')
                                         ->required()
                                         ->maxLength(255)
-                                        ->prefix(url('/blog') . '/')
+                                        ->prefix(url('/blog').'/')
                                         ->live(onBlur: true),
                                     Select::make('author_id')
                                         ->label('Author')
@@ -74,7 +74,7 @@ class BlogPostForm
                                         ->default('visual')
                                         ->live()
                                         ->dehydrated(false),
-                                    RichEditor::make('content')
+                                    SafeRichEditor::make('content')
                                         ->hiddenLabel()
                                         ->visible(fn (Get $get): bool => $get('content_mode') !== 'html')
                                         ->required()
@@ -133,11 +133,11 @@ class BlogPostForm
                                     TextInput::make('meta_title')
                                         ->maxLength(255)
                                         ->live(onBlur: true)
-                                        ->helperText(fn (?string $state): string => Str::length((string) $state) . ' / 60 characters'),
+                                        ->helperText(fn (?string $state): string => Str::length((string) $state).' / 60 characters'),
                                     Textarea::make('meta_description')
                                         ->maxLength(320)
                                         ->live(onBlur: true)
-                                        ->helperText(fn (?string $state): string => Str::length((string) $state) . ' / 156 characters'),
+                                        ->helperText(fn (?string $state): string => Str::length((string) $state).' / 156 characters'),
                                     TextInput::make('meta_keywords'),
                                     Html::make(function (Get $get): HtmlString {
                                         try {
