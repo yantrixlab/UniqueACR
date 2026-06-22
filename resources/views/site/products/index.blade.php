@@ -39,7 +39,7 @@
 </section>
 
 <style>
-.hero-dealer-badge{display:inline-flex;align-items:center;gap:8px;margin:14px 0 0;padding:8px 16px;font-size:.85rem;font-weight:700;color:#0f3d8c;background:linear-gradient(135deg,#eef4ff,#e1ecff);border:1px solid rgba(37,99,235,.25);border-radius:999px;box-shadow:0 2px 10px rgba(37,99,235,.08);width:fit-content;}
+.hero-dealer-badge{display:inline-flex;align-items:center;gap:8px;margin:24px 0 0;padding:8px 16px;font-size:.85rem;font-weight:700;color:#0f3d8c;background:linear-gradient(135deg,#eef4ff,#e1ecff);border:1px solid rgba(37,99,235,.25);border-radius:999px;box-shadow:0 2px 10px rgba(37,99,235,.08);width:fit-content;}
 .hero-dealer-badge svg{width:17px;height:17px;flex-shrink:0;color:#2563eb;}
 @media(max-width:640px){.hero-dealer-badge{font-size:.78rem;padding:7px 13px;}}
 </style>
@@ -546,4 +546,3 @@
 })();
 </script>
 @endsection
-
