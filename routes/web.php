@@ -48,5 +48,14 @@ Route::get('/sitemap.xml', function () {
         ->merge(BlogPost::query()->where('is_published', true)->pluck('slug')->map(fn ($slug) => route('blog.show', $slug)))
         ->merge(ServiceArea::query()->where('is_active', true)->pluck('slug')->map(fn ($slug) => route('areas.show', $slug)));
 
-    return response()->view('site.pages.sitemap', ['urls' => $urls])->header('Content-Type', 'application/xml');
+    // Built as a plain string (not a Blade view) so this can never be
+    // broken by stale compiled-view caching on any deployment target.
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+    foreach ($urls as $url) {
+        $xml .= '<url><loc>' . e($url) . '</loc></url>' . "\n";
+    }
+    $xml .= '</urlset>';
+
+    return response($xml, 200, ['Content-Type' => 'application/xml']);
 });
