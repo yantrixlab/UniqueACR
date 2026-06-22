@@ -41,8 +41,9 @@ Route::middleware(['web', 'auth:web'])->prefix('admin-media')->group(function ()
 
 Route::get('/sitemap.xml', function () {
     $urls = collect([
-        route('home'), route('services.index'), route('products.index'), route('blog.index'), route('about'), route('contact'), route('terms'), route('privacy'),
+        route('home'), route('services.index'), route('products.index'), route('areas.index'), route('blog.index'), route('about'), route('contact'), route('terms'), route('privacy'),
     ])
+        ->merge(Service::query()->where('is_active', true)->pluck('slug')->map(fn ($slug) => route('services.show', $slug)))
         ->merge(Product::query()->where('is_active', true)->pluck('slug')->map(fn ($slug) => route('products.show', $slug)))
         ->merge(BlogPost::query()->where('is_published', true)->pluck('slug')->map(fn ($slug) => route('blog.show', $slug)))
         ->merge(ServiceArea::query()->where('is_active', true)->pluck('slug')->map(fn ($slug) => route('areas.show', $slug)));
