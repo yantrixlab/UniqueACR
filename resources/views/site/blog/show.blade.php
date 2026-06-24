@@ -89,6 +89,36 @@
                     <span class="clap-count" id="clapCount">{{ number_format($post->clap_count) }}</span>
                     <span class="clap-label">claps</span>
                 </div>
+
+                <div class="article-share" id="articleShare" data-share-url="{{ url()->current() }}" data-share-title="{{ $title }}">
+                    <button type="button" class="share-btn" id="shareBtn" aria-label="Share this article" aria-haspopup="true" aria-expanded="false">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="18" cy="5" r="3"/>
+                            <circle cx="6" cy="12" r="3"/>
+                            <circle cx="18" cy="19" r="3"/>
+                            <path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/>
+                        </svg>
+                    </button>
+
+                    <div class="share-menu" id="shareMenu" role="menu" hidden>
+                        <a class="share-menu-item" role="menuitem" target="_blank" rel="noopener" data-share="whatsapp" data-track="cta_click" data-track-label="Blog Share WhatsApp">
+                            <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#25D366" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#fff" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.4c-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.1-.4-.2-.7-.4Z"/></svg>
+                            WhatsApp
+                        </a>
+                        <a class="share-menu-item" role="menuitem" target="_blank" rel="noopener" data-share="facebook" data-track="cta_click" data-track-label="Blog Share Facebook">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path fill="#fff" d="M15.4 12.6h-2v7.4h-3v-7.4H9v-2.6h1.4V8.6c0-1.4.8-2.8 3-2.8h2v2.5h-1.4c-.3 0-.7.2-.7.8v1.5h2.1l-.3 2.6Z"/></svg>
+                            Facebook
+                        </a>
+                        <a class="share-menu-item" role="menuitem" target="_blank" rel="noopener" data-share="twitter" data-track="cta_click" data-track-label="Blog Share X">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="12" fill="#000"/><path fill="#fff" d="M7 6.5h2.4l3 3.9 3.4-3.9h1.7l-4.3 5 4.6 6h-2.4l-3.3-4.3-3.7 4.3H6.3l4.6-5.3z"/></svg>
+                            X
+                        </a>
+                        <button type="button" class="share-menu-item" role="menuitem" id="copyLinkBtn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                            <span id="copyLinkLabel">Copy link</span>
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <div class="article-cta-panel">
@@ -170,6 +200,70 @@
                 applyCappedState();
             })
             .catch(function () { /* optimistic UI already applied; ignore network errors */ });
+    });
+})();
+
+(function () {
+    var shareWrap = document.getElementById('articleShare');
+    if (!shareWrap) return;
+
+    var shareBtn = document.getElementById('shareBtn');
+    var shareMenu = document.getElementById('shareMenu');
+    var shareUrl = shareWrap.dataset.shareUrl;
+    var shareTitle = shareWrap.dataset.shareTitle;
+
+    var links = {
+        whatsapp: 'https://wa.me/?text=' + encodeURIComponent(shareTitle + ' ' + shareUrl),
+        facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl),
+        twitter: 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareTitle) + '&url=' + encodeURIComponent(shareUrl),
+    };
+    shareMenu.querySelectorAll('[data-share]').forEach(function (link) {
+        link.href = links[link.dataset.share];
+    });
+
+    function closeMenu() {
+        shareMenu.hidden = true;
+        shareBtn.setAttribute('aria-expanded', 'false');
+    }
+    function openMenu() {
+        shareMenu.hidden = false;
+        shareBtn.setAttribute('aria-expanded', 'true');
+    }
+
+    shareBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+
+        // Prefer the native share sheet where available (mobile browsers) --
+        // falls back to the dropdown menu of explicit share links otherwise.
+        if (navigator.share) {
+            navigator.share({ title: shareTitle, url: shareUrl }).catch(function () { /* user cancelled */ });
+            return;
+        }
+
+        if (shareMenu.hidden) {
+            openMenu();
+        } else {
+            closeMenu();
+        }
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!shareWrap.contains(e.target)) closeMenu();
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeMenu();
+    });
+
+    var copyBtn = document.getElementById('copyLinkBtn');
+    var copyLabel = document.getElementById('copyLinkLabel');
+    copyBtn.addEventListener('click', function () {
+        navigator.clipboard.writeText(shareUrl).then(function () {
+            copyLabel.textContent = 'Copied!';
+            setTimeout(function () {
+                copyLabel.textContent = 'Copy link';
+                closeMenu();
+            }, 1200);
+        });
     });
 })();
 </script>

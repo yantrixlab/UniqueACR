@@ -6536,6 +6536,70 @@ h4 {
     text-transform: uppercase;
     letter-spacing: 0.03em;
 }
+.article-share {
+    position: relative;
+    margin-left: auto;
+}
+.share-btn {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(123, 154, 201, 0.32);
+    background: #ffffff;
+    color: #0f63b7;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+.share-btn svg {
+    width: 19px;
+    height: 19px;
+}
+.share-btn:hover {
+    background: rgba(15, 99, 183, 0.08);
+}
+.share-btn:active {
+    transform: scale(0.94);
+}
+.share-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 20;
+    min-width: 168px;
+    border: 1px solid rgba(123, 154, 201, 0.26);
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 14px 30px rgba(8, 37, 87, 0.16);
+    padding: 6px;
+}
+.share-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 8px 10px;
+    border-radius: 7px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: #1a2e4a;
+    text-decoration: none;
+    text-align: left;
+}
+.share-menu-item:hover {
+    background: rgba(15, 99, 183, 0.08);
+}
+.share-menu-item svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
 .blog-prose {
     color: #003d79;
     font-size: clamp(0.98rem, 1.05vw, 1.06rem);
