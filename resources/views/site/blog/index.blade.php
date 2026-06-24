@@ -42,8 +42,18 @@
                     <div class="blog-body">
                         <p class="blog-date">{{ $date }}</p>
                         <h3><a href="{{ route('blog.show', $post->slug) }}">{{ $title }}</a></h3>
-                        <p>{{ $excerpt }}</p>
-                        <a class="outline-btn" href="{{ route('blog.show', $post->slug) }}">Read Article</a>
+                        <p class="blog-excerpt">{{ $excerpt }}</p>
+                        <div class="blog-card-footer">
+                            <a class="outline-btn" href="{{ route('blog.show', $post->slug) }}">Read Article</a>
+                            <span class="blog-clap-count" aria-label="{{ number_format($post->clap_count) }} claps">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M9 11V6a1.5 1.5 0 0 1 3 0v5"/>
+                                    <path d="M12 10.5V4.5a1.5 1.5 0 0 1 3 0V11"/>
+                                    <path d="M15 10.5V6a1.5 1.5 0 0 1 3 0v8c0 3.31-2.69 6-6 6h-1c-2.4 0-4.13-.96-5.4-2.7L3 13.5a1.5 1.5 0 0 1 2.4-1.8L7 14"/>
+                                </svg>
+                                {{ number_format($post->clap_count) }}
+                            </span>
+                        </div>
                     </div>
                 </article>
             @empty
