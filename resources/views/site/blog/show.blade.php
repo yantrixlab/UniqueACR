@@ -246,13 +246,6 @@
     shareBtn.addEventListener('click', function (e) {
         e.stopPropagation();
 
-        // Prefer the native share sheet where available (mobile browsers) --
-        // falls back to the dropdown menu of explicit share links otherwise.
-        if (navigator.share) {
-            navigator.share({ title: shareTitle, url: shareUrl }).catch(function () { /* user cancelled */ });
-            return;
-        }
-
         if (shareMenu.hidden) {
             openMenu();
         } else {
