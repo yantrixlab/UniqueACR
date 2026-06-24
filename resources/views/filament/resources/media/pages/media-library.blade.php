@@ -50,6 +50,12 @@
         .media-btn:hover { background:#1f2937; }
         .media-btn-danger { border-color:#7f1d1d; color:#fca5a5; }
         .media-empty { background:#111827; border:1px solid #374151; border-radius:12px; text-align:center; padding:40px 20px; color:#9ca3af; }
+
+        .media-loading { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; background:#111827; border:1px solid #374151; border-radius:12px; padding:60px 20px; color:#9ca3af; font-size:14px; }
+        .media-spinner { width:34px; height:34px; border-radius:50%; border:3px solid #374151; border-top-color:#60a5fa; animation:spin .8s linear infinite; }
+        .media-skeleton-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
+        .media-skeleton-card { height:206px; border-radius:12px; background:linear-gradient(100deg,#111827 35%,#1c2535 50%,#111827 65%); background-size:200% 100%; animation:shimmer 1.4s ease-in-out infinite; border:1px solid #374151; }
+        @keyframes shimmer { 0% { background-position: 150% 0; } 100% { background-position: -50% 0; } }
     </style>
 
     <div class="media-lib" x-data="{
@@ -289,7 +295,18 @@
             </div>
         </div>
 
-        @if ($mediaItems->isEmpty())
+        <div wire:init="loadMediaItems">
+        @if ($isLoadingMedia)
+            <div class="media-loading">
+                <div class="media-spinner" role="status" aria-label="Loading media library"></div>
+                <p>Loading media library…</p>
+            </div>
+            <div class="media-skeleton-grid" style="margin-top:14px;" aria-hidden="true">
+                @for ($i = 0; $i < 8; $i++)
+                    <div class="media-skeleton-card"></div>
+                @endfor
+            </div>
+        @elseif ($mediaItems->isEmpty())
             <div class="media-empty">No media files found.</div>
         @else
             <div class="media-grid">
@@ -317,5 +334,6 @@
                 @endforeach
             </div>
         @endif
+        </div>
     </div>
 </x-filament-panels::page>

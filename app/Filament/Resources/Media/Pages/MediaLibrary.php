@@ -29,6 +29,15 @@ class MediaLibrary extends Page
 
     public string $sortBy = 'latest';
 
+    public bool $isLoadingMedia = true;
+
+    public Collection $mediaItems;
+
+    public function mount(): void
+    {
+        $this->mediaItems = collect();
+    }
+
     public function uploadFiles(): void
     {
         $this->validate([
@@ -46,6 +55,7 @@ class MediaLibrary extends Page
         }
 
         $this->uploads = [];
+        $this->loadMediaItems();
 
         Notification::make()
             ->title('Files uploaded')
@@ -100,6 +110,8 @@ class MediaLibrary extends Page
             }
         }
 
+        $this->loadMediaItems();
+
         Notification::make()
             ->title("Scan complete: {$synced} files added to library" . ($skipped ? ", {$skipped} already existed." : '.'))
             ->success()
@@ -110,16 +122,27 @@ class MediaLibrary extends Page
     {
         Media::query()->whereKey($id)->delete();
 
+        $this->loadMediaItems();
+
         Notification::make()
             ->title('Media removed')
             ->success()
             ->send();
     }
 
-    public function getMediaItemsProperty(): Collection
+    /**
+     * Deferred via wire:init so the page shell paints immediately and a
+     * loading state is visible while this (potentially expensive, up to
+     * 200-row + thumbnail) query runs, instead of blocking the entire
+     * initial page response.
+     */
+    public function loadMediaItems(): void
     {
         if (! Schema::hasTable('media')) {
-            return collect();
+            $this->mediaItems = collect();
+            $this->isLoadingMedia = false;
+
+            return;
         }
 
         $query = Media::query()
@@ -143,13 +166,22 @@ class MediaLibrary extends Page
             ->when($this->sortBy === 'oldest', fn ($q) => $q->orderBy('updated_at'))
             ->when($this->sortBy === 'name', fn ($q) => $q->orderBy('title'));
 
-        return $query->limit(200)->get();
+        $this->mediaItems = $query->limit(200)->get();
+        $this->isLoadingMedia = false;
     }
 
-    protected function getViewData(): array
+    public function updatedTab(): void
     {
-        return [
-            'mediaItems' => $this->mediaItems,
-        ];
+        $this->loadMediaItems();
+    }
+
+    public function updatedSearch(): void
+    {
+        $this->loadMediaItems();
+    }
+
+    public function updatedSortBy(): void
+    {
+        $this->loadMediaItems();
     }
 }
