@@ -6670,6 +6670,8 @@ h4 {
 .article-share {
     position: relative;
     margin-left: auto;
+    display: flex;
+    align-items: center;
 }
 .share-btn {
     flex-shrink: 0;

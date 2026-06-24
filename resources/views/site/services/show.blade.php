@@ -96,6 +96,7 @@
             <div class="detail-cta-row">
                 <a class="primary-btn" href="{{ route('contact', ['service' => $service->slug]) }}" data-track="service_book_click" data-track-label="{{ $service->name }}">Book This Service</a>
                 <a class="secondary-btn" target="_blank" rel="noopener" href="https://wa.me/918346904100?text={{ $waText }}" data-track="service_whatsapp_click" data-track-label="{{ $service->name }}">WhatsApp Now</a>
+                @include('site.components.share-button', ['shareUrl' => url()->current(), 'shareTitle' => $service->name])
             </div>
         </div>
     </div>
