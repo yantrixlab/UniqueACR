@@ -5,6 +5,7 @@ namespace App\Filament\Resources\BlogPosts\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -20,6 +21,18 @@ class BlogPostsTable
                     ->searchable(),
                 TextColumn::make('title')
                     ->searchable(),
+                TextColumn::make('read_count')
+                    ->label('Views')
+                    ->numeric()
+                    ->sortable()
+                    ->icon(Heroicon::Eye)
+                    ->alignCenter(),
+                TextColumn::make('clap_count')
+                    ->label('Claps')
+                    ->numeric()
+                    ->sortable()
+                    ->icon(Heroicon::HandRaised)
+                    ->alignCenter(),
                 TextColumn::make('slug')
                     ->searchable(),
                 ImageColumn::make('featured_image'),

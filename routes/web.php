@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\MediaBackupController;
+use App\Http\Controllers\Web\BlogClapController;
 use App\Http\Controllers\Web\BlogController;
 use App\Http\Controllers\Web\EnquiryController;
 use App\Http\Controllers\Web\HomeController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\Web\PageController;
 use App\Http\Controllers\Web\ProductController;
 use App\Http\Controllers\Web\ServiceAreaController;
 use App\Http\Controllers\Web\ServiceController;
+use App\Http\Middleware\EnsureVisitorIdCookie;
 use App\Models\BlogPost;
 use App\Models\Product;
 use App\Models\Service;
@@ -22,7 +24,8 @@ Route::get('/products/{slug}', [ProductController::class, 'show'])->name('produc
 Route::get('/service-areas', [ServiceAreaController::class, 'index'])->name('areas.index');
 Route::get('/service-areas/{slug}', [ServiceAreaController::class, 'show'])->name('areas.show');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
-Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->middleware(EnsureVisitorIdCookie::class)->name('blog.show');
+Route::post('/blog/{slug}/clap', [BlogClapController::class, 'store'])->middleware(['throttle:30,1', EnsureVisitorIdCookie::class])->name('blog.clap');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::get('/terms-and-conditions', [PageController::class, 'terms'])->name('terms');

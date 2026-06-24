@@ -6412,6 +6412,98 @@ h4 {
 .article-cta-panel .outline-btn {
     background: #ffffff;
 }
+.article-clap-panel {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid rgba(123, 154, 201, 0.26);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 16px 18px;
+    box-shadow: 0 14px 30px rgba(8, 37, 87, 0.08);
+    margin-bottom: 16px;
+}
+.clap-btn {
+    position: relative;
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #1e7fe0, #0f63b7);
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(15, 99, 183, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.clap-btn svg {
+    width: 24px;
+    height: 24px;
+}
+.clap-btn:hover {
+    box-shadow: 0 8px 20px rgba(15, 99, 183, 0.45);
+}
+.clap-btn:active {
+    transform: scale(0.92);
+}
+.article-clap-panel.is-capped .clap-btn {
+    background: linear-gradient(145deg, #0f63b7, #083f7c);
+    cursor: default;
+}
+.clap-btn-burst {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    pointer-events: none;
+}
+.clap-btn.is-bursting .clap-btn-burst {
+    animation: clapBurstRing 0.55s ease-out;
+}
+.clap-btn.is-bursting .clap-btn-icon {
+    animation: clapIconPop 0.4s ease-out;
+}
+@keyframes clapBurstRing {
+    0% {
+        box-shadow: 0 0 0 0 rgba(15, 99, 183, 0.55);
+    }
+    100% {
+        box-shadow: 0 0 0 16px rgba(15, 99, 183, 0);
+    }
+}
+@keyframes clapIconPop {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    35% {
+        transform: scale(1.35) rotate(-12deg);
+    }
+    65% {
+        transform: scale(0.92) rotate(6deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+.clap-meta {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+.clap-count {
+    color: #083f7c;
+    font-size: 1.25rem;
+    font-weight: 900;
+}
+.clap-label {
+    color: #5f7598;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
 .blog-prose {
     color: #003d79;
     font-size: clamp(0.98rem, 1.05vw, 1.06rem);

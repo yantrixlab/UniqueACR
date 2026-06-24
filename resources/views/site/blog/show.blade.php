@@ -70,6 +70,27 @@
         </article>
 
         <aside class="article-sidebar" aria-label="Service contact">
+            <div class="article-clap-panel"
+                 id="articleClapPanel"
+                 data-clap-url="{{ route('blog.clap', $post->slug) }}"
+                 data-cap="{{ \App\Http\Controllers\Web\BlogClapController::CAP_PER_VISITOR }}"
+                 data-visitor-claps="{{ $visitorClapCount }}">
+                <button type="button" class="clap-btn" id="clapBtn" aria-label="Clap for this article">
+                    <span class="clap-btn-burst" aria-hidden="true"></span>
+                    <span class="clap-btn-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 11V6a1.5 1.5 0 0 1 3 0v5"/>
+                            <path d="M12 10.5V4.5a1.5 1.5 0 0 1 3 0V11"/>
+                            <path d="M15 10.5V6a1.5 1.5 0 0 1 3 0v8c0 3.31-2.69 6-6 6h-1c-2.4 0-4.13-.96-5.4-2.7L3 13.5a1.5 1.5 0 0 1 2.4-1.8L7 14"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="clap-meta">
+                    <span class="clap-count" id="clapCount">{{ number_format($post->clap_count) }}</span>
+                    <span class="clap-label">claps</span>
+                </div>
+            </div>
+
             <div class="article-cta-panel">
                 <p class="article-cta-label">Need AC help?</p>
                 <h2>Book a Kolkata technician</h2>
@@ -80,4 +101,76 @@
         </aside>
     </div>
 </section>
+
+<script>
+(function () {
+    var panel = document.getElementById('articleClapPanel');
+    if (!panel) return;
+
+    var btn = document.getElementById('clapBtn');
+    var countEl = document.getElementById('clapCount');
+    var cap = parseInt(panel.dataset.cap, 10) || 20;
+    var visitorClaps = parseInt(panel.dataset.visitorClaps, 10) || 0;
+    var clapUrl = panel.dataset.clapUrl;
+    var requestSeq = 0;
+    var latestAppliedSeq = 0;
+
+    function applyCappedState() {
+        if (visitorClaps >= cap) {
+            panel.classList.add('is-capped');
+            btn.setAttribute('aria-label', 'You have clapped the maximum number of times for this article');
+        }
+    }
+    applyCappedState();
+
+    function burst() {
+        btn.classList.remove('is-bursting');
+        // restart the animation even on rapid repeated clicks
+        void btn.offsetWidth;
+        btn.classList.add('is-bursting');
+    }
+
+    btn.addEventListener('click', function () {
+        if (visitorClaps >= cap) {
+            applyCappedState();
+            return;
+        }
+
+        visitorClaps += 1;
+        panel.dataset.visitorClaps = visitorClaps;
+        countEl.textContent = (parseInt(countEl.textContent.replace(/,/g, ''), 10) + 1).toLocaleString();
+        burst();
+        applyCappedState();
+
+        // Every click sends its own request -- never silently dropped --
+        // but only the most recently STARTED request is allowed to
+        // overwrite the displayed totals, so a slow earlier response
+        // can't clobber a newer optimistic value with stale data.
+        var seq = ++requestSeq;
+
+        fetch(clapUrl, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '{{ csrf_token() }}',
+                'Accept': 'application/json',
+            },
+        })
+            .then(function (response) { return response.json(); })
+            .then(function (data) {
+                if (seq < latestAppliedSeq) return;
+                latestAppliedSeq = seq;
+
+                if (typeof data.clap_count === 'number') {
+                    countEl.textContent = data.clap_count.toLocaleString();
+                }
+                if (typeof data.visitor_claps === 'number') {
+                    visitorClaps = data.visitor_claps;
+                    panel.dataset.visitorClaps = visitorClaps;
+                }
+                applyCappedState();
+            })
+            .catch(function () { /* optimistic UI already applied; ignore network errors */ });
+    });
+})();
+</script>
 @endsection
