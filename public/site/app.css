@@ -6297,7 +6297,106 @@ h4 {
     min-height: 220px;
 }
 .blog-pagination {
-    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    margin-top: 22px;
+}
+.blog-pagination nav {
+    width: 100%;
+}
+.blog-pagination nav > div:first-child {
+    display: none;
+}
+.blog-pagination nav > div:last-child,
+.blog-pagination nav > div:last-child > div:first-child,
+.blog-pagination nav > div:last-child > div:last-child,
+.blog-pagination span[aria-current="page"] {
+    display: flex;
+    align-items: center;
+}
+.blog-pagination nav > div:last-child {
+    justify-content: space-between;
+    gap: 14px;
+    padding: 12px;
+    border: 1px solid rgba(120, 152, 201, 0.34);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow: 0 12px 26px rgba(8, 37, 87, 0.08);
+}
+.blog-pagination nav > div:last-child > div:first-child p {
+    margin: 0;
+    color: #597094;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+.blog-pagination nav > div:last-child > div:last-child {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+}
+.blog-pagination nav > div:last-child > div:last-child > span {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+}
+.blog-pagination nav > div:last-child > div:last-child > span > a,
+.blog-pagination nav > div:last-child > div:last-child > span > span {
+    min-width: 38px;
+    height: 38px;
+    padding: 0 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 800;
+    line-height: 1;
+}
+.blog-pagination nav > div:last-child > div:last-child > span > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #c6d8f3;
+    color: #07336f;
+    background: #ffffff;
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s ease;
+}
+.blog-pagination nav > div:last-child > div:last-child > span > a:hover,
+.blog-pagination nav > div:last-child > div:last-child > span > a:focus-visible {
+    border-color: #0f63b7;
+    color: #ffffff;
+    background: #07336f;
+    transform: translateY(-1px);
+}
+.blog-pagination nav > div:last-child > div:last-child > span > span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    color: #7890b1;
+    background: #eef4fd;
+}
+.blog-pagination nav > div:last-child > div:last-child > span > span[aria-current="page"] {
+    color: #ffffff;
+    background: #07336f;
+    border-color: #07336f;
+}
+.blog-pagination nav > div:last-child > div:last-child > span > span[aria-current="page"] > span {
+    min-width: auto;
+    height: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+}
+.blog-pagination svg {
+    width: 17px;
+    height: 17px;
+    flex: 0 0 17px;
+    stroke-width: 2;
 }
 
 [data-theme="dark"] .blog-card {
@@ -6317,6 +6416,30 @@ h4 {
 [data-theme="dark"] .blog-thumb {
     background: linear-gradient(145deg, #1c2e4f, #15233d);
 }
+[data-theme="dark"] .blog-pagination nav > div:last-child {
+    background: rgba(17, 29, 53, 0.82);
+    border-color: #365887;
+    box-shadow: 0 12px 24px rgba(2, 9, 23, 0.36);
+}
+[data-theme="dark"] .blog-pagination nav > div:last-child > div:first-child p {
+    color: #a9c0e3;
+}
+[data-theme="dark"] .blog-pagination nav > div:last-child > div:last-child > span > a {
+    background: #102442;
+    border-color: #365887;
+    color: #d7e8ff;
+}
+[data-theme="dark"] .blog-pagination nav > div:last-child > div:last-child > span > a:hover,
+[data-theme="dark"] .blog-pagination nav > div:last-child > div:last-child > span > a:focus-visible,
+[data-theme="dark"] .blog-pagination nav > div:last-child > div:last-child > span > span[aria-current="page"] {
+    background: #6fb1f5;
+    border-color: #6fb1f5;
+    color: #07152a;
+}
+[data-theme="dark"] .blog-pagination nav > div:last-child > div:last-child > span > span {
+    background: #182f52;
+    color: #8fb0de;
+}
 
 @media (max-width: 1080px) {
     .blog-grid {
@@ -6329,6 +6452,14 @@ h4 {
     }
     .blog-thumb {
         height: 200px;
+    }
+    .blog-pagination nav > div:last-child {
+        align-items: stretch;
+        flex-direction: column;
+    }
+    .blog-pagination nav > div:last-child > div:first-child,
+    .blog-pagination nav > div:last-child > div:last-child {
+        justify-content: center;
     }
 }
 
