@@ -101,22 +101,33 @@
                     </button>
 
                     <div class="share-menu" id="shareMenu" role="menu" hidden>
-                        <a class="share-menu-item" role="menuitem" target="_blank" rel="noopener" data-share="whatsapp" data-track="cta_click" data-track-label="Blog Share WhatsApp">
-                            <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#25D366" d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.9 2 7L3 29l6.2-1.9c2 1.1 4.3 1.8 6.8 1.8 7.2 0 13-5.8 13-13S23.2 3 16 3Z"/><path fill="#fff" d="M22.5 19.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.1-.2.2-.4.2-.7 0-2-.9-3.3-1.7-4.6-3.9-.3-.4 0-.6.2-.8l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.4c-.2-.6-.4-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.1-.4-.2-.7-.4Z"/></svg>
-                            WhatsApp
-                        </a>
-                        <a class="share-menu-item" role="menuitem" target="_blank" rel="noopener" data-share="facebook" data-track="cta_click" data-track-label="Blog Share Facebook">
-                            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path fill="#fff" d="M15.4 12.6h-2v7.4h-3v-7.4H9v-2.6h1.4V8.6c0-1.4.8-2.8 3-2.8h2v2.5h-1.4c-.3 0-.7.2-.7.8v1.5h2.1l-.3 2.6Z"/></svg>
-                            Facebook
-                        </a>
-                        <a class="share-menu-item" role="menuitem" target="_blank" rel="noopener" data-share="twitter" data-track="cta_click" data-track-label="Blog Share X">
-                            <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="12" fill="#000"/><path fill="#fff" d="M7 6.5h2.4l3 3.9 3.4-3.9h1.7l-4.3 5 4.6 6h-2.4l-3.3-4.3-3.7 4.3H6.3l4.6-5.3z"/></svg>
-                            X
-                        </a>
                         <button type="button" class="share-menu-item" role="menuitem" id="copyLinkBtn">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11.5 4.5"/><path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07L12.5 19.5"/></svg>
                             <span id="copyLinkLabel">Copy link</span>
                         </button>
+
+                        <div class="share-menu-divider"></div>
+
+                        <a class="share-menu-item" role="menuitem" target="_blank" rel="noopener" data-share="bluesky" data-track="cta_click" data-track-label="Blog Share Bluesky">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 8.5c-.9-1.8-3.4-5.1-5.7-6.7C4 0.2 3 0.7 3.3 2.6c.1.4.3 2.6.5 3.6.6 3.3 1.5 4.1 4.5 4.6-3.1.5-3.9 1.6-5.1 3.6-1 1.7.1 4 2.2 3.5 1.6-.4 3-1.5 4.6-4 1.6 2.5 3 3.6 4.6 4 2.1.5 3.2-1.8 2.2-3.5-1.2-2-2-3.1-5.1-3.6 3-.5 3.9-1.3 4.5-4.6.2-1 .4-3.2.5-3.6.3-1.9-.7-2.4-3-.8C15.4 3.4 12.9 6.7 12 8.5Z"/></svg>
+                            Share on Bluesky
+                        </a>
+                        <a class="share-menu-item" role="menuitem" target="_blank" rel="noopener" data-share="facebook" data-track="cta_click" data-track-label="Blog Share Facebook">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M14.5 8.5h-1.2c-1 0-1.3.5-1.3 1.3V11h2.3l-.3 2.3H12V19h-2.4v-5.7H8V11h1.6V9.6c0-1.9 1-3.4 3.1-3.4h1.8z" fill="currentColor" stroke="none"/></svg>
+                            Share on Facebook
+                        </a>
+                        <a class="share-menu-item" role="menuitem" target="_blank" rel="noopener" data-share="linkedin" data-track="cta_click" data-track-label="Blog Share LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M7.5 10.5V17M7.5 7.5v.01M12 17v-4a2 2 0 0 1 4 0v4M12 13v4" stroke-linecap="round"/></svg>
+                            Share on LinkedIn
+                        </a>
+                        <a class="share-menu-item" role="menuitem" target="_blank" rel="noopener" data-share="threads" data-track="cta_click" data-track-label="Blog Share Threads">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 7.2c-1-1-2.2-1.5-3.7-1.5-3.4 0-5.6 2.6-5.6 6.3s2.2 6.3 5.7 6.3c2.9 0 4.8-1.4 4.8-3.7 0-1.8-1.2-2.9-3.3-3.2-1.7-.3-3.1-.1-3.6.7-.4.6-.1 1.4.7 1.7.6.2 1.2 0 1.4-.5"/></svg>
+                            Share on Threads
+                        </a>
+                        <a class="share-menu-item" role="menuitem" target="_blank" rel="noopener" data-share="twitter" data-track="cta_click" data-track-label="Blog Share X">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg>
+                            Share on X
+                        </a>
                     </div>
                 </div>
             </div>
@@ -213,8 +224,10 @@
     var shareTitle = shareWrap.dataset.shareTitle;
 
     var links = {
-        whatsapp: 'https://wa.me/?text=' + encodeURIComponent(shareTitle + ' ' + shareUrl),
+        bluesky: 'https://bsky.app/intent/compose?text=' + encodeURIComponent(shareTitle + ' ' + shareUrl),
         facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl),
+        linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(shareUrl),
+        threads: 'https://www.threads.net/intent/post?text=' + encodeURIComponent(shareTitle + ' ' + shareUrl),
         twitter: 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareTitle) + '&url=' + encodeURIComponent(shareUrl),
     };
     shareMenu.querySelectorAll('[data-share]').forEach(function (link) {
