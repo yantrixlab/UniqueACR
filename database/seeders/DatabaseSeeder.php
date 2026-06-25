@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
         $admin = User::updateOrCreate(
             ['email' => env('ADMIN_EMAIL', 'admin@uniqueacr.com')],
             [
-                'name' => env('ADMIN_NAME', 'Super Admin'),
+                'name' => env('ADMIN_NAME', 'UniqueAircon'),
                 'password' => Hash::make(env('ADMIN_PASSWORD', 'Admin@12345')),
                 'role' => 'super_admin',
                 'role_id' => $superAdminRole->id,
