@@ -6509,6 +6509,13 @@ h4 {
     font-weight: 850;
     line-height: 1.32;
 }
+.article-meta-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+}
 .article-meta {
     display: flex;
     flex-wrap: wrap;
@@ -6527,6 +6534,37 @@ h4 {
     color: #557199;
     font-size: 0.78rem;
     font-weight: 800;
+}
+.article-author {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    margin-bottom: 22px;
+    flex-shrink: 0;
+}
+.article-author-label {
+    color: #5f7598;
+    font-size: 0.76rem;
+    font-weight: 700;
+}
+.article-author-name {
+    font-family: 'Dancing Script', cursive;
+    color: #0f63b7;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
+@media (max-width: 640px) {
+    .article-meta-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .article-author {
+        align-items: flex-start;
+        text-align: left;
+        margin-bottom: 14px;
+    }
 }
 .article-sidebar {
     position: sticky;

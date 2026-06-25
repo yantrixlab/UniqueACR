@@ -41,6 +41,9 @@
     ],
     'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => url()->current()],
 ], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap">
 @endsection
 
 @section('content')
@@ -53,10 +56,16 @@
 
             <div class="article-card-body">
                 <h1>{{ $title }}</h1>
-                <div class="article-meta">
-                    <span>{{ $publishedDate }}</span>
-                    <span>AC service insights</span>
-                    <span>Kolkata</span>
+                <div class="article-meta-row">
+                    <div class="article-meta">
+                        <span>{{ $publishedDate }}</span>
+                        <span>AC service insights</span>
+                        <span>Kolkata</span>
+                    </div>
+                    <div class="article-author">
+                        <span class="article-author-label">Author -</span>
+                        <span class="article-author-name">{{ $post->author->name ?? 'Unique Aircon' }}</span>
+                    </div>
                 </div>
 
                 <div class="blog-prose">
