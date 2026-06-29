@@ -143,7 +143,7 @@
 
 {{-- Mobile side panel --}}
 <div class="mob-overlay" id="mobOverlay" aria-hidden="true"></div>
-<aside class="mob-side-panel" id="mobSidePanel" aria-label="Mobile navigation" aria-hidden="true">
+<aside class="mob-side-panel" id="mobSidePanel" aria-label="Mobile navigation" aria-hidden="true" inert>
     <div class="mob-panel-header">
         <a class="logo" href="{{ route('home') }}">Unique Aircon</a>
         <button class="mob-close-btn" id="mobCloseBtn" aria-label="Close menu">
@@ -193,8 +193,9 @@
     function openPanel() {
         panel.classList.add('open');
         overlay.classList.add('open');
-        panel.setAttribute('aria-hidden', 'false');
-        overlay.setAttribute('aria-hidden', 'false');
+        panel.removeAttribute('aria-hidden');
+        panel.removeAttribute('inert');
+        overlay.removeAttribute('aria-hidden');
         btn.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
     }
@@ -202,6 +203,7 @@
         panel.classList.remove('open');
         overlay.classList.remove('open');
         panel.setAttribute('aria-hidden', 'true');
+        panel.setAttribute('inert', '');
         overlay.setAttribute('aria-hidden', 'true');
         btn.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
@@ -225,9 +227,9 @@ document.addEventListener('click', function (e) {
 });
 </script>
 
-<div class="page-content">
+<main class="page-content">
 @yield('content')
-</div>
+</main>
 
 <div class="floating-stack">
     {{-- Call Button --}}

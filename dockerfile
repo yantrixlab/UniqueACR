@@ -1,4 +1,4 @@
-FROM php:8.4-cli
+FROM php:8.4-fpm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y \
     zip \
     nodejs \
     npm \
+    nginx \
+    supervisor \
     libicu-dev \
     libzip-dev \
     libpng-dev \
@@ -45,8 +47,15 @@ RUN npm run build
 # Laravel permissions
 RUN chmod -R 775 storage bootstrap/cache
 
+# Nginx + Supervisor configuration
+RUN rm -f /etc/nginx/sites-enabled/default
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 # Expose port
 EXPOSE 8000
 
-# Start Laravel
-CMD php artisan storage:link || true && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
+# Start nginx + php-fpm via supervisor
+CMD ["/usr/local/bin/entrypoint.sh"]

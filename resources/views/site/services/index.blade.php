@@ -686,7 +686,9 @@
         ].join('');
 
         var marker = L.marker([LAT, LNG], {
-            icon: L.divIcon({ className:'', html: pinHtml, iconSize:[0,0], iconAnchor:[0,0] })
+            icon: L.divIcon({ className:'', html: pinHtml, iconSize:[0,0], iconAnchor:[0,0] }),
+            keyboard: false,
+            alt: 'Unique Aircon location marker'
         }).addTo(map);
 
         marker.bindPopup(
