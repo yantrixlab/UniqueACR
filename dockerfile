@@ -44,8 +44,10 @@ RUN npm config set fetch-retries 5 \
 # Build frontend assets
 RUN npm run build
 
-# Laravel permissions
-RUN chmod -R 775 storage bootstrap/cache
+# Laravel permissions — php-fpm workers run as www-data, so storage/cache
+# must be owned by that user, not just group-writable for root.
+RUN chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
 
 # Nginx + Supervisor configuration
 RUN rm -f /etc/nginx/sites-enabled/default
