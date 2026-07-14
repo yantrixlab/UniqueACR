@@ -1486,7 +1486,7 @@ $homeZoneColors = [
 
             <div style="position:absolute;bottom:30px;left:16px;z-index:1000;display:inline-flex;align-items:center;gap:.45rem;background:rgba(0,25,10,.88);backdrop-filter:blur(10px);border:1px solid rgba(34,197,94,.4);color:#4ade80;font-size:.74rem;font-weight:700;padding:.42rem 1rem;border-radius:999px;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,.3);">
                 <span class="map-pulse-dot"></span>
-                8 km service coverage area
+                35 km service coverage area
             </div>
         </div>
 
@@ -1518,7 +1518,7 @@ $homeZoneColors = [
 
         var map = L.map(el, {
             center: [LAT, LNG],
-            zoom: 12,
+            zoom: 10,
             zoomControl: true,
             scrollWheelZoom: true,
         });
@@ -1530,12 +1530,12 @@ $homeZoneColors = [
         }).addTo(map);
 
         L.circle([LAT, LNG], {
-            radius: 8000, color: '#16a34a', weight: 2.2, opacity: 0.9,
+            radius: 35000, color: '#16a34a', weight: 2.2, opacity: 0.9,
             dashArray: '10 6', lineCap: 'round', fillColor: '#22c55e', fillOpacity: 0.09,
         }).addTo(map);
 
         L.circle([LAT, LNG], {
-            radius: 8000, color: '#4ade80', weight: 8, opacity: 0.14, fillOpacity: 0,
+            radius: 35000, color: '#4ade80', weight: 8, opacity: 0.14, fillOpacity: 0,
         }).addTo(map);
 
         var pinHtml = [
@@ -1563,10 +1563,10 @@ $homeZoneColors = [
             { offset: [0, -8] }
         ).openPopup();
 
-        L.marker([LAT + 0.072, LNG], {
+        L.marker([LAT + 0.314, LNG], {
             icon: L.divIcon({
                 className: '',
-                html: '<div style="background:rgba(0,22,10,.82);border:1px solid rgba(34,197,94,.5);color:#4ade80;font-size:.68rem;font-weight:700;font-family:system-ui,sans-serif;padding:.26rem .8rem;border-radius:999px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.3)">● 8 km service radius</div>',
+                html: '<div style="background:rgba(0,22,10,.82);border:1px solid rgba(34,197,94,.5);color:#4ade80;font-size:.68rem;font-weight:700;font-family:system-ui,sans-serif;padding:.26rem .8rem;border-radius:999px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.3)">● 35 km service radius</div>',
                 iconAnchor: [72, 10],
             }),
             interactive: false,
