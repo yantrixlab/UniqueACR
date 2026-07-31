@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -96,7 +98,12 @@ public class LoginActivity extends AppCompatActivity {
         );
 
         OneSignal.login(String.valueOf(body.getUser().getId()));
-        OneSignal.getUser().addTag("role", "admin");
+
+        // OneSignal.login() switches user identity asynchronously against their backend;
+        // tagging in the same instant can race and get applied to the outgoing user context
+        // and silently dropped. A short delay lets the switch settle first.
+        new Handler(Looper.getMainLooper()).postDelayed(
+                () -> OneSignal.getUser().addTag("role", "admin"), 2000);
 
         requestNotificationPermissionIfNeeded();
 

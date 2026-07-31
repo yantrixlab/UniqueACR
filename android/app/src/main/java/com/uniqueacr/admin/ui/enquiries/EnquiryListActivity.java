@@ -86,6 +86,10 @@ public class EnquiryListActivity extends AppCompatActivity implements AuthInterc
         // Refresh every time the screen becomes visible so tapping a push notification
         // (or just switching back to the app) always shows the latest enquiries.
         loadEnquiries(1, true);
+        // Defensive re-tag: OneSignal.login() at sign-in time can race with the tag call
+        // and silently drop it. Re-applying here on every resume is harmless (same value)
+        // and guarantees the tag eventually sticks.
+        OneSignal.getUser().addTag("role", "admin");
     }
 
     @Override
