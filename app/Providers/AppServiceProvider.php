@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Enquiry;
+use App\Observers\EnquiryObserver;
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
 
@@ -26,5 +28,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->extend(HtmlSanitizerConfig::class, function (HtmlSanitizerConfig $config): HtmlSanitizerConfig {
             return $config->allowElement('iframe', ['src', 'allow', 'allowfullscreen', 'loading', 'frameborder', 'title']);
         });
+
+        Enquiry::observe(EnquiryObserver::class);
     }
 }

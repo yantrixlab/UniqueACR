@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">UniqueACR Admin</string>
+
+    <string name="login_title">Admin Login</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="action_login">Log In</string>
+    <string name="error_login_generic">Login failed. Please try again.</string>
+    <string name="error_invalid_credentials">Invalid email or password.</string>
+    <string name="error_field_required">This field is required.</string>
+
+    <string name="enquiries_title">Enquiries</string>
+    <string name="action_logout">Logout</string>
+    <string name="empty_enquiries">No enquiries yet.</string>
+    <string name="error_loading_enquiries">Could not load enquiries.</string>
+
+    <string name="enquiry_detail_title">Enquiry Detail</string>
+    <string name="label_phone">Phone</string>
+    <string name="label_email">Email</string>
+    <string name="label_message">Message</string>
+    <string name="label_status">Status</string>
+    <string name="label_received">Received</string>
+    <string name="action_update_status">Update Status</string>
+    <string name="status_updated">Status updated.</string>
+    <string name="status_update_failed">Could not update status.</string>
+
+    <string-array name="enquiry_statuses">
+        <item>pending</item>
+        <item>contacted</item>
+        <item>closed</item>
+    </string-array>
+</resources>

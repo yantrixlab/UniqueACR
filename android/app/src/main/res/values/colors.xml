@@ -1,0 +1,15 @@
+<resources>
+    <color name="colorPrimary">#1565C0</color>
+    <color name="colorPrimaryDark">#0D47A1</color>
+    <color name="colorAccent">#FF6F00</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorSurface">#F5F5F5</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorTextPrimary">#212121</color>
+    <color name="colorTextSecondary">#757575</color>
+    <color name="colorError">#C62828</color>
+
+    <color name="status_pending">#F9A825</color>
+    <color name="status_contacted">#1565C0</color>
+    <color name="status_closed">#2E7D32</color>
+</resources>

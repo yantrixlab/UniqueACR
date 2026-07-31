@@ -1,0 +1,63 @@
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+}
+
+android {
+    namespace 'com.uniqueacr.admin'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.uniqueacr.admin"
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "String", "API_BASE_URL", "\"https://uniqueacr.test/api/\""
+            buildConfigField "String", "ONESIGNAL_APP_ID", "\"REPLACE_WITH_ONESIGNAL_APP_ID\""
+        }
+        release {
+            buildConfigField "String", "API_BASE_URL", "\"https://uniqueacr.com/api/\""
+            buildConfigField "String", "ONESIGNAL_APP_ID", "\"REPLACE_WITH_ONESIGNAL_APP_ID\""
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        viewBinding true
+        buildConfig true
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'androidx.lifecycle:lifecycle-runtime:2.8.4'
+
+    implementation 'androidx.security:security-crypto:1.1.0-alpha06'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.11.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
+
+    implementation 'com.onesignal:OneSignal:[5.0.0, 5.99.99]'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+}
