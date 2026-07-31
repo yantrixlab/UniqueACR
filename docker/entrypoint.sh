@@ -1,6 +1,10 @@
 #!/bin/sh
 set -e
 
+# storage/logs is excluded from the build context (.dockerignore) so
+# Laravel's file logger has nowhere to write unless we recreate it here.
+mkdir -p storage/logs
+
 php artisan storage:link || true
 php artisan migrate --force
 php artisan config:cache
