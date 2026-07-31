@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.uniqueacr.admin'
-    compileSdk 34
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.uniqueacr.admin"
         minSdk 26
-        targetSdk 34
+        targetSdk 36
         versionCode 1
         versionName "1.0"
 
@@ -19,12 +19,12 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", "API_BASE_URL", "\"https://uniqueacr.test/api/\""
-            buildConfigField "String", "ONESIGNAL_APP_ID", "\"REPLACE_WITH_ONESIGNAL_APP_ID\""
+            buildConfigField "String", "API_BASE_URL", "\"https://uniqueaircon.com/api/\""
+            buildConfigField "String", "ONESIGNAL_APP_ID", "\"208d0cb4-d8f6-41c3-a4c3-b54d341733cf\""
         }
         release {
-            buildConfigField "String", "API_BASE_URL", "\"https://uniqueacr.com/api/\""
-            buildConfigField "String", "ONESIGNAL_APP_ID", "\"REPLACE_WITH_ONESIGNAL_APP_ID\""
+            buildConfigField "String", "API_BASE_URL", "\"https://uniqueaircon.com/api/\""
+            buildConfigField "String", "ONESIGNAL_APP_ID", "\"208d0cb4-d8f6-41c3-a4c3-b54d341733cf\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

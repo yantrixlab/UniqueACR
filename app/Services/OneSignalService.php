@@ -19,7 +19,7 @@ class OneSignalService
         }
 
         $response = Http::withHeaders([
-            'Authorization' => 'Basic '.$restApiKey,
+            'Authorization' => 'Key '.$restApiKey,
         ])->post('https://onesignal.com/api/v1/notifications', [
             'app_id' => $appId,
             'filters' => [
