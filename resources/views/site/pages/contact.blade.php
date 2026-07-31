@@ -173,10 +173,10 @@
                 <span style="color:rgba(255,255,255,.65);">3/87 C. R Colony, Jadavpur, Kolkata – 700032</span>
             </div>
 
-            {{-- 8 km badge --}}
+            {{-- 35 km badge --}}
             <div style="position:absolute;bottom:30px;left:16px;z-index:1000;display:inline-flex;align-items:center;gap:.45rem;background:rgba(0,25,10,.88);backdrop-filter:blur(10px);border:1px solid rgba(34,197,94,.4);color:#4ade80;font-size:.74rem;font-weight:700;padding:.42rem 1rem;border-radius:999px;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,.3);">
                 <span class="map-pulse-dot"></span>
-                8 km service coverage area
+                35 km service coverage area
             </div>
         </div>
 
@@ -211,7 +211,7 @@
 
         var map = L.map(el, {
             center: [LAT, LNG],
-            zoom: 12,
+            zoom: 10,
             zoomControl: true,
             scrollWheelZoom: true,
         });
@@ -223,9 +223,9 @@
             maxZoom: 19,
         }).addTo(map);
 
-        /* ── 8 km coverage circle (native Leaflet — scales with every zoom) ── */
+        /* ── 35 km coverage circle (native Leaflet — scales with every zoom) ── */
         L.circle([LAT, LNG], {
-            radius      : 8000,
+            radius      : 35000,
             color       : '#16a34a',
             weight      : 2.2,
             opacity     : 0.9,
@@ -237,7 +237,7 @@
 
         /* Soft outer glow ring */
         L.circle([LAT, LNG], {
-            radius      : 8000,
+            radius      : 35000,
             color       : '#4ade80',
             weight      : 8,
             opacity     : 0.14,
@@ -270,11 +270,11 @@
             { offset: [0, -8] }
         ).openPopup();
 
-        /* ── "8 km service radius" label pinned ~8 km north ── */
-        L.marker([LAT + 0.072, LNG], {
+        /* ── "35 km service radius" label pinned ~35 km north ── */
+        L.marker([LAT + 0.314, LNG], {
             icon: L.divIcon({
                 className: '',
-                html: '<div style="background:rgba(0,22,10,.82);border:1px solid rgba(34,197,94,.5);color:#4ade80;font-size:.68rem;font-weight:700;font-family:system-ui,sans-serif;padding:.26rem .8rem;border-radius:999px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.3)">● 8 km service radius</div>',
+                html: '<div style="background:rgba(0,22,10,.82);border:1px solid rgba(34,197,94,.5);color:#4ade80;font-size:.68rem;font-weight:700;font-family:system-ui,sans-serif;padding:.26rem .8rem;border-radius:999px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.3)">● 35 km service radius</div>',
                 iconAnchor: [72, 10],
             }),
             interactive: false,

@@ -58,7 +58,7 @@ $allAreas = $zones->flatten();
                     <div style="color:rgba(255,255,255,.6);font-size:.8rem;">Zones</div>
                 </div>
                 <div style="text-align:center;">
-                    <div style="color:#fff;font-size:2rem;font-weight:700;">8km</div>
+                    <div style="color:#fff;font-size:2rem;font-weight:700;">35km</div>
                     <div style="color:rgba(255,255,255,.6);font-size:.8rem;">Coverage</div>
                 </div>
             </div>
