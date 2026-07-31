@@ -32,6 +32,18 @@ class OneSignalService
 
         if ($response->failed()) {
             Log::error('OneSignal notification failed.', ['response' => $response->body()]);
+
+            return;
+        }
+
+        $recipients = $response->json('recipients');
+
+        if ($recipients === 0) {
+            Log::warning('OneSignal accepted the request but matched 0 devices (check that the Android app is tagging role=admin).', [
+                'response' => $response->json(),
+            ]);
+        } else {
+            Log::info('OneSignal notification sent.', ['recipients' => $recipients, 'response' => $response->json()]);
         }
     }
 }
