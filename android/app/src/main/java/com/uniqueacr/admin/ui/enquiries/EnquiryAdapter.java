@@ -3,6 +3,7 @@ package com.uniqueacr.admin.ui.enquiries;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,11 +22,19 @@ public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.EnquiryV
         void onEnquiryClick(Enquiry enquiry);
     }
 
+    public interface OnEnquiryDeleteListener {
+        void onEnquiryDeleteClick(Enquiry enquiry);
+    }
+
     private final List<Enquiry> enquiries = new ArrayList<>();
     private final OnEnquiryClickListener listener;
+    private final OnEnquiryDeleteListener deleteListener;
+    private final boolean canDelete;
 
-    public EnquiryAdapter(OnEnquiryClickListener listener) {
+    public EnquiryAdapter(OnEnquiryClickListener listener, OnEnquiryDeleteListener deleteListener, boolean canDelete) {
         this.listener = listener;
+        this.deleteListener = deleteListener;
+        this.canDelete = canDelete;
     }
 
     public void setEnquiries(List<Enquiry> newEnquiries) {
@@ -40,6 +49,16 @@ public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.EnquiryV
         notifyItemRangeInserted(start, more.size());
     }
 
+    public void removeEnquiry(long enquiryId) {
+        for (int i = 0; i < enquiries.size(); i++) {
+            if (enquiries.get(i).getId() == enquiryId) {
+                enquiries.remove(i);
+                notifyItemRemoved(i);
+                return;
+            }
+        }
+    }
+
     @NonNull
     @Override
     public EnquiryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -49,7 +68,7 @@ public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.EnquiryV
 
     @Override
     public void onBindViewHolder(@NonNull EnquiryViewHolder holder, int position) {
-        holder.bind(enquiries.get(position), listener);
+        holder.bind(enquiries.get(position), listener, deleteListener, canDelete);
     }
 
     @Override
@@ -64,6 +83,7 @@ public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.EnquiryV
         private final TextView phoneText;
         private final TextView messageText;
         private final TextView dateText;
+        private final ImageButton deleteButton;
 
         EnquiryViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,9 +92,10 @@ public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.EnquiryV
             phoneText = itemView.findViewById(R.id.phoneText);
             messageText = itemView.findViewById(R.id.messageText);
             dateText = itemView.findViewById(R.id.dateText);
+            deleteButton = itemView.findViewById(R.id.deleteButton);
         }
 
-        void bind(Enquiry enquiry, OnEnquiryClickListener listener) {
+        void bind(Enquiry enquiry, OnEnquiryClickListener listener, OnEnquiryDeleteListener deleteListener, boolean canDelete) {
             nameText.setText(enquiry.getName());
             phoneText.setText(enquiry.getPhone());
             messageText.setText(enquiry.getMessage());
@@ -87,6 +108,13 @@ public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.EnquiryV
             itemView.setOnClickListener(v -> {
                 if (listener != null) {
                     listener.onEnquiryClick(enquiry);
+                }
+            });
+
+            deleteButton.setVisibility(canDelete ? View.VISIBLE : View.GONE);
+            deleteButton.setOnClickListener(v -> {
+                if (deleteListener != null) {
+                    deleteListener.onEnquiryDeleteClick(enquiry);
                 }
             });
         }

@@ -33,4 +33,11 @@ class AdminEnquiryController extends Controller
 
         return response()->json(['data' => $enquiry]);
     }
+
+    public function destroy(Enquiry $enquiry): JsonResponse
+    {
+        $enquiry->delete();
+
+        return response()->json(['message' => 'Enquiry deleted']);
+    }
 }

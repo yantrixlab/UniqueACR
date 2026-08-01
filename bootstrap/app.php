@@ -17,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'admin.role' => \App\Http\Middleware\EnsureAdminRole::class,
+            'super_admin.role' => \App\Http\Middleware\EnsureSuperAdmin::class,
         ]);
 
         $middleware->redirectGuestsTo(fn (Request $request) => $request->is('api/*') ? null : route('login'));

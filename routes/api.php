@@ -23,5 +23,6 @@ Route::prefix('admin')->group(function () {
         Route::get('/enquiries', [AdminEnquiryController::class, 'index']);
         Route::get('/enquiries/{enquiry}', [AdminEnquiryController::class, 'show']);
         Route::patch('/enquiries/{enquiry}', [AdminEnquiryController::class, 'update']);
+        Route::delete('/enquiries/{enquiry}', [AdminEnquiryController::class, 'destroy'])->middleware('super_admin.role');
     });
 });

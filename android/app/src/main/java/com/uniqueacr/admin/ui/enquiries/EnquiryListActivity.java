@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,11 +53,16 @@ public class EnquiryListActivity extends AppCompatActivity implements AuthInterc
         recyclerView = findViewById(R.id.enquiryRecyclerView);
         emptyText = findViewById(R.id.emptyText);
 
-        adapter = new EnquiryAdapter(enquiry -> {
-            Intent intent = new Intent(this, EnquiryDetailActivity.class);
-            intent.putExtra(EnquiryDetailActivity.EXTRA_ENQUIRY_ID, enquiry.getId());
-            startActivity(intent);
-        });
+        boolean canDelete = SessionManager.getInstance(this).isSuperAdmin();
+        adapter = new EnquiryAdapter(
+                enquiry -> {
+                    Intent intent = new Intent(this, EnquiryDetailActivity.class);
+                    intent.putExtra(EnquiryDetailActivity.EXTRA_ENQUIRY_ID, enquiry.getId());
+                    startActivity(intent);
+                },
+                this::confirmDeleteEnquiry,
+                canDelete
+        );
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -134,6 +140,35 @@ public class EnquiryListActivity extends AppCompatActivity implements AuthInterc
                 isLoading = false;
                 swipeRefresh.setRefreshing(false);
                 Toast.makeText(EnquiryListActivity.this, R.string.error_loading_enquiries, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void confirmDeleteEnquiry(Enquiry enquiry) {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.confirm_delete_enquiry_title)
+                .setMessage(R.string.confirm_delete_enquiry_message)
+                .setPositiveButton(R.string.action_delete_confirm, (dialog, which) -> deleteEnquiry(enquiry))
+                .setNegativeButton(R.string.action_cancel, null)
+                .show();
+    }
+
+    private void deleteEnquiry(Enquiry enquiry) {
+        ApiClient.getApiService(this).deleteEnquiry(enquiry.getId()).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    adapter.removeEnquiry(enquiry.getId());
+                    emptyText.setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+                    Toast.makeText(EnquiryListActivity.this, R.string.enquiry_deleted, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(EnquiryListActivity.this, R.string.error_deleting_enquiry, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(EnquiryListActivity.this, R.string.error_deleting_enquiry, Toast.LENGTH_SHORT).show();
             }
         });
     }

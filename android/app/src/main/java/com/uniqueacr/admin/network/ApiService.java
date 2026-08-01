@@ -8,6 +8,7 @@ import com.uniqueacr.admin.model.StatusUpdateRequest;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -30,6 +31,9 @@ public interface ApiService {
 
     @PATCH("admin/enquiries/{id}")
     Call<EnquiryResponse> updateEnquiryStatus(@Path("id") long id, @Body StatusUpdateRequest request);
+
+    @DELETE("admin/enquiries/{id}")
+    Call<Void> deleteEnquiry(@Path("id") long id);
 
     class EnquiryResponse {
         private Enquiry data;

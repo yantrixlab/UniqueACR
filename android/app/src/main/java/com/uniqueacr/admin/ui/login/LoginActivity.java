@@ -92,7 +92,8 @@ public class LoginActivity extends AppCompatActivity {
         SessionManager.getInstance(this).saveSession(
                 body.getToken(),
                 body.getUser().getId(),
-                body.getUser().getName()
+                body.getUser().getName(),
+                body.getUser().getRole()
         );
 
         // OneSignal blocks bare small-integer external IDs (e.g. "1") as a common

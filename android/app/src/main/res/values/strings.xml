@@ -13,6 +13,13 @@
     <string name="action_logout">Logout</string>
     <string name="empty_enquiries">No enquiries yet.</string>
     <string name="error_loading_enquiries">Could not load enquiries.</string>
+    <string name="action_delete">Delete enquiry</string>
+    <string name="confirm_delete_enquiry_title">Delete enquiry?</string>
+    <string name="confirm_delete_enquiry_message">This cannot be undone.</string>
+    <string name="action_delete_confirm">Delete</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="enquiry_deleted">Enquiry deleted.</string>
+    <string name="error_deleting_enquiry">Could not delete enquiry.</string>
 
     <string name="enquiry_detail_title">Enquiry Detail</string>
     <string name="label_phone">Phone</string>

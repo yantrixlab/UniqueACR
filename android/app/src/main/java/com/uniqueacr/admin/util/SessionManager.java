@@ -15,6 +15,7 @@ public class SessionManager {
     private static final String KEY_TOKEN = "token";
     private static final String KEY_USER_ID = "user_id";
     private static final String KEY_USER_NAME = "user_name";
+    private static final String KEY_USER_ROLE = "user_role";
 
     private static SessionManager instance;
 
@@ -49,11 +50,12 @@ public class SessionManager {
         }
     }
 
-    public void saveSession(String token, long userId, String userName) {
+    public void saveSession(String token, long userId, String userName, String userRole) {
         prefs.edit()
                 .putString(KEY_TOKEN, token)
                 .putLong(KEY_USER_ID, userId)
                 .putString(KEY_USER_NAME, userName)
+                .putString(KEY_USER_ROLE, userRole)
                 .apply();
     }
 
@@ -67,6 +69,10 @@ public class SessionManager {
 
     public boolean isLoggedIn() {
         return getToken() != null;
+    }
+
+    public boolean isSuperAdmin() {
+        return "super_admin".equals(prefs.getString(KEY_USER_ROLE, null));
     }
 
     public void clearSession() {
