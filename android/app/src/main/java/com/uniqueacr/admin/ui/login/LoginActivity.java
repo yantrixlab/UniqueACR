@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -97,13 +95,11 @@ public class LoginActivity extends AppCompatActivity {
                 body.getUser().getName()
         );
 
-        OneSignal.login(String.valueOf(body.getUser().getId()));
-
-        // OneSignal.login() switches user identity asynchronously against their backend;
-        // tagging in the same instant can race and get applied to the outgoing user context
-        // and silently dropped. A short delay lets the switch settle first.
-        new Handler(Looper.getMainLooper()).postDelayed(
-                () -> OneSignal.getUser().addTag("role", "admin"), 2000);
+        // OneSignal blocks bare small-integer external IDs (e.g. "1") as a common
+        // placeholder-value anti-pattern, which pauses its entire operation queue for the
+        // device (including the tag call below) if we pass one. Prefix it so it never collides.
+        OneSignal.login("uniqueacr-admin-" + body.getUser().getId());
+        OneSignal.getUser().addTag("role", "admin");
 
         requestNotificationPermissionIfNeeded();
 
