@@ -45,12 +45,12 @@
     <link rel="stylesheet" href="/site/app.css">
 
     {{-- Google Analytics --}}
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T8H8ZGMFHT"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEZQDHPQYG"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-T8H8ZGMFHT');
+        gtag('config', 'G-NEZQDHPQYG');
     </script>
 
     {{-- LocalBusiness + HVAC Structured Data --}}
@@ -126,12 +126,12 @@
             <span class="mob-menu-bar"></span>
             <span class="mob-menu-bar"></span>
         </button>
-        <a class="logo" href="{{ route('home') }}">Unique Aircon</a>
+        <a class="logo" href="{{ route('home') }}">Unique<span class="logo-accent">Aircon</span></a>
         <nav class="main-nav">
             <a class="{{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
             <a class="{{ request()->routeIs('services.*') ? 'active' : '' }}" href="{{ route('services.index') }}">Services</a>
             <a class="{{ request()->routeIs('products.*') ? 'active' : '' }}" href="{{ route('products.index') }}">Products</a>
-            <a class="{{ request()->routeIs('blog.*') ? 'active' : '' }}" href="{{ route('blog.index') }}">Blog</a>
+            <a class="{{ request()->routeIs('blog.*') ? 'active' : '' }}" href="{{ route('blog.index') }}">Explore</a>
             <a class="{{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">About</a>
             <a class="{{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact</a>
         </nav>
@@ -145,7 +145,7 @@
 <div class="mob-overlay" id="mobOverlay" aria-hidden="true"></div>
 <aside class="mob-side-panel" id="mobSidePanel" aria-label="Mobile navigation" aria-hidden="true" inert>
     <div class="mob-panel-header">
-        <a class="logo" href="{{ route('home') }}">Unique Aircon</a>
+        <a class="logo" href="{{ route('home') }}">Unique<span class="logo-accent">Aircon</span></a>
         <button class="mob-close-btn" id="mobCloseBtn" aria-label="Close menu">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
                 <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
@@ -167,7 +167,7 @@
         </a>
         <a class="{{ request()->routeIs('blog.*') ? 'active' : '' }}" href="{{ route('blog.index') }}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-            Blog
+            Explore
         </a>
         <a class="{{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/></svg>

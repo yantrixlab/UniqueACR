@@ -179,6 +179,9 @@ a {
     align-items: center;
     gap: 6px;
 }
+.logo-accent {
+    color: #4361ee;
+}
 .logo-mark {
     font-size: 16px;
 }

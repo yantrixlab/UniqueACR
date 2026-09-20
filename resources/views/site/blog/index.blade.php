@@ -8,7 +8,7 @@
 <section class="blog-hero">
     <div class="container">
         <span class="pill"><span class="svc-badge-dot"></span>HVAC Knowledge Hub</span>
-        <h1>Blogs & Service Insights</h1>
+        <h1>Explore</h1>
         <p>Expert guides on AC repair, maintenance, installation, and energy-efficient cooling solutions for Kolkata homes and businesses.</p>
     </div>
 </section>
