@@ -5574,6 +5574,9 @@ h4 {
     border-radius: 14px;
     background: #fff;
     padding: 12px;
+    position: sticky;
+    top: 96px;
+    align-self: start;
 }
 .detail-gallery > img {
     width: 100%;
@@ -5703,6 +5706,9 @@ h4 {
     }
     .product-detail-grid {
         grid-template-columns: 1fr;
+    }
+    .detail-gallery {
+        position: static;
     }
     .detail-gallery > img {
         height: 280px;
