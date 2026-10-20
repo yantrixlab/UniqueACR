@@ -27,6 +27,9 @@ public class Enquiry {
     @SerializedName("preferred_time")
     private String preferredTime;
 
+    @SerializedName("requested_service")
+    private String requestedService;
+
     private String status;
 
     @SerializedName("created_at")
@@ -69,6 +72,11 @@ public class Enquiry {
 
     public String getPreferredTime() {
         return preferredTime;
+    }
+
+    /** Name of the service the customer chose; null for general enquiries. */
+    public String getRequestedService() {
+        return (requestedService == null || requestedService.isEmpty()) ? null : requestedService;
     }
 
     /** e.g. "Fri, 23 Oct 2026 · 11 AM – 1 PM"; null when the enquiry has no booked visit. */

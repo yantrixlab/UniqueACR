@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Service;
 use App\Repositories\EnquiryRepository;
 use App\Support\BookingSchedule;
 
@@ -14,6 +15,15 @@ class EnquiryService
     public function create(array $payload)
     {
         $message = $payload['message'] ?? 'Website Booking Request';
+
+        // Resolved server-side from the slug so a customer can't attach an arbitrary service name.
+        $service = ! empty($payload['service_slug'])
+            ? Service::query()->where('slug', $payload['service_slug'])->where('is_active', true)->first()
+            : null;
+
+        if ($service) {
+            $message .= "\nRequested Service: {$service->name}";
+        }
 
         if (!empty($payload['service_type'])) {
             $message .= "\nService Type: {$payload['service_type']}";
@@ -33,7 +43,7 @@ class EnquiryService
             'email' => $payload['email'] ?? null,
             'message' => $message,
             'source_type' => $payload['source_type'] ?? 'general',
-            'source_id' => $payload['source_id'] ?? null,
+            'source_id' => $service?->id ?? $payload['source_id'] ?? null,
             'preferred_date' => $payload['preferred_date'] ?? null,
             'preferred_time' => $payload['preferred_time'] ?? null,
             'status' => 'pending',

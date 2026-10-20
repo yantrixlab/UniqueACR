@@ -31,6 +31,7 @@
     <string name="enquiry_detail_title">Enquiry Detail</string>
     <string name="label_phone">Phone</string>
     <string name="label_email">Email</string>
+    <string name="label_service">Service requested</string>
     <string name="label_visit">Preferred visit</string>
     <string name="label_message">Message</string>
     <string name="label_status">Status</string>

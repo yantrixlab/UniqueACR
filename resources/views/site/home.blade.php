@@ -58,8 +58,8 @@
             <h1>Fast, Reliable AC Service That Keeps You Cool All Year Round</h1>
             <p>Professional AC repair, installation, gas charging, and maintenance services for homes, offices, and commercial spaces. Certified technicians, transparent pricing, and quick response.</p>
             <div class="cta-row premium-cta-row">
-                <a class="primary-btn" href="{{ route('contact') }}" data-track="cta_click" data-track-label="Book Service - Home Hero">Book Service</a>
-                <a class="secondary-btn" href="{{ route('contact', ['service_type' => 'AMC']) }}" data-track="cta_click" data-track-label="Get AMC Plan - Home Hero">Get AMC Plan</a>
+                <a class="primary-btn" href="#book-service" data-track="cta_click" data-track-label="Book Service - Home Hero">Book Service</a>
+                <a class="secondary-btn" href="#book-service" data-service-type="AMC" data-track="cta_click" data-track-label="Get AMC Plan - Home Hero">Get AMC Plan</a>
             </div>
             <ul class="hero-trust-points">
                 <li>Same Day Service</li>
@@ -480,11 +480,11 @@
             </ul>
 
             <div class="amc-v2-cta">
-                <a href="{{ route('contact', ['service_type' => 'AMC']) }}" class="amc-v2-btn-primary">
+                <a href="#book-service" data-service-type="AMC" class="amc-v2-btn-primary">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                     Book AMC Now
                 </a>
-                <a href="{{ route('contact') }}" class="amc-v2-btn-ghost">
+                <a href="#book-service" class="amc-v2-btn-ghost">
                     Get Free Consultation
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </a>
@@ -1794,7 +1794,7 @@ $homeZoneColors = [
         </div>
 
         <div class="sx-cta sx-reveal">
-            <p>Whether you need an emergency <strong>AC repair shop near me</strong>, a scheduled <strong>AC servicing near me</strong>, a fresh <strong>AC installation in Kolkata</strong>, or a long-term <strong>AC maintenance</strong> partner, Unique Aircon is the one-stop solution. <a href="{{ route('contact') }}" class="sx-link">Book your service today</a> and experience the difference that certified expertise makes. For immediate assistance, call us at <a href="tel:+918346904100" class="sx-link">+91 8346904100</a> or reach us on WhatsApp — we are always ready to keep you cool.</p>
+            <p>Whether you need an emergency <strong>AC repair shop near me</strong>, a scheduled <strong>AC servicing near me</strong>, a fresh <strong>AC installation in Kolkata</strong>, or a long-term <strong>AC maintenance</strong> partner, Unique Aircon is the one-stop solution. <a href="#book-service" class="sx-link">Book your service today</a> and experience the difference that certified expertise makes. For immediate assistance, call us at <a href="tel:+918346904100" class="sx-link">+91 8346904100</a> or reach us on WhatsApp — we are always ready to keep you cool.</p>
             <div class="sx-cta-actions">
                 <a class="primary-btn" href="#book-service" data-track="cta_click" data-track-label="SEO Block - Book Service">Book Service</a>
                 <a class="outline-btn" href="tel:+918346904100" data-track="cta_click" data-track-label="SEO Block - Call">Call +91 8346904100</a>

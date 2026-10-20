@@ -16,6 +16,7 @@ class EnquiriesTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query): Builder => $query->with('requestedServiceRecord'))
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
@@ -26,6 +27,9 @@ class EnquiriesTable
                     ->searchable(),
                 TextColumn::make('source_type')
                     ->searchable(),
+                TextColumn::make('requested_service')
+                    ->label('Service')
+                    ->placeholder('—'),
                 TextColumn::make('preferred_date')
                     ->label('Visit date')
                     ->date('D, d M Y')

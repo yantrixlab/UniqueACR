@@ -66,8 +66,8 @@
             <h1>Professional AC Repair, Installation & HVAC Solutions</h1>
             <p>Expert domestic and commercial AC servicing with fast response, certified technicians, genuine spare parts, and reliable cooling solutions across Kolkata.</p>
             <div class="cta-row premium-cta-row">
-                <a class="primary-btn" href="{{ route('contact') }}" data-track="cta_click" data-track-label="Book AC Service - Services Hero">Book AC Service</a>
-                <a class="secondary-btn" href="{{ route('contact') }}" data-track="cta_click" data-track-label="Get e Inspection - Services Hero">Get Inspection</a>
+                <a class="primary-btn" href="{{ route('home') }}#book-service" data-track="cta_click" data-track-label="Book AC Service - Services Hero">Book AC Service</a>
+                <a class="secondary-btn" href="{{ route('home') }}#book-service" data-track="cta_click" data-track-label="Get e Inspection - Services Hero">Get Inspection</a>
             </div>
             <ul class="hero-trust-points">
                 <li>Same Day Service</li>
@@ -435,8 +435,8 @@
                 <h2>Annual AC Maintenance Contract (AMC)</h2>
                 <p>Reliable AC servicing, preventive maintenance, faster cooling &amp; longer AC life for homes and businesses in Kolkata.</p>
                 <div class="cta-row amc-cta-row">
-                    <a class="primary-btn" href="{{ route('contact', ['service_type' => 'AMC']) }}" data-track="cta_click" data-track-label="Book AMC Now">Book AMC Now</a>
-                    <a class="secondary-btn" href="{{ route('contact') }}" data-track="cta_click" data-track-label="Get Free Consultation - AMC">Get Free Consultation</a>
+                    <a class="primary-btn" href="{{ route('home', ['service_type' => 'AMC']) }}#book-service" data-track="cta_click" data-track-label="Book AMC Now">Book AMC Now</a>
+                    <a class="secondary-btn" href="{{ route('home') }}#book-service" data-track="cta_click" data-track-label="Get Free Consultation - AMC">Get Free Consultation</a>
                 </div>
             </div>
             <div class="amc-visual" aria-hidden="true">
@@ -734,7 +734,7 @@
         <h2>Need Fast & Professional AC Service in Kolkata?</h2>
         <p>Book expert AC technicians for installation, repair, maintenance, and commercial HVAC support.</p>
         <div class="quick-actions">
-            <a class="primary-btn" href="{{ route('contact') }}" data-track="cta_click" data-track-label="Book Service - Services Final CTA">Book Service</a>
+            <a class="primary-btn" href="{{ route('home') }}#book-service" data-track="cta_click" data-track-label="Book Service - Services Final CTA">Book Service</a>
             <a class="secondary-btn" href="tel:+918346904100" data-track="cta_click" data-track-label="Call Now - Services Final CTA">Call Now</a>
             <a class="ghost-btn" href="https://wa.me/918346904100" target="_blank" rel="noopener" data-track="cta_click" data-track-label="WhatsApp Us - Services Final CTA">WhatsApp Us</a>
         </div>

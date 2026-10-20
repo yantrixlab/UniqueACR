@@ -94,7 +94,7 @@
             </div>
 
             <div class="detail-cta-row">
-                <a class="primary-btn" href="{{ route('contact', ['service' => $service->slug]) }}" data-track="service_book_click" data-track-label="{{ $service->name }}">Book This Service</a>
+                <a class="primary-btn" href="{{ route('home', ['service' => $service->slug]) }}#book-service" data-track="service_book_click" data-track-label="{{ $service->name }}">Book This Service</a>
                 <a class="secondary-btn" target="_blank" rel="noopener" href="https://wa.me/918346904100?text={{ $waText }}" data-track="service_whatsapp_click" data-track-label="{{ $service->name }}">WhatsApp Now</a>
                 @include('site.components.share-button', ['shareUrl' => url()->current(), 'shareTitle' => $service->name])
             </div>
@@ -145,7 +145,7 @@
         <h2>Need Fast & Professional AC Service in Kolkata?</h2>
         <p>Book expert AC technicians for installation, repair, maintenance, and commercial HVAC support.</p>
         <div class="quick-actions">
-            <a class="primary-btn" href="{{ route('contact') }}" data-track="cta_click" data-track-label="Book Service - Service Detail Final CTA">Book Service</a>
+            <a class="primary-btn" href="{{ route('home', ['service' => $service->slug]) }}#book-service" data-track="cta_click" data-track-label="Book Service - Service Detail Final CTA">Book Service</a>
             <a class="secondary-btn" href="tel:+918346904100" data-track="cta_click" data-track-label="Call Now - Service Detail Final CTA">Call Now</a>
             <a class="ghost-btn" href="https://wa.me/918346904100" target="_blank" rel="noopener" data-track="cta_click" data-track-label="WhatsApp Us - Service Detail Final CTA">WhatsApp Us</a>
         </div>

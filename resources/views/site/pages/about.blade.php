@@ -65,7 +65,7 @@
             <h1>Delivering Reliable Cooling Solutions Across Kolkata</h1>
             <p>From domestic AC repair to advanced commercial HVAC systems, we provide professional installation, maintenance, and cooling solutions with expert technicians and genuine spare parts.</p>
             <div class="cta-row">
-                <a class="primary-btn" href="{{ route('contact') }}">Book AC Service</a>
+                <a class="primary-btn" href="{{ route('home') }}#book-service">Book AC Service</a>
                 <a class="secondary-btn" href="{{ route('services.index') }}">Explore Services</a>
             </div>
         </div>
@@ -377,7 +377,7 @@
         <h2>Need Professional AC Service in Kolkata?</h2>
         <div class="quick-actions">
             <a class="primary-btn" href="tel:+918346904100">Call Now</a>
-            <a class="secondary-btn" href="{{ route('contact') }}">Book Inspection</a>
+            <a class="secondary-btn" href="{{ route('home') }}#book-service">Book Inspection</a>
             <a class="ghost-btn" href="https://wa.me/918346904100" target="_blank" rel="noopener">WhatsApp Us</a>
         </div>
     </div>

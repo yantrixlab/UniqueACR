@@ -38,6 +38,8 @@ public class EnquiryDetailActivity extends AppCompatActivity implements AuthInte
     private TextView phoneText;
     private TextView emailText;
     private TextView messageText;
+    private TextView serviceLabel;
+    private TextView serviceText;
     private TextView visitLabel;
     private TextView visitText;
     private TextView dateText;
@@ -61,6 +63,8 @@ public class EnquiryDetailActivity extends AppCompatActivity implements AuthInte
         phoneText = findViewById(R.id.phoneText);
         emailText = findViewById(R.id.emailText);
         messageText = findViewById(R.id.messageText);
+        serviceLabel = findViewById(R.id.serviceLabel);
+        serviceText = findViewById(R.id.serviceText);
         visitLabel = findViewById(R.id.visitLabel);
         visitText = findViewById(R.id.visitText);
         dateText = findViewById(R.id.dateText);
@@ -118,6 +122,10 @@ public class EnquiryDetailActivity extends AppCompatActivity implements AuthInte
         phoneText.setText(enquiry.getPhone());
         emailText.setText(enquiry.getEmail());
         messageText.setText(enquiry.getMessage());
+        String service = enquiry.getRequestedService();
+        serviceText.setText(service);
+        serviceLabel.setVisibility(service == null ? View.GONE : View.VISIBLE);
+        serviceText.setVisibility(service == null ? View.GONE : View.VISIBLE);
         String visit = enquiry.getVisitSummary();
         visitText.setText(visit);
         visitLabel.setVisibility(visit == null ? View.GONE : View.VISIBLE);

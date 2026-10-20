@@ -136,7 +136,10 @@
     <div class="container announce-inner">
         <div class="announce-left">
             @if($abText('badge') !== '')
-                <span class="announce-badge">{{ $abText('badge') }}</span>
+                <span class="announce-badge">
+                    <svg class="announce-bolt" viewBox="0 0 24 24" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    {{ $abText('badge') }}
+                </span>
             @endif
             @if($abText('message') !== '')
                 <span class="announce-msg">{{ $abText('message') }}</span>

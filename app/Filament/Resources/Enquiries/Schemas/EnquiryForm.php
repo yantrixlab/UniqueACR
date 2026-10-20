@@ -27,6 +27,12 @@ class EnquiryForm
                 Textarea::make('message')
                     ->required()
                     ->columnSpanFull(),
+                TextInput::make('requested_service')
+                    ->label('Requested service')
+                    ->disabled()
+                    ->dehydrated(false)
+                    ->placeholder('—')
+                    ->columnSpanFull(),
                 Section::make('Preferred visit')
                     ->description('Date and time window the customer chose when booking a service.')
                     ->columns(2)

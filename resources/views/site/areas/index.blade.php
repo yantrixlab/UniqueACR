@@ -162,7 +162,7 @@ $allAreas = $zones->flatten();
         <h2 style="color:#fff;font-size:1.6rem;margin-bottom:.75rem;">Don't See Your Area?</h2>
         <p style="color:rgba(255,255,255,.75);max-width:480px;margin:0 auto 1.75rem;">We may still reach you. Call us or WhatsApp and our team will confirm availability within minutes.</p>
         <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;">
-            <a href="{{ route('contact') }}" style="background:#fff;color:#06205a;font-weight:700;padding:.75rem 1.75rem;border-radius:9px;font-size:.9rem;">Book Service</a>
+            <a href="{{ route('home') }}#book-service" style="background:#fff;color:#06205a;font-weight:700;padding:.75rem 1.75rem;border-radius:9px;font-size:.9rem;">Book Service</a>
             <a href="tel:+918346904100" style="background:rgba(255,255,255,.12);color:#fff;font-weight:600;padding:.75rem 1.75rem;border-radius:9px;font-size:.9rem;border:1px solid rgba(255,255,255,.25);">Call Now</a>
             <a href="https://wa.me/918346904100" target="_blank" rel="noopener" style="background:#25d366;color:#fff;font-weight:600;padding:.75rem 1.75rem;border-radius:9px;font-size:.9rem;">WhatsApp Us</a>
         </div>

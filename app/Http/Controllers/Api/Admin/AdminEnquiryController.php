@@ -14,6 +14,7 @@ class AdminEnquiryController extends Controller
         $request->validate(['type' => ['nullable', 'in:booking,other']]);
 
         $enquiries = Enquiry::query()
+            ->with('requestedServiceRecord')
             ->when($request->query('type') === 'booking', fn ($query) => $query->bookings())
             ->when($request->query('type') === 'other', fn ($query) => $query->otherEnquiries())
             ->latest()

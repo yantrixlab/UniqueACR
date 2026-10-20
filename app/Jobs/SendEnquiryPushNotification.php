@@ -26,7 +26,7 @@ class SendEnquiryPushNotification implements ShouldQueue
         $oneSignal->notifyAdmins(
             heading: $visit ? 'New service booking' : 'New enquiry received',
             content: $visit
-                ? sprintf('%s · %s', $this->enquiry->name, $visit)
+                ? collect([$this->enquiry->name, $this->enquiry->requested_service, $visit])->filter()->implode(' · ')
                 : sprintf('%s: %s', $this->enquiry->name, str($this->enquiry->message)->limit(100)),
             data: ['enquiry_id' => $this->enquiry->id],
         );

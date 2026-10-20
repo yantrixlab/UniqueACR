@@ -26,6 +26,7 @@ class StoreEnquiryRequest extends FormRequest
             'address' => ['nullable', 'string', 'max:255'],
             'source_type' => ['nullable', 'in:service,product,general,service_booking'],
             'source_id' => ['nullable', 'integer'],
+            'service_slug' => ['nullable', 'string', 'max:150'],
             'preferred_date' => [
                 'nullable',
                 'required_if:source_type,service_booking',

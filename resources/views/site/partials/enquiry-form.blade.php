@@ -3,6 +3,21 @@
     $bkDates = BookingSchedule::dates();
     $bkSlots = BookingSchedule::slots();
     $bkNow = BookingSchedule::now();
+    $bkSlug = old('service_slug', request('service'));
+    $bkSvc = is_string($bkSlug) && $bkSlug !== ''
+        ? \App\Models\Service::query()->where('slug', $bkSlug)->where('is_active', true)->first()
+        : null;
+    $bkSvcText = $bkSvc ? strtolower($bkSvc->service_type.' '.$bkSvc->name) : '';
+    $bkDerived = match (true) {
+        $bkSvc === null => null,
+        str_contains($bkSvcText, 'uninstall') => 'Uninstallation',
+        str_contains($bkSvcText, 'install') => 'Installation',
+        str_contains($bkSvcText, 'amc') => 'AMC',
+        str_contains($bkSvcText, 'repair') => 'Repair',
+        str_contains($bkSvcText, 'maint'), str_contains($bkSvcText, 'servic') => 'Maintenance',
+        default => null,
+    };
+    $bkService = old('service_type', request('service_type')) ?: $bkDerived;
 
     $bkSelectedDate = old('preferred_date');
     if (! $bkSelectedDate) {
@@ -26,6 +41,17 @@
          data-today="{{ $bkNow->toDateString() }}"
          data-now-minutes="{{ $bkNow->hour * 60 + $bkNow->minute }}"
          data-lead="{{ BookingSchedule::LEAD_MINUTES }}">
+
+        @if($bkSvc)
+            <input type="hidden" name="service_slug" value="{{ $bkSvc->slug }}" data-booking-service-input>
+            <div class="vp-service" data-booking-service>
+                <span class="vp-service-text">
+                    <small>Booking for</small>
+                    <strong>{{ $bkSvc->name }}</strong>
+                </span>
+                <button type="button" class="vp-service-clear" data-booking-service-clear aria-label="Remove {{ $bkSvc->name }} from this booking" title="Remove">&times;</button>
+            </div>
+        @endif
 
         <fieldset class="vp-field">
             <legend class="vp-legend">Select Visit Date</legend>
@@ -84,12 +110,12 @@
 
     <label>Service Type
         <select name="service_type" required>
-            <option value="" disabled @selected(!old('service_type'))>Repair & Maintenance</option>
-            <option value="Installation" @selected(old('service_type')==='Installation')>Installation</option>
-            <option value="Uninstallation" @selected(old('service_type')==='Uninstallation')>Uninstallation</option>
-            <option value="Repair" @selected(old('service_type')==='Repair')>Repair</option>
-            <option value="Maintenance" @selected(old('service_type')==='Maintenance')>Maintenance</option>
-            <option value="AMC" @selected(old('service_type')==='AMC')>AMC</option>
+            <option value="" disabled @selected(!$bkService)>Repair & Maintenance</option>
+            <option value="Installation" @selected($bkService==='Installation')>Installation</option>
+            <option value="Uninstallation" @selected($bkService==='Uninstallation')>Uninstallation</option>
+            <option value="Repair" @selected($bkService==='Repair')>Repair</option>
+            <option value="Maintenance" @selected($bkService==='Maintenance')>Maintenance</option>
+            <option value="AMC" @selected($bkService==='AMC')>AMC</option>
         </select>
     </label>
 
@@ -106,6 +132,19 @@
 
 <script>
 (function () {
+    document.addEventListener('click', function (e) {
+        if (e.target.closest('[data-booking-service-clear]')) {
+            var box = document.querySelector('[data-booking-service]');
+            var input = document.querySelector('[data-booking-service-input]');
+            if (box) { box.remove(); }
+            if (input) { input.remove(); }
+            return;
+        }
+        var trigger = e.target.closest('[data-service-type]');
+        var select = document.querySelector('#booking-form select[name="service_type"]');
+        if (trigger && select) { select.value = trigger.getAttribute('data-service-type'); }
+    });
+
     document.querySelectorAll('[data-visit-picker]').forEach(function (root) {
         var strip = root.querySelector('.vp-dates');
         var prev = root.querySelector('.vp-prev');

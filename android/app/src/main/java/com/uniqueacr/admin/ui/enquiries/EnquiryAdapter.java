@@ -81,6 +81,7 @@ public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.EnquiryV
         private final TextView nameText;
         private final TextView statusText;
         private final TextView phoneText;
+        private final TextView serviceText;
         private final TextView visitText;
         private final TextView messageText;
         private final TextView dateText;
@@ -91,6 +92,7 @@ public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.EnquiryV
             nameText = itemView.findViewById(R.id.nameText);
             statusText = itemView.findViewById(R.id.statusText);
             phoneText = itemView.findViewById(R.id.phoneText);
+            serviceText = itemView.findViewById(R.id.serviceText);
             visitText = itemView.findViewById(R.id.visitText);
             messageText = itemView.findViewById(R.id.messageText);
             dateText = itemView.findViewById(R.id.dateText);
@@ -100,6 +102,9 @@ public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.EnquiryV
         void bind(Enquiry enquiry, OnEnquiryClickListener listener, OnEnquiryDeleteListener deleteListener, boolean canDelete) {
             nameText.setText(enquiry.getName());
             phoneText.setText(enquiry.getPhone());
+            String service = enquiry.getRequestedService();
+            serviceText.setText(service);
+            serviceText.setVisibility(service == null ? View.GONE : View.VISIBLE);
             String visit = enquiry.getVisitSummary();
             visitText.setText(visit);
             visitText.setVisibility(visit == null ? View.GONE : View.VISIBLE);

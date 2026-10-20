@@ -106,7 +106,7 @@
                 <p class="article-cta-label">Need AC help?</p>
                 <h2>Book a Kolkata technician</h2>
                 <p>Transparent inspection, repair advice, and same-day support across South and Central Kolkata.</p>
-                <a class="primary-btn" href="{{ route('contact') }}" data-track="cta_click" data-track-label="Blog Article Contact CTA">Get Quote</a>
+                <a class="primary-btn" href="{{ route('home') }}#book-service" data-track="cta_click" data-track-label="Blog Article Book Service CTA">Book Service</a>
                 <a class="outline-btn" href="tel:+918346904100" data-track="cta_click" data-track-label="Blog Article Call CTA">Call +91 8346904100</a>
             </div>
         </aside>
