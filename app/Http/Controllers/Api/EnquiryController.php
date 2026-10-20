@@ -20,6 +20,8 @@ class EnquiryController extends Controller
             'message' => $request->string('message')->toString(),
             'source_type' => $request->string('source_type')->toString() ?: 'general',
             'source_id' => $request->integer('source_id') ?: null,
+            'preferred_date' => $request->validated('preferred_date'),
+            'preferred_time' => $request->validated('preferred_time'),
             'status' => 'pending',
         ]);
 

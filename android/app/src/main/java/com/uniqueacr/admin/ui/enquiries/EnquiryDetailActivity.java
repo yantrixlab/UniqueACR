@@ -38,6 +38,8 @@ public class EnquiryDetailActivity extends AppCompatActivity implements AuthInte
     private TextView phoneText;
     private TextView emailText;
     private TextView messageText;
+    private TextView visitLabel;
+    private TextView visitText;
     private TextView dateText;
     private Spinner statusSpinner;
     private MaterialButton updateStatusButton;
@@ -59,6 +61,8 @@ public class EnquiryDetailActivity extends AppCompatActivity implements AuthInte
         phoneText = findViewById(R.id.phoneText);
         emailText = findViewById(R.id.emailText);
         messageText = findViewById(R.id.messageText);
+        visitLabel = findViewById(R.id.visitLabel);
+        visitText = findViewById(R.id.visitText);
         dateText = findViewById(R.id.dateText);
         statusSpinner = findViewById(R.id.statusSpinner);
         updateStatusButton = findViewById(R.id.updateStatusButton);
@@ -114,6 +118,10 @@ public class EnquiryDetailActivity extends AppCompatActivity implements AuthInte
         phoneText.setText(enquiry.getPhone());
         emailText.setText(enquiry.getEmail());
         messageText.setText(enquiry.getMessage());
+        String visit = enquiry.getVisitSummary();
+        visitText.setText(visit);
+        visitLabel.setVisibility(visit == null ? View.GONE : View.VISIBLE);
+        visitText.setVisibility(visit == null ? View.GONE : View.VISIBLE);
         dateText.setText(enquiry.getCreatedAt());
 
         int index = statuses.indexOf(enquiry.getStatus());

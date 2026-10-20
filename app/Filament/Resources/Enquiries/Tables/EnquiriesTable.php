@@ -6,7 +6,10 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class EnquiriesTable
 {
@@ -23,6 +26,14 @@ class EnquiriesTable
                     ->searchable(),
                 TextColumn::make('source_type')
                     ->searchable(),
+                TextColumn::make('preferred_date')
+                    ->label('Visit date')
+                    ->date('D, d M Y')
+                    ->placeholder('—')
+                    ->sortable(),
+                TextColumn::make('preferred_time')
+                    ->label('Visit time')
+                    ->placeholder('—'),
                 TextColumn::make('source_id')
                     ->numeric()
                     ->sortable(),
@@ -38,7 +49,17 @@ class EnquiriesTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('source_type')
+                    ->label('Type')
+                    ->options([
+                        'service_booking' => 'Service booking',
+                        'service' => 'Service',
+                        'product' => 'Product',
+                        'general' => 'General',
+                    ]),
+                Filter::make('upcoming_visits')
+                    ->label('Upcoming visits')
+                    ->query(fn (Builder $query): Builder => $query->whereDate('preferred_date', '>=', now('Asia/Kolkata')->toDateString())),
             ])
             ->recordActions([
                 EditAction::make(),

@@ -67,6 +67,26 @@
                 tools:text="john@example.com" />
 
             <TextView
+                android:id="@+id/visitLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/label_visit"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/visitText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:text="Fri, 23 Oct 2026 · 11 AM – 1 PM" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

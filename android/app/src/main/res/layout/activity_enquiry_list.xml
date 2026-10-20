@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorSurface"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -10,8 +12,177 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-        app:title="@string/enquiries_title"
-        xmlns:app="http://schemas.android.com/apk/res-auto" />
+        app:title="@string/enquiries_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="8dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/colorBackground"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/bg_stat_icon"
+                    android:backgroundTint="@color/stat_pending_bg"
+                    android:contentDescription="@null"
+                    android:padding="7dp"
+                    android:src="@drawable/ic_stat_pending"
+                    app:tint="@color/stat_pending" />
+
+                <TextView
+                    android:id="@+id/statPendingBookings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/stat_placeholder"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minLines="2"
+                    android:text="@string/stat_pending_bookings"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/colorBackground"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/bg_stat_icon"
+                    android:backgroundTint="@color/stat_done_bg"
+                    android:contentDescription="@null"
+                    android:padding="7dp"
+                    android:src="@drawable/ic_stat_done"
+                    app:tint="@color/stat_done" />
+
+                <TextView
+                    android:id="@+id/statCompletedBookings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/stat_placeholder"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minLines="2"
+                    android:text="@string/stat_completed_bookings"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/colorBackground"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/bg_stat_icon"
+                    android:backgroundTint="@color/stat_other_bg"
+                    android:contentDescription="@null"
+                    android:padding="7dp"
+                    android:src="@drawable/ic_stat_inbox"
+                    app:tint="@color/stat_other" />
+
+                <TextView
+                    android:id="@+id/statPendingOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/stat_placeholder"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minLines="2"
+                    android:text="@string/stat_pending_enquiries"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackground"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorHeight="3dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabTextColor="@color/colorTextSecondary">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_booking" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_enquiries" />
+    </com.google.android.material.tabs.TabLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -28,6 +199,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
+                android:paddingTop="6dp"
                 android:paddingBottom="16dp" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -37,7 +209,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/empty_enquiries"
+            android:text="@string/empty_bookings"
             android:textColor="@color/colorTextSecondary"
             android:visibility="gone" />
 

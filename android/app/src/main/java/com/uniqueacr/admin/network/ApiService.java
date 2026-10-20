@@ -1,6 +1,7 @@
 package com.uniqueacr.admin.network;
 
 import com.uniqueacr.admin.model.Enquiry;
+import com.uniqueacr.admin.model.EnquiryStats;
 import com.uniqueacr.admin.model.LoginRequest;
 import com.uniqueacr.admin.model.LoginResponse;
 import com.uniqueacr.admin.model.PaginatedResponse;
@@ -23,8 +24,12 @@ public interface ApiService {
     @POST("admin/logout")
     Call<Void> logout();
 
+    /** @param type "booking" for service bookings, "other" for everything else. */
     @GET("admin/enquiries")
-    Call<PaginatedResponse<Enquiry>> getEnquiries(@Query("page") int page);
+    Call<PaginatedResponse<Enquiry>> getEnquiries(@Query("page") int page, @Query("type") String type);
+
+    @GET("admin/enquiries/stats")
+    Call<EnquiryStatsResponse> getEnquiryStats();
 
     @GET("admin/enquiries/{id}")
     Call<EnquiryResponse> getEnquiry(@Path("id") long id);
@@ -34,6 +39,14 @@ public interface ApiService {
 
     @DELETE("admin/enquiries/{id}")
     Call<Void> deleteEnquiry(@Path("id") long id);
+
+    class EnquiryStatsResponse {
+        private EnquiryStats data;
+
+        public EnquiryStats getData() {
+            return data;
+        }
+    }
 
     class EnquiryResponse {
         private Enquiry data;

@@ -21,6 +21,7 @@ Route::prefix('admin')->group(function () {
     Route::middleware(['auth:sanctum', 'admin.role'])->group(function () {
         Route::post('/logout', [AdminAuthController::class, 'logout']);
         Route::get('/enquiries', [AdminEnquiryController::class, 'index']);
+        Route::get('/enquiries/stats', [AdminEnquiryController::class, 'stats']);
         Route::get('/enquiries/{enquiry}', [AdminEnquiryController::class, 'show']);
         Route::patch('/enquiries/{enquiry}', [AdminEnquiryController::class, 'update']);
         Route::delete('/enquiries/{enquiry}', [AdminEnquiryController::class, 'destroy'])->middleware('super_admin.role');

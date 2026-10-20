@@ -118,7 +118,47 @@
 
     @yield('schema')
 </head>
-<body>
+@php
+    $ab = \App\Models\Setting::announcementBar();
+    $abColor = fn (string $key) => preg_match('/^#[0-9a-f]{3,8}$/i', (string) ($ab[$key] ?? ''))
+        ? $ab[$key]
+        : \App\Models\Setting::ANNOUNCEMENT_BAR_DEFAULTS[$key];
+    $abText = fn (string $key) => trim((string) ($ab[$key] ?? ''));
+    $abPhone = preg_replace('/[^\d+]/', '', $abText('helpline_phone'));
+    $abHasContent = $abText('badge') !== '' || $abText('message') !== '' || $abPhone !== '' || $abText('tag') !== '';
+    $showAnnouncement = ! empty($ab['enabled']) && $abHasContent;
+@endphp
+<body @class(['has-announce' => $showAnnouncement])>
+@if($showAnnouncement)
+<div class="announce-bar" role="region" aria-label="Announcement"
+     style="--ab-bg: {{ $abColor('background_color') }}; --ab-text: {{ $abColor('text_color') }}; --ab-accent: {{ $abColor('accent_color') }};">
+    <div class="container announce-inner">
+        <div class="announce-left">
+            @if($abText('badge') !== '')
+                <span class="announce-badge">{{ $abText('badge') }}</span>
+            @endif
+            @if($abText('message') !== '')
+                <span class="announce-msg">{{ $abText('message') }}</span>
+            @endif
+        </div>
+        <div class="announce-right">
+            @if($abPhone !== '')
+                <a class="announce-helpline" href="tel:{{ $abPhone }}" data-track="cta_click" data-track-label="Announcement Bar Helpline">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    @if($abText('helpline_label') !== '')<span>{{ $abText('helpline_label') }}</span>@endif
+                    <span>{{ $abText('helpline_phone') }}</span>
+                </a>
+            @endif
+            @if($abPhone !== '' && $abText('tag') !== '')
+                <span class="announce-divider" aria-hidden="true"></span>
+            @endif
+            @if($abText('tag') !== '')
+                <span class="announce-tag">{{ $abText('tag') }}</span>
+            @endif
+        </div>
+    </div>
+</div>
+@endif
 <header class="topbar">
     <div class="container nav-wrap">
         <button class="mob-menu-btn" id="mobMenuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobSidePanel">
@@ -136,7 +176,7 @@
             <a class="{{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact</a>
         </nav>
         <div class="nav-actions">
-            <a class="quote-btn" href="{{ route('contact') }}" data-track="cta_click" data-track-label="Get Quote - Header">Get Quote</a>
+            <a class="quote-btn" href="{{ route('home') }}#book-service" data-track="cta_click" data-track-label="Book Service - Header">Book Service</a>
         </div>
     </div>
 </header>
@@ -179,7 +219,7 @@
         </a>
     </nav>
     <div class="mob-panel-footer">
-        <a class="quote-btn" href="{{ route('contact') }}" data-track="cta_click" data-track-label="Get Quote - Mobile Menu">Get Quote</a>
+        <a class="quote-btn" href="{{ route('home') }}#book-service" data-track="cta_click" data-track-label="Book Service - Mobile Menu">Book Service</a>
     </div>
 </aside>
 
@@ -212,6 +252,7 @@
     btn.addEventListener('click', openPanel);
     closeBtn.addEventListener('click', closePanel);
     overlay.addEventListener('click', closePanel);
+    panel.addEventListener('click', function (e) { if (e.target.closest('a[href*="#"]')) closePanel(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePanel(); });
 })();
 

@@ -12,6 +12,13 @@
     <string name="enquiries_title">Enquiries</string>
     <string name="action_logout">Logout</string>
     <string name="empty_enquiries">No enquiries yet.</string>
+    <string name="empty_bookings">No service bookings yet.</string>
+    <string name="stat_placeholder">–</string>
+    <string name="tab_booking">Booking</string>
+    <string name="tab_enquiries">Enquiries</string>
+    <string name="stat_pending_bookings">Pending bookings</string>
+    <string name="stat_completed_bookings">Completed bookings</string>
+    <string name="stat_pending_enquiries">Pending enquiries</string>
     <string name="error_loading_enquiries">Could not load enquiries.</string>
     <string name="action_delete">Delete enquiry</string>
     <string name="confirm_delete_enquiry_title">Delete enquiry?</string>
@@ -24,6 +31,7 @@
     <string name="enquiry_detail_title">Enquiry Detail</string>
     <string name="label_phone">Phone</string>
     <string name="label_email">Email</string>
+    <string name="label_visit">Preferred visit</string>
     <string name="label_message">Message</string>
     <string name="label_status">Status</string>
     <string name="label_received">Received</string>

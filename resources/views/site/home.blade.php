@@ -1346,7 +1346,7 @@ $homeZoneColors = [
 {{-- ═══════════════════════════════════════════════════════════════
      BOOKING SECTION
 ═══════════════════════════════════════════════════════════════ --}}
-<section style="background:linear-gradient(135deg,#041d4a 0%,#083580 50%,#0a4199 100%);padding:5rem 0;position:relative;overflow:hidden;">
+<section id="book-service" style="background:linear-gradient(135deg,#041d4a 0%,#083580 50%,#0a4199 100%);padding:5rem 0;position:relative;overflow:hidden;">
     {{-- Decorative blobs --}}
     <div style="position:absolute;top:-120px;right:-120px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(96,165,250,.12) 0%,transparent 70%);pointer-events:none;"></div>
     <div style="position:absolute;bottom:-80px;left:-80px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(96,165,250,.08) 0%,transparent 70%);pointer-events:none;"></div>

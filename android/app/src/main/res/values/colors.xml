@@ -12,4 +12,11 @@
     <color name="status_pending">#F9A825</color>
     <color name="status_contacted">#1565C0</color>
     <color name="status_closed">#2E7D32</color>
+
+    <color name="stat_pending">#F57F17</color>
+    <color name="stat_pending_bg">#FFF3D6</color>
+    <color name="stat_done">#2E7D32</color>
+    <color name="stat_done_bg">#E2F3E4</color>
+    <color name="stat_other">#1565C0</color>
+    <color name="stat_other_bg">#E0ECFA</color>
 </resources>
