@@ -491,66 +491,73 @@
             </div>
         </div>
 
-        {{-- RIGHT: Animated AC Unit visual --}}
+        {{-- RIGHT: AMC health monitor visual --}}
         <div class="amc-v2-visual" aria-hidden="true">
-            {{-- Main display card --}}
-            <div class="amc-v2-card">
-                {{-- Grid lines overlay --}}
-                <div class="amc-v2-card-grid"></div>
-
-                {{-- AC Unit --}}
-                <div class="amc-v2-ac-unit">
-                    <div class="amc-v2-ac-body">
-                        <div class="amc-v2-ac-top">
-                            <div class="amc-v2-ac-logo">
-                                <span class="amc-v2-ac-dot"></span>
-                            </div>
-                            <div class="amc-v2-ac-display">
-                                <span class="amc-v2-ac-temp">22°C</span>
-                            </div>
-                            <div class="amc-v2-ac-btn-grp">
-                                <span></span><span></span><span></span>
-                            </div>
-                        </div>
-                        <div class="amc-v2-ac-vents">
-                            <span></span><span></span><span></span><span></span><span></span>
-                        </div>
-                        <div class="amc-v2-ac-flap"></div>
-                    </div>
-                    {{-- Airflow lines --}}
-                    <div class="amc-v2-airflow">
-                        <span class="af1"></span>
-                        <span class="af2"></span>
-                        <span class="af3"></span>
-                        <span class="af4"></span>
-                    </div>
-                </div>
-
-                {{-- Floating status chips --}}
-                <div class="amc-v2-chip chip-filter">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-                    Filter Health 96%
-                </div>
-                <div class="amc-v2-chip chip-gas">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 6v4l3 2"/></svg>
-                    Gas Level Stable
-                </div>
-                <div class="amc-v2-chip chip-coil">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                    Coil Clean
-                </div>
-                <div class="amc-v2-chip chip-eco">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                    Energy Optimal
-                </div>
-
-                {{-- Scan line --}}
-                <div class="amc-v2-scan"></div>
-            </div>
-
-            {{-- Floating ring decorations --}}
             <div class="amc-v2-ring ring1"></div>
             <div class="amc-v2-ring ring2"></div>
+
+            <div class="amc-v2-card">
+                <div class="amc-v2-card-grid"></div>
+                <div class="amc-v2-scan"></div>
+
+                <div class="amc-v2-card-head">
+                    <span class="amc-v2-live"><i></i>AMC Health Monitor</span>
+                    <span class="amc-v2-status">All systems normal</span>
+                </div>
+
+                <div class="amc-v2-stage">
+                    <div class="amc-v2-cool"></div>
+                    <div class="amc-v2-ac-unit">
+                        <div class="amc-v2-ac-body">
+                            <div class="amc-v2-ac-top">
+                                <div class="amc-v2-ac-logo"><span class="amc-v2-ac-dot"></span></div>
+                                <div class="amc-v2-ac-display"><span class="amc-v2-ac-temp">22°C</span></div>
+                                <div class="amc-v2-ac-btn-grp"><span></span><span></span><span></span></div>
+                            </div>
+                            <div class="amc-v2-ac-vents"><span></span><span></span><span></span><span></span><span></span></div>
+                            <div class="amc-v2-ac-flap"></div>
+                        </div>
+                        <div class="amc-v2-airflow">
+                            <span class="af1"></span><span class="af2"></span><span class="af3"></span><span class="af4"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="amc-v2-metrics">
+                    <div class="amc-v2-metric" style="--mc:#34d399;--w:96%">
+                        <div class="amc-v2-metric-top">
+                            <span class="ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            Filter Health
+                        </div>
+                        <strong>96%</strong>
+                        <div class="amc-v2-bar"><i></i></div>
+                    </div>
+                    <div class="amc-v2-metric" style="--mc:#60a5fa;--w:88%">
+                        <div class="amc-v2-metric-top">
+                            <span class="ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+                            Gas Level
+                        </div>
+                        <strong>Stable</strong>
+                        <div class="amc-v2-bar"><i></i></div>
+                    </div>
+                    <div class="amc-v2-metric" style="--mc:#a78bfa;--w:100%">
+                        <div class="amc-v2-metric-top">
+                            <span class="ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+                            Coil
+                        </div>
+                        <strong>Clean</strong>
+                        <div class="amc-v2-bar"><i></i></div>
+                    </div>
+                    <div class="amc-v2-metric" style="--mc:#fb923c;--w:92%">
+                        <div class="amc-v2-metric-top">
+                            <span class="ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
+                            Energy
+                        </div>
+                        <strong>Optimal</strong>
+                        <div class="amc-v2-bar"><i></i></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -722,61 +729,128 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 380px;
+    width: 100%;
+    padding: 1rem 0;
 }
 
 /* Outer rings */
 .amc-v2-ring {
     position: absolute;
+    inset: 0;
+    margin: auto;
+    aspect-ratio: 1;
     border-radius: 50%;
-    border: 1px solid rgba(96,165,250,.12);
+    border: 1px solid rgba(96,165,250,.14);
+    pointer-events: none;
     animation: ringPulse 4s ease-in-out infinite;
 }
-.ring1 { width: 340px; height: 340px; animation-delay: 0s; }
-.ring2 { width: 460px; height: 460px; animation-delay: -2s; border-color: rgba(96,165,250,.06); }
+.ring1 { width: 92%; animation-delay: 0s; }
+.ring2 { width: 106%; animation-delay: -2s; border-color: rgba(96,165,250,.07); }
 @keyframes ringPulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.04);opacity:.5} }
 
-/* Main card */
+/* Monitor panel */
 .amc-v2-card {
     position: relative;
-    width: 320px;
-    height: 300px;
+    width: 100%;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    padding: 1.25rem;
     background: linear-gradient(145deg, rgba(255,255,255,.1) 0%, rgba(255,255,255,.04) 100%);
     border: 1px solid rgba(255,255,255,.15);
-    border-radius: 24px;
+    border-radius: 26px;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     box-shadow: 0 32px 80px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.15);
     overflow: hidden;
 }
+.amc-v2-card > * { position: relative; z-index: 1; }
+.amc-v2-card > .amc-v2-card-grid,
+.amc-v2-card > .amc-v2-scan { position: absolute; z-index: 0; }
 .amc-v2-card-grid {
-    position: absolute; inset: 0;
+    inset: 0;
     background-image: linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
     background-size: 24px 24px;
-    border-radius: 24px;
+    pointer-events: none;
 }
 
 /* Scan line animation */
 .amc-v2-scan {
-    position: absolute;
     left: 0; right: 0;
     height: 2px;
     background: linear-gradient(90deg,transparent,rgba(96,165,250,.6),transparent);
-    animation: scanMove 3s linear infinite;
+    animation: scanMove 3.6s linear infinite;
     box-shadow: 0 0 12px rgba(96,165,250,.4);
+    pointer-events: none;
 }
 @keyframes scanMove { 0%{top:0;opacity:1} 90%{top:100%;opacity:.8} 100%{top:100%;opacity:0} }
 
+/* Panel header */
+.amc-v2-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+}
+.amc-v2-live {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.75);
+}
+.amc-v2-live i {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #34d399;
+    box-shadow: 0 0 0 0 rgba(52,211,153,.7);
+    animation: livePulse 2s infinite;
+}
+@keyframes livePulse { 0%{box-shadow:0 0 0 0 rgba(52,211,153,.7)} 70%{box-shadow:0 0 0 8px rgba(52,211,153,0)} 100%{box-shadow:0 0 0 0 rgba(52,211,153,0)} }
+.amc-v2-status {
+    font-size: .66rem;
+    font-weight: 700;
+    color: #6ee7b7;
+    background: rgba(52,211,153,.14);
+    border: 1px solid rgba(52,211,153,.3);
+    padding: .25rem .65rem;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+/* AC stage */
+.amc-v2-stage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 200px;
+    padding-top: .25rem;
+}
+.amc-v2-cool {
+    position: absolute;
+    left: 50%;
+    bottom: -14px;
+    width: 80%;
+    height: 100px;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at 50% 0%, rgba(96,165,250,.38), transparent 70%);
+    filter: blur(10px);
+    animation: coolPulse 3.5s ease-in-out infinite;
+    pointer-events: none;
+}
+@keyframes coolPulse { 0%,100%{opacity:.55;transform:translateX(-50%) scaleX(.92)} 50%{opacity:1;transform:translateX(-50%) scaleX(1.04)} }
+
 /* AC unit */
 .amc-v2-ac-unit {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -58%);
-    width: 200px;
+    position: relative;
+    width: min(84%, 340px);
     animation: acFloat 4s ease-in-out infinite;
 }
-@keyframes acFloat { 0%,100%{transform:translate(-50%,-58%) translateY(0)} 50%{transform:translate(-50%,-58%) translateY(-8px)} }
+@keyframes acFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
 
 .amc-v2-ac-body {
     background: linear-gradient(175deg,#e8f4ff 0%,#c8dff5 60%,#b0ccee 100%);
@@ -788,8 +862,8 @@
 .amc-v2-ac-logo { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg,#1e40af,#3b82f6); display:flex;align-items:center;justify-content:center; }
 .amc-v2-ac-dot { width:8px;height:8px;border-radius:50%;background:#7dd3fc;box-shadow:0 0 6px #7dd3fc;animation:ledBlink 1.5s infinite; }
 @keyframes ledBlink { 0%,100%{opacity:1;box-shadow:0 0 6px #7dd3fc,0 0 12px #7dd3fc} 50%{opacity:.5;box-shadow:none} }
-.amc-v2-ac-display { background: rgba(30,64,175,.15); border-radius: 6px; padding: .2rem .6rem; }
-.amc-v2-ac-temp { font-size: .75rem; font-weight: 700; color: #1e3a8a; letter-spacing: .05em; }
+.amc-v2-ac-display { background: rgba(30,64,175,.15); border-radius: 6px; padding: .2rem .65rem; }
+.amc-v2-ac-temp { font-size: .82rem; font-weight: 700; color: #1e3a8a; letter-spacing: .05em; }
 .amc-v2-ac-btn-grp { display:flex;gap:.3rem; }
 .amc-v2-ac-btn-grp span { width:6px;height:6px;border-radius:50%;background:rgba(30,64,175,.3); }
 .amc-v2-ac-vents { display: flex; gap: 3px; padding: .2rem 0; }
@@ -800,54 +874,88 @@
 @keyframes flapSwing { 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(2deg)} }
 
 /* Airflow */
-.amc-v2-airflow { position:relative;height:60px;display:flex;align-items:flex-start;justify-content:space-around;padding-top:.3rem; }
+.amc-v2-airflow { position:relative;height:56px;display:flex;align-items:flex-start;justify-content:space-around;padding-top:.3rem; }
 .amc-v2-airflow span {
     width: 2px;
     border-radius: 1px;
     background: linear-gradient(to bottom, rgba(147,197,253,.8), transparent);
     animation: airDrop 1.8s ease-in infinite;
 }
-.af1{height:45px;animation-delay:0s}.af2{height:55px;animation-delay:.3s}.af3{height:50px;animation-delay:.6s}.af4{height:40px;animation-delay:.9s}
+.af1{height:45px;animation-delay:0s}.af2{height:52px;animation-delay:.3s}.af3{height:48px;animation-delay:.6s}.af4{height:40px;animation-delay:.9s}
 @keyframes airDrop { 0%{transform:scaleY(0) translateY(0);opacity:0;transform-origin:top} 30%{opacity:1} 100%{transform:scaleY(1) translateY(20px);opacity:0} }
 
-/* Floating chips */
-.amc-v2-chip {
-    position: absolute;
-    display: inline-flex;
-    align-items: center;
-    gap: .4rem;
-    background: rgba(10,20,50,.85);
-    border: 1px solid rgba(255,255,255,.15);
-    border-radius: 999px;
-    padding: .4rem .85rem;
-    font-size: .72rem;
-    font-weight: 600;
-    color: #e2e8f0;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 4px 16px rgba(0,0,0,.4);
-    white-space: nowrap;
+/* Status tiles */
+.amc-v2-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .75rem;
+}
+.amc-v2-metric {
+    padding: .85rem .95rem;
+    border-radius: 16px;
+    background: rgba(8,20,52,.58);
+    border: 1px solid rgba(255,255,255,.12);
+    box-shadow: 0 8px 24px rgba(0,0,0,.25);
     animation: chipFloat 5s ease-in-out infinite;
 }
-.chip-filter { top: 18%;  left: -10%; animation-delay: 0s; }
-.chip-gas    { top: 18%;  right:-10%; animation-delay:-1.5s; }
-.chip-coil   { bottom:22%;left: -8%;  animation-delay:-3s; }
-.chip-eco    { bottom:22%;right:-8%;  animation-delay:-4.5s; }
-@keyframes chipFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+.amc-v2-metric:nth-child(2) { animation-delay: -1.25s; }
+.amc-v2-metric:nth-child(3) { animation-delay: -2.5s; }
+.amc-v2-metric:nth-child(4) { animation-delay: -3.75s; }
+@keyframes chipFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+.amc-v2-metric-top {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: .7rem;
+    font-weight: 600;
+    color: rgba(255,255,255,.62);
+}
+.amc-v2-metric-top .ico {
+    width: 22px; height: 22px;
+    flex: 0 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 7px;
+    background: color-mix(in srgb, var(--mc) 18%, transparent);
+}
+.amc-v2-metric strong {
+    display: block;
+    margin: .4rem 0 .6rem;
+    font-size: 1.2rem;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -.01em;
+    color: #fff;
+}
+.amc-v2-bar {
+    height: 5px;
+    border-radius: 5px;
+    background: rgba(255,255,255,.1);
+    overflow: hidden;
+}
+.amc-v2-bar i {
+    display: block;
+    height: 100%;
+    width: var(--w);
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--mc), color-mix(in srgb, var(--mc) 55%, #fff));
+    animation: barFill 6s ease-in-out infinite;
+}
+@keyframes barFill { 0%{width:0} 35%,100%{width:var(--w)} }
 
 /* ── Responsive ── */
 @media(max-width:960px) {
     .amc-v2-wrap { grid-template-columns:1fr; gap:3rem; }
-    .amc-v2-visual { min-height:320px; }
     .amc-v2-features { grid-template-columns:1fr; }
-    .chip-filter,.chip-coil { left:0%; }
-    .chip-gas,.chip-eco { right:0%; }
+    .amc-v2-visual { padding: 0; }
 }
 @media(max-width:600px) {
     .amc-v2-stats { gap:.75rem; padding:.75rem 1rem; }
     .amc-v2-stat-num { font-size:1.2rem; }
-    .amc-v2-card { width:280px; height:260px; }
-    .amc-v2-ac-unit { width:170px; }
+    .amc-v2-card { padding: 1rem; gap: 1rem; }
+    .amc-v2-metric { padding: .7rem .75rem; }
+    .amc-v2-metric strong { font-size: 1.05rem; }
+    .amc-v2-ac-unit { width: min(82%, 260px); }
+    .amc-v2-status { display: none; }
 }
 </style>
 
