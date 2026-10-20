@@ -1,9 +1,9 @@
 ﻿@extends('site.layouts.app')
 @section('title','About Unique Aircon | Trusted AC Repair & Service Company in Kolkata')
-@section('meta_description','Learn about Unique Aircon – 7+ years of trusted AC repair, servicing & installation in Kolkata. Certified technicians, genuine parts, transparent pricing.')
+@section('meta_description','Learn about Unique Aircon – 9+ years of trusted AC repair, servicing & installation in Kolkata. Certified technicians, genuine parts, transparent pricing.')
 @section('meta_keywords','about Unique Aircon, AC repair company Kolkata, best AC service company Kolkata, AC technician Kolkata, trusted AC repair Kolkata')
 @section('og_title','About Unique Aircon | Trusted AC Repair Company in Kolkata')
-@section('og_description','7+ years of expert AC repair, servicing & installation in Kolkata. Meet the certified team behind Unique Aircon.')
+@section('og_description','9+ years of expert AC repair, servicing & installation in Kolkata. Meet the certified team behind Unique Aircon.')
 @section('schema')
 @verbatim
 <script type="application/ld+json">

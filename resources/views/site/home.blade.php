@@ -1709,41 +1709,137 @@ $homeZoneColors = [
 @include('site.partials.google-reviews', ['limit' => 6])
 
 {{-- ── SEO Content Block ────────────────────────────────────────────── --}}
-<section class="section seo-content-section" aria-label="About our AC repair services in Kolkata">
-    <div class="container seo-content-wrap">
+<section class="section sx" aria-label="About our AC repair services in Kolkata">
+    <div class="sx-blob sx-blob-a" aria-hidden="true"></div>
+    <div class="sx-blob sx-blob-b" aria-hidden="true"></div>
 
-        <h2>AC Repair & Servicing in Kolkata – Your Trusted Cooling Partner</h2>
-        <p>When the summer heat in Kolkata becomes unbearable, the last thing you need is a malfunctioning air conditioner. <strong>Unique Aircon</strong> is Kolkata's most trusted name for <strong>AC repair in Kolkata</strong>, offering fast, affordable, and professional services for homes, offices, shops, and commercial spaces across the city.</p>
+    <div class="container sx-wrap">
 
-        <h3>Expert AC Repair Service Near Me – Same Day Response</h3>
-        <p>Whether your AC is not cooling, making unusual noise, leaking water, or showing error codes, our certified technicians are just a call away. We provide <strong>same-day AC repair service near me</strong> across all major areas of Kolkata including Jadavpur, Tollygunge, Behala, Salt Lake, New Town, Park Street, Ballygunge, Garia, and surrounding localities. Our response time is under 2 hours for most emergency calls, so your comfort is restored quickly without any prolonged inconvenience.</p>
+        <header class="sx-head sx-reveal">
+            <span class="sx-eyebrow"><span class="sx-dot"></span>Kolkata's Cooling Experts</span>
+            <h2>AC Repair &amp; Servicing in Kolkata – Your Trusted Cooling Partner</h2>
+            <p class="sx-lead">When the summer heat in Kolkata becomes unbearable, the last thing you need is a malfunctioning air conditioner. <strong>Unique Aircon</strong> is Kolkata's most trusted name for <strong>AC repair in Kolkata</strong>, offering fast, affordable, and professional services for homes, offices, shops, and commercial spaces across the city.</p>
+        </header>
 
-        <h3>AC Servicing in Kolkata – Deep Cleaning for Peak Performance</h3>
-        <p>Regular <strong>AC servicing in Kolkata</strong> is essential to maintain energy efficiency and extend the lifespan of your air conditioner. Our comprehensive AC servicing package includes thorough cleaning of indoor and outdoor units, filter washing, evaporator and condenser coil cleaning, drain pan cleaning, refrigerant gas pressure check, and full performance testing. Timely <strong>AC servicing near me</strong> not only reduces your electricity bills but also prevents costly breakdowns during peak summer months.</p>
+        <div class="sx-stats">
+            <div class="sx-stat sx-reveal" style="--i:0">
+                <span class="sx-stat-num"><span data-count="9" data-suffix="+">9+</span></span>
+                <span class="sx-stat-label">Years of experience</span>
+            </div>
+            <div class="sx-stat sx-reveal" style="--i:1">
+                <span class="sx-stat-num"><span data-count="2" data-prefix="&lt; " data-suffix=" hrs">&lt; 2 hrs</span></span>
+                <span class="sx-stat-label">Response on most emergency calls</span>
+            </div>
+            <div class="sx-stat sx-reveal" style="--i:2">
+                <span class="sx-stat-num"><span data-count="6" data-suffix=" days">6 days</span></span>
+                <span class="sx-stat-label">Same-day service every week</span>
+            </div>
+        </div>
 
-        <h3>Voltas AC Repair Kolkata &amp; LG AC Repair Kolkata</h3>
-        <p>We specialize in all leading brands. For <strong>Voltas AC repair in Kolkata</strong>, our technicians are trained to handle Voltas split ACs, window ACs, and cassette units — covering issues like compressor faults, PCB failures, gas leaks, and sensor errors. Similarly, our <strong>LG AC repair in Kolkata</strong> expertise covers the full LG range including Dual Inverter models. We also service and repair Daikin, Samsung, Blue Star, Hitachi, Lloyd, Carrier, Whirlpool, and all other major brands with genuine spare parts and manufacturer-recommended procedures.</p>
+        <div class="sx-grid">
+            <article class="sx-card sx-reveal" style="--i:0">
+                <span class="sx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
+                <h3>Expert AC Repair Service Near Me – Same Day Response</h3>
+                <p>Whether your AC is not cooling, making unusual noise, leaking water, or showing error codes, our certified technicians are just a call away. We provide <strong>same-day AC repair service near me</strong> across all major areas of Kolkata including Jadavpur, Tollygunge, Behala, Salt Lake, New Town, Park Street, Ballygunge, Garia, and surrounding localities. Our response time is under 2 hours for most emergency calls, so your comfort is restored quickly without any prolonged inconvenience.</p>
+            </article>
 
-        <h3>AC Installation Kolkata – Professional Fitting, Zero Hassle</h3>
-        <p>Planning to buy a new air conditioner? Our <strong>AC installation in Kolkata</strong> service ensures your new unit is fitted correctly, safely, and in compliance with all technical standards. Improper installation is one of the leading causes of poor AC performance and early breakdowns. Our installation team handles copper piping, indoor/outdoor unit mounting, electrical connections, and post-installation testing — all in one visit. We install split ACs, window ACs, cassette ACs, and multi-split systems for residential and commercial properties.</p>
+            <article class="sx-card sx-reveal" style="--i:1">
+                <span class="sx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg></span>
+                <h3>AC Servicing in Kolkata – Deep Cleaning for Peak Performance</h3>
+                <p>Regular <strong>AC servicing in Kolkata</strong> is essential to maintain energy efficiency and extend the lifespan of your air conditioner. Our comprehensive AC servicing package includes thorough cleaning of indoor and outdoor units, filter washing, evaporator and condenser coil cleaning, drain pan cleaning, refrigerant gas pressure check, and full performance testing. Timely <strong>AC servicing near me</strong> not only reduces your electricity bills but also prevents costly breakdowns during peak summer months.</p>
+            </article>
 
-        <h3>AC Maintenance Kolkata – AMC Plans for Worry-Free Cooling</h3>
-        <p>Our <strong>AC maintenance in Kolkata</strong> Annual Maintenance Contract (AMC) plans are designed for homeowners and businesses who want hassle-free, year-round cooling performance. The AMC covers scheduled servicing visits, priority breakdown support, free labour on repairs, and discounted spare parts. An AMC is the smartest investment you can make to protect your AC and avoid surprise repair bills during peak season.</p>
+            <article class="sx-card sx-card-wide sx-reveal" style="--i:2">
+                <span class="sx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></span>
+                <h3>Voltas AC Repair Kolkata &amp; LG AC Repair Kolkata</h3>
+                <p>We specialize in all leading brands. For <strong>Voltas AC repair in Kolkata</strong>, our technicians are trained to handle Voltas split ACs, window ACs, and cassette units — covering issues like compressor faults, PCB failures, gas leaks, and sensor errors. Similarly, our <strong>LG AC repair in Kolkata</strong> expertise covers the full LG range including Dual Inverter models. We also service and repair Daikin, Samsung, Blue Star, Hitachi, Lloyd, Carrier, Whirlpool, and all other major brands with genuine spare parts and manufacturer-recommended procedures.</p>
+                <ul class="sx-brands" aria-label="Brands we service">
+                    @foreach(['Voltas', 'LG', 'Daikin', 'Samsung', 'Blue Star', 'Hitachi', 'Lloyd', 'Carrier', 'Whirlpool'] as $brand)
+                        <li>{{ $brand }}</li>
+                    @endforeach
+                    <li class="sx-brands-more">+ all major brands</li>
+                </ul>
+            </article>
 
-        <h3>Why Kolkata Trusts Unique Aircon for AC Repair &amp; Servicing</h3>
-        <ul class="seo-list">
-            <li><strong>7+ Years of Experience</strong> serving residential and commercial clients across Kolkata</li>
-            <li><strong>Certified Technicians</strong> trained for all major AC brands and models</li>
-            <li><strong>Transparent Pricing</strong> – no hidden charges, free inspection before work begins</li>
-            <li><strong>Genuine Spare Parts</strong> sourced from authorized distributors</li>
-            <li><strong>Same-Day Service</strong> available 6 days a week across Kolkata</li>
-            <li><strong>Post-Service Warranty</strong> on all repairs and installations</li>
-            <li><strong>Easy Booking</strong> – call, WhatsApp, or fill our online form anytime</li>
-        </ul>
+            <article class="sx-card sx-reveal" style="--i:3">
+                <span class="sx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+                <h3>AC Installation Kolkata – Professional Fitting, Zero Hassle</h3>
+                <p>Planning to buy a new air conditioner? Our <strong>AC installation in Kolkata</strong> service ensures your new unit is fitted correctly, safely, and in compliance with all technical standards. Improper installation is one of the leading causes of poor AC performance and early breakdowns. Our installation team handles copper piping, indoor/outdoor unit mounting, electrical connections, and post-installation testing — all in one visit. We install split ACs, window ACs, cassette ACs, and multi-split systems for residential and commercial properties.</p>
+            </article>
 
-        <p>Whether you need an emergency <strong>AC repair shop near me</strong>, a scheduled <strong>AC servicing near me</strong>, a fresh <strong>AC installation in Kolkata</strong>, or a long-term <strong>AC maintenance</strong> partner, Unique Aircon is the one-stop solution. <a href="{{ route('contact') }}" class="seo-inline-link">Book your service today</a> and experience the difference that certified expertise makes. For immediate assistance, call us at <a href="tel:+918346904100" class="seo-inline-link">+91 8346904100</a> or reach us on WhatsApp — we are always ready to keep you cool.</p>
+            <article class="sx-card sx-reveal" style="--i:4">
+                <span class="sx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="9 16 11 18 15 14"/></svg></span>
+                <h3>AC Maintenance Kolkata – AMC Plans for Worry-Free Cooling</h3>
+                <p>Our <strong>AC maintenance in Kolkata</strong> Annual Maintenance Contract (AMC) plans are designed for homeowners and businesses who want hassle-free, year-round cooling performance. The AMC covers scheduled servicing visits, priority breakdown support, free labour on repairs, and discounted spare parts. An AMC is the smartest investment you can make to protect your AC and avoid surprise repair bills during peak season.</p>
+            </article>
+        </div>
+
+        <div class="sx-why sx-reveal">
+            <h3>Why Kolkata Trusts Unique Aircon for AC Repair &amp; Servicing</h3>
+            <ul class="sx-why-list">
+                @foreach([
+                    ['9+ Years of Experience', 'serving residential and commercial clients across Kolkata'],
+                    ['Certified Technicians', 'trained for all major AC brands and models'],
+                    ['Transparent Pricing', '– no hidden charges, clear estimate before work begins'],
+                    ['Genuine Spare Parts', 'sourced from authorized distributors'],
+                    ['Same-Day Service', 'available 6 days a week across Kolkata'],
+                    ['Post-Service Warranty', 'on all repairs and installations'],
+                    ['Easy Booking', '– call, WhatsApp, or fill our online form anytime'],
+                ] as $i => $why)
+                    <li class="sx-why-item" style="--i:{{ $i }}">
+                        <span class="sx-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        <span><strong>{{ $why[0] }}</strong> {{ $why[1] }}</span>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+
+        <div class="sx-cta sx-reveal">
+            <p>Whether you need an emergency <strong>AC repair shop near me</strong>, a scheduled <strong>AC servicing near me</strong>, a fresh <strong>AC installation in Kolkata</strong>, or a long-term <strong>AC maintenance</strong> partner, Unique Aircon is the one-stop solution. <a href="{{ route('contact') }}" class="sx-link">Book your service today</a> and experience the difference that certified expertise makes. For immediate assistance, call us at <a href="tel:+918346904100" class="sx-link">+91 8346904100</a> or reach us on WhatsApp — we are always ready to keep you cool.</p>
+            <div class="sx-cta-actions">
+                <a class="primary-btn" href="#book-service" data-track="cta_click" data-track-label="SEO Block - Book Service">Book Service</a>
+                <a class="outline-btn" href="tel:+918346904100" data-track="cta_click" data-track-label="SEO Block - Call">Call +91 8346904100</a>
+                <a class="outline-btn" href="https://wa.me/918346904100" target="_blank" rel="noopener" data-track="cta_click" data-track-label="SEO Block - WhatsApp">WhatsApp Us</a>
+            </div>
+        </div>
 
     </div>
+
+    <script>
+    (function () {
+        var root = document.currentScript.parentElement;
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduce || !('IntersectionObserver' in window)) { return; }
+
+        root.classList.add('sx-js');
+
+        function countUp(el) {
+            var target = parseFloat(el.getAttribute('data-count'));
+            var prefix = el.getAttribute('data-prefix') || '';
+            var suffix = el.getAttribute('data-suffix') || '';
+            var start = null;
+            function step(ts) {
+                if (start === null) { start = ts; }
+                var p = Math.min((ts - start) / 1200, 1);
+                var eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = prefix + Math.round(target * eased) + suffix;
+                if (p < 1) { requestAnimationFrame(step); }
+            }
+            requestAnimationFrame(step);
+        }
+
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) { return; }
+                entry.target.classList.add('is-in');
+                entry.target.querySelectorAll('[data-count]').forEach(countUp);
+                io.unobserve(entry.target);
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+        root.querySelectorAll('.sx-reveal').forEach(function (el) { io.observe(el); });
+    })();
+    </script>
 </section>
 
 <style>
