@@ -88,6 +88,17 @@
     </div>
 </section>
 
+{{-- ═══ Shared dark zone: Specialized Climate Solutions + AMC ═══ --}}
+<div class="climate-zone">
+    <div class="amc-v2-bg" aria-hidden="true">
+        <div class="amc-v2-orb orb1"></div>
+        <div class="amc-v2-orb orb2"></div>
+        <div class="amc-v2-orb orb3"></div>
+        <div class="amc-v2-orb orb4"></div>
+        <div class="amc-v2-orb orb5"></div>
+        <div class="amc-v2-grid"></div>
+    </div>
+
 <section class="scs-section">
     {{-- Subtle dot-grid background --}}
     <div class="scs-bg-grid"></div>
@@ -206,6 +217,8 @@
         </div>
     </div>
 </section>
+
+<div class="container climate-zone-divider-wrap" aria-hidden="true"><div class="climate-zone-divider"></div></div>
 
 <style>
 /* ══════════════════════════════════════════
@@ -432,14 +445,6 @@
 </style>
 
 <section class="amc-v2-section">
-    {{-- Animated background elements --}}
-    <div class="amc-v2-bg">
-        <div class="amc-v2-orb orb1"></div>
-        <div class="amc-v2-orb orb2"></div>
-        <div class="amc-v2-orb orb3"></div>
-        <div class="amc-v2-grid"></div>
-    </div>
-
     <div class="container amc-v2-wrap">
         {{-- LEFT: Content --}}
         <div class="amc-v2-content">
@@ -561,6 +566,7 @@
         </div>
     </div>
 </section>
+</div>{{-- /.climate-zone --}}
 
 <style>
 /* ══════════════════════════════════════════
