@@ -216,10 +216,9 @@
             scrollWheelZoom: true,
         });
 
-        /* CartoDB Positron — clean professional light style */
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> &copy; <a href="https://carto.com/" target="_blank">CARTO</a>',
-            subdomains: 'abcd',
+        /* OpenStreetMap tiles (free, no API key); softened via CSS in app.css */
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors',
             maxZoom: 19,
         }).addTo(map);
 
