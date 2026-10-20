@@ -1555,7 +1555,7 @@ $homeZoneColors = [
         }).addTo(map);
 
         marker.bindPopup(
-            '<div style="font-family:system-ui,sans-serif;padding:.2rem .1rem;min-width:185px">' +
+            '<div style="font-family:Plus Jakarta Sans,system-ui,sans-serif;padding:.2rem .1rem;min-width:185px">' +
               '<strong style="font-size:.88rem;color:#062d67;display:block;margin-bottom:.2rem">Unique Aircon</strong>' +
               '<span style="font-size:.76rem;color:#64748b;line-height:1.5">3/87 C. R Colony, Jadavpur<br>Kolkata – 700032</span><br>' +
               '<a href="tel:+918346904100" style="display:inline-block;margin-top:.45rem;font-size:.78rem;color:#1d4ed8;font-weight:700">+91 83469 04100</a>' +
@@ -1566,7 +1566,7 @@ $homeZoneColors = [
         L.marker([LAT + 0.314, LNG], {
             icon: L.divIcon({
                 className: '',
-                html: '<div style="background:rgba(0,22,10,.82);border:1px solid rgba(34,197,94,.5);color:#4ade80;font-size:.68rem;font-weight:700;font-family:system-ui,sans-serif;padding:.26rem .8rem;border-radius:999px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.3)">● 35 km service radius</div>',
+                html: '<div style="background:rgba(0,22,10,.82);border:1px solid rgba(34,197,94,.5);color:#4ade80;font-size:.68rem;font-weight:700;font-family:Plus Jakarta Sans,system-ui,sans-serif;padding:.26rem .8rem;border-radius:999px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.3)">● 35 km service radius</div>',
                 iconAnchor: [72, 10],
             }),
             interactive: false,

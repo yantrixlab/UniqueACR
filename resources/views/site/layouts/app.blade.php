@@ -42,6 +42,7 @@
     <meta name="apple-mobile-web-app-title" content="Unique Aircon">
     <link rel="manifest" href="/site.webmanifest">
 
+    <link rel="preload" href="/fonts/plus-jakarta-sans/latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/site/app.css">
 
     {{-- Google Analytics --}}
