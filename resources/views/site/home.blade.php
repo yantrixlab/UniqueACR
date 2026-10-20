@@ -1528,8 +1528,8 @@ $homeZoneColors = [
 {{-- ═══════════════════════════════════════════════════════════════
      AREAS SECTION
 ═══════════════════════════════════════════════════════════════ --}}
-<section style="background:linear-gradient(180deg,#051c48 0%,#07266a 100%);padding:4rem 0;position:relative;overflow:hidden;">
-    <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.025) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;"></div>
+<div class="areas-zone">
+<section class="areas-section">
 
     <div class="container" style="position:relative;">
         {{-- Section header --}}
@@ -1590,7 +1590,7 @@ $homeZoneColors = [
         <h2>Find Us in Jadavpur</h2>
         <p class="sub" style="margin-bottom:24px;">Coverage: Jadavpur, Garia, Dhakuria, Tollygunge, Ballygunge, Kasba, Santoshpur.</p>
 
-        <div style="position:relative;border-radius:18px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.14);">
+        <div class="home-map-frame">
             <div id="home-coverage-map" style="width:100%;height:460px;background:#e8f0fe;"></div>
 
             <div style="position:absolute;top:16px;left:60px;z-index:1000;background:rgba(6,20,50,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;padding:.55rem 1.1rem;border-radius:11px;font-size:.8rem;line-height:1.5;border:1px solid rgba(255,255,255,.14);pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,.3);">
@@ -1609,6 +1609,7 @@ $homeZoneColors = [
         </div>
     </div>
 </section>
+</div>{{-- /.areas-zone --}}
 
 <style>
 .map-pulse-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px #22c55e;flex-shrink:0;animation:mapDotPulse 2s infinite;}
