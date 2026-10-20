@@ -1457,15 +1457,14 @@ $homeZoneColors = [
 ];
 @endphp
 
+<div class="areas-zone">
 {{-- ═══════════════════════════════════════════════════════════════
      BOOKING SECTION
 ═══════════════════════════════════════════════════════════════ --}}
-<section id="book-service" style="background:linear-gradient(135deg,#041d4a 0%,#083580 50%,#0a4199 100%);padding:5rem 0;position:relative;overflow:hidden;">
+<section id="book-service" style="padding:5rem 0 3rem;position:relative;overflow:hidden;">
     {{-- Decorative blobs --}}
     <div style="position:absolute;top:-120px;right:-120px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(96,165,250,.12) 0%,transparent 70%);pointer-events:none;"></div>
     <div style="position:absolute;bottom:-80px;left:-80px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(96,165,250,.08) 0%,transparent 70%);pointer-events:none;"></div>
-    {{-- Subtle grid pattern --}}
-    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;"></div>
 
     <div class="container" style="position:relative;">
         <div class="hb-grid">
@@ -1525,10 +1524,11 @@ $homeZoneColors = [
     </div>
 </section>
 
+<div class="container climate-zone-divider-wrap" aria-hidden="true"><div class="climate-zone-divider"></div></div>
+
 {{-- ═══════════════════════════════════════════════════════════════
      AREAS SECTION
 ═══════════════════════════════════════════════════════════════ --}}
-<div class="areas-zone">
 <section class="areas-section">
 
     <div class="container" style="position:relative;">
