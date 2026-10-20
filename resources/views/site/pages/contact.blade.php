@@ -130,6 +130,7 @@
                             <option value="AC Maintenance" @selected(old('service_type')==='AC Maintenance')>AC Maintenance</option>
                             <option value="Commercial HVAC" @selected(old('service_type')==='Commercial HVAC')>Commercial HVAC</option>
                             <option value="AMC Services" @selected(old('service_type')==='AMC Services')>AMC Services</option>
+                            <option value="Microwave Oven Repair" @selected(old('service_type')==='Microwave Oven Repair')>Microwave Oven Repair</option>
                         </select>
                     </label>
                 </div>

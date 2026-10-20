@@ -10,6 +10,7 @@
     $bkSvcText = $bkSvc ? strtolower($bkSvc->service_type.' '.$bkSvc->name) : '';
     $bkDerived = match (true) {
         $bkSvc === null => null,
+        str_contains($bkSvcText, 'microwave') => 'Microwave Oven Repair',
         str_contains($bkSvcText, 'uninstall') => 'Uninstallation',
         str_contains($bkSvcText, 'install') => 'Installation',
         str_contains($bkSvcText, 'amc') => 'AMC',
@@ -116,6 +117,7 @@
             <option value="Repair" @selected($bkService==='Repair')>Repair</option>
             <option value="Maintenance" @selected($bkService==='Maintenance')>Maintenance</option>
             <option value="AMC" @selected($bkService==='AMC')>AMC</option>
+            <option value="Microwave Oven Repair" @selected($bkService==='Microwave Oven Repair')>Microwave Oven Repair</option>
         </select>
     </label>
 
