@@ -10,22 +10,22 @@ class BookingSchedule
 
     public const DAYS_AHEAD = 14;
 
-    /** Minimum minutes between "now" and the start of a same-day slot. */
-    public const LEAD_MINUTES = 60;
+    /** A same-day slot stays bookable until fewer than this many minutes of its window remain. */
+    public const MIN_WINDOW_MINUTES = 30;
 
     /**
-     * Visit windows, keyed by the value submitted by the form (start hour, 24h).
+     * Visit windows (24h hours), keyed by the value submitted by the form.
      *
-     * @return array<string, array{label: string, start: int}>
+     * @return array<string, array{label: string, start: int, end: int}>
      */
     public static function slots(): array
     {
         return [
-            '09-11' => ['label' => '9 AM – 11 AM', 'start' => 9],
-            '11-13' => ['label' => '11 AM – 1 PM', 'start' => 11],
-            '13-15' => ['label' => '1 PM – 3 PM', 'start' => 13],
-            '15-17' => ['label' => '3 PM – 5 PM', 'start' => 15],
-            '17-19' => ['label' => '5 PM – 7 PM', 'start' => 17],
+            '09-11' => ['label' => '9 AM – 11 AM', 'start' => 9, 'end' => 11],
+            '11-13' => ['label' => '11 AM – 1 PM', 'start' => 11, 'end' => 13],
+            '13-15' => ['label' => '1 PM – 3 PM', 'start' => 13, 'end' => 15],
+            '15-17' => ['label' => '3 PM – 5 PM', 'start' => 15, 'end' => 17],
+            '17-19' => ['label' => '5 PM – 7 PM', 'start' => 17, 'end' => 19],
         ];
     }
 
@@ -66,7 +66,7 @@ class BookingSchedule
             return true;
         }
 
-        return $date->setTime($slot['start'], 0)->greaterThan(self::now()->addMinutes(self::LEAD_MINUTES));
+        return $date->setTime($slot['end'], 0)->greaterThan(self::now()->addMinutes(self::MIN_WINDOW_MINUTES));
     }
 
     public static function hasAnySlotOn(CarbonImmutable $date): bool

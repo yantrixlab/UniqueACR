@@ -41,7 +41,7 @@
     <div class="vp" data-visit-picker
          data-today="{{ $bkNow->toDateString() }}"
          data-now-minutes="{{ $bkNow->hour * 60 + $bkNow->minute }}"
-         data-lead="{{ BookingSchedule::LEAD_MINUTES }}">
+         data-min-window="{{ BookingSchedule::MIN_WINDOW_MINUTES }}">
 
         @if($bkSvc)
             <input type="hidden" name="service_slug" value="{{ $bkSvc->slug }}" data-booking-service-input>
@@ -91,7 +91,7 @@
             <div class="vp-slots" role="radiogroup" aria-label="Visit time">
                 @foreach($bkSlots as $bkKey => $bkSlot)
                     <input class="vp-radio" type="radio" name="preferred_time" id="vp-time-{{ $bkKey }}" value="{{ $bkKey }}"
-                           data-start="{{ $bkSlot['start'] }}"
+                           data-end="{{ $bkSlot['end'] }}"
                            @checked(old('preferred_time') === $bkKey)
                            @disabled($bkSelected && ! BookingSchedule::slotAvailableOn($bkSelected, $bkKey)) required>
                     <label class="vp-slot" for="vp-time-{{ $bkKey }}">{{ $bkSlot['label'] }}</label>
@@ -154,7 +154,7 @@
         var dateInputs = root.querySelectorAll('input[name="preferred_date"]');
         var slotInputs = root.querySelectorAll('input[name="preferred_time"]');
         var today = root.getAttribute('data-today');
-        var lead = parseInt(root.getAttribute('data-lead'), 10);
+        var minWindow = parseInt(root.getAttribute('data-min-window'), 10);
         var renderMinutes = parseInt(root.getAttribute('data-now-minutes'), 10);
         var loadedAt = Date.now();
 
@@ -167,7 +167,7 @@
             var isToday = selectedDate() === today;
             var nowMinutes = renderMinutes + Math.floor((Date.now() - loadedAt) / 60000);
             slotInputs.forEach(function (input) {
-                var blocked = isToday && (parseInt(input.getAttribute('data-start'), 10) * 60 <= nowMinutes + lead);
+                var blocked = isToday && (parseInt(input.getAttribute('data-end'), 10) * 60 <= nowMinutes + minWindow);
                 input.disabled = blocked;
                 if (blocked && input.checked) { input.checked = false; }
             });
@@ -198,6 +198,7 @@
         window.addEventListener('resize', updateArrows);
 
         updateSlots();
+        setInterval(updateSlots, 60000);
         centerSelected(false);
         updateArrows();
     });
