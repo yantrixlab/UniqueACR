@@ -11,6 +11,8 @@ class Setting extends Model
 {
     private const ANNOUNCEMENT_BAR_KEY = 'announcement_bar';
 
+    private const GOOGLE_REVIEWS_KEY = 'google_reviews';
+
     public const ANNOUNCEMENT_BAR_DEFAULTS = [
         'enabled' => false,
         'badge' => 'Fastest Response',
@@ -23,16 +25,20 @@ class Setting extends Model
         'accent_color' => '#38bdf8',
     ];
 
+    public const GOOGLE_REVIEWS_DEFAULTS = [
+        'show_summary' => false,
+        'rating' => null,
+        'review_count' => null,
+        'profile_url' => '',
+        'write_review_url' => '',
+    ];
+
     /**
      * @return array<string, mixed>
      */
     public static function announcementBar(): array
     {
-        return Cache::rememberForever('settings.'.self::ANNOUNCEMENT_BAR_KEY, function (): array {
-            $stored = json_decode((string) static::query()->where('key', self::ANNOUNCEMENT_BAR_KEY)->value('value'), true);
-
-            return array_merge(self::ANNOUNCEMENT_BAR_DEFAULTS, is_array($stored) ? $stored : []);
-        });
+        return static::jsonSetting(self::ANNOUNCEMENT_BAR_KEY, self::ANNOUNCEMENT_BAR_DEFAULTS);
     }
 
     /**
@@ -40,11 +46,49 @@ class Setting extends Model
      */
     public static function saveAnnouncementBar(array $data): void
     {
+        static::saveJsonSetting(self::ANNOUNCEMENT_BAR_KEY, $data, self::ANNOUNCEMENT_BAR_DEFAULTS);
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public static function googleReviews(): array
+    {
+        return static::jsonSetting(self::GOOGLE_REVIEWS_KEY, self::GOOGLE_REVIEWS_DEFAULTS);
+    }
+
+    /**
+     * @param  array<string, mixed>  $data
+     */
+    public static function saveGoogleReviews(array $data): void
+    {
+        static::saveJsonSetting(self::GOOGLE_REVIEWS_KEY, $data, self::GOOGLE_REVIEWS_DEFAULTS);
+    }
+
+    /**
+     * @param  array<string, mixed>  $defaults
+     * @return array<string, mixed>
+     */
+    private static function jsonSetting(string $key, array $defaults): array
+    {
+        return Cache::rememberForever('settings.'.$key, function () use ($key, $defaults): array {
+            $stored = json_decode((string) static::query()->where('key', $key)->value('value'), true);
+
+            return array_merge($defaults, is_array($stored) ? $stored : []);
+        });
+    }
+
+    /**
+     * @param  array<string, mixed>  $data
+     * @param  array<string, mixed>  $defaults
+     */
+    private static function saveJsonSetting(string $key, array $data, array $defaults): void
+    {
         static::query()->updateOrCreate(
-            ['key' => self::ANNOUNCEMENT_BAR_KEY],
-            ['value' => json_encode(array_intersect_key($data, self::ANNOUNCEMENT_BAR_DEFAULTS), JSON_UNESCAPED_UNICODE)],
+            ['key' => $key],
+            ['value' => json_encode(array_intersect_key($data, $defaults), JSON_UNESCAPED_UNICODE)],
         );
 
-        Cache::forget('settings.'.self::ANNOUNCEMENT_BAR_KEY);
+        Cache::forget('settings.'.$key);
     }
 }

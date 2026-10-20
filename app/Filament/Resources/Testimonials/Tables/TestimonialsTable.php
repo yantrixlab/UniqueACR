@@ -16,23 +16,36 @@ class TestimonialsTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->searchable(),
-                TextColumn::make('designation')
+                    ->label('Reviewer')
                     ->searchable(),
                 TextColumn::make('rating')
-                    ->numeric()
+                    ->formatStateUsing(fn ($state): string => str_repeat('★', (int) $state).str_repeat('☆', max(0, 5 - (int) $state)))
                     ->sortable(),
+                TextColumn::make('source')
+                    ->badge()
+                    ->formatStateUsing(fn (?string $state): string => $state ? ucfirst($state) : 'Other')
+                    ->color(fn (?string $state): string => $state === 'google' ? 'info' : 'gray'),
+                TextColumn::make('reviewed_at')
+                    ->label('Review date')
+                    ->date('d M Y')
+                    ->placeholder('—')
+                    ->sortable(),
+                TextColumn::make('message')
+                    ->label('Review')
+                    ->limit(60)
+                    ->toggleable(),
                 IconColumn::make('is_active')
+                    ->label('Shown')
                     ->boolean(),
+                TextColumn::make('designation')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('reviewed_at', 'desc')
             ->filters([
                 //
             ])

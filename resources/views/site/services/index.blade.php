@@ -715,16 +715,7 @@
 })();
 </script>
 
-<section class="section">
-    <div class="container">
-        <h2>Customer Reviews</h2>
-        <div class="test-grid">
-            <article class="test-card"><div class="stars">★★★★★</div><p>Same-day AC repair with clear pricing.</p><strong>— Anirban S.</strong></article>
-            <article class="test-card"><div class="stars">★★★★★</div><p>Great technicians and excellent support.</p><strong>— Priya K.</strong></article>
-            <article class="test-card"><div class="stars">★★★★★</div><p>Professional HVAC maintenance for our office.</p><strong>— Rahul D.</strong></article>
-        </div>
-    </div>
-</section>
+@include('site.partials.google-reviews', ['limit' => 6, 'heading' => 'Customer Reviews'])
 
 <section class="section faq-zone">
     <div class="container">

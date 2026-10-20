@@ -102,6 +102,8 @@
     </div>
 </section>
 
+@include('site.partials.google-reviews', ['limit' => 3, 'heading' => 'What Customers Say'])
+
 @if($otherServices->isNotEmpty())
 <section class="section svc-others-section">
     <div class="container">

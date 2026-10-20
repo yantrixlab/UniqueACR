@@ -1706,36 +1706,7 @@ $homeZoneColors = [
 </style>
 @endif
 
-@if($testimonials->isNotEmpty())
-<section class="section trust-block">
-    <div class="container">
-        <h2>Trusted by Kolkata's Finest</h2>
-        <div class="icon-row" aria-label="Client segments">
-            <span title="Office">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 21h18M5 21V5a1 1 0 0 1 1-1h5v17M11 21V9a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v12M8 8h.01M8 11h.01M8 14h.01M14 11h.01M14 14h.01M17 11h.01M17 14h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            </span>
-            <span title="Retail">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 10h18M5 10V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3M6 10h12v10H6V10Zm4 4h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-            <span title="Hospital">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 21h16M6 21V6a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v15M12 9v6M9 12h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            </span>
-            <span title="Campus">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m2 10 10-5 10 5-10 5-10-5Zm4 2.5V16c0 .6 2.7 3 6 3s6-2.4 6-3v-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-        </div>
-        <div class="test-grid">
-            @foreach($testimonials as $t)
-                <article class="test-card">
-                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p>{{ $t->message }}</p>
-                    <strong>&mdash; {{ $t->name }}</strong>
-                </article>
-            @endforeach
-        </div>
-    </div>
-</section>
-@endif
+@include('site.partials.google-reviews', ['limit' => 6])
 
 {{-- ── SEO Content Block ────────────────────────────────────────────── --}}
 <section class="section seo-content-section" aria-label="About our AC repair services in Kolkata">
