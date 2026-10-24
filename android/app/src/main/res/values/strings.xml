@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">UniqueACR Admin</string>
 
-    <string name="login_title">Admin Login</string>
+    <string name="login_title">Welcome back</string>
+    <string name="login_subtitle">Sign in to manage bookings and enquiries.</string>
+    <string name="login_brand">Unique Aircon</string>
+    <string name="login_brand_tag">Admin console</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="action_login">Log In</string>
@@ -33,6 +36,9 @@
     <string name="label_email">Email</string>
     <string name="label_service">Service requested</string>
     <string name="label_visit">Preferred visit</string>
+    <string name="seen_count">%1$d seen</string>
+    <string name="seen_by_title">Seen by</string>
+    <string name="seen_by_you">You</string>
     <string name="label_message">Message</string>
     <string name="label_status">Status</string>
     <string name="label_received">Received</string>

@@ -6,6 +6,22 @@
         <item name="android:windowBackground">@color/colorBackground</item>
     </style>
 
+    <style name="Widget.UniqueAcrAdmin.GlassInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxBackgroundColor">@color/login_field_bg</item>
+        <item name="boxStrokeColor">@color/login_box_stroke</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="boxCornerRadiusTopStart">14dp</item>
+        <item name="boxCornerRadiusTopEnd">14dp</item>
+        <item name="boxCornerRadiusBottomStart">14dp</item>
+        <item name="boxCornerRadiusBottomEnd">14dp</item>
+        <item name="hintTextColor">@color/login_navy</item>
+        <item name="android:textColorHint">@color/login_navy_soft</item>
+        <item name="startIconTint">@color/login_navy</item>
+        <item name="endIconTint">@color/login_navy</item>
+    </style>
+
     <style name="Theme.UniqueAcrAdmin.Splash">
         <item name="android:windowBackground">@color/colorPrimary</item>
     </style>

@@ -4,9 +4,16 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.graphics.Matrix;
+import android.graphics.RenderEffect;
+import android.graphics.Shader;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -14,8 +21,14 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.onesignal.OneSignal;
 import com.uniqueacr.admin.R;
@@ -54,6 +67,106 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.loginProgress);
 
         loginButton.setOnClickListener(v -> attemptLogin());
+
+        setupWindow();
+        setupGlassCard();
+        if (savedInstanceState == null) {
+            playEntrance();
+        }
+    }
+
+    private void setupWindow() {
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        View root = findViewById(R.id.loginRoot);
+        WindowInsetsControllerCompat controller = new WindowInsetsControllerCompat(getWindow(), root);
+        controller.setAppearanceLightStatusBars(true);
+        controller.setAppearanceLightNavigationBars(true);
+
+        View scroll = findViewById(R.id.loginScroll);
+        ViewCompat.setOnApplyWindowInsetsListener(scroll, (v, insets) -> {
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.ime());
+            v.setPadding(0, bars.top, 0, bars.bottom);
+            return insets;
+        });
+    }
+
+    /**
+     * Frosted-glass card. Android cannot blur "what is behind" a view, so on Android 12+ the card
+     * holds a blurred copy of the page background that is kept aligned with the real background.
+     * Older versions fall back to a more opaque translucent white.
+     */
+    private void setupGlassCard() {
+        View root = findViewById(R.id.loginRoot);
+        ImageView background = findViewById(R.id.loginBackground);
+        ImageView blur = findViewById(R.id.glassBlur);
+        View content = findViewById(R.id.glassContent);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            blur.setRenderEffect(RenderEffect.createBlurEffect(36f, 36f, Shader.TileMode.CLAMP));
+            blur.setVisibility(View.VISIBLE);
+            root.getViewTreeObserver().addOnPreDrawListener(() -> {
+                alignGlass(background, blur, content);
+                return true;
+            });
+        } else {
+            content.setBackgroundResource(R.color.login_glass_tint_fallback);
+        }
+    }
+
+    /**
+     * Sizes the blurred layer to the card and shifts/scales its image (centerCrop maths) so each
+     * pixel lines up with the full-screen background underneath, however the card is moved.
+     */
+    private void alignGlass(ImageView background, ImageView blur, View content) {
+        Drawable drawable = background.getDrawable();
+        int backgroundWidth = background.getWidth();
+        int backgroundHeight = background.getHeight();
+        int cardWidth = content.getWidth();
+        int cardHeight = content.getHeight();
+        if (drawable == null || backgroundWidth == 0 || cardWidth == 0 || cardHeight == 0) {
+            return;
+        }
+
+        ViewGroup.LayoutParams params = blur.getLayoutParams();
+        if (params.width != cardWidth || params.height != cardHeight) {
+            params.width = cardWidth;
+            params.height = cardHeight;
+            blur.setLayoutParams(params);
+        }
+
+        float scale = Math.max(
+                (float) backgroundWidth / drawable.getIntrinsicWidth(),
+                (float) backgroundHeight / drawable.getIntrinsicHeight());
+        float cropX = (backgroundWidth - drawable.getIntrinsicWidth() * scale) / 2f;
+        float cropY = (backgroundHeight - drawable.getIntrinsicHeight() * scale) / 2f;
+
+        int[] blurLocation = new int[2];
+        int[] backgroundLocation = new int[2];
+        blur.getLocationInWindow(blurLocation);
+        background.getLocationInWindow(backgroundLocation);
+
+        Matrix matrix = new Matrix();
+        matrix.setScale(scale, scale);
+        matrix.postTranslate(
+                cropX - (blurLocation[0] - backgroundLocation[0]),
+                cropY - (blurLocation[1] - backgroundLocation[1]));
+        blur.setImageMatrix(matrix);
+    }
+
+    private void playEntrance() {
+        float offset = 28f * getResources().getDisplayMetrics().density;
+        View[] views = {findViewById(R.id.brandRow), findViewById(R.id.loginCard)};
+        for (int i = 0; i < views.length; i++) {
+            views[i].setAlpha(0f);
+            views[i].setTranslationY(offset);
+            views[i].animate()
+                    .alpha(1f)
+                    .translationY(0f)
+                    .setStartDelay(i * 120L)
+                    .setDuration(450)
+                    .setInterpolator(new DecelerateInterpolator())
+                    .start();
+        }
     }
 
     private void attemptLogin() {
@@ -93,6 +206,7 @@ public class LoginActivity extends AppCompatActivity {
                 body.getToken(),
                 body.getUser().getId(),
                 body.getUser().getName(),
+                body.getUser().getEmail(),
                 body.getUser().getRole()
         );
 

@@ -1,6 +1,8 @@
 package com.uniqueacr.admin.ui.enquiries;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,13 +22,16 @@ import com.google.android.material.tabs.TabLayout;
 import com.onesignal.OneSignal;
 import com.uniqueacr.admin.R;
 import com.uniqueacr.admin.model.Enquiry;
+import com.uniqueacr.admin.model.AdminProfile;
 import com.uniqueacr.admin.model.EnquiryStats;
 import com.uniqueacr.admin.model.PaginatedResponse;
 import com.uniqueacr.admin.network.ApiClient;
 import com.uniqueacr.admin.network.ApiService;
 import com.uniqueacr.admin.network.AuthInterceptor;
 import com.uniqueacr.admin.ui.login.LoginActivity;
+import com.uniqueacr.admin.util.RoleLabel;
 import com.uniqueacr.admin.util.SessionManager;
+import com.uniqueacr.admin.util.WindowInsetsHelper;
 
 import java.util.ArrayList;
 
@@ -62,6 +67,7 @@ public class EnquiryListActivity extends AppCompatActivity implements AuthInterc
 
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        WindowInsetsHelper.padToolbarForStatusBar(toolbar);
 
         swipeRefresh = findViewById(R.id.swipeRefresh);
         recyclerView = findViewById(R.id.enquiryRecyclerView);
@@ -134,6 +140,8 @@ public class EnquiryListActivity extends AppCompatActivity implements AuthInterc
         // (or just switching back to the app) always shows the latest enquiries.
         loadEnquiries(1, true);
         loadStats();
+        showProfile();
+        refreshProfile();
         // Defensive re-tag: OneSignal.login() at sign-in time can race with the tag call
         // and silently drop it. Re-applying here on every resume is harmless (same value)
         // and guarantees the tag eventually sticks.
@@ -144,6 +152,62 @@ public class EnquiryListActivity extends AppCompatActivity implements AuthInterc
     protected void onPause() {
         super.onPause();
         ApiClient.setUnauthorizedListener(null);
+    }
+
+    /** Shows who is signed in and their role (email is blank until the profile has been fetched once). */
+    private void showProfile() {
+        SessionManager session = SessionManager.getInstance(this);
+        String email = session.getUserEmail();
+        String role = session.getUserRole();
+        if (email == null || email.isEmpty()) {
+            return;
+        }
+
+        TextView avatar = findViewById(R.id.profileAvatar);
+        TextView emailText = findViewById(R.id.profileEmail);
+        TextView roleText = findViewById(R.id.profileRole);
+
+        avatar.setText(email.substring(0, 1).toUpperCase());
+        emailText.setText(email);
+        roleText.setText(RoleLabel.format(role));
+
+        int background;
+        int text;
+        if ("super_admin".equals(role)) {
+            background = Color.parseColor("#E8EAF6");
+            text = Color.parseColor("#3949AB");
+        } else if ("editor".equals(role)) {
+            background = Color.parseColor("#E0F2F1");
+            text = Color.parseColor("#00796B");
+        } else {
+            background = Color.parseColor("#ECEFF1");
+            text = Color.parseColor("#546E7A");
+        }
+        roleText.setBackgroundTintList(ColorStateList.valueOf(background));
+        roleText.setTextColor(text);
+
+        findViewById(R.id.profileStrip).setVisibility(View.VISIBLE);
+    }
+
+    /** Sessions created before the email was stored (or a role change) are corrected from the server. */
+    private void refreshProfile() {
+        ApiClient.getApiService(this).getMe().enqueue(new Callback<ApiService.MeResponse>() {
+            @Override
+            public void onResponse(Call<ApiService.MeResponse> call, Response<ApiService.MeResponse> response) {
+                if (!response.isSuccessful() || response.body() == null || response.body().getData() == null) {
+                    return;
+                }
+                AdminProfile profile = response.body().getData();
+                SessionManager.getInstance(EnquiryListActivity.this)
+                        .saveProfile(profile.getName(), profile.getEmail(), profile.getRole());
+                showProfile();
+            }
+
+            @Override
+            public void onFailure(Call<ApiService.MeResponse> call, Throwable t) {
+                // Keep showing whatever is already stored.
+            }
+        });
     }
 
     private void loadStats() {

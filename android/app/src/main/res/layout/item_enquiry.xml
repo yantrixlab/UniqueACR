@@ -95,6 +95,21 @@
                 android:textSize="12sp"
                 tools:text="2026-08-01 10:30" />
 
+            <TextView
+                android:id="@+id/seenText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:drawablePadding="4dp"
+                android:drawableStart="@drawable/ic_visibility"
+                android:drawableTint="@color/colorTextSecondary"
+                android:gravity="center_vertical"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="12sp"
+                android:visibility="gone"
+                tools:text="3 seen"
+                tools:visibility="visible" />
+
             <ImageButton
                 android:id="@+id/deleteButton"
                 android:layout_width="32dp"

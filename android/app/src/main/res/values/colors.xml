@@ -13,6 +13,13 @@
     <color name="status_contacted">#1565C0</color>
     <color name="status_closed">#2E7D32</color>
 
+    <color name="login_navy">#062D67</color>
+    <color name="login_navy_soft">#4A6285</color>
+    <color name="login_glass_tint">#5CFFFFFF</color>
+    <color name="login_glass_tint_fallback">#C2FFFFFF</color>
+    <color name="login_glass_stroke">#B3FFFFFF</color>
+    <color name="login_field_bg">#B3FFFFFF</color>
+
     <color name="stat_pending">#F57F17</color>
     <color name="stat_pending_bg">#FFF3D6</color>
     <color name="stat_done">#2E7D32</color>

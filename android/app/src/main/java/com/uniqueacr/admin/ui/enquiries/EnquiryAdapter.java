@@ -85,6 +85,7 @@ public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.EnquiryV
         private final TextView visitText;
         private final TextView messageText;
         private final TextView dateText;
+        private final TextView seenText;
         private final ImageButton deleteButton;
 
         EnquiryViewHolder(@NonNull View itemView) {
@@ -96,6 +97,7 @@ public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.EnquiryV
             visitText = itemView.findViewById(R.id.visitText);
             messageText = itemView.findViewById(R.id.messageText);
             dateText = itemView.findViewById(R.id.dateText);
+            seenText = itemView.findViewById(R.id.seenText);
             deleteButton = itemView.findViewById(R.id.deleteButton);
         }
 
@@ -110,6 +112,13 @@ public class EnquiryAdapter extends RecyclerView.Adapter<EnquiryAdapter.EnquiryV
             visitText.setVisibility(visit == null ? View.GONE : View.VISIBLE);
             messageText.setText(enquiry.getMessage());
             dateText.setText(enquiry.getCreatedAt());
+
+            Integer seen = enquiry.getSeenCount();
+            boolean showSeen = seen != null && "service_booking".equals(enquiry.getSourceType());
+            seenText.setVisibility(showSeen ? View.VISIBLE : View.GONE);
+            if (showSeen) {
+                seenText.setText(itemView.getContext().getString(R.string.seen_count, seen));
+            }
 
             String status = enquiry.getStatus() == null ? "" : enquiry.getStatus();
             statusText.setText(status.toUpperCase(Locale.US));

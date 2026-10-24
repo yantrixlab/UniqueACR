@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable(['name', 'phone', 'email', 'message', 'source_type', 'source_id', 'preferred_date', 'preferred_time', 'status'])]
 class Enquiry extends Model
@@ -15,7 +16,7 @@ class Enquiry extends Model
 
     protected $appends = ['requested_service'];
 
-    protected $hidden = ['requestedServiceRecord'];
+    protected $hidden = ['requestedServiceRecord', 'views'];
 
     protected function casts(): array
     {
@@ -27,6 +28,17 @@ class Enquiry extends Model
     public function requestedServiceRecord(): BelongsTo
     {
         return $this->belongsTo(Service::class, 'source_id');
+    }
+
+    /** Admin users who have opened this enquiry (recorded for service bookings only). */
+    public function views(): HasMany
+    {
+        return $this->hasMany(EnquiryView::class);
+    }
+
+    public function isBooking(): bool
+    {
+        return $this->source_type === self::SERVICE_BOOKING;
     }
 
     /** Name of the service the customer chose (service bookings and service enquiries only). */

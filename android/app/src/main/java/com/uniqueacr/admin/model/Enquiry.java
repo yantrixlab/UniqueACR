@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class Enquiry {
@@ -29,6 +30,13 @@ public class Enquiry {
 
     @SerializedName("requested_service")
     private String requestedService;
+
+    /** Present only for super admins viewing a service booking; null for everyone else. */
+    @SerializedName("seen_count")
+    private Integer seenCount;
+
+    @SerializedName("seen_by")
+    private List<EnquiryViewer> seenBy;
 
     private String status;
 
@@ -64,6 +72,14 @@ public class Enquiry {
 
     public Long getSourceId() {
         return sourceId;
+    }
+
+    public Integer getSeenCount() {
+        return seenCount;
+    }
+
+    public List<EnquiryViewer> getSeenBy() {
+        return seenBy;
     }
 
     public String getPreferredDate() {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Enquiry;
+use App\Models\EnquiryView;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,8 @@ class AdminEnquiryController extends Controller
 
         $enquiries = Enquiry::query()
             ->with('requestedServiceRecord')
+            // Who-has-seen-it counts are for super admins only; other roles never receive the field.
+            ->when($request->user()->isSuperAdmin(), fn ($query) => $query->withCount('views as seen_count'))
             ->when($request->query('type') === 'booking', fn ($query) => $query->bookings())
             ->when($request->query('type') === 'other', fn ($query) => $query->otherEnquiries())
             ->latest()
@@ -32,9 +35,29 @@ class AdminEnquiryController extends Controller
         ]]);
     }
 
-    public function show(Enquiry $enquiry): JsonResponse
+    public function show(Request $request, Enquiry $enquiry): JsonResponse
     {
-        return response()->json(['data' => $enquiry]);
+        $user = $request->user();
+        $data = $enquiry->toArray();
+
+        if ($enquiry->isBooking()) {
+            EnquiryView::query()->firstOrCreate(['enquiry_id' => $enquiry->id, 'user_id' => $user->id]);
+
+            if ($user->isSuperAdmin()) {
+                $viewers = $enquiry->views()->with('user:id,name,email,role')->oldest()->get();
+
+                $data['seen_count'] = $viewers->count();
+                $data['seen_by'] = $viewers->map(fn (EnquiryView $view) => [
+                    'id' => $view->user_id,
+                    'name' => $view->user?->name,
+                    'email' => $view->user?->email,
+                    'role' => $view->user?->role,
+                    'seen_at' => $view->created_at?->toIso8601String(),
+                ])->values()->all();
+            }
+        }
+
+        return response()->json(['data' => $data]);
     }
 
     public function update(Request $request, Enquiry $enquiry): JsonResponse

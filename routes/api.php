@@ -20,6 +20,7 @@ Route::prefix('admin')->group(function () {
 
     Route::middleware(['auth:sanctum', 'admin.role'])->group(function () {
         Route::post('/logout', [AdminAuthController::class, 'logout']);
+        Route::get('/me', [AdminAuthController::class, 'me']);
         Route::get('/enquiries', [AdminEnquiryController::class, 'index']);
         Route::get('/enquiries/stats', [AdminEnquiryController::class, 'stats']);
         Route::get('/enquiries/{enquiry}', [AdminEnquiryController::class, 'show']);

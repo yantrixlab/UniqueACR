@@ -138,6 +138,31 @@
                 android:textSize="16sp"
                 tools:text="2026-08-01 10:30" />
 
+            <!-- Super admins only: who has opened this booking. Hidden unless the server sends it. -->
+            <LinearLayout
+                android:id="@+id/seenSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/seenTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textSize="12sp"
+                    tools:text="Seen by (3)" />
+
+                <GridLayout
+                    android:id="@+id/seenGrid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:columnCount="2" />
+            </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

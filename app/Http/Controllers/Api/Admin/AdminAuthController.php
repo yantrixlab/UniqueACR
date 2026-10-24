@@ -45,6 +45,18 @@ class AdminAuthController extends Controller
         ]);
     }
 
+    public function me(Request $request): JsonResponse
+    {
+        $user = $request->user();
+
+        return response()->json(['data' => [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'role' => $user->role,
+        ]]);
+    }
+
     public function logout(Request $request): JsonResponse
     {
         $request->user()->currentAccessToken()->delete();

@@ -1,5 +1,6 @@
 package com.uniqueacr.admin.network;
 
+import com.uniqueacr.admin.model.AdminProfile;
 import com.uniqueacr.admin.model.Enquiry;
 import com.uniqueacr.admin.model.EnquiryStats;
 import com.uniqueacr.admin.model.LoginRequest;
@@ -21,6 +22,9 @@ public interface ApiService {
     @POST("admin/login")
     Call<LoginResponse> login(@Body LoginRequest request);
 
+    @GET("admin/me")
+    Call<MeResponse> getMe();
+
     @POST("admin/logout")
     Call<Void> logout();
 
@@ -39,6 +43,14 @@ public interface ApiService {
 
     @DELETE("admin/enquiries/{id}")
     Call<Void> deleteEnquiry(@Path("id") long id);
+
+    class MeResponse {
+        private AdminProfile data;
+
+        public AdminProfile getData() {
+            return data;
+        }
+    }
 
     class EnquiryStatsResponse {
         private EnquiryStats data;
