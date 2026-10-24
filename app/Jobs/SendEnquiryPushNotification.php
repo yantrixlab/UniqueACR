@@ -29,6 +29,7 @@ class SendEnquiryPushNotification implements ShouldQueue
                 ? collect([$this->enquiry->name, $this->enquiry->requested_service, $visit])->filter()->implode(' · ')
                 : sprintf('%s: %s', $this->enquiry->name, str($this->enquiry->message)->limit(100)),
             data: ['enquiry_id' => $this->enquiry->id],
+            channelId: $this->enquiry->isBooking() ? OneSignalService::BOOKING_CHANNEL_ID : OneSignalService::ENQUIRY_CHANNEL_ID,
         );
     }
 }
