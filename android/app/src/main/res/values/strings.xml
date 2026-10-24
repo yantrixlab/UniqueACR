@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">UniqueACR Admin</string>
 
+    <string name="channel_booking_alerts_name">New bookings &amp; enquiries</string>
+    <string name="channel_booking_alerts_description">Instant alerts when a customer books a service or sends an enquiry.</string>
     <string name="login_title">Welcome back</string>
     <string name="login_subtitle">Sign in to manage bookings and enquiries.</string>
     <string name="login_brand">Unique Aircon</string>

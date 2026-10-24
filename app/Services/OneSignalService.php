@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Log;
 
 class OneSignalService
 {
+    /**
+     * Notification channel created by the Android admin app with IMPORTANCE_HIGH, which is what
+     * makes the notification pop up as a heads-up banner. Must match MyApplication.java in the app.
+     * Older app versions don't have it and OneSignal falls back to its default channel.
+     */
+    public const ANDROID_CHANNEL_ID = 'new_bookings';
+
     public function notifyAdmins(string $heading, string $content, array $data = []): void
     {
         $appId = config('services.onesignal.app_id');
@@ -28,6 +35,7 @@ class OneSignalService
             'headings' => ['en' => $heading],
             'contents' => ['en' => $content],
             'data' => $data,
+            'existing_android_channel_id' => self::ANDROID_CHANNEL_ID,
         ]);
 
         if ($response->failed()) {
